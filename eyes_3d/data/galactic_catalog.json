@@ -1,0 +1,7261 @@
+{
+  "version": "1.0",
+  "generated_utc": "2026-11-19T01:00:30Z",
+  "stars_binary_schema": {
+    "file": "data/galactic_stars.bin",
+    "dtype": "float32_le",
+    "count": 82199,
+    "star_count": 82199,
+    "stride_floats": 8,
+    "stride": 8,
+    "bytes_per_star": 32,
+    "byte_length": 2630368,
+    "frame": "heliocentric_galactic_kpc",
+    "fields": [
+      "x_kpc",
+      "y_kpc",
+      "z_kpc",
+      "bp_rp",
+      "abs_mag_g",
+      "app_mag_g",
+      "v_tan_kms",
+      "pop_code"
+    ],
+    "field_details": [
+      {
+        "index": 0,
+        "name": "x_kpc",
+        "unit": "kpc",
+        "desc": "Heliocentric Galactic X (+X toward Galactic Center l=0, b=0)"
+      },
+      {
+        "index": 1,
+        "name": "y_kpc",
+        "unit": "kpc",
+        "desc": "Heliocentric Galactic Y (+Y toward Galactic rotation l=90, b=0)"
+      },
+      {
+        "index": 2,
+        "name": "z_kpc",
+        "unit": "kpc",
+        "desc": "Heliocentric Galactic Z (+Z toward North Galactic Pole b=+90)"
+      },
+      {
+        "index": 3,
+        "name": "bp_rp",
+        "unit": "mag",
+        "desc": "Gaia DR3 BP-RP color index"
+      },
+      {
+        "index": 4,
+        "name": "abs_mag_g",
+        "unit": "mag",
+        "desc": "Absolute Gaia G magnitude M_G"
+      },
+      {
+        "index": 5,
+        "name": "app_mag_g",
+        "unit": "mag",
+        "desc": "Apparent Gaia G magnitude G"
+      },
+      {
+        "index": 6,
+        "name": "v_tan_kms",
+        "unit": "km/s",
+        "desc": "Tangential space velocity"
+      },
+      {
+        "index": 7,
+        "name": "pop_code",
+        "unit": "enum",
+        "desc": "0=bright/nearby, 1=spiral_ob, 2=bulge_bar, 3=halo_thick, 4=globular, 5=open_cluster, 6=lmc_smc"
+      }
+    ],
+    "threejs_axis_hint": "Map Galactic (x, y, z) -> Three.js Y-up right-handed via M_GAL_TO_SCENE",
+    "sun_galactocentric_kpc": [
+      -8.277,
+      0.0,
+      0.0208
+    ],
+    "galactic_center_helio_kpc": [
+      8.277,
+      0.0,
+      -0.0208
+    ],
+    "ecliptic_j2000_to_galactic_3x3": [
+      [
+        -0.054875635,
+        -0.993821352,
+        -0.096476859
+      ],
+      [
+        0.494109529,
+        -0.110990972,
+        0.862285787
+      ],
+      [
+        -0.867666087,
+        -0.000351655,
+        0.4971473
+      ]
+    ],
+    "population_counts": {
+      "bright_nearby": 26000,
+      "spiral_ob_disk": 26000,
+      "bulge_bar_giants": 12000,
+      "halo_thick_disk": 10000,
+      "globulars": 3026,
+      "open_clusters": 2130,
+      "lmc_smc": 3152
+    }
+  },
+  "binary_schema": {
+    "file": "data/galactic_stars.bin",
+    "dtype": "float32_le",
+    "count": 82199,
+    "star_count": 82199,
+    "stride_floats": 8,
+    "stride": 8,
+    "bytes_per_star": 32,
+    "byte_length": 2630368,
+    "frame": "heliocentric_galactic_kpc",
+    "fields": [
+      "x_kpc",
+      "y_kpc",
+      "z_kpc",
+      "bp_rp",
+      "abs_mag_g",
+      "app_mag_g",
+      "v_tan_kms",
+      "pop_code"
+    ],
+    "field_details": [
+      {
+        "index": 0,
+        "name": "x_kpc",
+        "unit": "kpc",
+        "desc": "Heliocentric Galactic X (+X toward Galactic Center l=0, b=0)"
+      },
+      {
+        "index": 1,
+        "name": "y_kpc",
+        "unit": "kpc",
+        "desc": "Heliocentric Galactic Y (+Y toward Galactic rotation l=90, b=0)"
+      },
+      {
+        "index": 2,
+        "name": "z_kpc",
+        "unit": "kpc",
+        "desc": "Heliocentric Galactic Z (+Z toward North Galactic Pole b=+90)"
+      },
+      {
+        "index": 3,
+        "name": "bp_rp",
+        "unit": "mag",
+        "desc": "Gaia DR3 BP-RP color index"
+      },
+      {
+        "index": 4,
+        "name": "abs_mag_g",
+        "unit": "mag",
+        "desc": "Absolute Gaia G magnitude M_G"
+      },
+      {
+        "index": 5,
+        "name": "app_mag_g",
+        "unit": "mag",
+        "desc": "Apparent Gaia G magnitude G"
+      },
+      {
+        "index": 6,
+        "name": "v_tan_kms",
+        "unit": "km/s",
+        "desc": "Tangential space velocity"
+      },
+      {
+        "index": 7,
+        "name": "pop_code",
+        "unit": "enum",
+        "desc": "0=bright/nearby, 1=spiral_ob, 2=bulge_bar, 3=halo_thick, 4=globular, 5=open_cluster, 6=lmc_smc"
+      }
+    ],
+    "threejs_axis_hint": "Map Galactic (x, y, z) -> Three.js Y-up right-handed via M_GAL_TO_SCENE",
+    "sun_galactocentric_kpc": [
+      -8.277,
+      0.0,
+      0.0208
+    ],
+    "galactic_center_helio_kpc": [
+      8.277,
+      0.0,
+      -0.0208
+    ],
+    "ecliptic_j2000_to_galactic_3x3": [
+      [
+        -0.054875635,
+        -0.993821352,
+        -0.096476859
+      ],
+      [
+        0.494109529,
+        -0.110990972,
+        0.862285787
+      ],
+      [
+        -0.867666087,
+        -0.000351655,
+        0.4971473
+      ]
+    ],
+    "population_counts": {
+      "bright_nearby": 26000,
+      "spiral_ob_disk": 26000,
+      "bulge_bar_giants": 12000,
+      "halo_thick_disk": 10000,
+      "globulars": 3026,
+      "open_clusters": 2130,
+      "lmc_smc": 3152
+    }
+  },
+  "named_bright_stars": [
+    {
+      "name": "Proxima Centauri",
+      "ra_deg": 217.4289,
+      "dec_deg": -62.6795,
+      "dist_pc": 1.301,
+      "dist_ly": 4.24,
+      "spectral_type": "M5.5Ve",
+      "bp_rp": 3.8,
+      "g_mag": 11.13,
+      "abs_mag_g": 15.56,
+      "gal_l_deg": 313.94,
+      "gal_b_deg": -1.927,
+      "helio_xyz_kpc": [
+        0.000902,
+        -0.000936,
+        -4.4e-05
+      ],
+      "description": "Nearest known star to the Sun."
+    },
+    {
+      "name": "Alpha Centauri A/B",
+      "ra_deg": 219.9021,
+      "dec_deg": -60.834,
+      "dist_pc": 1.339,
+      "dist_ly": 4.37,
+      "spectral_type": "G2V+K1V",
+      "bp_rp": 0.71,
+      "g_mag": -0.01,
+      "abs_mag_g": 4.36,
+      "gal_l_deg": 315.734,
+      "gal_b_deg": -0.68,
+      "helio_xyz_kpc": [
+        0.000959,
+        -0.000935,
+        -1.6e-05
+      ],
+      "description": "Closest Sun-like binary star system."
+    },
+    {
+      "name": "Barnard's Star",
+      "ra_deg": 269.4521,
+      "dec_deg": 4.6934,
+      "dist_pc": 1.828,
+      "dist_ly": 5.96,
+      "spectral_type": "M4V",
+      "bp_rp": 2.83,
+      "g_mag": 9.51,
+      "abs_mag_g": 13.2,
+      "gal_l_deg": 31.009,
+      "gal_b_deg": 14.063,
+      "helio_xyz_kpc": [
+        0.00152,
+        0.000914,
+        0.000444
+      ],
+      "description": "Fastest proper-motion star on the sky (10.3 arcsec/yr)."
+    },
+    {
+      "name": "Sirius",
+      "ra_deg": 101.2872,
+      "dec_deg": -16.7161,
+      "dist_pc": 2.64,
+      "dist_ly": 8.61,
+      "spectral_type": "A1V+DA2",
+      "bp_rp": 0.0,
+      "g_mag": -1.46,
+      "abs_mag_g": 1.43,
+      "gal_l_deg": 227.23,
+      "gal_b_deg": -8.89,
+      "helio_xyz_kpc": [
+        -0.001771,
+        -0.001915,
+        -0.000408
+      ],
+      "description": "Brightest star in Earth's night sky, with white dwarf Sirius B."
+    },
+    {
+      "name": "Epsilon Eridani",
+      "ra_deg": 53.2327,
+      "dec_deg": -9.4583,
+      "dist_pc": 3.22,
+      "dist_ly": 10.5,
+      "spectral_type": "K2V",
+      "bp_rp": 1.07,
+      "g_mag": 3.73,
+      "abs_mag_g": 6.19,
+      "gal_l_deg": 195.845,
+      "gal_b_deg": -48.051,
+      "helio_xyz_kpc": [
+        -0.002071,
+        -0.000588,
+        -0.002395
+      ],
+      "description": "Nearby young solar-type star with debris disk and giant exoplanet."
+    },
+    {
+      "name": "61 Cygni",
+      "ra_deg": 316.7248,
+      "dec_deg": 38.7494,
+      "dist_pc": 3.497,
+      "dist_ly": 11.41,
+      "spectral_type": "K5V+K7V",
+      "bp_rp": 1.44,
+      "g_mag": 5.2,
+      "abs_mag_g": 7.48,
+      "gal_l_deg": 82.32,
+      "gal_b_deg": -5.818,
+      "helio_xyz_kpc": [
+        0.000465,
+        0.003448,
+        -0.000354
+      ],
+      "description": "First star to have its distance measured by parallax (Bessel 1838)."
+    },
+    {
+      "name": "Procyon",
+      "ra_deg": 114.8255,
+      "dec_deg": 5.225,
+      "dist_pc": 3.514,
+      "dist_ly": 11.46,
+      "spectral_type": "F5IV+DQZ",
+      "bp_rp": 0.52,
+      "g_mag": 0.37,
+      "abs_mag_g": 2.64,
+      "gal_l_deg": 213.702,
+      "gal_b_deg": 13.019,
+      "helio_xyz_kpc": [
+        -0.002848,
+        -0.0019,
+        0.000792
+      ],
+      "description": "Bright nearby F-star + white dwarf binary."
+    },
+    {
+      "name": "Tau Ceti",
+      "ra_deg": 26.017,
+      "dec_deg": -15.9375,
+      "dist_pc": 3.65,
+      "dist_ly": 11.9,
+      "spectral_type": "G8V",
+      "bp_rp": 0.9,
+      "g_mag": 3.5,
+      "abs_mag_g": 5.69,
+      "gal_l_deg": 173.101,
+      "gal_b_deg": -73.44,
+      "helio_xyz_kpc": [
+        -0.001033,
+        0.000125,
+        -0.003499
+      ],
+      "description": "Closest solitary Sun-like G-type star."
+    },
+    {
+      "name": "Altair",
+      "ra_deg": 297.6958,
+      "dec_deg": 8.8683,
+      "dist_pc": 5.13,
+      "dist_ly": 16.73,
+      "spectral_type": "A7V",
+      "bp_rp": 0.27,
+      "g_mag": 0.76,
+      "abs_mag_g": 2.21,
+      "gal_l_deg": 47.744,
+      "gal_b_deg": -8.909,
+      "helio_xyz_kpc": [
+        0.003408,
+        0.003751,
+        -0.000794
+      ],
+      "description": "Rapidly rotating oblate A-type star in the Summer Triangle."
+    },
+    {
+      "name": "Vega",
+      "ra_deg": 279.2347,
+      "dec_deg": 38.7837,
+      "dist_pc": 7.68,
+      "dist_ly": 25.05,
+      "spectral_type": "A0Va",
+      "bp_rp": -0.02,
+      "g_mag": 0.03,
+      "abs_mag_g": 0.6,
+      "gal_l_deg": 67.448,
+      "gal_b_deg": 19.237,
+      "helio_xyz_kpc": [
+        0.002781,
+        0.006697,
+        0.00253
+      ],
+      "description": "Photometric zero-point reference star in Lyra."
+    },
+    {
+      "name": "Fomalhaut",
+      "ra_deg": 344.4127,
+      "dec_deg": -29.6222,
+      "dist_pc": 7.704,
+      "dist_ly": 25.13,
+      "spectral_type": "A3V",
+      "bp_rp": 0.11,
+      "g_mag": 1.16,
+      "abs_mag_g": 1.73,
+      "gal_l_deg": 20.488,
+      "gal_b_deg": -64.91,
+      "helio_xyz_kpc": [
+        0.00306,
+        0.001143,
+        -0.006977
+      ],
+      "description": "Young A-star surrounded by an eccentric dusty debris ring."
+    },
+    {
+      "name": "Pollux",
+      "ra_deg": 116.3289,
+      "dec_deg": 28.0262,
+      "dist_pc": 10.36,
+      "dist_ly": 33.79,
+      "spectral_type": "K0III",
+      "bp_rp": 1.15,
+      "g_mag": 1.14,
+      "abs_mag_g": 1.06,
+      "gal_l_deg": 192.229,
+      "gal_b_deg": 23.406,
+      "helio_xyz_kpc": [
+        -0.009292,
+        -0.002014,
+        0.004115
+      ],
+      "description": "Closest giant star to the Sun."
+    },
+    {
+      "name": "Arcturus",
+      "ra_deg": 213.9153,
+      "dec_deg": 19.1824,
+      "dist_pc": 11.26,
+      "dist_ly": 36.73,
+      "spectral_type": "K1.5III",
+      "bp_rp": 1.48,
+      "g_mag": -0.05,
+      "abs_mag_g": -0.31,
+      "gal_l_deg": 15.05,
+      "gal_b_deg": 69.111,
+      "helio_xyz_kpc": [
+        0.003877,
+        0.001042,
+        0.01052
+      ],
+      "description": "Brightest star in the northern celestial hemisphere; thick-disk stream member."
+    },
+    {
+      "name": "TRAPPIST-1",
+      "ra_deg": 346.6223,
+      "dec_deg": -5.0414,
+      "dist_pc": 12.47,
+      "dist_ly": 40.67,
+      "spectral_type": "M8V",
+      "bp_rp": 4.86,
+      "g_mag": 15.65,
+      "abs_mag_g": 15.17,
+      "gal_l_deg": 69.713,
+      "gal_b_deg": -56.645,
+      "helio_xyz_kpc": [
+        0.002377,
+        0.006431,
+        -0.010416
+      ],
+      "description": "Ultracool dwarf hosting seven temperate Earth-sized exoplanets."
+    },
+    {
+      "name": "Capella",
+      "ra_deg": 79.1723,
+      "dec_deg": 45.998,
+      "dist_pc": 13.15,
+      "dist_ly": 42.89,
+      "spectral_type": "G8III+G0III",
+      "bp_rp": 0.96,
+      "g_mag": 0.08,
+      "abs_mag_g": -0.51,
+      "gal_l_deg": 162.588,
+      "gal_b_deg": 4.566,
+      "helio_xyz_kpc": [
+        -0.012508,
+        0.003922,
+        0.001047
+      ],
+      "description": "Quadruple star system dominated by two bright yellow giants."
+    },
+    {
+      "name": "Aldebaran",
+      "ra_deg": 68.9802,
+      "dec_deg": 16.5093,
+      "dist_pc": 20.04,
+      "dist_ly": 65.36,
+      "spectral_type": "K5III",
+      "bp_rp": 1.9,
+      "g_mag": 0.86,
+      "abs_mag_g": -0.65,
+      "gal_l_deg": 180.972,
+      "gal_b_deg": -20.248,
+      "helio_xyz_kpc": [
+        -0.018799,
+        -0.000319,
+        -0.006936
+      ],
+      "description": "Red giant foreground to the Hyades cluster."
+    },
+    {
+      "name": "Regulus",
+      "ra_deg": 152.0929,
+      "dec_deg": 11.9672,
+      "dist_pc": 24.3,
+      "dist_ly": 79.26,
+      "spectral_type": "B8IVn",
+      "bp_rp": -0.11,
+      "g_mag": 1.35,
+      "abs_mag_g": -0.58,
+      "gal_l_deg": 226.427,
+      "gal_b_deg": 48.934,
+      "helio_xyz_kpc": [
+        -0.011003,
+        -0.011565,
+        0.018321
+      ],
+      "description": "Heart of Leo, spinning near breakup velocity."
+    },
+    {
+      "name": "Spica",
+      "ra_deg": 201.2983,
+      "dec_deg": -11.1613,
+      "dist_pc": 77.0,
+      "dist_ly": 251.14,
+      "spectral_type": "B1III+B2V",
+      "bp_rp": -0.3,
+      "g_mag": 0.97,
+      "abs_mag_g": -3.46,
+      "gal_l_deg": 316.112,
+      "gal_b_deg": 50.845,
+      "helio_xyz_kpc": [
+        0.03504,
+        -0.033705,
+        0.059709
+      ],
+      "description": "Close ellipsoidal massive B-star binary."
+    },
+    {
+      "name": "Canopus",
+      "ra_deg": 95.988,
+      "dec_deg": -52.6957,
+      "dist_pc": 95.0,
+      "dist_ly": 309.85,
+      "spectral_type": "A9II",
+      "bp_rp": 0.25,
+      "g_mag": -0.74,
+      "abs_mag_g": -5.63,
+      "gal_l_deg": 261.212,
+      "gal_b_deg": -25.292,
+      "helio_xyz_kpc": [
+        -0.013122,
+        -0.084885,
+        -0.040587
+      ],
+      "description": "Second brightest star in the night sky, luminous bright giant."
+    },
+    {
+      "name": "Polaris",
+      "ra_deg": 37.9546,
+      "dec_deg": 89.2641,
+      "dist_pc": 133.0,
+      "dist_ly": 433.79,
+      "spectral_type": "F7Ib",
+      "bp_rp": 0.78,
+      "g_mag": 1.98,
+      "abs_mag_g": -3.64,
+      "gal_l_deg": 123.281,
+      "gal_b_deg": 26.461,
+      "helio_xyz_kpc": [
+        -0.065336,
+        0.099539,
+        0.059264
+      ],
+      "description": "North Star, closest classical Cepheid variable."
+    },
+    {
+      "name": "Betelgeuse",
+      "ra_deg": 88.7929,
+      "dec_deg": 7.4071,
+      "dist_pc": 168.0,
+      "dist_ly": 547.94,
+      "spectral_type": "M1-2Ia-ab",
+      "bp_rp": 2.35,
+      "g_mag": 0.5,
+      "abs_mag_g": -5.63,
+      "gal_l_deg": 199.787,
+      "gal_b_deg": -8.959,
+      "helio_xyz_kpc": [
+        -0.156152,
+        -0.056179,
+        -0.026161
+      ],
+      "description": "Red supergiant in Orion nearing core-collapse supernova."
+    },
+    {
+      "name": "Antares",
+      "ra_deg": 247.3519,
+      "dec_deg": -26.432,
+      "dist_pc": 170.0,
+      "dist_ly": 554.47,
+      "spectral_type": "M1.5Iab",
+      "bp_rp": 2.3,
+      "g_mag": 0.96,
+      "abs_mag_g": -5.19,
+      "gal_l_deg": 351.947,
+      "gal_b_deg": 15.064,
+      "helio_xyz_kpc": [
+        0.162539,
+        -0.022996,
+        0.044184
+      ],
+      "description": "Red supergiant heart of Scorpius in the Sco-Cen association."
+    },
+    {
+      "name": "Rigel",
+      "ra_deg": 78.6345,
+      "dec_deg": -8.2016,
+      "dist_pc": 264.0,
+      "dist_ly": 861.05,
+      "spectral_type": "B8Ia",
+      "bp_rp": -0.03,
+      "g_mag": 0.13,
+      "abs_mag_g": -6.98,
+      "gal_l_deg": 209.241,
+      "gal_b_deg": -25.245,
+      "helio_xyz_kpc": [
+        -0.208357,
+        -0.116643,
+        -0.112595
+      ],
+      "description": "Luminous blue supergiant illuminating the Witch Head Nebula."
+    },
+    {
+      "name": "Deneb",
+      "ra_deg": 310.358,
+      "dec_deg": 45.2803,
+      "dist_pc": 802.0,
+      "dist_ly": 2615.77,
+      "spectral_type": "A2Ia",
+      "bp_rp": 0.12,
+      "g_mag": 1.25,
+      "abs_mag_g": -8.27,
+      "gal_l_deg": 84.285,
+      "gal_b_deg": 1.998,
+      "helio_xyz_kpc": [
+        0.079819,
+        0.797528,
+        0.027955
+      ],
+      "description": "Extreme-luminosity white supergiant (~200,000 L_sun)."
+    },
+    {
+      "name": "Eta Carinae",
+      "ra_deg": 161.2648,
+      "dec_deg": -59.6844,
+      "dist_pc": 2350.0,
+      "dist_ly": 7664.67,
+      "spectral_type": "LBV+O",
+      "bp_rp": 0.85,
+      "g_mag": 4.3,
+      "abs_mag_g": -7.56,
+      "gal_l_deg": 287.597,
+      "gal_b_deg": -0.629,
+      "helio_xyz_kpc": [
+        0.710401,
+        -2.239903,
+        -0.025818
+      ],
+      "description": "Hypergiant colliding-wind binary inside the Homunculus Nebula."
+    }
+  ],
+  "black_holes": [
+    {
+      "id": "SGR_A_STAR",
+      "name": "Sagittarius A*",
+      "category": "smbh",
+      "accretion_state": "quiescent_smbh",
+      "ra_deg": 266.416837,
+      "dec_deg": -29.007811,
+      "dist_kpc": 8.277,
+      "bh_mass_msun": 4297000.0,
+      "companion_mass_msun": null,
+      "companion_type": "Nuclear Star Cluster (S-stars)",
+      "period_days": null,
+      "eccentricity": null,
+      "inclination_deg": 30.0,
+      "spin_a_star": 0.9,
+      "has_accretion_disk": true,
+      "has_jet": false,
+      "disk_temp_k": 10000000000.0,
+      "disk_color_hex": "#ff9e44",
+      "reference": "GRAVITY Collaboration (2022, A&A 657, L12); EHT Collaboration (2022)",
+      "description": "Milky Way central supermassive black hole (4.30 million solar masses) surrounded by relativistic S-stars and hot radiatively inefficient plasma.",
+      "s_stars": [
+        {
+          "name": "S2",
+          "a_arcsec": 0.125058,
+          "a_au": 1035.1,
+          "e": 0.884649,
+          "inc_deg": 134.567,
+          "Omega_deg": 228.171,
+          "omega_deg": 66.263,
+          "period_yr": 16.0455,
+          "tp_yr": 2018.379
+        },
+        {
+          "name": "S38",
+          "a_arcsec": 0.1416,
+          "a_au": 1172.0,
+          "e": 0.8201,
+          "inc_deg": 171.1,
+          "Omega_deg": 101.06,
+          "omega_deg": 17.99,
+          "period_yr": 19.2,
+          "tp_yr": 2003.19
+        },
+        {
+          "name": "S55",
+          "a_arcsec": 0.1078,
+          "a_au": 892.3,
+          "e": 0.7209,
+          "inc_deg": 150.1,
+          "Omega_deg": 325.5,
+          "omega_deg": 331.5,
+          "period_yr": 12.8,
+          "tp_yr": 2009.34
+        },
+        {
+          "name": "S62",
+          "a_arcsec": 0.0897,
+          "a_au": 742.4,
+          "e": 0.976,
+          "inc_deg": 72.76,
+          "Omega_deg": 122.61,
+          "omega_deg": 42.62,
+          "period_yr": 9.9,
+          "tp_yr": 2003.33
+        }
+      ],
+      "bh_type": "smbh",
+      "mass_msun": 4297000.0,
+      "ecc": null,
+      "spin": 0.9,
+      "inc_deg": 30.0,
+      "headline": "4.297e+06 M_sun \u00b7 8.277 kpc \u00b7 Nuclear Star Cluster (S-stars)",
+      "summary": "Milky Way central supermassive black hole (4.30 million solar masses) surrounded by relativistic S-stars and hot radiatively inefficient plasma.",
+      "gal_l_deg": 359.9443,
+      "gal_b_deg": -0.0462,
+      "gal_xyz_kpc": [
+        8.27699,
+        -0.00805,
+        -0.00667
+      ],
+      "helio_xyz_kpc": [
+        8.27699,
+        -0.00805,
+        -0.00667
+      ],
+      "galactocentric_xyz_kpc": [
+        -1e-05,
+        -0.00805,
+        0.01413
+      ]
+    },
+    {
+      "id": "GAIA_BH1",
+      "name": "Gaia BH1",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_astrometric",
+      "ra_deg": 262.171208,
+      "dec_deg": -0.581092,
+      "dist_kpc": 0.477,
+      "bh_mass_msun": 9.62,
+      "companion_mass_msun": 0.93,
+      "companion_type": "G-type main sequence",
+      "period_days": 185.59,
+      "eccentricity": 0.451,
+      "inclination_deg": 126.6,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#7ab8ff",
+      "reference": "El-Badry et al. (2023, MNRAS 518, 1057)",
+      "description": "Closest known black hole to Earth (477 pc / 1,560 ly), discovered via Gaia DR3 astrometric wobble of a Sun-like companion.",
+      "bh_type": "dormant",
+      "mass_msun": 9.62,
+      "ecc": 0.451,
+      "spin": null,
+      "inc_deg": 126.6,
+      "headline": "9.62 M_sun \u00b7 0.477 kpc \u00b7 G-type main sequence",
+      "summary": "Closest known black hole to Earth (477 pc / 1,560 ly), discovered via Gaia DR3 astrometric wobble of a Sun-like companion.",
+      "gal_l_deg": 22.6256,
+      "gal_b_deg": 18.0458,
+      "gal_xyz_kpc": [
+        0.41863,
+        0.17448,
+        0.14776
+      ],
+      "helio_xyz_kpc": [
+        0.41863,
+        0.17448,
+        0.14776
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.85837,
+        0.17448,
+        0.16856
+      ]
+    },
+    {
+      "id": "GAIA_BH2",
+      "name": "Gaia BH2",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_astrometric",
+      "ra_deg": 207.569713,
+      "dec_deg": -59.239011,
+      "dist_kpc": 1.16,
+      "bh_mass_msun": 8.94,
+      "companion_mass_msun": 1.07,
+      "companion_type": "Red giant (alpha-enhanced)",
+      "period_days": 1276.7,
+      "eccentricity": 0.518,
+      "inclination_deg": 34.9,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#ffaa66",
+      "reference": "El-Badry et al. (2023, MNRAS 521, 4323)",
+      "description": "Wide 3.5-year dormant black hole binary with a red giant companion discovered in Gaia DR3 astrometry.",
+      "bh_type": "dormant",
+      "mass_msun": 8.94,
+      "ecc": 0.518,
+      "spin": null,
+      "inc_deg": 34.9,
+      "headline": "8.94 M_sun \u00b7 1.16 kpc \u00b7 Red giant (alpha-enhanced)",
+      "summary": "Wide 3.5-year dormant black hole binary with a red giant companion discovered in Gaia DR3 astrometry.",
+      "gal_l_deg": 310.4031,
+      "gal_b_deg": 2.7765,
+      "gal_xyz_kpc": [
+        0.75098,
+        -0.88231,
+        0.05619
+      ],
+      "helio_xyz_kpc": [
+        0.75098,
+        -0.88231,
+        0.05619
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.52602,
+        -0.88231,
+        0.07699
+      ]
+    },
+    {
+      "id": "GAIA_BH3",
+      "name": "Gaia BH3",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_astrometric",
+      "ra_deg": 294.827863,
+      "dec_deg": 14.930916,
+      "dist_kpc": 0.5906,
+      "bh_mass_msun": 32.7,
+      "companion_mass_msun": 0.76,
+      "companion_type": "Very metal-poor halo giant ([Fe/H]=-2.56)",
+      "period_days": 4253.1,
+      "eccentricity": 0.729,
+      "inclination_deg": 110.6,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#8ec5ff",
+      "reference": "Gaia Collaboration, Panuzzo et al. (2024, A&A 686, L2)",
+      "description": "Most massive known stellar-origin black hole in the Milky Way (32.7 M_sun), in the ED-2 halo stream at 591 pc.",
+      "bh_type": "dormant",
+      "mass_msun": 32.7,
+      "ecc": 0.729,
+      "spin": null,
+      "inc_deg": 110.6,
+      "headline": "32.7 M_sun \u00b7 0.5906 kpc \u00b7 Very metal-poor halo giant ([Fe/H]=-2.56)",
+      "summary": "Most massive known stellar-origin black hole in the Milky Way (32.7 M_sun), in the ED-2 halo stream at 591 pc.",
+      "gal_l_deg": 51.6717,
+      "gal_b_deg": -3.4881,
+      "gal_xyz_kpc": [
+        0.36559,
+        0.46245,
+        -0.03593
+      ],
+      "helio_xyz_kpc": [
+        0.36559,
+        0.46245,
+        -0.03593
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.91141,
+        0.46245,
+        -0.01513
+      ]
+    },
+    {
+      "id": "GAIA_NS1",
+      "name": "Gaia NS1",
+      "category": "dormant_ns",
+      "accretion_state": "dormant_astrometric",
+      "ra_deg": 318.2341,
+      "dec_deg": 30.8924,
+      "dist_kpc": 0.73,
+      "bh_mass_msun": 1.9,
+      "companion_mass_msun": 0.79,
+      "companion_type": "G/K main sequence",
+      "period_days": 730.9,
+      "eccentricity": 0.12,
+      "inclination_deg": 74.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#a8d8ff",
+      "reference": "El-Badry et al. (2024, OJAp 7, 27)",
+      "description": "Dormant massive neutron star in a 2-year astrometric binary from Gaia DR3.",
+      "bh_type": "dormant",
+      "mass_msun": 1.9,
+      "ecc": 0.12,
+      "spin": null,
+      "inc_deg": 74.0,
+      "headline": "1.9 M_sun \u00b7 0.73 kpc \u00b7 G/K main sequence",
+      "summary": "Dormant massive neutron star in a 2-year astrometric binary from Gaia DR3.",
+      "gal_l_deg": 77.2594,
+      "gal_b_deg": -12.0065,
+      "gal_xyz_kpc": [
+        0.15747,
+        0.69645,
+        -0.15186
+      ],
+      "helio_xyz_kpc": [
+        0.15747,
+        0.69645,
+        -0.15186
+      ],
+      "galactocentric_xyz_kpc": [
+        -8.11953,
+        0.69645,
+        -0.13106
+      ]
+    },
+    {
+      "id": "2M05215658",
+      "name": "2M05215658+4359220",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_spectroscopic",
+      "ra_deg": 80.48575,
+      "dec_deg": 43.98944,
+      "dist_kpc": 3.11,
+      "bh_mass_msun": 3.3,
+      "companion_mass_msun": 3.2,
+      "companion_type": "Rapidly rotating red giant",
+      "period_days": 83.2,
+      "eccentricity": 0.005,
+      "inclination_deg": 80.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#ffbb88",
+      "reference": "Thompson et al. (2019, Science 366, 637)",
+      "description": "Mass-gap non-interacting black hole / massive neutron star candidate discovered via APOGEE + ASAS-SN.",
+      "bh_type": "dormant",
+      "mass_msun": 3.3,
+      "ecc": 0.005,
+      "spin": null,
+      "inc_deg": 80.0,
+      "headline": "3.3 M_sun \u00b7 3.11 kpc \u00b7 Rapidly rotating red giant",
+      "summary": "Mass-gap non-interacting black hole / massive neutron star candidate discovered via APOGEE + ASAS-SN.",
+      "gal_l_deg": 164.7744,
+      "gal_b_deg": 4.1839,
+      "gal_xyz_kpc": [
+        -2.99284,
+        0.81457,
+        0.2269
+      ],
+      "helio_xyz_kpc": [
+        -2.99284,
+        0.81457,
+        0.2269
+      ],
+      "galactocentric_xyz_kpc": [
+        -11.26984,
+        0.81457,
+        0.2477
+      ]
+    },
+    {
+      "id": "VFTS_243",
+      "name": "VFTS 243",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_spectroscopic",
+      "ra_deg": 84.53458,
+      "dec_deg": -69.16361,
+      "dist_kpc": 49.59,
+      "bh_mass_msun": 10.1,
+      "companion_mass_msun": 25.0,
+      "companion_type": "O7V star (Tarantula Nebula, LMC)",
+      "period_days": 10.4031,
+      "eccentricity": 0.017,
+      "inclination_deg": 60.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#88ccff",
+      "reference": "Shenar et al. (2022, Nature Astronomy 6, 1085)",
+      "description": "X-ray quiet 10 M_sun black hole in a near-circular orbit with a 25 M_sun O star in the LMC, evidence for direct collapse.",
+      "bh_type": "dormant",
+      "mass_msun": 10.1,
+      "ecc": 0.017,
+      "spin": null,
+      "inc_deg": 60.0,
+      "headline": "10.1 M_sun \u00b7 49.59 kpc \u00b7 O7V star (Tarantula Nebula, LMC)",
+      "summary": "X-ray quiet 10 M_sun black hole in a near-circular orbit with a 25 M_sun O star in the LMC, evidence for direct collapse.",
+      "gal_l_deg": 279.5452,
+      "gal_b_deg": -31.7149,
+      "gal_xyz_kpc": [
+        6.99534,
+        -41.60088,
+        -26.06914
+      ],
+      "helio_xyz_kpc": [
+        6.99534,
+        -41.60088,
+        -26.06914
+      ],
+      "galactocentric_xyz_kpc": [
+        -1.28166,
+        -41.60088,
+        -26.04834
+      ]
+    },
+    {
+      "id": "HD_130298",
+      "name": "HD 130298",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_spectroscopic",
+      "ra_deg": 222.3886,
+      "dec_deg": -56.4274,
+      "dist_kpc": 2.42,
+      "bh_mass_msun": 7.7,
+      "companion_mass_msun": 24.2,
+      "companion_type": "O6.5III runaway star",
+      "period_days": 14.6296,
+      "eccentricity": 0.457,
+      "inclination_deg": 55.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#99d0ff",
+      "reference": "Mahy et al. (2022, A&A 664, A159)",
+      "description": "Galactic X-ray quiet black hole + massive O-star spectroscopic binary.",
+      "bh_type": "dormant",
+      "mass_msun": 7.7,
+      "ecc": 0.457,
+      "spin": null,
+      "inc_deg": 55.0,
+      "headline": "7.7 M_sun \u00b7 2.42 kpc \u00b7 O6.5III runaway star",
+      "summary": "Galactic X-ray quiet black hole + massive O-star spectroscopic binary.",
+      "gal_l_deg": 318.767,
+      "gal_b_deg": 2.769,
+      "gal_xyz_kpc": [
+        1.8178,
+        -1.59321,
+        0.11691
+      ],
+      "helio_xyz_kpc": [
+        1.8178,
+        -1.59321,
+        0.11691
+      ],
+      "galactocentric_xyz_kpc": [
+        -6.4592,
+        -1.59321,
+        0.13771
+      ]
+    },
+    {
+      "id": "CYGNUS_X1",
+      "name": "Cygnus X-1",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_hmxb",
+      "ra_deg": 299.590315,
+      "dec_deg": 35.201606,
+      "dist_kpc": 2.22,
+      "bh_mass_msun": 21.2,
+      "companion_mass_msun": 40.6,
+      "companion_type": "O9.7Iab supergiant (HDE 226868)",
+      "period_days": 5.599829,
+      "eccentricity": 0.018,
+      "inclination_deg": 27.51,
+      "spin_a_star": 0.9985,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 7500000.0,
+      "disk_color_hex": "#66c2ff",
+      "reference": "Miller-Jones et al. (2021, Science 371, 1046)",
+      "description": "Iconic persistent high-mass X-ray binary with a near-maximally spinning 21.2 M_sun black hole fed by a 40.6 M_sun blue supergiant.",
+      "bh_type": "xray_binary",
+      "mass_msun": 21.2,
+      "ecc": 0.018,
+      "spin": 0.9985,
+      "inc_deg": 27.51,
+      "headline": "21.2 M_sun \u00b7 2.22 kpc \u00b7 O9.7Iab supergiant (HDE 226868)",
+      "summary": "Iconic persistent high-mass X-ray binary with a near-maximally spinning 21.2 M_sun black hole fed by a 40.6 M_sun blue supergiant.",
+      "gal_l_deg": 71.335,
+      "gal_b_deg": 3.0668,
+      "gal_xyz_kpc": [
+        0.70946,
+        2.10023,
+        0.11877
+      ],
+      "helio_xyz_kpc": [
+        0.70946,
+        2.10023,
+        0.11877
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.56754,
+        2.10023,
+        0.13957
+      ]
+    },
+    {
+      "id": "V404_CYGNI",
+      "name": "V404 Cygni",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 306.015917,
+      "dec_deg": 33.867194,
+      "dist_kpc": 2.39,
+      "bh_mass_msun": 9.0,
+      "companion_mass_msun": 0.7,
+      "companion_type": "K3III subgiant",
+      "period_days": 6.47129,
+      "eccentricity": 0.0,
+      "inclination_deg": 67.0,
+      "spin_a_star": 0.92,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 5000000.0,
+      "disk_color_hex": "#ff9944",
+      "reference": "Miller-Jones et al. (2009); Burdge et al. (2024, Nature)",
+      "description": "Nearby black hole triple / microquasar famous for violent Eddington outbursts and precessing relativistic jets.",
+      "bh_type": "xray_binary",
+      "mass_msun": 9.0,
+      "ecc": 0.0,
+      "spin": 0.92,
+      "inc_deg": 67.0,
+      "headline": "9 M_sun \u00b7 2.39 kpc \u00b7 K3III subgiant",
+      "summary": "Nearby black hole triple / microquasar famous for violent Eddington outbursts and precessing relativistic jets.",
+      "gal_l_deg": 73.1188,
+      "gal_b_deg": -2.0915,
+      "gal_xyz_kpc": [
+        0.69357,
+        2.28549,
+        -0.08722
+      ],
+      "helio_xyz_kpc": [
+        0.69357,
+        2.28549,
+        -0.08722
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.58343,
+        2.28549,
+        -0.06642
+      ]
+    },
+    {
+      "id": "GRS_1915_105",
+      "name": "GRS 1915+105",
+      "category": "accreting_bh",
+      "accretion_state": "microquasar",
+      "ra_deg": 288.798125,
+      "dec_deg": 10.945778,
+      "dist_kpc": 8.6,
+      "bh_mass_msun": 12.4,
+      "companion_mass_msun": 0.47,
+      "companion_type": "K/M III giant",
+      "period_days": 33.85,
+      "eccentricity": 0.0,
+      "inclination_deg": 60.0,
+      "spin_a_star": 0.98,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 12000000.0,
+      "disk_color_hex": "#ff7733",
+      "reference": "Reid et al. (2014, ApJ 796, 2)",
+      "description": "Archetypal Galactic microquasar exhibiting superluminal radio jets and rapid X-ray limit-cycle oscillations.",
+      "bh_type": "xray_binary",
+      "mass_msun": 12.4,
+      "ecc": 0.0,
+      "spin": 0.98,
+      "inc_deg": 60.0,
+      "headline": "12.4 M_sun \u00b7 8.6 kpc \u00b7 K/M III giant",
+      "summary": "Archetypal Galactic microquasar exhibiting superluminal radio jets and rapid X-ray limit-cycle oscillations.",
+      "gal_l_deg": 45.3657,
+      "gal_b_deg": -0.2191,
+      "gal_xyz_kpc": [
+        6.04213,
+        6.11977,
+        -0.03289
+      ],
+      "helio_xyz_kpc": [
+        6.04213,
+        6.11977,
+        -0.03289
+      ],
+      "galactocentric_xyz_kpc": [
+        -2.23487,
+        6.11977,
+        -0.01209
+      ]
+    },
+    {
+      "id": "GRO_J1655_40",
+      "name": "GRO J1655-40",
+      "category": "accreting_bh",
+      "accretion_state": "microquasar",
+      "ra_deg": 253.500583,
+      "dec_deg": -39.845806,
+      "dist_kpc": 3.2,
+      "bh_mass_msun": 5.4,
+      "companion_mass_msun": 1.45,
+      "companion_type": "F6IV subgiant",
+      "period_days": 2.62168,
+      "eccentricity": 0.0,
+      "inclination_deg": 68.7,
+      "spin_a_star": 0.7,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 8000000.0,
+      "disk_color_hex": "#ffaa44",
+      "reference": "Beer & Podsiadlowski (2002); Mirabel et al. (2002)",
+      "description": "Runaway halo-crossing microquasar kicked by a supernova natal kick.",
+      "bh_type": "xray_binary",
+      "mass_msun": 5.4,
+      "ecc": 0.0,
+      "spin": 0.7,
+      "inc_deg": 68.7,
+      "headline": "5.4 M_sun \u00b7 3.2 kpc \u00b7 F6IV subgiant",
+      "summary": "Runaway halo-crossing microquasar kicked by a supernova natal kick.",
+      "gal_l_deg": 344.9819,
+      "gal_b_deg": 2.456,
+      "gal_xyz_kpc": [
+        3.08786,
+        -0.82844,
+        0.13712
+      ],
+      "helio_xyz_kpc": [
+        3.08786,
+        -0.82844,
+        0.13712
+      ],
+      "galactocentric_xyz_kpc": [
+        -5.18914,
+        -0.82844,
+        0.15792
+      ]
+    },
+    {
+      "id": "XTE_J1118_480",
+      "name": "XTE J1118+480",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 169.545042,
+      "dec_deg": 48.036778,
+      "dist_kpc": 1.72,
+      "bh_mass_msun": 7.3,
+      "companion_mass_msun": 0.22,
+      "companion_type": "K7/M1V dwarf",
+      "period_days": 0.169934,
+      "eccentricity": 0.0,
+      "inclination_deg": 73.5,
+      "spin_a_star": 0.5,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 4500000.0,
+      "disk_color_hex": "#ff8844",
+      "reference": "Gelino et al. (2006); Gonzalez Hernandez et al. (2012)",
+      "description": "High-Galactic-latitude halo black hole X-ray binary in an ultra-short 4.08-hour orbit.",
+      "bh_type": "xray_binary",
+      "mass_msun": 7.3,
+      "ecc": 0.0,
+      "spin": 0.5,
+      "inc_deg": 73.5,
+      "headline": "7.3 M_sun \u00b7 1.72 kpc \u00b7 K7/M1V dwarf",
+      "summary": "High-Galactic-latitude halo black hole X-ray binary in an ultra-short 4.08-hour orbit.",
+      "gal_l_deg": 157.6609,
+      "gal_b_deg": 62.3205,
+      "gal_xyz_kpc": [
+        -0.73902,
+        0.30368,
+        1.52316
+      ],
+      "helio_xyz_kpc": [
+        -0.73902,
+        0.30368,
+        1.52316
+      ],
+      "galactocentric_xyz_kpc": [
+        -9.01602,
+        0.30368,
+        1.54396
+      ]
+    },
+    {
+      "id": "A0620_00",
+      "name": "A0620-00 (V616 Mon)",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 95.685583,
+      "dec_deg": -0.345639,
+      "dist_kpc": 1.06,
+      "bh_mass_msun": 6.61,
+      "companion_mass_msun": 0.4,
+      "companion_type": "K4V dwarf",
+      "period_days": 0.323014,
+      "eccentricity": 0.0,
+      "inclination_deg": 51.0,
+      "spin_a_star": 0.12,
+      "has_accretion_disk": true,
+      "has_jet": false,
+      "disk_temp_k": 4000000.0,
+      "disk_color_hex": "#ff9955",
+      "reference": "Cantrell et al. (2010, ApJ 710, 1127)",
+      "description": "First dynamically confirmed low-mass black hole X-ray nova, just 1.06 kpc from the Sun.",
+      "bh_type": "xray_binary",
+      "mass_msun": 6.61,
+      "ecc": 0.0,
+      "spin": 0.12,
+      "inc_deg": 51.0,
+      "headline": "6.61 M_sun \u00b7 1.06 kpc \u00b7 K4V dwarf",
+      "summary": "First dynamically confirmed low-mass black hole X-ray nova, just 1.06 kpc from the Sun.",
+      "gal_l_deg": 209.9563,
+      "gal_b_deg": -6.5397,
+      "gal_xyz_kpc": [
+        -0.91242,
+        -0.52586,
+        -0.12072
+      ],
+      "helio_xyz_kpc": [
+        -0.91242,
+        -0.52586,
+        -0.12072
+      ],
+      "galactocentric_xyz_kpc": [
+        -9.18942,
+        -0.52586,
+        -0.09992
+      ]
+    },
+    {
+      "id": "MAXI_J1820_070",
+      "name": "MAXI J1820+070",
+      "category": "accreting_bh",
+      "accretion_state": "microquasar",
+      "ra_deg": 275.091427,
+      "dec_deg": 7.185355,
+      "dist_kpc": 2.96,
+      "bh_mass_msun": 8.48,
+      "companion_mass_msun": 0.61,
+      "companion_type": "K4/5 subgiant",
+      "period_days": 0.68549,
+      "eccentricity": 0.0,
+      "inclination_deg": 63.0,
+      "spin_a_star": 0.2,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 7000000.0,
+      "disk_color_hex": "#77ccff",
+      "reference": "Atri et al. (2020); Torres et al. (2020)",
+      "description": "Bright 2018 X-ray nova with VLBI-resolved relativistic ejecta and misaligned black hole spin.",
+      "bh_type": "xray_binary",
+      "mass_msun": 8.48,
+      "ecc": 0.0,
+      "spin": 0.2,
+      "inc_deg": 63.0,
+      "headline": "8.48 M_sun \u00b7 2.96 kpc \u00b7 K4/5 subgiant",
+      "summary": "Bright 2018 X-ray nova with VLBI-resolved relativistic ejecta and misaligned black hole spin.",
+      "gal_l_deg": 35.8536,
+      "gal_b_deg": 10.1592,
+      "gal_xyz_kpc": [
+        2.36151,
+        1.70654,
+        0.52209
+      ],
+      "helio_xyz_kpc": [
+        2.36151,
+        1.70654,
+        0.52209
+      ],
+      "galactocentric_xyz_kpc": [
+        -5.91549,
+        1.70654,
+        0.54289
+      ]
+    },
+    {
+      "id": "GX_339_4",
+      "name": "GX 339-4",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 255.705792,
+      "dec_deg": -48.78975,
+      "dist_kpc": 8.4,
+      "bh_mass_msun": 5.9,
+      "companion_mass_msun": 0.52,
+      "companion_type": "K-type stripped subgiant",
+      "period_days": 1.7587,
+      "eccentricity": 0.0,
+      "inclination_deg": 45.0,
+      "spin_a_star": 0.94,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 8500000.0,
+      "disk_color_hex": "#ff8833",
+      "reference": "Heida et al. (2017, ApJ 846, 132)",
+      "description": "Frequently outbursting benchmark black hole X-ray binary displaying full hysteresis state transitions.",
+      "bh_type": "xray_binary",
+      "mass_msun": 5.9,
+      "ecc": 0.0,
+      "spin": 0.94,
+      "inc_deg": 45.0,
+      "headline": "5.9 M_sun \u00b7 8.4 kpc \u00b7 K-type stripped subgiant",
+      "summary": "Frequently outbursting benchmark black hole X-ray binary displaying full hysteresis state transitions.",
+      "gal_l_deg": 338.9392,
+      "gal_b_deg": -4.3265,
+      "gal_xyz_kpc": [
+        7.81654,
+        -3.01001,
+        -0.63369
+      ],
+      "helio_xyz_kpc": [
+        7.81654,
+        -3.01001,
+        -0.63369
+      ],
+      "galactocentric_xyz_kpc": [
+        -0.46046,
+        -3.01001,
+        -0.61289
+      ]
+    },
+    {
+      "id": "4U_1543_47",
+      "name": "4U 1543-47",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 236.784417,
+      "dec_deg": -47.669444,
+      "dist_kpc": 7.5,
+      "bh_mass_msun": 9.4,
+      "companion_mass_msun": 2.45,
+      "companion_type": "A2V star",
+      "period_days": 1.116407,
+      "eccentricity": 0.0,
+      "inclination_deg": 20.7,
+      "spin_a_star": 0.8,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 9000000.0,
+      "disk_color_hex": "#88bbff",
+      "reference": "Orosz (2003); Park et al. (2004)",
+      "description": "Nearly face-on recurrent black hole X-ray nova with an A-type donor star.",
+      "bh_type": "xray_binary",
+      "mass_msun": 9.4,
+      "ecc": 0.0,
+      "spin": 0.8,
+      "inc_deg": 20.7,
+      "headline": "9.4 M_sun \u00b7 7.5 kpc \u00b7 A2V star",
+      "summary": "Nearly face-on recurrent black hole X-ray nova with an A-type donor star.",
+      "gal_l_deg": 330.9179,
+      "gal_b_deg": 5.4264,
+      "gal_xyz_kpc": [
+        6.52506,
+        -3.62913,
+        0.70925
+      ],
+      "helio_xyz_kpc": [
+        6.52506,
+        -3.62913,
+        0.70925
+      ],
+      "galactocentric_xyz_kpc": [
+        -1.75194,
+        -3.62913,
+        0.73005
+      ]
+    },
+    {
+      "id": "LMC_X1",
+      "name": "LMC X-1",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_hmxb",
+      "ra_deg": 84.914583,
+      "dec_deg": -69.743611,
+      "dist_kpc": 49.59,
+      "bh_mass_msun": 10.91,
+      "companion_mass_msun": 31.79,
+      "companion_type": "O7III star (LMC)",
+      "period_days": 3.90917,
+      "eccentricity": 0.0256,
+      "inclination_deg": 36.38,
+      "spin_a_star": 0.92,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 10000000.0,
+      "disk_color_hex": "#66bbff",
+      "reference": "Orosz et al. (2009, ApJ 697, 573)",
+      "description": "Persistent high-spin black hole X-ray binary powering an ionized nebula in the Large Magellanic Cloud.",
+      "bh_type": "xray_binary",
+      "mass_msun": 10.91,
+      "ecc": 0.0256,
+      "spin": 0.92,
+      "inc_deg": 36.38,
+      "headline": "10.91 M_sun \u00b7 49.59 kpc \u00b7 O7III star (LMC)",
+      "summary": "Persistent high-spin black hole X-ray binary powering an ionized nebula in the Large Magellanic Cloud.",
+      "gal_l_deg": 280.2033,
+      "gal_b_deg": -31.5148,
+      "gal_xyz_kpc": [
+        7.48882,
+        -41.60715,
+        -25.92163
+      ],
+      "helio_xyz_kpc": [
+        7.48882,
+        -41.60715,
+        -25.92163
+      ],
+      "galactocentric_xyz_kpc": [
+        -0.78818,
+        -41.60715,
+        -25.90083
+      ]
+    },
+    {
+      "id": "LMC_X3",
+      "name": "LMC X-3",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_hmxb",
+      "ra_deg": 84.73475,
+      "dec_deg": -64.084278,
+      "dist_kpc": 49.59,
+      "bh_mass_msun": 6.98,
+      "companion_mass_msun": 3.63,
+      "companion_type": "B3V star (LMC)",
+      "period_days": 1.7048089,
+      "eccentricity": 0.0,
+      "inclination_deg": 69.24,
+      "spin_a_star": 0.25,
+      "has_accretion_disk": true,
+      "has_jet": false,
+      "disk_temp_k": 11000000.0,
+      "disk_color_hex": "#77ccff",
+      "reference": "Orosz et al. (2014, ApJ 794, 154)",
+      "description": "Persistently bright Roche-lobe-overflowing black hole binary in the LMC.",
+      "bh_type": "xray_binary",
+      "mass_msun": 6.98,
+      "ecc": 0.0,
+      "spin": 0.25,
+      "inc_deg": 69.24,
+      "headline": "6.98 M_sun \u00b7 49.59 kpc \u00b7 B3V star (LMC)",
+      "summary": "Persistently bright Roche-lobe-overflowing black hole binary in the LMC.",
+      "gal_l_deg": 273.5765,
+      "gal_b_deg": -32.082,
+      "gal_xyz_kpc": [
+        2.62108,
+        -41.93524,
+        -26.33883
+      ],
+      "helio_xyz_kpc": [
+        2.62108,
+        -41.93524,
+        -26.33883
+      ],
+      "galactocentric_xyz_kpc": [
+        -5.65592,
+        -41.93524,
+        -26.31803
+      ]
+    },
+    {
+      "id": "SS_433",
+      "name": "SS 433",
+      "category": "accreting_bh",
+      "accretion_state": "microquasar",
+      "ra_deg": 287.956542,
+      "dec_deg": 4.982722,
+      "dist_kpc": 5.5,
+      "bh_mass_msun": 15.0,
+      "companion_mass_msun": 21.0,
+      "companion_type": "A7Ib supergiant",
+      "period_days": 13.082,
+      "eccentricity": 0.05,
+      "inclination_deg": 78.8,
+      "spin_a_star": null,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 5000000.0,
+      "disk_color_hex": "#99e0ff",
+      "reference": "Cherepashchuk et al. (2020); Margon (1984)",
+      "description": "Super-Eddington microquasar launching precessing 0.26c baryonic jets inside the W50 nebula.",
+      "bh_type": "xray_binary",
+      "mass_msun": 15.0,
+      "ecc": 0.05,
+      "spin": null,
+      "inc_deg": 78.8,
+      "headline": "15 M_sun \u00b7 5.5 kpc \u00b7 A7Ib supergiant",
+      "summary": "Super-Eddington microquasar launching precessing 0.26c baryonic jets inside the W50 nebula.",
+      "gal_l_deg": 39.6941,
+      "gal_b_deg": -2.2446,
+      "gal_xyz_kpc": [
+        4.22881,
+        3.51009,
+        -0.21541
+      ],
+      "helio_xyz_kpc": [
+        4.22881,
+        3.51009,
+        -0.21541
+      ],
+      "galactocentric_xyz_kpc": [
+        -4.04819,
+        3.51009,
+        -0.19461
+      ]
+    },
+    {
+      "id": "CRAB_PULSAR",
+      "name": "Crab Pulsar (PSR B0531+21)",
+      "category": "pulsar",
+      "accretion_state": "pulsar",
+      "ra_deg": 83.633083,
+      "dec_deg": 22.0145,
+      "dist_kpc": 2.0,
+      "bh_mass_msun": 1.4,
+      "companion_mass_msun": null,
+      "companion_type": "Isolated (M1 Supernova Remnant)",
+      "period_days": 3.86e-07,
+      "eccentricity": null,
+      "inclination_deg": 61.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": true,
+      "disk_temp_k": 1600000.0,
+      "disk_color_hex": "#66e0ff",
+      "reference": "Hester (2008, ARA&A 46, 127)",
+      "description": "33-ms young rotation-powered neutron star born in SN 1054 AD, energizing the Crab Pulsar Wind Nebula.",
+      "bh_type": "pulsar",
+      "mass_msun": 1.4,
+      "ecc": null,
+      "spin": null,
+      "inc_deg": 61.0,
+      "headline": "1.4 M_sun \u00b7 2 kpc \u00b7 Isolated (M1 Supernova Remnant)",
+      "summary": "33-ms young rotation-powered neutron star born in SN 1054 AD, energizing the Crab Pulsar Wind Nebula.",
+      "gal_l_deg": 184.5575,
+      "gal_b_deg": -5.7844,
+      "gal_xyz_kpc": [
+        -1.98353,
+        -0.15811,
+        -0.20157
+      ],
+      "helio_xyz_kpc": [
+        -1.98353,
+        -0.15811,
+        -0.20157
+      ],
+      "galactocentric_xyz_kpc": [
+        -10.26053,
+        -0.15811,
+        -0.18077
+      ]
+    },
+    {
+      "id": "VELA_PULSAR",
+      "name": "Vela Pulsar (PSR B0833-45)",
+      "category": "pulsar",
+      "accretion_state": "pulsar",
+      "ra_deg": 128.836064,
+      "dec_deg": -45.176432,
+      "dist_kpc": 0.287,
+      "bh_mass_msun": 1.4,
+      "companion_mass_msun": null,
+      "companion_type": "Isolated (Vela SNR)",
+      "period_days": 1.034e-06,
+      "eccentricity": null,
+      "inclination_deg": 63.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": true,
+      "disk_temp_k": 1000000.0,
+      "disk_color_hex": "#77ddff",
+      "reference": "Dodson et al. (2003, ApJ 596, 1137)",
+      "description": "Nearby 89-ms gamma-ray and radio pulsar at 287 pc with a double-torus wind nebula.",
+      "bh_type": "pulsar",
+      "mass_msun": 1.4,
+      "ecc": null,
+      "spin": null,
+      "inc_deg": 63.0,
+      "headline": "1.4 M_sun \u00b7 0.287 kpc \u00b7 Isolated (Vela SNR)",
+      "summary": "Nearby 89-ms gamma-ray and radio pulsar at 287 pc with a double-torus wind nebula.",
+      "gal_l_deg": 263.552,
+      "gal_b_deg": -2.7873,
+      "gal_xyz_kpc": [
+        -0.03219,
+        -0.28485,
+        -0.01396
+      ],
+      "helio_xyz_kpc": [
+        -0.03219,
+        -0.28485,
+        -0.01396
+      ],
+      "galactocentric_xyz_kpc": [
+        -8.30919,
+        -0.28485,
+        0.00684
+      ]
+    }
+  ],
+  "black_holes_and_compact": [
+    {
+      "id": "SGR_A_STAR",
+      "name": "Sagittarius A*",
+      "category": "smbh",
+      "accretion_state": "quiescent_smbh",
+      "ra_deg": 266.416837,
+      "dec_deg": -29.007811,
+      "dist_kpc": 8.277,
+      "bh_mass_msun": 4297000.0,
+      "companion_mass_msun": null,
+      "companion_type": "Nuclear Star Cluster (S-stars)",
+      "period_days": null,
+      "eccentricity": null,
+      "inclination_deg": 30.0,
+      "spin_a_star": 0.9,
+      "has_accretion_disk": true,
+      "has_jet": false,
+      "disk_temp_k": 10000000000.0,
+      "disk_color_hex": "#ff9e44",
+      "reference": "GRAVITY Collaboration (2022, A&A 657, L12); EHT Collaboration (2022)",
+      "description": "Milky Way central supermassive black hole (4.30 million solar masses) surrounded by relativistic S-stars and hot radiatively inefficient plasma.",
+      "s_stars": [
+        {
+          "name": "S2",
+          "a_arcsec": 0.125058,
+          "a_au": 1035.1,
+          "e": 0.884649,
+          "inc_deg": 134.567,
+          "Omega_deg": 228.171,
+          "omega_deg": 66.263,
+          "period_yr": 16.0455,
+          "tp_yr": 2018.379
+        },
+        {
+          "name": "S38",
+          "a_arcsec": 0.1416,
+          "a_au": 1172.0,
+          "e": 0.8201,
+          "inc_deg": 171.1,
+          "Omega_deg": 101.06,
+          "omega_deg": 17.99,
+          "period_yr": 19.2,
+          "tp_yr": 2003.19
+        },
+        {
+          "name": "S55",
+          "a_arcsec": 0.1078,
+          "a_au": 892.3,
+          "e": 0.7209,
+          "inc_deg": 150.1,
+          "Omega_deg": 325.5,
+          "omega_deg": 331.5,
+          "period_yr": 12.8,
+          "tp_yr": 2009.34
+        },
+        {
+          "name": "S62",
+          "a_arcsec": 0.0897,
+          "a_au": 742.4,
+          "e": 0.976,
+          "inc_deg": 72.76,
+          "Omega_deg": 122.61,
+          "omega_deg": 42.62,
+          "period_yr": 9.9,
+          "tp_yr": 2003.33
+        }
+      ],
+      "bh_type": "smbh",
+      "mass_msun": 4297000.0,
+      "ecc": null,
+      "spin": 0.9,
+      "inc_deg": 30.0,
+      "headline": "4.297e+06 M_sun \u00b7 8.277 kpc \u00b7 Nuclear Star Cluster (S-stars)",
+      "summary": "Milky Way central supermassive black hole (4.30 million solar masses) surrounded by relativistic S-stars and hot radiatively inefficient plasma.",
+      "gal_l_deg": 359.9443,
+      "gal_b_deg": -0.0462,
+      "gal_xyz_kpc": [
+        8.27699,
+        -0.00805,
+        -0.00667
+      ],
+      "helio_xyz_kpc": [
+        8.27699,
+        -0.00805,
+        -0.00667
+      ],
+      "galactocentric_xyz_kpc": [
+        -1e-05,
+        -0.00805,
+        0.01413
+      ]
+    },
+    {
+      "id": "GAIA_BH1",
+      "name": "Gaia BH1",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_astrometric",
+      "ra_deg": 262.171208,
+      "dec_deg": -0.581092,
+      "dist_kpc": 0.477,
+      "bh_mass_msun": 9.62,
+      "companion_mass_msun": 0.93,
+      "companion_type": "G-type main sequence",
+      "period_days": 185.59,
+      "eccentricity": 0.451,
+      "inclination_deg": 126.6,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#7ab8ff",
+      "reference": "El-Badry et al. (2023, MNRAS 518, 1057)",
+      "description": "Closest known black hole to Earth (477 pc / 1,560 ly), discovered via Gaia DR3 astrometric wobble of a Sun-like companion.",
+      "bh_type": "dormant",
+      "mass_msun": 9.62,
+      "ecc": 0.451,
+      "spin": null,
+      "inc_deg": 126.6,
+      "headline": "9.62 M_sun \u00b7 0.477 kpc \u00b7 G-type main sequence",
+      "summary": "Closest known black hole to Earth (477 pc / 1,560 ly), discovered via Gaia DR3 astrometric wobble of a Sun-like companion.",
+      "gal_l_deg": 22.6256,
+      "gal_b_deg": 18.0458,
+      "gal_xyz_kpc": [
+        0.41863,
+        0.17448,
+        0.14776
+      ],
+      "helio_xyz_kpc": [
+        0.41863,
+        0.17448,
+        0.14776
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.85837,
+        0.17448,
+        0.16856
+      ]
+    },
+    {
+      "id": "GAIA_BH2",
+      "name": "Gaia BH2",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_astrometric",
+      "ra_deg": 207.569713,
+      "dec_deg": -59.239011,
+      "dist_kpc": 1.16,
+      "bh_mass_msun": 8.94,
+      "companion_mass_msun": 1.07,
+      "companion_type": "Red giant (alpha-enhanced)",
+      "period_days": 1276.7,
+      "eccentricity": 0.518,
+      "inclination_deg": 34.9,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#ffaa66",
+      "reference": "El-Badry et al. (2023, MNRAS 521, 4323)",
+      "description": "Wide 3.5-year dormant black hole binary with a red giant companion discovered in Gaia DR3 astrometry.",
+      "bh_type": "dormant",
+      "mass_msun": 8.94,
+      "ecc": 0.518,
+      "spin": null,
+      "inc_deg": 34.9,
+      "headline": "8.94 M_sun \u00b7 1.16 kpc \u00b7 Red giant (alpha-enhanced)",
+      "summary": "Wide 3.5-year dormant black hole binary with a red giant companion discovered in Gaia DR3 astrometry.",
+      "gal_l_deg": 310.4031,
+      "gal_b_deg": 2.7765,
+      "gal_xyz_kpc": [
+        0.75098,
+        -0.88231,
+        0.05619
+      ],
+      "helio_xyz_kpc": [
+        0.75098,
+        -0.88231,
+        0.05619
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.52602,
+        -0.88231,
+        0.07699
+      ]
+    },
+    {
+      "id": "GAIA_BH3",
+      "name": "Gaia BH3",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_astrometric",
+      "ra_deg": 294.827863,
+      "dec_deg": 14.930916,
+      "dist_kpc": 0.5906,
+      "bh_mass_msun": 32.7,
+      "companion_mass_msun": 0.76,
+      "companion_type": "Very metal-poor halo giant ([Fe/H]=-2.56)",
+      "period_days": 4253.1,
+      "eccentricity": 0.729,
+      "inclination_deg": 110.6,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#8ec5ff",
+      "reference": "Gaia Collaboration, Panuzzo et al. (2024, A&A 686, L2)",
+      "description": "Most massive known stellar-origin black hole in the Milky Way (32.7 M_sun), in the ED-2 halo stream at 591 pc.",
+      "bh_type": "dormant",
+      "mass_msun": 32.7,
+      "ecc": 0.729,
+      "spin": null,
+      "inc_deg": 110.6,
+      "headline": "32.7 M_sun \u00b7 0.5906 kpc \u00b7 Very metal-poor halo giant ([Fe/H]=-2.56)",
+      "summary": "Most massive known stellar-origin black hole in the Milky Way (32.7 M_sun), in the ED-2 halo stream at 591 pc.",
+      "gal_l_deg": 51.6717,
+      "gal_b_deg": -3.4881,
+      "gal_xyz_kpc": [
+        0.36559,
+        0.46245,
+        -0.03593
+      ],
+      "helio_xyz_kpc": [
+        0.36559,
+        0.46245,
+        -0.03593
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.91141,
+        0.46245,
+        -0.01513
+      ]
+    },
+    {
+      "id": "GAIA_NS1",
+      "name": "Gaia NS1",
+      "category": "dormant_ns",
+      "accretion_state": "dormant_astrometric",
+      "ra_deg": 318.2341,
+      "dec_deg": 30.8924,
+      "dist_kpc": 0.73,
+      "bh_mass_msun": 1.9,
+      "companion_mass_msun": 0.79,
+      "companion_type": "G/K main sequence",
+      "period_days": 730.9,
+      "eccentricity": 0.12,
+      "inclination_deg": 74.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#a8d8ff",
+      "reference": "El-Badry et al. (2024, OJAp 7, 27)",
+      "description": "Dormant massive neutron star in a 2-year astrometric binary from Gaia DR3.",
+      "bh_type": "dormant",
+      "mass_msun": 1.9,
+      "ecc": 0.12,
+      "spin": null,
+      "inc_deg": 74.0,
+      "headline": "1.9 M_sun \u00b7 0.73 kpc \u00b7 G/K main sequence",
+      "summary": "Dormant massive neutron star in a 2-year astrometric binary from Gaia DR3.",
+      "gal_l_deg": 77.2594,
+      "gal_b_deg": -12.0065,
+      "gal_xyz_kpc": [
+        0.15747,
+        0.69645,
+        -0.15186
+      ],
+      "helio_xyz_kpc": [
+        0.15747,
+        0.69645,
+        -0.15186
+      ],
+      "galactocentric_xyz_kpc": [
+        -8.11953,
+        0.69645,
+        -0.13106
+      ]
+    },
+    {
+      "id": "2M05215658",
+      "name": "2M05215658+4359220",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_spectroscopic",
+      "ra_deg": 80.48575,
+      "dec_deg": 43.98944,
+      "dist_kpc": 3.11,
+      "bh_mass_msun": 3.3,
+      "companion_mass_msun": 3.2,
+      "companion_type": "Rapidly rotating red giant",
+      "period_days": 83.2,
+      "eccentricity": 0.005,
+      "inclination_deg": 80.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#ffbb88",
+      "reference": "Thompson et al. (2019, Science 366, 637)",
+      "description": "Mass-gap non-interacting black hole / massive neutron star candidate discovered via APOGEE + ASAS-SN.",
+      "bh_type": "dormant",
+      "mass_msun": 3.3,
+      "ecc": 0.005,
+      "spin": null,
+      "inc_deg": 80.0,
+      "headline": "3.3 M_sun \u00b7 3.11 kpc \u00b7 Rapidly rotating red giant",
+      "summary": "Mass-gap non-interacting black hole / massive neutron star candidate discovered via APOGEE + ASAS-SN.",
+      "gal_l_deg": 164.7744,
+      "gal_b_deg": 4.1839,
+      "gal_xyz_kpc": [
+        -2.99284,
+        0.81457,
+        0.2269
+      ],
+      "helio_xyz_kpc": [
+        -2.99284,
+        0.81457,
+        0.2269
+      ],
+      "galactocentric_xyz_kpc": [
+        -11.26984,
+        0.81457,
+        0.2477
+      ]
+    },
+    {
+      "id": "VFTS_243",
+      "name": "VFTS 243",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_spectroscopic",
+      "ra_deg": 84.53458,
+      "dec_deg": -69.16361,
+      "dist_kpc": 49.59,
+      "bh_mass_msun": 10.1,
+      "companion_mass_msun": 25.0,
+      "companion_type": "O7V star (Tarantula Nebula, LMC)",
+      "period_days": 10.4031,
+      "eccentricity": 0.017,
+      "inclination_deg": 60.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#88ccff",
+      "reference": "Shenar et al. (2022, Nature Astronomy 6, 1085)",
+      "description": "X-ray quiet 10 M_sun black hole in a near-circular orbit with a 25 M_sun O star in the LMC, evidence for direct collapse.",
+      "bh_type": "dormant",
+      "mass_msun": 10.1,
+      "ecc": 0.017,
+      "spin": null,
+      "inc_deg": 60.0,
+      "headline": "10.1 M_sun \u00b7 49.59 kpc \u00b7 O7V star (Tarantula Nebula, LMC)",
+      "summary": "X-ray quiet 10 M_sun black hole in a near-circular orbit with a 25 M_sun O star in the LMC, evidence for direct collapse.",
+      "gal_l_deg": 279.5452,
+      "gal_b_deg": -31.7149,
+      "gal_xyz_kpc": [
+        6.99534,
+        -41.60088,
+        -26.06914
+      ],
+      "helio_xyz_kpc": [
+        6.99534,
+        -41.60088,
+        -26.06914
+      ],
+      "galactocentric_xyz_kpc": [
+        -1.28166,
+        -41.60088,
+        -26.04834
+      ]
+    },
+    {
+      "id": "HD_130298",
+      "name": "HD 130298",
+      "category": "dormant_bh",
+      "accretion_state": "dormant_spectroscopic",
+      "ra_deg": 222.3886,
+      "dec_deg": -56.4274,
+      "dist_kpc": 2.42,
+      "bh_mass_msun": 7.7,
+      "companion_mass_msun": 24.2,
+      "companion_type": "O6.5III runaway star",
+      "period_days": 14.6296,
+      "eccentricity": 0.457,
+      "inclination_deg": 55.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": false,
+      "disk_temp_k": 0.0,
+      "disk_color_hex": "#99d0ff",
+      "reference": "Mahy et al. (2022, A&A 664, A159)",
+      "description": "Galactic X-ray quiet black hole + massive O-star spectroscopic binary.",
+      "bh_type": "dormant",
+      "mass_msun": 7.7,
+      "ecc": 0.457,
+      "spin": null,
+      "inc_deg": 55.0,
+      "headline": "7.7 M_sun \u00b7 2.42 kpc \u00b7 O6.5III runaway star",
+      "summary": "Galactic X-ray quiet black hole + massive O-star spectroscopic binary.",
+      "gal_l_deg": 318.767,
+      "gal_b_deg": 2.769,
+      "gal_xyz_kpc": [
+        1.8178,
+        -1.59321,
+        0.11691
+      ],
+      "helio_xyz_kpc": [
+        1.8178,
+        -1.59321,
+        0.11691
+      ],
+      "galactocentric_xyz_kpc": [
+        -6.4592,
+        -1.59321,
+        0.13771
+      ]
+    },
+    {
+      "id": "CYGNUS_X1",
+      "name": "Cygnus X-1",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_hmxb",
+      "ra_deg": 299.590315,
+      "dec_deg": 35.201606,
+      "dist_kpc": 2.22,
+      "bh_mass_msun": 21.2,
+      "companion_mass_msun": 40.6,
+      "companion_type": "O9.7Iab supergiant (HDE 226868)",
+      "period_days": 5.599829,
+      "eccentricity": 0.018,
+      "inclination_deg": 27.51,
+      "spin_a_star": 0.9985,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 7500000.0,
+      "disk_color_hex": "#66c2ff",
+      "reference": "Miller-Jones et al. (2021, Science 371, 1046)",
+      "description": "Iconic persistent high-mass X-ray binary with a near-maximally spinning 21.2 M_sun black hole fed by a 40.6 M_sun blue supergiant.",
+      "bh_type": "xray_binary",
+      "mass_msun": 21.2,
+      "ecc": 0.018,
+      "spin": 0.9985,
+      "inc_deg": 27.51,
+      "headline": "21.2 M_sun \u00b7 2.22 kpc \u00b7 O9.7Iab supergiant (HDE 226868)",
+      "summary": "Iconic persistent high-mass X-ray binary with a near-maximally spinning 21.2 M_sun black hole fed by a 40.6 M_sun blue supergiant.",
+      "gal_l_deg": 71.335,
+      "gal_b_deg": 3.0668,
+      "gal_xyz_kpc": [
+        0.70946,
+        2.10023,
+        0.11877
+      ],
+      "helio_xyz_kpc": [
+        0.70946,
+        2.10023,
+        0.11877
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.56754,
+        2.10023,
+        0.13957
+      ]
+    },
+    {
+      "id": "V404_CYGNI",
+      "name": "V404 Cygni",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 306.015917,
+      "dec_deg": 33.867194,
+      "dist_kpc": 2.39,
+      "bh_mass_msun": 9.0,
+      "companion_mass_msun": 0.7,
+      "companion_type": "K3III subgiant",
+      "period_days": 6.47129,
+      "eccentricity": 0.0,
+      "inclination_deg": 67.0,
+      "spin_a_star": 0.92,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 5000000.0,
+      "disk_color_hex": "#ff9944",
+      "reference": "Miller-Jones et al. (2009); Burdge et al. (2024, Nature)",
+      "description": "Nearby black hole triple / microquasar famous for violent Eddington outbursts and precessing relativistic jets.",
+      "bh_type": "xray_binary",
+      "mass_msun": 9.0,
+      "ecc": 0.0,
+      "spin": 0.92,
+      "inc_deg": 67.0,
+      "headline": "9 M_sun \u00b7 2.39 kpc \u00b7 K3III subgiant",
+      "summary": "Nearby black hole triple / microquasar famous for violent Eddington outbursts and precessing relativistic jets.",
+      "gal_l_deg": 73.1188,
+      "gal_b_deg": -2.0915,
+      "gal_xyz_kpc": [
+        0.69357,
+        2.28549,
+        -0.08722
+      ],
+      "helio_xyz_kpc": [
+        0.69357,
+        2.28549,
+        -0.08722
+      ],
+      "galactocentric_xyz_kpc": [
+        -7.58343,
+        2.28549,
+        -0.06642
+      ]
+    },
+    {
+      "id": "GRS_1915_105",
+      "name": "GRS 1915+105",
+      "category": "accreting_bh",
+      "accretion_state": "microquasar",
+      "ra_deg": 288.798125,
+      "dec_deg": 10.945778,
+      "dist_kpc": 8.6,
+      "bh_mass_msun": 12.4,
+      "companion_mass_msun": 0.47,
+      "companion_type": "K/M III giant",
+      "period_days": 33.85,
+      "eccentricity": 0.0,
+      "inclination_deg": 60.0,
+      "spin_a_star": 0.98,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 12000000.0,
+      "disk_color_hex": "#ff7733",
+      "reference": "Reid et al. (2014, ApJ 796, 2)",
+      "description": "Archetypal Galactic microquasar exhibiting superluminal radio jets and rapid X-ray limit-cycle oscillations.",
+      "bh_type": "xray_binary",
+      "mass_msun": 12.4,
+      "ecc": 0.0,
+      "spin": 0.98,
+      "inc_deg": 60.0,
+      "headline": "12.4 M_sun \u00b7 8.6 kpc \u00b7 K/M III giant",
+      "summary": "Archetypal Galactic microquasar exhibiting superluminal radio jets and rapid X-ray limit-cycle oscillations.",
+      "gal_l_deg": 45.3657,
+      "gal_b_deg": -0.2191,
+      "gal_xyz_kpc": [
+        6.04213,
+        6.11977,
+        -0.03289
+      ],
+      "helio_xyz_kpc": [
+        6.04213,
+        6.11977,
+        -0.03289
+      ],
+      "galactocentric_xyz_kpc": [
+        -2.23487,
+        6.11977,
+        -0.01209
+      ]
+    },
+    {
+      "id": "GRO_J1655_40",
+      "name": "GRO J1655-40",
+      "category": "accreting_bh",
+      "accretion_state": "microquasar",
+      "ra_deg": 253.500583,
+      "dec_deg": -39.845806,
+      "dist_kpc": 3.2,
+      "bh_mass_msun": 5.4,
+      "companion_mass_msun": 1.45,
+      "companion_type": "F6IV subgiant",
+      "period_days": 2.62168,
+      "eccentricity": 0.0,
+      "inclination_deg": 68.7,
+      "spin_a_star": 0.7,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 8000000.0,
+      "disk_color_hex": "#ffaa44",
+      "reference": "Beer & Podsiadlowski (2002); Mirabel et al. (2002)",
+      "description": "Runaway halo-crossing microquasar kicked by a supernova natal kick.",
+      "bh_type": "xray_binary",
+      "mass_msun": 5.4,
+      "ecc": 0.0,
+      "spin": 0.7,
+      "inc_deg": 68.7,
+      "headline": "5.4 M_sun \u00b7 3.2 kpc \u00b7 F6IV subgiant",
+      "summary": "Runaway halo-crossing microquasar kicked by a supernova natal kick.",
+      "gal_l_deg": 344.9819,
+      "gal_b_deg": 2.456,
+      "gal_xyz_kpc": [
+        3.08786,
+        -0.82844,
+        0.13712
+      ],
+      "helio_xyz_kpc": [
+        3.08786,
+        -0.82844,
+        0.13712
+      ],
+      "galactocentric_xyz_kpc": [
+        -5.18914,
+        -0.82844,
+        0.15792
+      ]
+    },
+    {
+      "id": "XTE_J1118_480",
+      "name": "XTE J1118+480",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 169.545042,
+      "dec_deg": 48.036778,
+      "dist_kpc": 1.72,
+      "bh_mass_msun": 7.3,
+      "companion_mass_msun": 0.22,
+      "companion_type": "K7/M1V dwarf",
+      "period_days": 0.169934,
+      "eccentricity": 0.0,
+      "inclination_deg": 73.5,
+      "spin_a_star": 0.5,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 4500000.0,
+      "disk_color_hex": "#ff8844",
+      "reference": "Gelino et al. (2006); Gonzalez Hernandez et al. (2012)",
+      "description": "High-Galactic-latitude halo black hole X-ray binary in an ultra-short 4.08-hour orbit.",
+      "bh_type": "xray_binary",
+      "mass_msun": 7.3,
+      "ecc": 0.0,
+      "spin": 0.5,
+      "inc_deg": 73.5,
+      "headline": "7.3 M_sun \u00b7 1.72 kpc \u00b7 K7/M1V dwarf",
+      "summary": "High-Galactic-latitude halo black hole X-ray binary in an ultra-short 4.08-hour orbit.",
+      "gal_l_deg": 157.6609,
+      "gal_b_deg": 62.3205,
+      "gal_xyz_kpc": [
+        -0.73902,
+        0.30368,
+        1.52316
+      ],
+      "helio_xyz_kpc": [
+        -0.73902,
+        0.30368,
+        1.52316
+      ],
+      "galactocentric_xyz_kpc": [
+        -9.01602,
+        0.30368,
+        1.54396
+      ]
+    },
+    {
+      "id": "A0620_00",
+      "name": "A0620-00 (V616 Mon)",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 95.685583,
+      "dec_deg": -0.345639,
+      "dist_kpc": 1.06,
+      "bh_mass_msun": 6.61,
+      "companion_mass_msun": 0.4,
+      "companion_type": "K4V dwarf",
+      "period_days": 0.323014,
+      "eccentricity": 0.0,
+      "inclination_deg": 51.0,
+      "spin_a_star": 0.12,
+      "has_accretion_disk": true,
+      "has_jet": false,
+      "disk_temp_k": 4000000.0,
+      "disk_color_hex": "#ff9955",
+      "reference": "Cantrell et al. (2010, ApJ 710, 1127)",
+      "description": "First dynamically confirmed low-mass black hole X-ray nova, just 1.06 kpc from the Sun.",
+      "bh_type": "xray_binary",
+      "mass_msun": 6.61,
+      "ecc": 0.0,
+      "spin": 0.12,
+      "inc_deg": 51.0,
+      "headline": "6.61 M_sun \u00b7 1.06 kpc \u00b7 K4V dwarf",
+      "summary": "First dynamically confirmed low-mass black hole X-ray nova, just 1.06 kpc from the Sun.",
+      "gal_l_deg": 209.9563,
+      "gal_b_deg": -6.5397,
+      "gal_xyz_kpc": [
+        -0.91242,
+        -0.52586,
+        -0.12072
+      ],
+      "helio_xyz_kpc": [
+        -0.91242,
+        -0.52586,
+        -0.12072
+      ],
+      "galactocentric_xyz_kpc": [
+        -9.18942,
+        -0.52586,
+        -0.09992
+      ]
+    },
+    {
+      "id": "MAXI_J1820_070",
+      "name": "MAXI J1820+070",
+      "category": "accreting_bh",
+      "accretion_state": "microquasar",
+      "ra_deg": 275.091427,
+      "dec_deg": 7.185355,
+      "dist_kpc": 2.96,
+      "bh_mass_msun": 8.48,
+      "companion_mass_msun": 0.61,
+      "companion_type": "K4/5 subgiant",
+      "period_days": 0.68549,
+      "eccentricity": 0.0,
+      "inclination_deg": 63.0,
+      "spin_a_star": 0.2,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 7000000.0,
+      "disk_color_hex": "#77ccff",
+      "reference": "Atri et al. (2020); Torres et al. (2020)",
+      "description": "Bright 2018 X-ray nova with VLBI-resolved relativistic ejecta and misaligned black hole spin.",
+      "bh_type": "xray_binary",
+      "mass_msun": 8.48,
+      "ecc": 0.0,
+      "spin": 0.2,
+      "inc_deg": 63.0,
+      "headline": "8.48 M_sun \u00b7 2.96 kpc \u00b7 K4/5 subgiant",
+      "summary": "Bright 2018 X-ray nova with VLBI-resolved relativistic ejecta and misaligned black hole spin.",
+      "gal_l_deg": 35.8536,
+      "gal_b_deg": 10.1592,
+      "gal_xyz_kpc": [
+        2.36151,
+        1.70654,
+        0.52209
+      ],
+      "helio_xyz_kpc": [
+        2.36151,
+        1.70654,
+        0.52209
+      ],
+      "galactocentric_xyz_kpc": [
+        -5.91549,
+        1.70654,
+        0.54289
+      ]
+    },
+    {
+      "id": "GX_339_4",
+      "name": "GX 339-4",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 255.705792,
+      "dec_deg": -48.78975,
+      "dist_kpc": 8.4,
+      "bh_mass_msun": 5.9,
+      "companion_mass_msun": 0.52,
+      "companion_type": "K-type stripped subgiant",
+      "period_days": 1.7587,
+      "eccentricity": 0.0,
+      "inclination_deg": 45.0,
+      "spin_a_star": 0.94,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 8500000.0,
+      "disk_color_hex": "#ff8833",
+      "reference": "Heida et al. (2017, ApJ 846, 132)",
+      "description": "Frequently outbursting benchmark black hole X-ray binary displaying full hysteresis state transitions.",
+      "bh_type": "xray_binary",
+      "mass_msun": 5.9,
+      "ecc": 0.0,
+      "spin": 0.94,
+      "inc_deg": 45.0,
+      "headline": "5.9 M_sun \u00b7 8.4 kpc \u00b7 K-type stripped subgiant",
+      "summary": "Frequently outbursting benchmark black hole X-ray binary displaying full hysteresis state transitions.",
+      "gal_l_deg": 338.9392,
+      "gal_b_deg": -4.3265,
+      "gal_xyz_kpc": [
+        7.81654,
+        -3.01001,
+        -0.63369
+      ],
+      "helio_xyz_kpc": [
+        7.81654,
+        -3.01001,
+        -0.63369
+      ],
+      "galactocentric_xyz_kpc": [
+        -0.46046,
+        -3.01001,
+        -0.61289
+      ]
+    },
+    {
+      "id": "4U_1543_47",
+      "name": "4U 1543-47",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_lmxb",
+      "ra_deg": 236.784417,
+      "dec_deg": -47.669444,
+      "dist_kpc": 7.5,
+      "bh_mass_msun": 9.4,
+      "companion_mass_msun": 2.45,
+      "companion_type": "A2V star",
+      "period_days": 1.116407,
+      "eccentricity": 0.0,
+      "inclination_deg": 20.7,
+      "spin_a_star": 0.8,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 9000000.0,
+      "disk_color_hex": "#88bbff",
+      "reference": "Orosz (2003); Park et al. (2004)",
+      "description": "Nearly face-on recurrent black hole X-ray nova with an A-type donor star.",
+      "bh_type": "xray_binary",
+      "mass_msun": 9.4,
+      "ecc": 0.0,
+      "spin": 0.8,
+      "inc_deg": 20.7,
+      "headline": "9.4 M_sun \u00b7 7.5 kpc \u00b7 A2V star",
+      "summary": "Nearly face-on recurrent black hole X-ray nova with an A-type donor star.",
+      "gal_l_deg": 330.9179,
+      "gal_b_deg": 5.4264,
+      "gal_xyz_kpc": [
+        6.52506,
+        -3.62913,
+        0.70925
+      ],
+      "helio_xyz_kpc": [
+        6.52506,
+        -3.62913,
+        0.70925
+      ],
+      "galactocentric_xyz_kpc": [
+        -1.75194,
+        -3.62913,
+        0.73005
+      ]
+    },
+    {
+      "id": "LMC_X1",
+      "name": "LMC X-1",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_hmxb",
+      "ra_deg": 84.914583,
+      "dec_deg": -69.743611,
+      "dist_kpc": 49.59,
+      "bh_mass_msun": 10.91,
+      "companion_mass_msun": 31.79,
+      "companion_type": "O7III star (LMC)",
+      "period_days": 3.90917,
+      "eccentricity": 0.0256,
+      "inclination_deg": 36.38,
+      "spin_a_star": 0.92,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 10000000.0,
+      "disk_color_hex": "#66bbff",
+      "reference": "Orosz et al. (2009, ApJ 697, 573)",
+      "description": "Persistent high-spin black hole X-ray binary powering an ionized nebula in the Large Magellanic Cloud.",
+      "bh_type": "xray_binary",
+      "mass_msun": 10.91,
+      "ecc": 0.0256,
+      "spin": 0.92,
+      "inc_deg": 36.38,
+      "headline": "10.91 M_sun \u00b7 49.59 kpc \u00b7 O7III star (LMC)",
+      "summary": "Persistent high-spin black hole X-ray binary powering an ionized nebula in the Large Magellanic Cloud.",
+      "gal_l_deg": 280.2033,
+      "gal_b_deg": -31.5148,
+      "gal_xyz_kpc": [
+        7.48882,
+        -41.60715,
+        -25.92163
+      ],
+      "helio_xyz_kpc": [
+        7.48882,
+        -41.60715,
+        -25.92163
+      ],
+      "galactocentric_xyz_kpc": [
+        -0.78818,
+        -41.60715,
+        -25.90083
+      ]
+    },
+    {
+      "id": "LMC_X3",
+      "name": "LMC X-3",
+      "category": "accreting_bh",
+      "accretion_state": "accreting_hmxb",
+      "ra_deg": 84.73475,
+      "dec_deg": -64.084278,
+      "dist_kpc": 49.59,
+      "bh_mass_msun": 6.98,
+      "companion_mass_msun": 3.63,
+      "companion_type": "B3V star (LMC)",
+      "period_days": 1.7048089,
+      "eccentricity": 0.0,
+      "inclination_deg": 69.24,
+      "spin_a_star": 0.25,
+      "has_accretion_disk": true,
+      "has_jet": false,
+      "disk_temp_k": 11000000.0,
+      "disk_color_hex": "#77ccff",
+      "reference": "Orosz et al. (2014, ApJ 794, 154)",
+      "description": "Persistently bright Roche-lobe-overflowing black hole binary in the LMC.",
+      "bh_type": "xray_binary",
+      "mass_msun": 6.98,
+      "ecc": 0.0,
+      "spin": 0.25,
+      "inc_deg": 69.24,
+      "headline": "6.98 M_sun \u00b7 49.59 kpc \u00b7 B3V star (LMC)",
+      "summary": "Persistently bright Roche-lobe-overflowing black hole binary in the LMC.",
+      "gal_l_deg": 273.5765,
+      "gal_b_deg": -32.082,
+      "gal_xyz_kpc": [
+        2.62108,
+        -41.93524,
+        -26.33883
+      ],
+      "helio_xyz_kpc": [
+        2.62108,
+        -41.93524,
+        -26.33883
+      ],
+      "galactocentric_xyz_kpc": [
+        -5.65592,
+        -41.93524,
+        -26.31803
+      ]
+    },
+    {
+      "id": "SS_433",
+      "name": "SS 433",
+      "category": "accreting_bh",
+      "accretion_state": "microquasar",
+      "ra_deg": 287.956542,
+      "dec_deg": 4.982722,
+      "dist_kpc": 5.5,
+      "bh_mass_msun": 15.0,
+      "companion_mass_msun": 21.0,
+      "companion_type": "A7Ib supergiant",
+      "period_days": 13.082,
+      "eccentricity": 0.05,
+      "inclination_deg": 78.8,
+      "spin_a_star": null,
+      "has_accretion_disk": true,
+      "has_jet": true,
+      "disk_temp_k": 5000000.0,
+      "disk_color_hex": "#99e0ff",
+      "reference": "Cherepashchuk et al. (2020); Margon (1984)",
+      "description": "Super-Eddington microquasar launching precessing 0.26c baryonic jets inside the W50 nebula.",
+      "bh_type": "xray_binary",
+      "mass_msun": 15.0,
+      "ecc": 0.05,
+      "spin": null,
+      "inc_deg": 78.8,
+      "headline": "15 M_sun \u00b7 5.5 kpc \u00b7 A7Ib supergiant",
+      "summary": "Super-Eddington microquasar launching precessing 0.26c baryonic jets inside the W50 nebula.",
+      "gal_l_deg": 39.6941,
+      "gal_b_deg": -2.2446,
+      "gal_xyz_kpc": [
+        4.22881,
+        3.51009,
+        -0.21541
+      ],
+      "helio_xyz_kpc": [
+        4.22881,
+        3.51009,
+        -0.21541
+      ],
+      "galactocentric_xyz_kpc": [
+        -4.04819,
+        3.51009,
+        -0.19461
+      ]
+    },
+    {
+      "id": "CRAB_PULSAR",
+      "name": "Crab Pulsar (PSR B0531+21)",
+      "category": "pulsar",
+      "accretion_state": "pulsar",
+      "ra_deg": 83.633083,
+      "dec_deg": 22.0145,
+      "dist_kpc": 2.0,
+      "bh_mass_msun": 1.4,
+      "companion_mass_msun": null,
+      "companion_type": "Isolated (M1 Supernova Remnant)",
+      "period_days": 3.86e-07,
+      "eccentricity": null,
+      "inclination_deg": 61.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": true,
+      "disk_temp_k": 1600000.0,
+      "disk_color_hex": "#66e0ff",
+      "reference": "Hester (2008, ARA&A 46, 127)",
+      "description": "33-ms young rotation-powered neutron star born in SN 1054 AD, energizing the Crab Pulsar Wind Nebula.",
+      "bh_type": "pulsar",
+      "mass_msun": 1.4,
+      "ecc": null,
+      "spin": null,
+      "inc_deg": 61.0,
+      "headline": "1.4 M_sun \u00b7 2 kpc \u00b7 Isolated (M1 Supernova Remnant)",
+      "summary": "33-ms young rotation-powered neutron star born in SN 1054 AD, energizing the Crab Pulsar Wind Nebula.",
+      "gal_l_deg": 184.5575,
+      "gal_b_deg": -5.7844,
+      "gal_xyz_kpc": [
+        -1.98353,
+        -0.15811,
+        -0.20157
+      ],
+      "helio_xyz_kpc": [
+        -1.98353,
+        -0.15811,
+        -0.20157
+      ],
+      "galactocentric_xyz_kpc": [
+        -10.26053,
+        -0.15811,
+        -0.18077
+      ]
+    },
+    {
+      "id": "VELA_PULSAR",
+      "name": "Vela Pulsar (PSR B0833-45)",
+      "category": "pulsar",
+      "accretion_state": "pulsar",
+      "ra_deg": 128.836064,
+      "dec_deg": -45.176432,
+      "dist_kpc": 0.287,
+      "bh_mass_msun": 1.4,
+      "companion_mass_msun": null,
+      "companion_type": "Isolated (Vela SNR)",
+      "period_days": 1.034e-06,
+      "eccentricity": null,
+      "inclination_deg": 63.0,
+      "spin_a_star": null,
+      "has_accretion_disk": false,
+      "has_jet": true,
+      "disk_temp_k": 1000000.0,
+      "disk_color_hex": "#77ddff",
+      "reference": "Dodson et al. (2003, ApJ 596, 1137)",
+      "description": "Nearby 89-ms gamma-ray and radio pulsar at 287 pc with a double-torus wind nebula.",
+      "bh_type": "pulsar",
+      "mass_msun": 1.4,
+      "ecc": null,
+      "spin": null,
+      "inc_deg": 63.0,
+      "headline": "1.4 M_sun \u00b7 0.287 kpc \u00b7 Isolated (Vela SNR)",
+      "summary": "Nearby 89-ms gamma-ray and radio pulsar at 287 pc with a double-torus wind nebula.",
+      "gal_l_deg": 263.552,
+      "gal_b_deg": -2.7873,
+      "gal_xyz_kpc": [
+        -0.03219,
+        -0.28485,
+        -0.01396
+      ],
+      "helio_xyz_kpc": [
+        -0.03219,
+        -0.28485,
+        -0.01396
+      ],
+      "galactocentric_xyz_kpc": [
+        -8.30919,
+        -0.28485,
+        0.00684
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "OMEGA_CEN",
+      "name": "Omega Centauri (NGC 5139)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 201.697,
+      "dec_deg": -47.479,
+      "dist_kpc": 5.43,
+      "radius_kpc": 0.045,
+      "gal_l_deg": 309.102,
+      "gal_b_deg": 14.969,
+      "gal_xyz_kpc": [
+        3.3085,
+        -4.0708,
+        1.4025
+      ],
+      "helio_xyz_kpc": [
+        3.3085,
+        -4.0708,
+        1.4025
+      ],
+      "summary": "Omega Centauri (NGC 5139) (globular cluster) at 5.43 kpc."
+    },
+    {
+      "id": "47_TUC",
+      "name": "47 Tucanae (NGC 104)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 6.024,
+      "dec_deg": -72.081,
+      "dist_kpc": 4.52,
+      "radius_kpc": 0.032,
+      "gal_l_deg": 305.895,
+      "gal_b_deg": -44.89,
+      "gal_xyz_kpc": [
+        1.8775,
+        -2.5941,
+        -3.19
+      ],
+      "helio_xyz_kpc": [
+        1.8775,
+        -2.5941,
+        -3.19
+      ],
+      "summary": "47 Tucanae (NGC 104) (globular cluster) at 4.52 kpc."
+    },
+    {
+      "id": "M13",
+      "name": "M13 (Hercules Cluster)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 250.423,
+      "dec_deg": 36.461,
+      "dist_kpc": 7.42,
+      "radius_kpc": 0.025,
+      "gal_l_deg": 59.009,
+      "gal_b_deg": 40.912,
+      "gal_xyz_kpc": [
+        2.8873,
+        4.8069,
+        4.8594
+      ],
+      "helio_xyz_kpc": [
+        2.8873,
+        4.8069,
+        4.8594
+      ],
+      "summary": "M13 (Hercules Cluster) (globular cluster) at 7.42 kpc."
+    },
+    {
+      "id": "M3",
+      "name": "M3 (NGC 5272)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 205.548,
+      "dec_deg": 28.377,
+      "dist_kpc": 10.18,
+      "radius_kpc": 0.028,
+      "gal_l_deg": 42.216,
+      "gal_b_deg": 78.707,
+      "gal_xyz_kpc": [
+        1.4764,
+        1.3395,
+        9.9829
+      ],
+      "helio_xyz_kpc": [
+        1.4764,
+        1.3395,
+        9.9829
+      ],
+      "summary": "M3 (NGC 5272) (globular cluster) at 10.18 kpc."
+    },
+    {
+      "id": "M5",
+      "name": "M5 (NGC 5904)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 229.638,
+      "dec_deg": 2.081,
+      "dist_kpc": 7.48,
+      "radius_kpc": 0.025,
+      "gal_l_deg": 3.858,
+      "gal_b_deg": 46.797,
+      "gal_xyz_kpc": [
+        5.1091,
+        0.3446,
+        5.4524
+      ],
+      "helio_xyz_kpc": [
+        5.1091,
+        0.3446,
+        5.4524
+      ],
+      "summary": "M5 (NGC 5904) (globular cluster) at 7.48 kpc."
+    },
+    {
+      "id": "M15",
+      "name": "M15 (NGC 7078)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 322.493,
+      "dec_deg": 12.167,
+      "dist_kpc": 10.71,
+      "radius_kpc": 0.024,
+      "gal_l_deg": 65.013,
+      "gal_b_deg": -27.313,
+      "gal_xyz_kpc": [
+        4.0197,
+        8.6253,
+        -4.9142
+      ],
+      "helio_xyz_kpc": [
+        4.0197,
+        8.6253,
+        -4.9142
+      ],
+      "summary": "M15 (NGC 7078) (globular cluster) at 10.71 kpc."
+    },
+    {
+      "id": "M22",
+      "name": "M22 (NGC 6656)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 279.1,
+      "dec_deg": -23.905,
+      "dist_kpc": 3.3,
+      "radius_kpc": 0.022,
+      "gal_l_deg": 9.892,
+      "gal_b_deg": -7.552,
+      "gal_xyz_kpc": [
+        3.2227,
+        0.562,
+        -0.4337
+      ],
+      "helio_xyz_kpc": [
+        3.2227,
+        0.562,
+        -0.4337
+      ],
+      "summary": "M22 (NGC 6656) (globular cluster) at 3.3 kpc."
+    },
+    {
+      "id": "NGC_6397",
+      "name": "NGC 6397",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 265.175,
+      "dec_deg": -53.674,
+      "dist_kpc": 2.48,
+      "radius_kpc": 0.015,
+      "gal_l_deg": 338.165,
+      "gal_b_deg": -11.959,
+      "gal_xyz_kpc": [
+        2.2521,
+        -0.9024,
+        -0.5139
+      ],
+      "helio_xyz_kpc": [
+        2.2521,
+        -0.9024,
+        -0.5139
+      ],
+      "summary": "NGC 6397 (globular cluster) at 2.48 kpc."
+    },
+    {
+      "id": "M4",
+      "name": "M4 (NGC 6121)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 245.897,
+      "dec_deg": -26.526,
+      "dist_kpc": 1.85,
+      "radius_kpc": 0.014,
+      "gal_l_deg": 350.973,
+      "gal_b_deg": 15.972,
+      "gal_xyz_kpc": [
+        1.7566,
+        -0.2791,
+        0.5091
+      ],
+      "helio_xyz_kpc": [
+        1.7566,
+        -0.2791,
+        0.5091
+      ],
+      "summary": "M4 (NGC 6121) (globular cluster) at 1.85 kpc."
+    },
+    {
+      "id": "M2",
+      "name": "M2 (NGC 7089)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 323.363,
+      "dec_deg": -0.823,
+      "dist_kpc": 11.69,
+      "radius_kpc": 0.026,
+      "gal_l_deg": 53.371,
+      "gal_b_deg": -35.77,
+      "gal_xyz_kpc": [
+        5.6589,
+        7.6118,
+        -6.8332
+      ],
+      "helio_xyz_kpc": [
+        5.6589,
+        7.6118,
+        -6.8332
+      ],
+      "summary": "M2 (NGC 7089) (globular cluster) at 11.69 kpc."
+    },
+    {
+      "id": "M92",
+      "name": "M92 (NGC 6341)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 259.281,
+      "dec_deg": 43.136,
+      "dist_kpc": 8.5,
+      "radius_kpc": 0.02,
+      "gal_l_deg": 68.338,
+      "gal_b_deg": 34.859,
+      "gal_xyz_kpc": [
+        2.5746,
+        6.4822,
+        4.8582
+      ],
+      "helio_xyz_kpc": [
+        2.5746,
+        6.4822,
+        4.8582
+      ],
+      "summary": "M92 (NGC 6341) (globular cluster) at 8.5 kpc."
+    },
+    {
+      "id": "NGC_6752",
+      "name": "NGC 6752",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 287.717,
+      "dec_deg": -59.985,
+      "dist_kpc": 4.12,
+      "radius_kpc": 0.019,
+      "gal_l_deg": 336.492,
+      "gal_b_deg": -25.628,
+      "gal_xyz_kpc": [
+        3.4064,
+        -1.4817,
+        -1.782
+      ],
+      "helio_xyz_kpc": [
+        3.4064,
+        -1.4817,
+        -1.782
+      ],
+      "summary": "NGC 6752 (globular cluster) at 4.12 kpc."
+    },
+    {
+      "id": "PLEIADES",
+      "name": "Pleiades (M45)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 56.75,
+      "dec_deg": 24.12,
+      "dist_kpc": 0.136,
+      "radius_kpc": 0.008,
+      "gal_l_deg": 166.568,
+      "gal_b_deg": -23.519,
+      "gal_xyz_kpc": [
+        -0.1213,
+        0.029,
+        -0.0543
+      ],
+      "helio_xyz_kpc": [
+        -0.1213,
+        0.029,
+        -0.0543
+      ],
+      "summary": "Pleiades (M45) (open cluster) at 0.136 kpc."
+    },
+    {
+      "id": "HYADES",
+      "name": "Hyades",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 66.75,
+      "dec_deg": 15.87,
+      "dist_kpc": 0.047,
+      "radius_kpc": 0.006,
+      "gal_l_deg": 180.077,
+      "gal_b_deg": -22.322,
+      "gal_xyz_kpc": [
+        -0.0435,
+        -0.0001,
+        -0.0179
+      ],
+      "helio_xyz_kpc": [
+        -0.0435,
+        -0.0001,
+        -0.0179
+      ],
+      "summary": "Hyades (open cluster) at 0.047 kpc."
+    },
+    {
+      "id": "PRAESEPE",
+      "name": "Praesepe (M44 / Beehive)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 130.1,
+      "dec_deg": 19.67,
+      "dist_kpc": 0.186,
+      "radius_kpc": 0.007,
+      "gal_l_deg": 205.916,
+      "gal_b_deg": 32.485,
+      "gal_xyz_kpc": [
+        -0.1411,
+        -0.0686,
+        0.0999
+      ],
+      "helio_xyz_kpc": [
+        -0.1411,
+        -0.0686,
+        0.0999
+      ],
+      "summary": "Praesepe (M44 / Beehive) (open cluster) at 0.186 kpc."
+    },
+    {
+      "id": "ORION_NEBULA",
+      "name": "Orion Nebula (M42 / Trapezium)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 83.822,
+      "dec_deg": -5.391,
+      "dist_kpc": 0.412,
+      "radius_kpc": 0.01,
+      "gal_l_deg": 209.014,
+      "gal_b_deg": -19.382,
+      "gal_xyz_kpc": [
+        -0.3399,
+        -0.1885,
+        -0.1367
+      ],
+      "helio_xyz_kpc": [
+        -0.3399,
+        -0.1885,
+        -0.1367
+      ],
+      "summary": "Orion Nebula (M42 / Trapezium) (open cluster) at 0.412 kpc."
+    },
+    {
+      "id": "DOUBLE_CLUSTER",
+      "name": "Double Cluster (h & chi Persei)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 34.75,
+      "dec_deg": 57.13,
+      "dist_kpc": 2.3,
+      "radius_kpc": 0.025,
+      "gal_l_deg": 134.632,
+      "gal_b_deg": -3.739,
+      "gal_xyz_kpc": [
+        -1.6124,
+        1.6333,
+        -0.15
+      ],
+      "helio_xyz_kpc": [
+        -1.6124,
+        1.6333,
+        -0.15
+      ],
+      "summary": "Double Cluster (h & chi Persei) (open cluster) at 2.3 kpc."
+    },
+    {
+      "id": "CARINA_NEBULA",
+      "name": "Carina Nebula (NGC 3372)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 161.265,
+      "dec_deg": -59.868,
+      "dist_kpc": 2.35,
+      "radius_kpc": 0.045,
+      "gal_l_deg": 287.682,
+      "gal_b_deg": -0.792,
+      "gal_xyz_kpc": [
+        0.7137,
+        -2.2388,
+        -0.0325
+      ],
+      "helio_xyz_kpc": [
+        0.7137,
+        -2.2388,
+        -0.0325
+      ],
+      "summary": "Carina Nebula (NGC 3372) (open cluster) at 2.35 kpc."
+    },
+    {
+      "id": "LMC",
+      "name": "Large Magellanic Cloud",
+      "kind": "satellite_galaxy",
+      "category": "satellite_galaxy",
+      "ra_deg": 80.894,
+      "dec_deg": -69.756,
+      "dist_kpc": 49.59,
+      "radius_kpc": 4.5,
+      "gal_l_deg": 280.465,
+      "gal_b_deg": -32.888,
+      "gal_xyz_kpc": [
+        7.5637,
+        -40.9495,
+        -26.9276
+      ],
+      "helio_xyz_kpc": [
+        7.5637,
+        -40.9495,
+        -26.9276
+      ],
+      "summary": "Large Magellanic Cloud (satellite galaxy) at 49.59 kpc."
+    },
+    {
+      "id": "SMC",
+      "name": "Small Magellanic Cloud",
+      "kind": "satellite_galaxy",
+      "category": "satellite_galaxy",
+      "ra_deg": 13.158,
+      "dec_deg": -72.8,
+      "dist_kpc": 62.44,
+      "radius_kpc": 2.2,
+      "gal_l_deg": 302.809,
+      "gal_b_deg": -44.328,
+      "gal_xyz_kpc": [
+        24.2018,
+        -37.5416,
+        -43.6309
+      ],
+      "helio_xyz_kpc": [
+        24.2018,
+        -37.5416,
+        -43.6309
+      ],
+      "summary": "Small Magellanic Cloud (satellite galaxy) at 62.44 kpc."
+    },
+    {
+      "id": "SGR_DWARF",
+      "name": "Sagittarius Dwarf Elliptical",
+      "kind": "satellite_galaxy",
+      "category": "satellite_galaxy",
+      "ra_deg": 283.831,
+      "dec_deg": -30.545,
+      "dist_kpc": 26.5,
+      "radius_kpc": 2.5,
+      "gal_l_deg": 5.569,
+      "gal_b_deg": -14.166,
+      "gal_xyz_kpc": [
+        25.5729,
+        2.4935,
+        -6.4854
+      ],
+      "helio_xyz_kpc": [
+        25.5729,
+        2.4935,
+        -6.4854
+      ],
+      "summary": "Sagittarius Dwarf Elliptical (satellite galaxy) at 26.5 kpc."
+    }
+  ],
+  "clusters_and_satellites": [
+    {
+      "id": "OMEGA_CEN",
+      "name": "Omega Centauri (NGC 5139)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 201.697,
+      "dec_deg": -47.479,
+      "dist_kpc": 5.43,
+      "radius_kpc": 0.045,
+      "gal_l_deg": 309.102,
+      "gal_b_deg": 14.969,
+      "gal_xyz_kpc": [
+        3.3085,
+        -4.0708,
+        1.4025
+      ],
+      "helio_xyz_kpc": [
+        3.3085,
+        -4.0708,
+        1.4025
+      ],
+      "summary": "Omega Centauri (NGC 5139) (globular cluster) at 5.43 kpc."
+    },
+    {
+      "id": "47_TUC",
+      "name": "47 Tucanae (NGC 104)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 6.024,
+      "dec_deg": -72.081,
+      "dist_kpc": 4.52,
+      "radius_kpc": 0.032,
+      "gal_l_deg": 305.895,
+      "gal_b_deg": -44.89,
+      "gal_xyz_kpc": [
+        1.8775,
+        -2.5941,
+        -3.19
+      ],
+      "helio_xyz_kpc": [
+        1.8775,
+        -2.5941,
+        -3.19
+      ],
+      "summary": "47 Tucanae (NGC 104) (globular cluster) at 4.52 kpc."
+    },
+    {
+      "id": "M13",
+      "name": "M13 (Hercules Cluster)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 250.423,
+      "dec_deg": 36.461,
+      "dist_kpc": 7.42,
+      "radius_kpc": 0.025,
+      "gal_l_deg": 59.009,
+      "gal_b_deg": 40.912,
+      "gal_xyz_kpc": [
+        2.8873,
+        4.8069,
+        4.8594
+      ],
+      "helio_xyz_kpc": [
+        2.8873,
+        4.8069,
+        4.8594
+      ],
+      "summary": "M13 (Hercules Cluster) (globular cluster) at 7.42 kpc."
+    },
+    {
+      "id": "M3",
+      "name": "M3 (NGC 5272)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 205.548,
+      "dec_deg": 28.377,
+      "dist_kpc": 10.18,
+      "radius_kpc": 0.028,
+      "gal_l_deg": 42.216,
+      "gal_b_deg": 78.707,
+      "gal_xyz_kpc": [
+        1.4764,
+        1.3395,
+        9.9829
+      ],
+      "helio_xyz_kpc": [
+        1.4764,
+        1.3395,
+        9.9829
+      ],
+      "summary": "M3 (NGC 5272) (globular cluster) at 10.18 kpc."
+    },
+    {
+      "id": "M5",
+      "name": "M5 (NGC 5904)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 229.638,
+      "dec_deg": 2.081,
+      "dist_kpc": 7.48,
+      "radius_kpc": 0.025,
+      "gal_l_deg": 3.858,
+      "gal_b_deg": 46.797,
+      "gal_xyz_kpc": [
+        5.1091,
+        0.3446,
+        5.4524
+      ],
+      "helio_xyz_kpc": [
+        5.1091,
+        0.3446,
+        5.4524
+      ],
+      "summary": "M5 (NGC 5904) (globular cluster) at 7.48 kpc."
+    },
+    {
+      "id": "M15",
+      "name": "M15 (NGC 7078)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 322.493,
+      "dec_deg": 12.167,
+      "dist_kpc": 10.71,
+      "radius_kpc": 0.024,
+      "gal_l_deg": 65.013,
+      "gal_b_deg": -27.313,
+      "gal_xyz_kpc": [
+        4.0197,
+        8.6253,
+        -4.9142
+      ],
+      "helio_xyz_kpc": [
+        4.0197,
+        8.6253,
+        -4.9142
+      ],
+      "summary": "M15 (NGC 7078) (globular cluster) at 10.71 kpc."
+    },
+    {
+      "id": "M22",
+      "name": "M22 (NGC 6656)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 279.1,
+      "dec_deg": -23.905,
+      "dist_kpc": 3.3,
+      "radius_kpc": 0.022,
+      "gal_l_deg": 9.892,
+      "gal_b_deg": -7.552,
+      "gal_xyz_kpc": [
+        3.2227,
+        0.562,
+        -0.4337
+      ],
+      "helio_xyz_kpc": [
+        3.2227,
+        0.562,
+        -0.4337
+      ],
+      "summary": "M22 (NGC 6656) (globular cluster) at 3.3 kpc."
+    },
+    {
+      "id": "NGC_6397",
+      "name": "NGC 6397",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 265.175,
+      "dec_deg": -53.674,
+      "dist_kpc": 2.48,
+      "radius_kpc": 0.015,
+      "gal_l_deg": 338.165,
+      "gal_b_deg": -11.959,
+      "gal_xyz_kpc": [
+        2.2521,
+        -0.9024,
+        -0.5139
+      ],
+      "helio_xyz_kpc": [
+        2.2521,
+        -0.9024,
+        -0.5139
+      ],
+      "summary": "NGC 6397 (globular cluster) at 2.48 kpc."
+    },
+    {
+      "id": "M4",
+      "name": "M4 (NGC 6121)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 245.897,
+      "dec_deg": -26.526,
+      "dist_kpc": 1.85,
+      "radius_kpc": 0.014,
+      "gal_l_deg": 350.973,
+      "gal_b_deg": 15.972,
+      "gal_xyz_kpc": [
+        1.7566,
+        -0.2791,
+        0.5091
+      ],
+      "helio_xyz_kpc": [
+        1.7566,
+        -0.2791,
+        0.5091
+      ],
+      "summary": "M4 (NGC 6121) (globular cluster) at 1.85 kpc."
+    },
+    {
+      "id": "M2",
+      "name": "M2 (NGC 7089)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 323.363,
+      "dec_deg": -0.823,
+      "dist_kpc": 11.69,
+      "radius_kpc": 0.026,
+      "gal_l_deg": 53.371,
+      "gal_b_deg": -35.77,
+      "gal_xyz_kpc": [
+        5.6589,
+        7.6118,
+        -6.8332
+      ],
+      "helio_xyz_kpc": [
+        5.6589,
+        7.6118,
+        -6.8332
+      ],
+      "summary": "M2 (NGC 7089) (globular cluster) at 11.69 kpc."
+    },
+    {
+      "id": "M92",
+      "name": "M92 (NGC 6341)",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 259.281,
+      "dec_deg": 43.136,
+      "dist_kpc": 8.5,
+      "radius_kpc": 0.02,
+      "gal_l_deg": 68.338,
+      "gal_b_deg": 34.859,
+      "gal_xyz_kpc": [
+        2.5746,
+        6.4822,
+        4.8582
+      ],
+      "helio_xyz_kpc": [
+        2.5746,
+        6.4822,
+        4.8582
+      ],
+      "summary": "M92 (NGC 6341) (globular cluster) at 8.5 kpc."
+    },
+    {
+      "id": "NGC_6752",
+      "name": "NGC 6752",
+      "kind": "globular_cluster",
+      "category": "globular_cluster",
+      "ra_deg": 287.717,
+      "dec_deg": -59.985,
+      "dist_kpc": 4.12,
+      "radius_kpc": 0.019,
+      "gal_l_deg": 336.492,
+      "gal_b_deg": -25.628,
+      "gal_xyz_kpc": [
+        3.4064,
+        -1.4817,
+        -1.782
+      ],
+      "helio_xyz_kpc": [
+        3.4064,
+        -1.4817,
+        -1.782
+      ],
+      "summary": "NGC 6752 (globular cluster) at 4.12 kpc."
+    },
+    {
+      "id": "PLEIADES",
+      "name": "Pleiades (M45)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 56.75,
+      "dec_deg": 24.12,
+      "dist_kpc": 0.136,
+      "radius_kpc": 0.008,
+      "gal_l_deg": 166.568,
+      "gal_b_deg": -23.519,
+      "gal_xyz_kpc": [
+        -0.1213,
+        0.029,
+        -0.0543
+      ],
+      "helio_xyz_kpc": [
+        -0.1213,
+        0.029,
+        -0.0543
+      ],
+      "summary": "Pleiades (M45) (open cluster) at 0.136 kpc."
+    },
+    {
+      "id": "HYADES",
+      "name": "Hyades",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 66.75,
+      "dec_deg": 15.87,
+      "dist_kpc": 0.047,
+      "radius_kpc": 0.006,
+      "gal_l_deg": 180.077,
+      "gal_b_deg": -22.322,
+      "gal_xyz_kpc": [
+        -0.0435,
+        -0.0001,
+        -0.0179
+      ],
+      "helio_xyz_kpc": [
+        -0.0435,
+        -0.0001,
+        -0.0179
+      ],
+      "summary": "Hyades (open cluster) at 0.047 kpc."
+    },
+    {
+      "id": "PRAESEPE",
+      "name": "Praesepe (M44 / Beehive)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 130.1,
+      "dec_deg": 19.67,
+      "dist_kpc": 0.186,
+      "radius_kpc": 0.007,
+      "gal_l_deg": 205.916,
+      "gal_b_deg": 32.485,
+      "gal_xyz_kpc": [
+        -0.1411,
+        -0.0686,
+        0.0999
+      ],
+      "helio_xyz_kpc": [
+        -0.1411,
+        -0.0686,
+        0.0999
+      ],
+      "summary": "Praesepe (M44 / Beehive) (open cluster) at 0.186 kpc."
+    },
+    {
+      "id": "ORION_NEBULA",
+      "name": "Orion Nebula (M42 / Trapezium)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 83.822,
+      "dec_deg": -5.391,
+      "dist_kpc": 0.412,
+      "radius_kpc": 0.01,
+      "gal_l_deg": 209.014,
+      "gal_b_deg": -19.382,
+      "gal_xyz_kpc": [
+        -0.3399,
+        -0.1885,
+        -0.1367
+      ],
+      "helio_xyz_kpc": [
+        -0.3399,
+        -0.1885,
+        -0.1367
+      ],
+      "summary": "Orion Nebula (M42 / Trapezium) (open cluster) at 0.412 kpc."
+    },
+    {
+      "id": "DOUBLE_CLUSTER",
+      "name": "Double Cluster (h & chi Persei)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 34.75,
+      "dec_deg": 57.13,
+      "dist_kpc": 2.3,
+      "radius_kpc": 0.025,
+      "gal_l_deg": 134.632,
+      "gal_b_deg": -3.739,
+      "gal_xyz_kpc": [
+        -1.6124,
+        1.6333,
+        -0.15
+      ],
+      "helio_xyz_kpc": [
+        -1.6124,
+        1.6333,
+        -0.15
+      ],
+      "summary": "Double Cluster (h & chi Persei) (open cluster) at 2.3 kpc."
+    },
+    {
+      "id": "CARINA_NEBULA",
+      "name": "Carina Nebula (NGC 3372)",
+      "kind": "open_cluster",
+      "category": "open_cluster",
+      "ra_deg": 161.265,
+      "dec_deg": -59.868,
+      "dist_kpc": 2.35,
+      "radius_kpc": 0.045,
+      "gal_l_deg": 287.682,
+      "gal_b_deg": -0.792,
+      "gal_xyz_kpc": [
+        0.7137,
+        -2.2388,
+        -0.0325
+      ],
+      "helio_xyz_kpc": [
+        0.7137,
+        -2.2388,
+        -0.0325
+      ],
+      "summary": "Carina Nebula (NGC 3372) (open cluster) at 2.35 kpc."
+    },
+    {
+      "id": "LMC",
+      "name": "Large Magellanic Cloud",
+      "kind": "satellite_galaxy",
+      "category": "satellite_galaxy",
+      "ra_deg": 80.894,
+      "dec_deg": -69.756,
+      "dist_kpc": 49.59,
+      "radius_kpc": 4.5,
+      "gal_l_deg": 280.465,
+      "gal_b_deg": -32.888,
+      "gal_xyz_kpc": [
+        7.5637,
+        -40.9495,
+        -26.9276
+      ],
+      "helio_xyz_kpc": [
+        7.5637,
+        -40.9495,
+        -26.9276
+      ],
+      "summary": "Large Magellanic Cloud (satellite galaxy) at 49.59 kpc."
+    },
+    {
+      "id": "SMC",
+      "name": "Small Magellanic Cloud",
+      "kind": "satellite_galaxy",
+      "category": "satellite_galaxy",
+      "ra_deg": 13.158,
+      "dec_deg": -72.8,
+      "dist_kpc": 62.44,
+      "radius_kpc": 2.2,
+      "gal_l_deg": 302.809,
+      "gal_b_deg": -44.328,
+      "gal_xyz_kpc": [
+        24.2018,
+        -37.5416,
+        -43.6309
+      ],
+      "helio_xyz_kpc": [
+        24.2018,
+        -37.5416,
+        -43.6309
+      ],
+      "summary": "Small Magellanic Cloud (satellite galaxy) at 62.44 kpc."
+    },
+    {
+      "id": "SGR_DWARF",
+      "name": "Sagittarius Dwarf Elliptical",
+      "kind": "satellite_galaxy",
+      "category": "satellite_galaxy",
+      "ra_deg": 283.831,
+      "dec_deg": -30.545,
+      "dist_kpc": 26.5,
+      "radius_kpc": 2.5,
+      "gal_l_deg": 5.569,
+      "gal_b_deg": -14.166,
+      "gal_xyz_kpc": [
+        25.5729,
+        2.4935,
+        -6.4854
+      ],
+      "helio_xyz_kpc": [
+        25.5729,
+        2.4935,
+        -6.4854
+      ],
+      "summary": "Sagittarius Dwarf Elliptical (satellite galaxy) at 26.5 kpc."
+    }
+  ],
+  "structure": {
+    "reference": "Reid et al. (2019, ApJ 885, 131); GRAVITY Collaboration (2022, A&A 657, L12); Bennett & Bovy (2019)",
+    "sun_galactocentric": {
+      "r0_kpc": 8.277,
+      "z_sun_kpc": 0.0208,
+      "v_circ_kms": 236.0
+    },
+    "galactic_center_helio_kpc": [
+      8.277,
+      0.0,
+      -0.0208
+    ],
+    "spiral_arms": [
+      {
+        "name": "Norma-Outer",
+        "id": "norma_outer",
+        "r_kink_kpc": 4.46,
+        "beta_kink_deg": 18.0,
+        "pitch_in_deg": -1.0,
+        "pitch_out_deg": 19.5,
+        "width_kpc": 0.35,
+        "beta_min_deg": -15.0,
+        "beta_max_deg": 330.0,
+        "color_hex": "#5da9ff",
+        "density_weight": 0.72,
+        "centerline_helio_kpc": [
+          [
+            4.012,
+            -1.143,
+            0.0
+          ],
+          [
+            3.915,
+            -0.732,
+            0.0
+          ],
+          [
+            3.858,
+            -0.313,
+            0.0
+          ],
+          [
+            3.841,
+            0.111,
+            0.0
+          ],
+          [
+            3.864,
+            0.534,
+            0.0
+          ],
+          [
+            3.928,
+            0.955,
+            0.0
+          ],
+          [
+            4.032,
+            1.368,
+            0.0
+          ],
+          [
+            4.315,
+            1.709,
+            0.0
+          ],
+          [
+            4.622,
+            2.01,
+            0.0
+          ],
+          [
+            4.945,
+            2.272,
+            0.0
+          ],
+          [
+            5.28,
+            2.494,
+            0.0
+          ],
+          [
+            5.623,
+            2.676,
+            0.0
+          ],
+          [
+            5.97,
+            2.82,
+            0.0
+          ],
+          [
+            6.317,
+            2.927,
+            0.0
+          ],
+          [
+            6.661,
+            2.997,
+            0.0
+          ],
+          [
+            6.998,
+            3.033,
+            0.0
+          ],
+          [
+            7.326,
+            3.037,
+            0.0
+          ],
+          [
+            7.642,
+            3.01,
+            0.0
+          ],
+          [
+            7.944,
+            2.955,
+            0.0
+          ],
+          [
+            8.229,
+            2.875,
+            0.0
+          ],
+          [
+            8.496,
+            2.771,
+            0.0
+          ],
+          [
+            8.744,
+            2.646,
+            0.0
+          ],
+          [
+            8.97,
+            2.503,
+            0.0
+          ],
+          [
+            9.175,
+            2.345,
+            0.0
+          ],
+          [
+            9.357,
+            2.174,
+            0.0
+          ],
+          [
+            9.517,
+            1.992,
+            0.0
+          ],
+          [
+            9.654,
+            1.803,
+            0.0
+          ],
+          [
+            9.773,
+            1.613,
+            0.0
+          ],
+          [
+            9.92,
+            1.463,
+            0.0
+          ],
+          [
+            10.053,
+            1.299,
+            0.0
+          ],
+          [
+            10.168,
+            1.124,
+            0.0
+          ],
+          [
+            10.267,
+            0.938,
+            0.0
+          ],
+          [
+            10.347,
+            0.744,
+            0.0
+          ],
+          [
+            10.409,
+            0.543,
+            0.0
+          ],
+          [
+            10.451,
+            0.337,
+            0.0
+          ],
+          [
+            10.473,
+            0.128,
+            0.0
+          ],
+          [
+            10.475,
+            -0.082,
+            0.0
+          ],
+          [
+            10.458,
+            -0.292,
+            0.0
+          ],
+          [
+            10.42,
+            -0.498,
+            0.0
+          ],
+          [
+            10.362,
+            -0.701,
+            0.0
+          ],
+          [
+            10.286,
+            -0.896,
+            0.0
+          ],
+          [
+            10.191,
+            -1.084,
+            0.0
+          ],
+          [
+            10.079,
+            -1.262,
+            0.0
+          ],
+          [
+            9.95,
+            -1.428,
+            0.0
+          ],
+          [
+            9.807,
+            -1.581,
+            0.0
+          ],
+          [
+            9.649,
+            -1.72,
+            0.0
+          ],
+          [
+            9.478,
+            -1.843,
+            0.0
+          ],
+          [
+            9.297,
+            -1.949,
+            0.0
+          ],
+          [
+            9.106,
+            -2.038,
+            0.0
+          ],
+          [
+            8.908,
+            -2.108,
+            0.0
+          ],
+          [
+            8.704,
+            -2.158,
+            0.0
+          ],
+          [
+            8.496,
+            -2.189,
+            0.0
+          ],
+          [
+            8.286,
+            -2.2,
+            0.0
+          ],
+          [
+            8.076,
+            -2.191,
+            0.0
+          ],
+          [
+            7.868,
+            -2.162,
+            0.0
+          ],
+          [
+            7.664,
+            -2.113,
+            0.0
+          ],
+          [
+            7.465,
+            -2.045,
+            0.0
+          ],
+          [
+            7.273,
+            -1.958,
+            0.0
+          ],
+          [
+            7.091,
+            -1.853,
+            0.0
+          ],
+          [
+            6.92,
+            -1.731,
+            0.0
+          ],
+          [
+            6.761,
+            -1.594,
+            0.0
+          ],
+          [
+            6.615,
+            -1.442,
+            0.0
+          ],
+          [
+            6.485,
+            -1.277,
+            0.0
+          ],
+          [
+            6.372,
+            -1.1,
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Scutum-Centaurus",
+        "id": "scutum_centaurus",
+        "r_kink_kpc": 4.91,
+        "beta_kink_deg": 23.0,
+        "pitch_in_deg": 13.1,
+        "pitch_out_deg": 12.1,
+        "width_kpc": 0.42,
+        "beta_min_deg": -25.0,
+        "beta_max_deg": 290.0,
+        "color_hex": "#7cc6ff",
+        "density_weight": 1.0,
+        "centerline_helio_kpc": [
+          [
+            2.869,
+            -2.522,
+            0.0
+          ],
+          [
+            2.783,
+            -2.0,
+            0.0
+          ],
+          [
+            2.743,
+            -1.483,
+            0.0
+          ],
+          [
+            2.748,
+            -0.975,
+            0.0
+          ],
+          [
+            2.797,
+            -0.479,
+            0.0
+          ],
+          [
+            2.886,
+            0.0,
+            0.0
+          ],
+          [
+            3.015,
+            0.46,
+            0.0
+          ],
+          [
+            3.179,
+            0.899,
+            0.0
+          ],
+          [
+            3.378,
+            1.313,
+            0.0
+          ],
+          [
+            3.607,
+            1.7,
+            0.0
+          ],
+          [
+            3.86,
+            2.06,
+            0.0
+          ],
+          [
+            4.135,
+            2.392,
+            0.0
+          ],
+          [
+            4.432,
+            2.693,
+            0.0
+          ],
+          [
+            4.748,
+            2.962,
+            0.0
+          ],
+          [
+            5.079,
+            3.198,
+            0.0
+          ],
+          [
+            5.424,
+            3.4,
+            0.0
+          ],
+          [
+            5.779,
+            3.568,
+            0.0
+          ],
+          [
+            6.139,
+            3.702,
+            0.0
+          ],
+          [
+            6.504,
+            3.803,
+            0.0
+          ],
+          [
+            6.868,
+            3.87,
+            0.0
+          ],
+          [
+            7.231,
+            3.904,
+            0.0
+          ],
+          [
+            7.588,
+            3.907,
+            0.0
+          ],
+          [
+            7.938,
+            3.879,
+            0.0
+          ],
+          [
+            8.277,
+            3.821,
+            0.0
+          ],
+          [
+            8.604,
+            3.736,
+            0.0
+          ],
+          [
+            8.916,
+            3.625,
+            0.0
+          ],
+          [
+            9.212,
+            3.49,
+            0.0
+          ],
+          [
+            9.49,
+            3.332,
+            0.0
+          ],
+          [
+            9.748,
+            3.154,
+            0.0
+          ],
+          [
+            9.985,
+            2.958,
+            0.0
+          ],
+          [
+            10.2,
+            2.746,
+            0.0
+          ],
+          [
+            10.392,
+            2.52,
+            0.0
+          ],
+          [
+            10.56,
+            2.283,
+            0.0
+          ],
+          [
+            10.705,
+            2.037,
+            0.0
+          ],
+          [
+            10.825,
+            1.784,
+            0.0
+          ],
+          [
+            10.921,
+            1.526,
+            0.0
+          ],
+          [
+            10.993,
+            1.266,
+            0.0
+          ],
+          [
+            11.04,
+            1.006,
+            0.0
+          ],
+          [
+            11.065,
+            0.747,
+            0.0
+          ],
+          [
+            11.067,
+            0.492,
+            0.0
+          ],
+          [
+            11.047,
+            0.242,
+            0.0
+          ],
+          [
+            11.006,
+            0.0,
+            0.0
+          ],
+          [
+            10.945,
+            -0.233,
+            0.0
+          ],
+          [
+            10.866,
+            -0.456,
+            0.0
+          ],
+          [
+            10.769,
+            -0.668,
+            0.0
+          ],
+          [
+            10.656,
+            -0.866,
+            0.0
+          ],
+          [
+            10.529,
+            -1.05,
+            0.0
+          ],
+          [
+            10.389,
+            -1.219,
+            0.0
+          ],
+          [
+            10.238,
+            -1.373,
+            0.0
+          ],
+          [
+            10.077,
+            -1.51,
+            0.0
+          ],
+          [
+            9.907,
+            -1.63,
+            0.0
+          ],
+          [
+            9.732,
+            -1.734,
+            0.0
+          ],
+          [
+            9.551,
+            -1.819,
+            0.0
+          ],
+          [
+            9.377,
+            -1.905,
+            0.0
+          ],
+          [
+            9.207,
+            -1.994,
+            0.0
+          ],
+          [
+            9.029,
+            -2.067,
+            0.0
+          ],
+          [
+            8.846,
+            -2.125,
+            0.0
+          ],
+          [
+            8.659,
+            -2.167,
+            0.0
+          ],
+          [
+            8.469,
+            -2.192,
+            0.0
+          ],
+          [
+            8.277,
+            -2.2,
+            0.0
+          ],
+          [
+            8.085,
+            -2.192,
+            0.0
+          ],
+          [
+            7.895,
+            -2.167,
+            0.0
+          ],
+          [
+            7.708,
+            -2.125,
+            0.0
+          ],
+          [
+            7.525,
+            -2.067,
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Sagittarius-Carina",
+        "id": "sagittarius_carina",
+        "r_kink_kpc": 6.04,
+        "beta_kink_deg": 24.0,
+        "pitch_in_deg": 17.1,
+        "pitch_out_deg": 1.0,
+        "width_kpc": 0.36,
+        "beta_min_deg": -35.0,
+        "beta_max_deg": 240.0,
+        "color_hex": "#9bd8ff",
+        "density_weight": 0.85,
+        "centerline_helio_kpc": [
+          [
+            1.485,
+            -4.756,
+            0.0
+          ],
+          [
+            1.308,
+            -4.127,
+            0.0
+          ],
+          [
+            1.183,
+            -3.502,
+            0.0
+          ],
+          [
+            1.107,
+            -2.883,
+            0.0
+          ],
+          [
+            1.079,
+            -2.275,
+            0.0
+          ],
+          [
+            1.097,
+            -1.681,
+            0.0
+          ],
+          [
+            1.158,
+            -1.103,
+            0.0
+          ],
+          [
+            1.262,
+            -0.545,
+            0.0
+          ],
+          [
+            1.403,
+            -0.01,
+            0.0
+          ],
+          [
+            1.581,
+            0.502,
+            0.0
+          ],
+          [
+            1.793,
+            0.987,
+            0.0
+          ],
+          [
+            2.035,
+            1.443,
+            0.0
+          ],
+          [
+            2.304,
+            1.87,
+            0.0
+          ],
+          [
+            2.599,
+            2.265,
+            0.0
+          ],
+          [
+            2.857,
+            2.657,
+            0.0
+          ],
+          [
+            3.082,
+            3.057,
+            0.0
+          ],
+          [
+            3.336,
+            3.439,
+            0.0
+          ],
+          [
+            3.618,
+            3.8,
+            0.0
+          ],
+          [
+            3.927,
+            4.138,
+            0.0
+          ],
+          [
+            4.26,
+            4.452,
+            0.0
+          ],
+          [
+            4.615,
+            4.738,
+            0.0
+          ],
+          [
+            4.991,
+            4.996,
+            0.0
+          ],
+          [
+            5.384,
+            5.225,
+            0.0
+          ],
+          [
+            5.794,
+            5.423,
+            0.0
+          ],
+          [
+            6.217,
+            5.589,
+            0.0
+          ],
+          [
+            6.65,
+            5.722,
+            0.0
+          ],
+          [
+            7.092,
+            5.821,
+            0.0
+          ],
+          [
+            7.539,
+            5.887,
+            0.0
+          ],
+          [
+            7.99,
+            5.918,
+            0.0
+          ],
+          [
+            8.441,
+            5.915,
+            0.0
+          ],
+          [
+            8.89,
+            5.877,
+            0.0
+          ],
+          [
+            9.334,
+            5.806,
+            0.0
+          ],
+          [
+            9.771,
+            5.701,
+            0.0
+          ],
+          [
+            10.198,
+            5.563,
+            0.0
+          ],
+          [
+            10.613,
+            5.394,
+            0.0
+          ],
+          [
+            11.013,
+            5.193,
+            0.0
+          ],
+          [
+            11.396,
+            4.964,
+            0.0
+          ],
+          [
+            11.76,
+            4.706,
+            0.0
+          ],
+          [
+            12.103,
+            4.421,
+            0.0
+          ],
+          [
+            12.423,
+            4.111,
+            0.0
+          ],
+          [
+            12.718,
+            3.779,
+            0.0
+          ],
+          [
+            12.986,
+            3.425,
+            0.0
+          ],
+          [
+            13.227,
+            3.053,
+            0.0
+          ],
+          [
+            13.438,
+            2.664,
+            0.0
+          ],
+          [
+            13.618,
+            2.26,
+            0.0
+          ],
+          [
+            13.768,
+            1.845,
+            0.0
+          ],
+          [
+            13.885,
+            1.42,
+            0.0
+          ],
+          [
+            13.969,
+            0.987,
+            0.0
+          ],
+          [
+            14.02,
+            0.551,
+            0.0
+          ],
+          [
+            14.038,
+            0.112,
+            0.0
+          ],
+          [
+            14.022,
+            -0.327,
+            0.0
+          ],
+          [
+            13.973,
+            -0.762,
+            0.0
+          ],
+          [
+            13.891,
+            -1.192,
+            0.0
+          ],
+          [
+            13.776,
+            -1.613,
+            0.0
+          ],
+          [
+            13.63,
+            -2.024,
+            0.0
+          ],
+          [
+            13.454,
+            -2.423,
+            0.0
+          ],
+          [
+            13.248,
+            -2.806,
+            0.0
+          ],
+          [
+            13.014,
+            -3.172,
+            0.0
+          ],
+          [
+            12.752,
+            -3.519,
+            0.0
+          ],
+          [
+            12.466,
+            -3.844,
+            0.0
+          ],
+          [
+            12.156,
+            -4.146,
+            0.0
+          ],
+          [
+            11.825,
+            -4.423,
+            0.0
+          ],
+          [
+            11.473,
+            -4.674,
+            0.0
+          ],
+          [
+            11.105,
+            -4.898,
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Local (Orion Spur)",
+        "id": "local_spur",
+        "r_kink_kpc": 8.26,
+        "beta_kink_deg": 9.0,
+        "pitch_in_deg": 11.4,
+        "pitch_out_deg": 11.4,
+        "width_kpc": 0.31,
+        "beta_min_deg": -22.0,
+        "beta_max_deg": 38.0,
+        "color_hex": "#bfe8ff",
+        "density_weight": 0.65,
+        "centerline_helio_kpc": [
+          [
+            -0.264,
+            -3.451,
+            0.0
+          ],
+          [
+            -0.292,
+            -3.297,
+            0.0
+          ],
+          [
+            -0.317,
+            -3.144,
+            0.0
+          ],
+          [
+            -0.339,
+            -2.991,
+            0.0
+          ],
+          [
+            -0.358,
+            -2.838,
+            0.0
+          ],
+          [
+            -0.375,
+            -2.685,
+            0.0
+          ],
+          [
+            -0.389,
+            -2.532,
+            0.0
+          ],
+          [
+            -0.401,
+            -2.38,
+            0.0
+          ],
+          [
+            -0.41,
+            -2.227,
+            0.0
+          ],
+          [
+            -0.417,
+            -2.076,
+            0.0
+          ],
+          [
+            -0.421,
+            -1.925,
+            0.0
+          ],
+          [
+            -0.423,
+            -1.774,
+            0.0
+          ],
+          [
+            -0.422,
+            -1.623,
+            0.0
+          ],
+          [
+            -0.418,
+            -1.474,
+            0.0
+          ],
+          [
+            -0.412,
+            -1.325,
+            0.0
+          ],
+          [
+            -0.404,
+            -1.176,
+            0.0
+          ],
+          [
+            -0.393,
+            -1.028,
+            0.0
+          ],
+          [
+            -0.38,
+            -0.881,
+            0.0
+          ],
+          [
+            -0.365,
+            -0.734,
+            0.0
+          ],
+          [
+            -0.347,
+            -0.589,
+            0.0
+          ],
+          [
+            -0.326,
+            -0.444,
+            0.0
+          ],
+          [
+            -0.304,
+            -0.3,
+            0.0
+          ],
+          [
+            -0.279,
+            -0.156,
+            0.0
+          ],
+          [
+            -0.252,
+            -0.014,
+            0.0
+          ],
+          [
+            -0.222,
+            0.127,
+            0.0
+          ],
+          [
+            -0.19,
+            0.268,
+            0.0
+          ],
+          [
+            -0.157,
+            0.407,
+            0.0
+          ],
+          [
+            -0.12,
+            0.545,
+            0.0
+          ],
+          [
+            -0.082,
+            0.682,
+            0.0
+          ],
+          [
+            -0.042,
+            0.818,
+            0.0
+          ],
+          [
+            0.001,
+            0.953,
+            0.0
+          ],
+          [
+            0.045,
+            1.087,
+            0.0
+          ],
+          [
+            0.092,
+            1.22,
+            0.0
+          ],
+          [
+            0.141,
+            1.351,
+            0.0
+          ],
+          [
+            0.192,
+            1.481,
+            0.0
+          ],
+          [
+            0.244,
+            1.61,
+            0.0
+          ],
+          [
+            0.299,
+            1.737,
+            0.0
+          ],
+          [
+            0.356,
+            1.864,
+            0.0
+          ],
+          [
+            0.414,
+            1.988,
+            0.0
+          ],
+          [
+            0.474,
+            2.112,
+            0.0
+          ],
+          [
+            0.536,
+            2.233,
+            0.0
+          ],
+          [
+            0.6,
+            2.354,
+            0.0
+          ],
+          [
+            0.666,
+            2.473,
+            0.0
+          ],
+          [
+            0.734,
+            2.59,
+            0.0
+          ],
+          [
+            0.803,
+            2.706,
+            0.0
+          ],
+          [
+            0.874,
+            2.821,
+            0.0
+          ],
+          [
+            0.946,
+            2.934,
+            0.0
+          ],
+          [
+            1.02,
+            3.045,
+            0.0
+          ],
+          [
+            1.096,
+            3.154,
+            0.0
+          ],
+          [
+            1.173,
+            3.262,
+            0.0
+          ],
+          [
+            1.252,
+            3.369,
+            0.0
+          ],
+          [
+            1.332,
+            3.473,
+            0.0
+          ],
+          [
+            1.414,
+            3.576,
+            0.0
+          ],
+          [
+            1.497,
+            3.677,
+            0.0
+          ],
+          [
+            1.582,
+            3.777,
+            0.0
+          ],
+          [
+            1.668,
+            3.875,
+            0.0
+          ],
+          [
+            1.755,
+            3.971,
+            0.0
+          ],
+          [
+            1.843,
+            4.065,
+            0.0
+          ],
+          [
+            1.933,
+            4.157,
+            0.0
+          ],
+          [
+            2.024,
+            4.248,
+            0.0
+          ],
+          [
+            2.116,
+            4.337,
+            0.0
+          ],
+          [
+            2.21,
+            4.424,
+            0.0
+          ],
+          [
+            2.304,
+            4.509,
+            0.0
+          ],
+          [
+            2.4,
+            4.592,
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Perseus",
+        "id": "perseus",
+        "r_kink_kpc": 8.87,
+        "beta_kink_deg": 40.0,
+        "pitch_in_deg": 10.3,
+        "pitch_out_deg": 8.7,
+        "width_kpc": 0.45,
+        "beta_min_deg": -25.0,
+        "beta_max_deg": 265.0,
+        "color_hex": "#6cb6ff",
+        "density_weight": 0.95,
+        "centerline_helio_kpc": [
+          [
+            -1.603,
+            -4.607,
+            0.0
+          ],
+          [
+            -1.792,
+            -3.744,
+            0.0
+          ],
+          [
+            -1.91,
+            -2.882,
+            0.0
+          ],
+          [
+            -1.958,
+            -2.025,
+            0.0
+          ],
+          [
+            -1.938,
+            -1.18,
+            0.0
+          ],
+          [
+            -1.85,
+            -0.351,
+            0.0
+          ],
+          [
+            -1.699,
+            0.456,
+            0.0
+          ],
+          [
+            -1.487,
+            1.237,
+            0.0
+          ],
+          [
+            -1.216,
+            1.988,
+            0.0
+          ],
+          [
+            -0.891,
+            2.703,
+            0.0
+          ],
+          [
+            -0.515,
+            3.381,
+            0.0
+          ],
+          [
+            -0.093,
+            4.016,
+            0.0
+          ],
+          [
+            0.373,
+            4.607,
+            0.0
+          ],
+          [
+            0.877,
+            5.151,
+            0.0
+          ],
+          [
+            1.415,
+            5.645,
+            0.0
+          ],
+          [
+            1.97,
+            6.101,
+            0.0
+          ],
+          [
+            2.551,
+            6.507,
+            0.0
+          ],
+          [
+            3.155,
+            6.86,
+            0.0
+          ],
+          [
+            3.778,
+            7.161,
+            0.0
+          ],
+          [
+            4.415,
+            7.407,
+            0.0
+          ],
+          [
+            5.061,
+            7.599,
+            0.0
+          ],
+          [
+            5.713,
+            7.737,
+            0.0
+          ],
+          [
+            6.366,
+            7.821,
+            0.0
+          ],
+          [
+            7.016,
+            7.852,
+            0.0
+          ],
+          [
+            7.657,
+            7.831,
+            0.0
+          ],
+          [
+            8.288,
+            7.76,
+            0.0
+          ],
+          [
+            8.903,
+            7.639,
+            0.0
+          ],
+          [
+            9.499,
+            7.472,
+            0.0
+          ],
+          [
+            10.072,
+            7.26,
+            0.0
+          ],
+          [
+            10.62,
+            7.006,
+            0.0
+          ],
+          [
+            11.139,
+            6.712,
+            0.0
+          ],
+          [
+            11.627,
+            6.382,
+            0.0
+          ],
+          [
+            12.082,
+            6.018,
+            0.0
+          ],
+          [
+            12.5,
+            5.624,
+            0.0
+          ],
+          [
+            12.881,
+            5.202,
+            0.0
+          ],
+          [
+            13.222,
+            4.757,
+            0.0
+          ],
+          [
+            13.523,
+            4.292,
+            0.0
+          ],
+          [
+            13.783,
+            3.81,
+            0.0
+          ],
+          [
+            14.0,
+            3.315,
+            0.0
+          ],
+          [
+            14.174,
+            2.81,
+            0.0
+          ],
+          [
+            14.306,
+            2.299,
+            0.0
+          ],
+          [
+            14.396,
+            1.786,
+            0.0
+          ],
+          [
+            14.443,
+            1.273,
+            0.0
+          ],
+          [
+            14.449,
+            0.765,
+            0.0
+          ],
+          [
+            14.415,
+            0.264,
+            0.0
+          ],
+          [
+            14.341,
+            -0.227,
+            0.0
+          ],
+          [
+            14.229,
+            -0.704,
+            0.0
+          ],
+          [
+            14.082,
+            -1.165,
+            0.0
+          ],
+          [
+            13.9,
+            -1.607,
+            0.0
+          ],
+          [
+            13.686,
+            -2.028,
+            0.0
+          ],
+          [
+            13.442,
+            -2.426,
+            0.0
+          ],
+          [
+            13.17,
+            -2.798,
+            0.0
+          ],
+          [
+            12.873,
+            -3.143,
+            0.0
+          ],
+          [
+            12.553,
+            -3.459,
+            0.0
+          ],
+          [
+            12.213,
+            -3.744,
+            0.0
+          ],
+          [
+            11.855,
+            -3.999,
+            0.0
+          ],
+          [
+            11.483,
+            -4.221,
+            0.0
+          ],
+          [
+            11.099,
+            -4.41,
+            0.0
+          ],
+          [
+            10.706,
+            -4.566,
+            0.0
+          ],
+          [
+            10.307,
+            -4.688,
+            0.0
+          ],
+          [
+            9.904,
+            -4.777,
+            0.0
+          ],
+          [
+            9.5,
+            -4.832,
+            0.0
+          ],
+          [
+            9.098,
+            -4.855,
+            0.0
+          ],
+          [
+            8.701,
+            -4.845,
+            0.0
+          ]
+        ]
+      }
+    ],
+    "central_bar": {
+      "center_helio_kpc": [
+        8.277,
+        0.0,
+        -0.0208
+      ],
+      "angle_deg_from_sun_gc_line": 27.0,
+      "half_length_kpc": 4.5,
+      "semi_minor_kpc": 1.8,
+      "scale_height_kpc": 0.35,
+      "bulge_radius_kpc": 2.4
+    },
+    "gas_and_dust": {
+      "molecular_ring_inner_kpc": 3.2,
+      "molecular_ring_outer_kpc": 7.8,
+      "molecular_scale_height_kpc": 0.06,
+      "hi_disk_scale_length_kpc": 3.75,
+      "hi_disk_outer_kpc": 18.0,
+      "hi_scale_height_kpc": 0.15,
+      "dust_lane_scale_height_kpc": 0.09
+    },
+    "stellar_disks": {
+      "thin_disk_scale_length_kpc": 2.6,
+      "thin_disk_scale_height_kpc": 0.3,
+      "thick_disk_scale_length_kpc": 2.0,
+      "thick_disk_scale_height_kpc": 0.9,
+      "halo_radius_kpc": 35.0
+    },
+    "fermi_bubbles": {
+      "center_helio_kpc": [
+        8.277,
+        0.0,
+        -0.0208
+      ],
+      "lobe_height_kpc": 8.5,
+      "lobe_radius_kpc": 3.4,
+      "color_hex": "#c85cff"
+    },
+    "local_bubble": {
+      "center_helio_kpc": [
+        0.02,
+        -0.01,
+        0.01
+      ],
+      "radius_kpc": 0.15,
+      "shell_thickness_kpc": 0.03
+    }
+  },
+  "milky_way_structure": {
+    "reference": "Reid et al. (2019, ApJ 885, 131); GRAVITY Collaboration (2022, A&A 657, L12); Bennett & Bovy (2019)",
+    "sun_galactocentric": {
+      "r0_kpc": 8.277,
+      "z_sun_kpc": 0.0208,
+      "v_circ_kms": 236.0
+    },
+    "galactic_center_helio_kpc": [
+      8.277,
+      0.0,
+      -0.0208
+    ],
+    "spiral_arms": [
+      {
+        "name": "Norma-Outer",
+        "id": "norma_outer",
+        "r_kink_kpc": 4.46,
+        "beta_kink_deg": 18.0,
+        "pitch_in_deg": -1.0,
+        "pitch_out_deg": 19.5,
+        "width_kpc": 0.35,
+        "beta_min_deg": -15.0,
+        "beta_max_deg": 330.0,
+        "color_hex": "#5da9ff",
+        "density_weight": 0.72,
+        "centerline_helio_kpc": [
+          [
+            4.012,
+            -1.143,
+            0.0
+          ],
+          [
+            3.915,
+            -0.732,
+            0.0
+          ],
+          [
+            3.858,
+            -0.313,
+            0.0
+          ],
+          [
+            3.841,
+            0.111,
+            0.0
+          ],
+          [
+            3.864,
+            0.534,
+            0.0
+          ],
+          [
+            3.928,
+            0.955,
+            0.0
+          ],
+          [
+            4.032,
+            1.368,
+            0.0
+          ],
+          [
+            4.315,
+            1.709,
+            0.0
+          ],
+          [
+            4.622,
+            2.01,
+            0.0
+          ],
+          [
+            4.945,
+            2.272,
+            0.0
+          ],
+          [
+            5.28,
+            2.494,
+            0.0
+          ],
+          [
+            5.623,
+            2.676,
+            0.0
+          ],
+          [
+            5.97,
+            2.82,
+            0.0
+          ],
+          [
+            6.317,
+            2.927,
+            0.0
+          ],
+          [
+            6.661,
+            2.997,
+            0.0
+          ],
+          [
+            6.998,
+            3.033,
+            0.0
+          ],
+          [
+            7.326,
+            3.037,
+            0.0
+          ],
+          [
+            7.642,
+            3.01,
+            0.0
+          ],
+          [
+            7.944,
+            2.955,
+            0.0
+          ],
+          [
+            8.229,
+            2.875,
+            0.0
+          ],
+          [
+            8.496,
+            2.771,
+            0.0
+          ],
+          [
+            8.744,
+            2.646,
+            0.0
+          ],
+          [
+            8.97,
+            2.503,
+            0.0
+          ],
+          [
+            9.175,
+            2.345,
+            0.0
+          ],
+          [
+            9.357,
+            2.174,
+            0.0
+          ],
+          [
+            9.517,
+            1.992,
+            0.0
+          ],
+          [
+            9.654,
+            1.803,
+            0.0
+          ],
+          [
+            9.773,
+            1.613,
+            0.0
+          ],
+          [
+            9.92,
+            1.463,
+            0.0
+          ],
+          [
+            10.053,
+            1.299,
+            0.0
+          ],
+          [
+            10.168,
+            1.124,
+            0.0
+          ],
+          [
+            10.267,
+            0.938,
+            0.0
+          ],
+          [
+            10.347,
+            0.744,
+            0.0
+          ],
+          [
+            10.409,
+            0.543,
+            0.0
+          ],
+          [
+            10.451,
+            0.337,
+            0.0
+          ],
+          [
+            10.473,
+            0.128,
+            0.0
+          ],
+          [
+            10.475,
+            -0.082,
+            0.0
+          ],
+          [
+            10.458,
+            -0.292,
+            0.0
+          ],
+          [
+            10.42,
+            -0.498,
+            0.0
+          ],
+          [
+            10.362,
+            -0.701,
+            0.0
+          ],
+          [
+            10.286,
+            -0.896,
+            0.0
+          ],
+          [
+            10.191,
+            -1.084,
+            0.0
+          ],
+          [
+            10.079,
+            -1.262,
+            0.0
+          ],
+          [
+            9.95,
+            -1.428,
+            0.0
+          ],
+          [
+            9.807,
+            -1.581,
+            0.0
+          ],
+          [
+            9.649,
+            -1.72,
+            0.0
+          ],
+          [
+            9.478,
+            -1.843,
+            0.0
+          ],
+          [
+            9.297,
+            -1.949,
+            0.0
+          ],
+          [
+            9.106,
+            -2.038,
+            0.0
+          ],
+          [
+            8.908,
+            -2.108,
+            0.0
+          ],
+          [
+            8.704,
+            -2.158,
+            0.0
+          ],
+          [
+            8.496,
+            -2.189,
+            0.0
+          ],
+          [
+            8.286,
+            -2.2,
+            0.0
+          ],
+          [
+            8.076,
+            -2.191,
+            0.0
+          ],
+          [
+            7.868,
+            -2.162,
+            0.0
+          ],
+          [
+            7.664,
+            -2.113,
+            0.0
+          ],
+          [
+            7.465,
+            -2.045,
+            0.0
+          ],
+          [
+            7.273,
+            -1.958,
+            0.0
+          ],
+          [
+            7.091,
+            -1.853,
+            0.0
+          ],
+          [
+            6.92,
+            -1.731,
+            0.0
+          ],
+          [
+            6.761,
+            -1.594,
+            0.0
+          ],
+          [
+            6.615,
+            -1.442,
+            0.0
+          ],
+          [
+            6.485,
+            -1.277,
+            0.0
+          ],
+          [
+            6.372,
+            -1.1,
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Scutum-Centaurus",
+        "id": "scutum_centaurus",
+        "r_kink_kpc": 4.91,
+        "beta_kink_deg": 23.0,
+        "pitch_in_deg": 13.1,
+        "pitch_out_deg": 12.1,
+        "width_kpc": 0.42,
+        "beta_min_deg": -25.0,
+        "beta_max_deg": 290.0,
+        "color_hex": "#7cc6ff",
+        "density_weight": 1.0,
+        "centerline_helio_kpc": [
+          [
+            2.869,
+            -2.522,
+            0.0
+          ],
+          [
+            2.783,
+            -2.0,
+            0.0
+          ],
+          [
+            2.743,
+            -1.483,
+            0.0
+          ],
+          [
+            2.748,
+            -0.975,
+            0.0
+          ],
+          [
+            2.797,
+            -0.479,
+            0.0
+          ],
+          [
+            2.886,
+            0.0,
+            0.0
+          ],
+          [
+            3.015,
+            0.46,
+            0.0
+          ],
+          [
+            3.179,
+            0.899,
+            0.0
+          ],
+          [
+            3.378,
+            1.313,
+            0.0
+          ],
+          [
+            3.607,
+            1.7,
+            0.0
+          ],
+          [
+            3.86,
+            2.06,
+            0.0
+          ],
+          [
+            4.135,
+            2.392,
+            0.0
+          ],
+          [
+            4.432,
+            2.693,
+            0.0
+          ],
+          [
+            4.748,
+            2.962,
+            0.0
+          ],
+          [
+            5.079,
+            3.198,
+            0.0
+          ],
+          [
+            5.424,
+            3.4,
+            0.0
+          ],
+          [
+            5.779,
+            3.568,
+            0.0
+          ],
+          [
+            6.139,
+            3.702,
+            0.0
+          ],
+          [
+            6.504,
+            3.803,
+            0.0
+          ],
+          [
+            6.868,
+            3.87,
+            0.0
+          ],
+          [
+            7.231,
+            3.904,
+            0.0
+          ],
+          [
+            7.588,
+            3.907,
+            0.0
+          ],
+          [
+            7.938,
+            3.879,
+            0.0
+          ],
+          [
+            8.277,
+            3.821,
+            0.0
+          ],
+          [
+            8.604,
+            3.736,
+            0.0
+          ],
+          [
+            8.916,
+            3.625,
+            0.0
+          ],
+          [
+            9.212,
+            3.49,
+            0.0
+          ],
+          [
+            9.49,
+            3.332,
+            0.0
+          ],
+          [
+            9.748,
+            3.154,
+            0.0
+          ],
+          [
+            9.985,
+            2.958,
+            0.0
+          ],
+          [
+            10.2,
+            2.746,
+            0.0
+          ],
+          [
+            10.392,
+            2.52,
+            0.0
+          ],
+          [
+            10.56,
+            2.283,
+            0.0
+          ],
+          [
+            10.705,
+            2.037,
+            0.0
+          ],
+          [
+            10.825,
+            1.784,
+            0.0
+          ],
+          [
+            10.921,
+            1.526,
+            0.0
+          ],
+          [
+            10.993,
+            1.266,
+            0.0
+          ],
+          [
+            11.04,
+            1.006,
+            0.0
+          ],
+          [
+            11.065,
+            0.747,
+            0.0
+          ],
+          [
+            11.067,
+            0.492,
+            0.0
+          ],
+          [
+            11.047,
+            0.242,
+            0.0
+          ],
+          [
+            11.006,
+            0.0,
+            0.0
+          ],
+          [
+            10.945,
+            -0.233,
+            0.0
+          ],
+          [
+            10.866,
+            -0.456,
+            0.0
+          ],
+          [
+            10.769,
+            -0.668,
+            0.0
+          ],
+          [
+            10.656,
+            -0.866,
+            0.0
+          ],
+          [
+            10.529,
+            -1.05,
+            0.0
+          ],
+          [
+            10.389,
+            -1.219,
+            0.0
+          ],
+          [
+            10.238,
+            -1.373,
+            0.0
+          ],
+          [
+            10.077,
+            -1.51,
+            0.0
+          ],
+          [
+            9.907,
+            -1.63,
+            0.0
+          ],
+          [
+            9.732,
+            -1.734,
+            0.0
+          ],
+          [
+            9.551,
+            -1.819,
+            0.0
+          ],
+          [
+            9.377,
+            -1.905,
+            0.0
+          ],
+          [
+            9.207,
+            -1.994,
+            0.0
+          ],
+          [
+            9.029,
+            -2.067,
+            0.0
+          ],
+          [
+            8.846,
+            -2.125,
+            0.0
+          ],
+          [
+            8.659,
+            -2.167,
+            0.0
+          ],
+          [
+            8.469,
+            -2.192,
+            0.0
+          ],
+          [
+            8.277,
+            -2.2,
+            0.0
+          ],
+          [
+            8.085,
+            -2.192,
+            0.0
+          ],
+          [
+            7.895,
+            -2.167,
+            0.0
+          ],
+          [
+            7.708,
+            -2.125,
+            0.0
+          ],
+          [
+            7.525,
+            -2.067,
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Sagittarius-Carina",
+        "id": "sagittarius_carina",
+        "r_kink_kpc": 6.04,
+        "beta_kink_deg": 24.0,
+        "pitch_in_deg": 17.1,
+        "pitch_out_deg": 1.0,
+        "width_kpc": 0.36,
+        "beta_min_deg": -35.0,
+        "beta_max_deg": 240.0,
+        "color_hex": "#9bd8ff",
+        "density_weight": 0.85,
+        "centerline_helio_kpc": [
+          [
+            1.485,
+            -4.756,
+            0.0
+          ],
+          [
+            1.308,
+            -4.127,
+            0.0
+          ],
+          [
+            1.183,
+            -3.502,
+            0.0
+          ],
+          [
+            1.107,
+            -2.883,
+            0.0
+          ],
+          [
+            1.079,
+            -2.275,
+            0.0
+          ],
+          [
+            1.097,
+            -1.681,
+            0.0
+          ],
+          [
+            1.158,
+            -1.103,
+            0.0
+          ],
+          [
+            1.262,
+            -0.545,
+            0.0
+          ],
+          [
+            1.403,
+            -0.01,
+            0.0
+          ],
+          [
+            1.581,
+            0.502,
+            0.0
+          ],
+          [
+            1.793,
+            0.987,
+            0.0
+          ],
+          [
+            2.035,
+            1.443,
+            0.0
+          ],
+          [
+            2.304,
+            1.87,
+            0.0
+          ],
+          [
+            2.599,
+            2.265,
+            0.0
+          ],
+          [
+            2.857,
+            2.657,
+            0.0
+          ],
+          [
+            3.082,
+            3.057,
+            0.0
+          ],
+          [
+            3.336,
+            3.439,
+            0.0
+          ],
+          [
+            3.618,
+            3.8,
+            0.0
+          ],
+          [
+            3.927,
+            4.138,
+            0.0
+          ],
+          [
+            4.26,
+            4.452,
+            0.0
+          ],
+          [
+            4.615,
+            4.738,
+            0.0
+          ],
+          [
+            4.991,
+            4.996,
+            0.0
+          ],
+          [
+            5.384,
+            5.225,
+            0.0
+          ],
+          [
+            5.794,
+            5.423,
+            0.0
+          ],
+          [
+            6.217,
+            5.589,
+            0.0
+          ],
+          [
+            6.65,
+            5.722,
+            0.0
+          ],
+          [
+            7.092,
+            5.821,
+            0.0
+          ],
+          [
+            7.539,
+            5.887,
+            0.0
+          ],
+          [
+            7.99,
+            5.918,
+            0.0
+          ],
+          [
+            8.441,
+            5.915,
+            0.0
+          ],
+          [
+            8.89,
+            5.877,
+            0.0
+          ],
+          [
+            9.334,
+            5.806,
+            0.0
+          ],
+          [
+            9.771,
+            5.701,
+            0.0
+          ],
+          [
+            10.198,
+            5.563,
+            0.0
+          ],
+          [
+            10.613,
+            5.394,
+            0.0
+          ],
+          [
+            11.013,
+            5.193,
+            0.0
+          ],
+          [
+            11.396,
+            4.964,
+            0.0
+          ],
+          [
+            11.76,
+            4.706,
+            0.0
+          ],
+          [
+            12.103,
+            4.421,
+            0.0
+          ],
+          [
+            12.423,
+            4.111,
+            0.0
+          ],
+          [
+            12.718,
+            3.779,
+            0.0
+          ],
+          [
+            12.986,
+            3.425,
+            0.0
+          ],
+          [
+            13.227,
+            3.053,
+            0.0
+          ],
+          [
+            13.438,
+            2.664,
+            0.0
+          ],
+          [
+            13.618,
+            2.26,
+            0.0
+          ],
+          [
+            13.768,
+            1.845,
+            0.0
+          ],
+          [
+            13.885,
+            1.42,
+            0.0
+          ],
+          [
+            13.969,
+            0.987,
+            0.0
+          ],
+          [
+            14.02,
+            0.551,
+            0.0
+          ],
+          [
+            14.038,
+            0.112,
+            0.0
+          ],
+          [
+            14.022,
+            -0.327,
+            0.0
+          ],
+          [
+            13.973,
+            -0.762,
+            0.0
+          ],
+          [
+            13.891,
+            -1.192,
+            0.0
+          ],
+          [
+            13.776,
+            -1.613,
+            0.0
+          ],
+          [
+            13.63,
+            -2.024,
+            0.0
+          ],
+          [
+            13.454,
+            -2.423,
+            0.0
+          ],
+          [
+            13.248,
+            -2.806,
+            0.0
+          ],
+          [
+            13.014,
+            -3.172,
+            0.0
+          ],
+          [
+            12.752,
+            -3.519,
+            0.0
+          ],
+          [
+            12.466,
+            -3.844,
+            0.0
+          ],
+          [
+            12.156,
+            -4.146,
+            0.0
+          ],
+          [
+            11.825,
+            -4.423,
+            0.0
+          ],
+          [
+            11.473,
+            -4.674,
+            0.0
+          ],
+          [
+            11.105,
+            -4.898,
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Local (Orion Spur)",
+        "id": "local_spur",
+        "r_kink_kpc": 8.26,
+        "beta_kink_deg": 9.0,
+        "pitch_in_deg": 11.4,
+        "pitch_out_deg": 11.4,
+        "width_kpc": 0.31,
+        "beta_min_deg": -22.0,
+        "beta_max_deg": 38.0,
+        "color_hex": "#bfe8ff",
+        "density_weight": 0.65,
+        "centerline_helio_kpc": [
+          [
+            -0.264,
+            -3.451,
+            0.0
+          ],
+          [
+            -0.292,
+            -3.297,
+            0.0
+          ],
+          [
+            -0.317,
+            -3.144,
+            0.0
+          ],
+          [
+            -0.339,
+            -2.991,
+            0.0
+          ],
+          [
+            -0.358,
+            -2.838,
+            0.0
+          ],
+          [
+            -0.375,
+            -2.685,
+            0.0
+          ],
+          [
+            -0.389,
+            -2.532,
+            0.0
+          ],
+          [
+            -0.401,
+            -2.38,
+            0.0
+          ],
+          [
+            -0.41,
+            -2.227,
+            0.0
+          ],
+          [
+            -0.417,
+            -2.076,
+            0.0
+          ],
+          [
+            -0.421,
+            -1.925,
+            0.0
+          ],
+          [
+            -0.423,
+            -1.774,
+            0.0
+          ],
+          [
+            -0.422,
+            -1.623,
+            0.0
+          ],
+          [
+            -0.418,
+            -1.474,
+            0.0
+          ],
+          [
+            -0.412,
+            -1.325,
+            0.0
+          ],
+          [
+            -0.404,
+            -1.176,
+            0.0
+          ],
+          [
+            -0.393,
+            -1.028,
+            0.0
+          ],
+          [
+            -0.38,
+            -0.881,
+            0.0
+          ],
+          [
+            -0.365,
+            -0.734,
+            0.0
+          ],
+          [
+            -0.347,
+            -0.589,
+            0.0
+          ],
+          [
+            -0.326,
+            -0.444,
+            0.0
+          ],
+          [
+            -0.304,
+            -0.3,
+            0.0
+          ],
+          [
+            -0.279,
+            -0.156,
+            0.0
+          ],
+          [
+            -0.252,
+            -0.014,
+            0.0
+          ],
+          [
+            -0.222,
+            0.127,
+            0.0
+          ],
+          [
+            -0.19,
+            0.268,
+            0.0
+          ],
+          [
+            -0.157,
+            0.407,
+            0.0
+          ],
+          [
+            -0.12,
+            0.545,
+            0.0
+          ],
+          [
+            -0.082,
+            0.682,
+            0.0
+          ],
+          [
+            -0.042,
+            0.818,
+            0.0
+          ],
+          [
+            0.001,
+            0.953,
+            0.0
+          ],
+          [
+            0.045,
+            1.087,
+            0.0
+          ],
+          [
+            0.092,
+            1.22,
+            0.0
+          ],
+          [
+            0.141,
+            1.351,
+            0.0
+          ],
+          [
+            0.192,
+            1.481,
+            0.0
+          ],
+          [
+            0.244,
+            1.61,
+            0.0
+          ],
+          [
+            0.299,
+            1.737,
+            0.0
+          ],
+          [
+            0.356,
+            1.864,
+            0.0
+          ],
+          [
+            0.414,
+            1.988,
+            0.0
+          ],
+          [
+            0.474,
+            2.112,
+            0.0
+          ],
+          [
+            0.536,
+            2.233,
+            0.0
+          ],
+          [
+            0.6,
+            2.354,
+            0.0
+          ],
+          [
+            0.666,
+            2.473,
+            0.0
+          ],
+          [
+            0.734,
+            2.59,
+            0.0
+          ],
+          [
+            0.803,
+            2.706,
+            0.0
+          ],
+          [
+            0.874,
+            2.821,
+            0.0
+          ],
+          [
+            0.946,
+            2.934,
+            0.0
+          ],
+          [
+            1.02,
+            3.045,
+            0.0
+          ],
+          [
+            1.096,
+            3.154,
+            0.0
+          ],
+          [
+            1.173,
+            3.262,
+            0.0
+          ],
+          [
+            1.252,
+            3.369,
+            0.0
+          ],
+          [
+            1.332,
+            3.473,
+            0.0
+          ],
+          [
+            1.414,
+            3.576,
+            0.0
+          ],
+          [
+            1.497,
+            3.677,
+            0.0
+          ],
+          [
+            1.582,
+            3.777,
+            0.0
+          ],
+          [
+            1.668,
+            3.875,
+            0.0
+          ],
+          [
+            1.755,
+            3.971,
+            0.0
+          ],
+          [
+            1.843,
+            4.065,
+            0.0
+          ],
+          [
+            1.933,
+            4.157,
+            0.0
+          ],
+          [
+            2.024,
+            4.248,
+            0.0
+          ],
+          [
+            2.116,
+            4.337,
+            0.0
+          ],
+          [
+            2.21,
+            4.424,
+            0.0
+          ],
+          [
+            2.304,
+            4.509,
+            0.0
+          ],
+          [
+            2.4,
+            4.592,
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Perseus",
+        "id": "perseus",
+        "r_kink_kpc": 8.87,
+        "beta_kink_deg": 40.0,
+        "pitch_in_deg": 10.3,
+        "pitch_out_deg": 8.7,
+        "width_kpc": 0.45,
+        "beta_min_deg": -25.0,
+        "beta_max_deg": 265.0,
+        "color_hex": "#6cb6ff",
+        "density_weight": 0.95,
+        "centerline_helio_kpc": [
+          [
+            -1.603,
+            -4.607,
+            0.0
+          ],
+          [
+            -1.792,
+            -3.744,
+            0.0
+          ],
+          [
+            -1.91,
+            -2.882,
+            0.0
+          ],
+          [
+            -1.958,
+            -2.025,
+            0.0
+          ],
+          [
+            -1.938,
+            -1.18,
+            0.0
+          ],
+          [
+            -1.85,
+            -0.351,
+            0.0
+          ],
+          [
+            -1.699,
+            0.456,
+            0.0
+          ],
+          [
+            -1.487,
+            1.237,
+            0.0
+          ],
+          [
+            -1.216,
+            1.988,
+            0.0
+          ],
+          [
+            -0.891,
+            2.703,
+            0.0
+          ],
+          [
+            -0.515,
+            3.381,
+            0.0
+          ],
+          [
+            -0.093,
+            4.016,
+            0.0
+          ],
+          [
+            0.373,
+            4.607,
+            0.0
+          ],
+          [
+            0.877,
+            5.151,
+            0.0
+          ],
+          [
+            1.415,
+            5.645,
+            0.0
+          ],
+          [
+            1.97,
+            6.101,
+            0.0
+          ],
+          [
+            2.551,
+            6.507,
+            0.0
+          ],
+          [
+            3.155,
+            6.86,
+            0.0
+          ],
+          [
+            3.778,
+            7.161,
+            0.0
+          ],
+          [
+            4.415,
+            7.407,
+            0.0
+          ],
+          [
+            5.061,
+            7.599,
+            0.0
+          ],
+          [
+            5.713,
+            7.737,
+            0.0
+          ],
+          [
+            6.366,
+            7.821,
+            0.0
+          ],
+          [
+            7.016,
+            7.852,
+            0.0
+          ],
+          [
+            7.657,
+            7.831,
+            0.0
+          ],
+          [
+            8.288,
+            7.76,
+            0.0
+          ],
+          [
+            8.903,
+            7.639,
+            0.0
+          ],
+          [
+            9.499,
+            7.472,
+            0.0
+          ],
+          [
+            10.072,
+            7.26,
+            0.0
+          ],
+          [
+            10.62,
+            7.006,
+            0.0
+          ],
+          [
+            11.139,
+            6.712,
+            0.0
+          ],
+          [
+            11.627,
+            6.382,
+            0.0
+          ],
+          [
+            12.082,
+            6.018,
+            0.0
+          ],
+          [
+            12.5,
+            5.624,
+            0.0
+          ],
+          [
+            12.881,
+            5.202,
+            0.0
+          ],
+          [
+            13.222,
+            4.757,
+            0.0
+          ],
+          [
+            13.523,
+            4.292,
+            0.0
+          ],
+          [
+            13.783,
+            3.81,
+            0.0
+          ],
+          [
+            14.0,
+            3.315,
+            0.0
+          ],
+          [
+            14.174,
+            2.81,
+            0.0
+          ],
+          [
+            14.306,
+            2.299,
+            0.0
+          ],
+          [
+            14.396,
+            1.786,
+            0.0
+          ],
+          [
+            14.443,
+            1.273,
+            0.0
+          ],
+          [
+            14.449,
+            0.765,
+            0.0
+          ],
+          [
+            14.415,
+            0.264,
+            0.0
+          ],
+          [
+            14.341,
+            -0.227,
+            0.0
+          ],
+          [
+            14.229,
+            -0.704,
+            0.0
+          ],
+          [
+            14.082,
+            -1.165,
+            0.0
+          ],
+          [
+            13.9,
+            -1.607,
+            0.0
+          ],
+          [
+            13.686,
+            -2.028,
+            0.0
+          ],
+          [
+            13.442,
+            -2.426,
+            0.0
+          ],
+          [
+            13.17,
+            -2.798,
+            0.0
+          ],
+          [
+            12.873,
+            -3.143,
+            0.0
+          ],
+          [
+            12.553,
+            -3.459,
+            0.0
+          ],
+          [
+            12.213,
+            -3.744,
+            0.0
+          ],
+          [
+            11.855,
+            -3.999,
+            0.0
+          ],
+          [
+            11.483,
+            -4.221,
+            0.0
+          ],
+          [
+            11.099,
+            -4.41,
+            0.0
+          ],
+          [
+            10.706,
+            -4.566,
+            0.0
+          ],
+          [
+            10.307,
+            -4.688,
+            0.0
+          ],
+          [
+            9.904,
+            -4.777,
+            0.0
+          ],
+          [
+            9.5,
+            -4.832,
+            0.0
+          ],
+          [
+            9.098,
+            -4.855,
+            0.0
+          ],
+          [
+            8.701,
+            -4.845,
+            0.0
+          ]
+        ]
+      }
+    ],
+    "central_bar": {
+      "center_helio_kpc": [
+        8.277,
+        0.0,
+        -0.0208
+      ],
+      "angle_deg_from_sun_gc_line": 27.0,
+      "half_length_kpc": 4.5,
+      "semi_minor_kpc": 1.8,
+      "scale_height_kpc": 0.35,
+      "bulge_radius_kpc": 2.4
+    },
+    "gas_and_dust": {
+      "molecular_ring_inner_kpc": 3.2,
+      "molecular_ring_outer_kpc": 7.8,
+      "molecular_scale_height_kpc": 0.06,
+      "hi_disk_scale_length_kpc": 3.75,
+      "hi_disk_outer_kpc": 18.0,
+      "hi_scale_height_kpc": 0.15,
+      "dust_lane_scale_height_kpc": 0.09
+    },
+    "stellar_disks": {
+      "thin_disk_scale_length_kpc": 2.6,
+      "thin_disk_scale_height_kpc": 0.3,
+      "thick_disk_scale_length_kpc": 2.0,
+      "thick_disk_scale_height_kpc": 0.9,
+      "halo_radius_kpc": 35.0
+    },
+    "fermi_bubbles": {
+      "center_helio_kpc": [
+        8.277,
+        0.0,
+        -0.0208
+      ],
+      "lobe_height_kpc": 8.5,
+      "lobe_radius_kpc": 3.4,
+      "color_hex": "#c85cff"
+    },
+    "local_bubble": {
+      "center_helio_kpc": [
+        0.02,
+        -0.01,
+        0.01
+      ],
+      "radius_kpc": 0.15,
+      "shell_thickness_kpc": 0.03
+    }
+  }
+}

@@ -1,0 +1,896 @@
+{
+  "audit": "brain3_galactic_integrity",
+  "status": "FINAL",
+  "lead": "Claude Fable 5.2 (xhigh)",
+  "workers": [
+    "galactic-findings-auditor (Opus 5.5 xhigh)",
+    "provenance-and-code-auditor (Opus 5.5 xhigh)",
+    "manuscript-consistency-auditor (Opus 5.5 xhigh)"
+  ],
+  "date": "2026-11-21",
+  "target": "snapshot_ro/papers/rubin_euclid_multifreq_aj",
+  "verdict_labels": [
+    "VERIFIED",
+    "PLAUSIBLE_NEEDS_FOLLOWUP",
+    "DISPUTED_OR_OVERCLAIMED",
+    "INVALID_OR_UNSUPPORTED"
+  ],
+  "evidence_tag_legend": {
+    "L": "lead ran the code or live query",
+    "W-G": "Galactic worker ran it; lead read it",
+    "W-P": "Provenance worker ran it; lead read it",
+    "W-M": "Manuscript worker ran it; lead read it",
+    "A": "read in the authors' own files",
+    "I": "inference"
+  },
+  "limitations": [
+    "Rubin DP2 requires authentication: no Rubin catalogue, photometry or pixel was re-queried.",
+    "Orbit fits and GPU kernels were not re-run.",
+    "CDS Strasbourg was down; SIMBAD and VizieR were reached only through CfA mirrors (VizieR mirror is slow, lacks large survey catalogues, and intermittently returns empty responses).",
+    "The Galactic worker's independent all-catalogue literature sweep completed for 12 of the 25 objects; 13 are not run (slow mirror, three silent failures). NED was not queried.",
+    "Not tested: identity of J25-M01/M03 with moons announced since 2023; the 55 Rubin asteroids against known objects outside the authors' (a,e,i) box; EUC-G08 and EUC-G18 identities."
+  ],
+  "verdict_counts": {
+    "VERIFIED": 12,
+    "DISPUTED_OR_OVERCLAIMED": 23,
+    "PLAUSIBLE_NEEDS_FOLLOWUP": 7,
+    "INVALID_OR_UNSUPPORTED": 15
+  },
+  "n_verdicts": 57,
+  "report": "reports/brain3_galactic_integrity_report.md",
+  "worker_reports": [
+    "reports/workers/brain3_galactic.md",
+    "reports/workers/brain3_code_provenance.md",
+    "reports/workers/brain3_manuscript_reconciliation.md"
+  ],
+  "verdicts": [
+    {
+      "id": "GAL-25-TALLY",
+      "domain": "galactic",
+      "claim": "25 Galactic objects = 1 WD + 2 L dwarfs + 17 UCDs + 5 late-M; table cells match raw records",
+      "manuscript_location": "abstract; S03 gal_ucd; tab_galactic_discoveries",
+      "verdict": "VERIFIED",
+      "evidence": "23 rows of round4_confirmed_candidates_audit.csv + 2 Tier-A records; every printed cell matches to printed precision. The authors' JSON implies 26; one RED_PM_CAND is dropped without mention.",
+      "evidence_tags": [
+        "L",
+        "W-G",
+        "W-M"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m03_galactic.py",
+        "work_brain3_galactic_integrity/scripts/galactic/a01_build_mapping.py"
+      ]
+    },
+    {
+      "id": "GAL-25-MOTION",
+      "domain": "galactic",
+      "claim": "The 25 objects have real proper motions of roughly 35-105 mas/yr",
+      "manuscript_location": "S03 gal_ucd; tab_galactic_discoveries",
+      "verdict": "VERIFIED",
+      "evidence": "NSC DR2 catalogue proper motions (DECam only, 17-152 detections over 4.1-6.0 yr) are non-zero for 25/25 (>5 sigma for 23) and agree in direction (median cosine 0.997). VHS-to-Euclid displacements confirm 24/24; 2MASS 3/3. GLC-WD-01 also matches a 1977.78 GSC 2.3 position.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_nsc_catwise.py",
+        "work_brain3_galactic_integrity/scripts/galactic/a03b_refit.py"
+      ]
+    },
+    {
+      "id": "GAL-25-PM-SNR",
+      "domain": "galactic",
+      "claim": "Quoted proper-motion amplitudes, baselines and significances (7.9-23.7 sigma from 3-5 surveys over 7.9-10.6 yr)",
+      "manuscript_location": "S03 gal_ucd; tab_galactic_discoveries",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Euclid, DES DR2 and Rubin epochs are hardcoded constants (MJD 60450, 57400/57300, 60955); positional errors are per-survey constants, so S/N is mu over a near-constant 4.1-4.6 mas/yr. DES/LS/NSC share DECam exposures: 18 of 25 objects have two independent epochs and zero degrees of freedom. Actual Euclid tile dates are 2024.58-2025.07; paper values differ from a real-epoch refit by -11% to +13% (median +5.6%). GLC-BD-02 is ~33-37 mas/yr on independent data, below the 40 mas/yr cut.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/a03b_refit.py",
+        "work_brain3_galactic_integrity/scripts/galactic/a05_rchi2_test.py"
+      ]
+    },
+    {
+      "id": "GAL-25-UNCATALOGUED",
+      "domain": "galactic",
+      "claim": "The 25 are 'previously uncatalogued' high-proper-motion stars",
+      "manuscript_location": "main/01_opening; main/07_agents; S03 gal_ucd",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "All 25 are in NSC DR2 with published proper motions; 23/25 in CatWISE2020; most in AllWISE and VHS; 3 in 2MASS/NOMAD/TIC; GLC-WD-01 in GSC 2.3; 6 in Euclid Q1. None is in SIMBAD (CfA mirror, 20 arcsec, controls pass), though a SIMBAD null is weak evidence for faint ultracool dwarfs. An independent PM-aware all-catalogue sweep found no UCD/WD/QSO/spectroscopic table for the 12 objects completed (13 not run); the authors' recorded sweep lists only survey tables for all 26. GLC-WD-01 is in the published Euclid EDF-S source list (J/A+A/711/A20), contradicting the table note. 'Previously unclassified' is supported; 'uncatalogued' is not.",
+      "evidence_tags": [
+        "L",
+        "W-G",
+        "A"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_nsc_catwise.py",
+        "work_brain3_galactic_integrity/scripts/lead/lead_simbad_cfa.py"
+      ]
+    },
+    {
+      "id": "GAL-25-CLEARANCE",
+      "domain": "galactic",
+      "claim": "Every discovery cleared against Gaia DR3 and published literature catalogues 'in the full VizieR archive' within 2.5 arcsec",
+      "manuscript_location": "S03 gal_ucd; table note; main/07_agents",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Authors' own files: n_strict_confirmed_new = 0, n_strict_confirmed_final = 0, SIMBAD never reached, targeted VizieR check failed its positive controls, 0/26 cleared; 23 of 25 filed as 'pending SIMBAD'. Failed queries are counted as 0 hits; the 2.5 arcsec radius is in no clearance code; the CfA mirror lacks the large survey catalogues. The conclusion (no literature identification) is supported by the lead's own SIMBAD query.",
+      "evidence_tags": [
+        "A",
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/a04_novelty.py",
+        "work_brain3_galactic_integrity/scripts/lead/lead_simbad_cfa.py"
+      ]
+    },
+    {
+      "id": "GAL-25-GAIA9",
+      "domain": "galactic",
+      "claim": "Zero Gaia DR3 counterparts within 9 arcsec",
+      "manuscript_location": "S03 gal_ucd; table note",
+      "verdict": "VERIFIED",
+      "evidence": "0/25 within 9 arcsec live. GLC-WD-01 has an unrelated G=19.5 source at 9.19 arcsec; the authors' JSON claim of a 15 arcsec cone with 0 hits is false for four objects.",
+      "evidence_tags": [
+        "W-G",
+        "A"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/a02_fetch_live.py"
+      ]
+    },
+    {
+      "id": "GAL-25-COSTHETA",
+      "domain": "galactic",
+      "claim": "Pixel-blink cos(theta) = 0.984-1.000 independently verifies the motions",
+      "manuscript_location": "S03 gal_ucd; table",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Real pixels, but the blink compares the same two epochs (LS DR10 coadd and Euclid) that drive the fit, with the search seeded at the predicted position and a pass threshold of cos >= 0.70. A cross-match sanity check, not a second confirmation.",
+      "evidence_tags": [
+        "W-G",
+        "L"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "GAL-WD01-NATURE",
+      "domain": "galactic",
+      "claim": "GLC-WD-01 is a faint Gaia-invisible white dwarf with a real high proper motion",
+      "manuscript_location": "abstract; S03 gal_ucd",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "evidence": "Motion confirmed over 46.7 yr against GSC 2.3 (implied +18.3, -44.8 mas/yr vs paper +15.3, -52.3) and by NSC DR2 (+20.8, -39.9). The 8-band SED fits a ~17,000 K blackbody (H_E S/N 21.5); a quasar or subdwarf is excluded by the motion. No spectrum or parallax. Already present in GSC 2.3, NSC DR2, Euclid Q1 and the published Euclid EDF-S source list.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/tmp/lead/gsc23_wd01.csv",
+        "work_brain3_galactic_integrity/scripts/galactic/a09_physical.py"
+      ]
+    },
+    {
+      "id": "GAL-WD01-HALO",
+      "domain": "galactic",
+      "claim": "GLC-WD-01 is a 'halo' white dwarf (stated as fact in the abstract)",
+      "manuscript_location": "abstract; S03 gal_ucd; main/07_agents",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Distance is unknown: d = 0.58-1.38 kpc and v_tan = 140-330 km/s for plausible absolute magnitudes, straddling thick-disc and halo kinematics.",
+      "evidence_tags": [
+        "W-G",
+        "I"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/a09_physical.py"
+      ]
+    },
+    {
+      "id": "GAL-BD",
+      "domain": "galactic",
+      "claim": "Two (L-type) brown dwarfs, GLC-BD-01 and GLC-BD-02",
+      "manuscript_location": "abstract; S03 gal_ucd",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Types rest on the authors' unreferenced colour cuts; DES i-z (1.61, 1.57) matches objects the paper calls M8-M9, so M9-L1 is equally consistent. Early-L dwarfs straddle the hydrogen-burning limit. BD-01 has ellipticity 0.16, a neighbour at 1.41 arcsec and a Euclid photometric class of 'galaxy'; BD-02's motion (~33-37 mas/yr) is below the paper's 40 mas/yr cut.",
+      "evidence_tags": [
+        "W-G",
+        "I"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "GAL-UCD-LM",
+      "domain": "galactic",
+      "claim": "17 M8-L0 ultracool dwarfs and 5 late-M dwarfs",
+      "manuscript_location": "abstract; S03 gal_ucd",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "evidence": "Colours give roughly M7-L0 and M4-M7, consistent with the labels to about a subtype; no spectra or parallaxes. GLC-UCD-01/02 fall below the authors' own M8 colour cut and their 'thick-disk/halo pair' description is not supported (v_tan ~90-160 km/s; 0.45 deg apart with different motion vectors).",
+      "evidence_tags": [
+        "I",
+        "A"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "GAL-RUWE-COUNTS",
+      "domain": "galactic",
+      "claim": "129/1200 vs 3/1200 (OR 48.06) and 174/1200 vs 21/1200 (OR 9.52) resolved companions",
+      "manuscript_location": "S03 gal_ruwe; main/07_agents",
+      "verdict": "VERIFIED",
+      "evidence": "Recomputed from candidates_round4_p3a_large_n.csv. Quoted p-values are one-sided (two-sided 4.36e-36, 1.81e-33). OR 48 has a 95% interval of 16-237.",
+      "evidence_tags": [
+        "L",
+        "W-G",
+        "W-M"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_ruwe_check.py",
+        "work_brain3_galactic_integrity/scripts/galactic/b01_ruwe_law.py"
+      ]
+    },
+    {
+      "id": "GAL-RUWE-LAW",
+      "domain": "galactic",
+      "claim": "A 'binary-resolution law' with two physical scaling laws",
+      "manuscript_location": "abstract; S03 gal_ruwe",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "One geometric trend (rate rises with colour and parallax) is real. The link between RUWE and 0.1-1 arcsec companions is established literature. Matching is in magnitude and colour only; controls come from an unordered TOP-N query covering a small patch (KS p ~1e-129); the excess survives in the shared area (8.0% vs 0.25%).",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_ruwe_sky.py",
+        "work_brain3_galactic_integrity/scripts/galactic/b03_spatial_overlap.py"
+      ]
+    },
+    {
+      "id": "GAL-RUWE-TURNOVER",
+      "domain": "galactic",
+      "claim": "The resolved fraction turns over and drops to 0/14 at RUWE >= 7",
+      "manuscript_location": "S03 gal_ruwe; main/07_agents",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "P(0 of 14 | 12.9%) = 0.144; Fisher two-sided p = 0.235; the rise from 9.1% to 12.9% has p = 0.06.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_ruwe_check.py"
+      ]
+    },
+    {
+      "id": "GAL-RUWE-WDUCD",
+      "domain": "galactic",
+      "claim": "42.5% (17/40) for white dwarfs and ultracool dwarfs (M_G >= 12)",
+      "manuscript_location": "S03 gal_ruwe",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "All 40 have BP-RP >= 1.0 (median 2.58): no white dwarfs. Median parallax S/N 5.2; the bin preferentially selects corrupted parallaxes.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_ruwe_check.py"
+      ]
+    },
+    {
+      "id": "GAL-RUWE-SATURATED",
+      "domain": "galactic",
+      "claim": "Saturated stars: 53.6% vs 55.1% across 1,474 matched pairs (OR 0.94, p = 0.80)",
+      "manuscript_location": "S03 gal_ruwe",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "Not reproducible from any saved output; saved diagnostics for the same stars give 41.9% vs 40.6% or 16.6% vs 20.2%. The numbers exist only in the lab log and as figure-script literals. The qualitative absence of an excess holds.",
+      "evidence_tags": [
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/b02_round2_saturated.py"
+      ]
+    },
+    {
+      "id": "GAL-RUWE-DQF",
+      "domain": "galactic",
+      "claim": "det_quality_flag = 0 removes virtually every deblended binary (0/106 vs 174/1,200)",
+      "manuscript_location": "S03 gal_ruwe",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "106 is the control count with flag 0; the target count is 0/86. The cut removes ~92% of all stars.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_ruwe_check.py"
+      ]
+    },
+    {
+      "id": "GAL-DARK-SCAN",
+      "domain": "galactic",
+      "claim": "Scanning 50,000 Gaia DR3 NSS orbits",
+      "manuscript_location": "S03 gal_compact",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "SELECT TOP 50000 with no ordering out of at least 108,821 qualifying orbits; Gaia BH1 and BH2 pass the selection but are absent.",
+      "evidence_tags": [
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/partC_nss_count_sync.py",
+        "work_brain3_galactic_integrity/scripts/galactic/partC_benchmarks.py"
+      ]
+    },
+    {
+      "id": "GAL-DARK-766-103",
+      "domain": "galactic",
+      "claim": "766 Class III 'gold' candidates including 103 low-citation new systems outside |b| < 5 deg",
+      "manuscript_location": "S03 gal_compact; tab_galactic_candidates",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "The pipeline uses the gaia_source single-star parallax instead of the NSS orbital parallax. On the 596 saved astrometric gold rows, AMRF > 0.60 falls from 595 to 184 (119 under the authors' full criterion); M2,min > 3 Msun from 48 to 2; 38 (or 33) of the 103 survive. 'Gold' is not 'Class III'; 'low-citation' is a SIMBAD reference count; 21 of the 103 are at |b| < 5 deg.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_nss_parallax.py",
+        "work_brain3_galactic_integrity/scripts/galactic/partC_nss_plx_refit.py"
+      ]
+    },
+    {
+      "id": "GAL-DARK-BHNS",
+      "domain": "galactic",
+      "claim": "Gaia DR3 666596383384888320 (M2,min 3.88 Msun) and 1913089145012902016 (3.21 Msun) are priority BH/NS targets",
+      "manuscript_location": "tab_galactic_candidates",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "Orbital parallaxes are 4.44 and 3.61 mas, not 2.17 and 1.84; M2,min falls to ~1.0-1.3 Msun. Both are in Shahaf et al. 2023 as Class II (A = 0.536 and 0.4998).",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_nss_parallax.py",
+        "work_brain3_galactic_integrity/scripts/galactic/partC_vizier_targeted.py"
+      ]
+    },
+    {
+      "id": "GAL-DARK-EDFS",
+      "domain": "galactic",
+      "claim": "Gaia DR3 4829790543688453504 stands out as a massive white-dwarf dark-remnant candidate (A = 0.66, M2,min = 0.96 Msun)",
+      "manuscript_location": "S03 gal_compact; tab_galactic_candidates",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "With the orbital parallax (1.520 mas) A = 0.565, below the paper's own Class III cut, and M2,min = 0.77 Msun. Period 1157 +/- 83 d exceeds the DR3 baseline. The '7.3 km/s RV scatter' is a formal error; the Euclid image is saturated.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_nss_parallax.py"
+      ]
+    },
+    {
+      "id": "GAL-DARK-WD98",
+      "domain": "galactic",
+      "claim": "Gaia DR3 2909342818326298112: unconfirmed WD + dark companion (f = 1.07, M2,min = 1.94 Msun, d = 98 pc)",
+      "manuscript_location": "S03 gal_compact; tab_galactic_candidates",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "evidence": "Fairly labelled unconfirmed. With the orbital parallax (12.08 mas, 83 pc) f = 0.65 and M2,min = 1.36 Msun; G = 18.4 and the orbit is poorly constrained.",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_nss_parallax.py"
+      ]
+    },
+    {
+      "id": "GAL-DARK-NS1",
+      "domain": "galactic",
+      "claim": "Blind recovery of Gaia NS1 in the highest tier (M2,min = 2.66 Msun)",
+      "manuscript_location": "S03 gal_compact; main/07_agents",
+      "verdict": "VERIFIED",
+      "evidence": "Recovered as gold. The quoted 'minimum' mass exceeds the published measured mass (1.90 +/- 0.04 Msun); benchmark recall is 1 of 3 because BH1 and BH2 were lost to truncation.",
+      "evidence_tags": [
+        "L",
+        "W-G",
+        "W-M"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_gaia_hvs.py"
+      ]
+    },
+    {
+      "id": "GAL-WB-COUNTS",
+      "domain": "galactic",
+      "claim": "22,856 stars -> 632 pairs -> 149 high-precision -> 13 -> 4 vetoed -> 9",
+      "manuscript_location": "S03 gal_wb",
+      "verdict": "VERIFIED",
+      "evidence": "Recounts from wide_binary_euclid_audit.csv.",
+      "evidence_tags": [
+        "W-G",
+        "W-M"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/partC_wb.py"
+      ]
+    },
+    {
+      "id": "GAL-WB-ANOMALIES",
+      "domain": "galactic",
+      "claim": "Nine Gaia-clean high-v-tilde anomalies (RUWE <= 1.13)",
+      "manuscript_location": "S03 gal_wb",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Four of the nine have astrometric excess noise significance 12.5-20.2 and are removed by the paper's own purity audit; five survive. A second, different set is also called 'nine'. The saved El-Badry flags are True for all 149 pairs and live membership differs for 4 of 13.",
+      "evidence_tags": [
+        "W-G",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/partC_eb21.py"
+      ]
+    },
+    {
+      "id": "GAL-WB-LOWG",
+      "domain": "galactic",
+      "claim": "Table rows are low-acceleration gravity candidates",
+      "manuscript_location": "tab_galactic_candidates",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "Newtonian accelerations of the listed pairs are 1.9-163 a0; v-tilde of 2-7 exceeds any bound-orbit prediction.",
+      "evidence_tags": [
+        "W-G",
+        "I"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/partC_wb.py"
+      ]
+    },
+    {
+      "id": "GAL-HVS-BENCHMARK",
+      "domain": "galactic",
+      "claim": "Blind recovery of the known unbound star UCAC4 656-058031",
+      "manuscript_location": "S03 gal_hvs; main/07_agents",
+      "verdict": "VERIFIED",
+      "evidence": "Velocities reproduce (812.6 raw / 698.1 zero-point km/s). With the Bailer-Jones distance v_GC = 648 km/s and P(unbound) ~0.99. A literature object (SIMBAD HV*, 10 references).",
+      "evidence_tags": [
+        "L",
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_hvs_vgc.py"
+      ]
+    },
+    {
+      "id": "GAL-HVS-NEW",
+      "domain": "galactic",
+      "claim": "Gaia DR3 2106311133727343872 is an uncatalogued escape-boundary retrograde halo giant (P_unb 0.82 raw / 0.58 corrected)",
+      "manuscript_location": "S03 gal_hvs; tab_galactic_candidates",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "With the Bailer-Jones distance (5.06 kpc) v_GC = 514 km/s vs escape 542.5, P(unbound) ~0.21. The orbit is prograde (v_phi ~ +224 km/s), not retrograde. The authors' summary records firm_unbound_after_lindegren_zp = 1.",
+      "evidence_tags": [
+        "L",
+        "W-G",
+        "A"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_hvs_vgc.py",
+        "work_brain3_galactic_integrity/scripts/lead/lead_hvs_lz.py"
+      ]
+    },
+    {
+      "id": "GAL-CPM-LIMIT",
+      "domain": "galactic",
+      "claim": "0/120 common-proper-motion companions around 1,378 hosts; 95% upper limit < 0.22% per host",
+      "manuscript_location": "S03 gal_bounds",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Only 71 neighbours around 68 hosts have multi-epoch astrometry; no completeness is computed.",
+      "evidence_tags": [
+        "W-G"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/d01_small_bounds.py"
+      ]
+    },
+    {
+      "id": "GAL-ECL-ZZ-LIMIT",
+      "domain": "galactic",
+      "claim": "0/44 compact eclipsers and 0/53 ZZ Ceti pulsators; 95% upper limit below 5.5%",
+      "manuscript_location": "S03 gal_bounds",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "0/53 gives 5.5%; 0/44 gives 6.6%. Both samples are post-trigger shortlists with no injection test.",
+      "evidence_tags": [
+        "W-G",
+        "W-M"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/galactic/d01_small_bounds.py"
+      ]
+    },
+    {
+      "id": "PROV-SS-CUTOUTS",
+      "domain": "provenance",
+      "claim": "Solar System cutout figures show observed Rubin/DECam/Euclid images",
+      "manuscript_location": "main Fig. 3 (fig:decam); ED fig:detections, fig:remeasure, fig:cutouts_g5a, fig:cutouts_g5b",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "All 193 embedded rasters regenerate bit-for-bit from render_cutout_pair / make_sky_pair_stamps (random noise plus Moffat profiles, target S/N inflated or floored at 9.5). Captions present them as images; the manuscript never says they are rendered.",
+      "evidence_tags": [
+        "W-P",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/provenance/p03_regen_cutout_figs_and_compare.py",
+        "work_brain3_galactic_integrity/scripts/lead/lead_p03_rerun.py"
+      ]
+    },
+    {
+      "id": "PROV-PIXEL-VERIFICATION",
+      "domain": "provenance",
+      "claim": "Direct pixel verification on single-visit Rubin cutouts (Extended Data Fig.)",
+      "manuscript_location": "methods/02_validation",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "The cited figure is synthetic. The VIS S/N values quoted for five COSMOS objects exist only as literals in a loader script.",
+      "evidence_tags": [
+        "W-P",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/provenance/p03_regen_cutout_figs_and_compare.py"
+      ]
+    },
+    {
+      "id": "PROV-FIG2C",
+      "domain": "provenance",
+      "claim": "Fig. 2c quadrupole controls and the 2025 NW189 inset are measurements",
+      "manuscript_location": "main Fig. 2c",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "The control cloud is 190 random draws and the inset is a two-Moffat model; the authors' own figure note says so.",
+      "evidence_tags": [
+        "W-P",
+        "A"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "PROV-GAL-CUTOUTS",
+      "domain": "provenance",
+      "claim": "Galactic cutouts are real archive pixels and the Galactic table is reproducible",
+      "manuscript_location": "ED fig:galactic_discoveries; tab_galactic_discoveries",
+      "verdict": "VERIFIED",
+      "evidence": "18/18 rasters regenerate from cached stamps; 3 Legacy Surveys and 1 Euclid stamp are bit-identical to live downloads; the table regenerates exactly.",
+      "evidence_tags": [
+        "W-P"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/provenance/p04_galactic_fig_regen_and_stamp_stats.py",
+        "work_brain3_galactic_integrity/scripts/provenance/p05_live_legacy_euclid_stamp_compare.py"
+      ]
+    },
+    {
+      "id": "PROV-NUMBERS-GENERATED",
+      "domain": "provenance",
+      "claim": "Macros and tables are generated from data",
+      "manuscript_location": "macros/numbers.tex; tables/*.tex",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "The generator hardcodes values (and still says 59/22/12), writes to a different path and predates the committed files. 45-48 of 71 macros have no generator; ms_macros.tex holds 232 more literals; 10 of 12 generated tables differ from the committed ones.",
+      "evidence_tags": [
+        "W-P",
+        "W-M",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/provenance/p01_rerun_build_numbers_sandboxed.py",
+        "work_brain3_galactic_integrity/scripts/manuscript/m06_macros_ades.py"
+      ]
+    },
+    {
+      "id": "PROV-ORBIT-METHOD",
+      "domain": "provenance",
+      "claim": "Orbits propagated with REBOUND IAS15 and ASSIST; uncertainties are delta-chi2 = 1 profile intervals",
+      "manuscript_location": "methods/01_data; tab_elements note",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "No file imports ASSIST; the fitter has no profile scan; uncertainties are linearised covariances.",
+      "evidence_tags": [
+        "W-P",
+        "L"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "PROV-FIT-STATISTICS",
+      "domain": "provenance",
+      "claim": "Tabulated chi2/dof and uncertainties are the fit outputs",
+      "manuscript_location": "tab_elements; tab_orbits; tab_group1_rubin_tnos",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "R25-D03 11.4/18 vs raw 26.81/18; R25-E02 14.2/22 vs 11.33/22; R25-D09 16.8/26 vs 21.85/26. R25-E07 mixes a 15-detection fit's elements with 12-detection labels and an arc that exists nowhere. T-series sigma_a printed 3.60/2.40/2.90/3.40 vs raw 20.32/0.18/1.03/4.38 au.",
+      "evidence_tags": [
+        "W-P",
+        "W-M",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m04_ss_tables.py"
+      ]
+    },
+    {
+      "id": "PROV-VERIFICATION-NARRATIVE",
+      "domain": "provenance",
+      "claim": "Independent agents verify every candidate against blind recoveries, raw detector pixels and adversarial refutation tests",
+      "manuscript_location": "abstract; main/07_agents; methods/00_agents",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "The re-audit artefact has no generating code; the cross-branch audit script re-reads team outputs; pixel figures are synthetic; several novelty checks turn a failed query into 'new'; the Galactic clearance files record 0 of 25 cleared.",
+      "evidence_tags": [
+        "W-P",
+        "L",
+        "A"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "PROV-GPU",
+      "domain": "provenance",
+      "claim": "GPU/CPU parity 3.6e-16 to 5.3e-10 and speedups 86x-565x",
+      "manuscript_location": "methods/01_data; tab_galactic_candidates",
+      "verdict": "VERIFIED",
+      "evidence": "Matches the logged benchmark JSON. Not re-runnable here. The CPU baseline is single-thread NumPy with a Python time-step loop, and 'exact parity' is loose for 5e-10.",
+      "evidence_tags": [
+        "W-P",
+        "L"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "PROV-FLAGSHIP-NOVELTY",
+      "domain": "provenance",
+      "claim": "R25-D03, R25-E02, R25-D09, R25-I04 and EUC-CW04 match no known object",
+      "manuscript_location": "methods/02_validation",
+      "verdict": "VERIFIED",
+      "evidence": "Fresh JPL sb_ident queries find nothing within 98 arcsec; R25-D03 is not 2025 ND550.",
+      "evidence_tags": [
+        "W-P"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/provenance/p08_independent_sbident_novelty.py",
+        "work_brain3_galactic_integrity/scripts/provenance/p07_R25D03_vs_2025ND550.py"
+      ]
+    },
+    {
+      "id": "REC-159-ARITHMETIC",
+      "domain": "reconciliation",
+      "claim": "159 = 50 TNOs + 2 binaries + 4 moons + 1 Centaur + 102 asteroids/Trojans, with no double counting",
+      "manuscript_location": "abstract; main/01_opening; methods/01_data; macros",
+      "verdict": "VERIFIED",
+      "evidence": "159 distinct rows in all_branches_unified_discoveries.json; every subgroup macro recounts; 22 candidate duplicate pairs all resolve as distinct.",
+      "evidence_tags": [
+        "W-M",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m05_tally159.py"
+      ]
+    },
+    {
+      "id": "REC-159-UNCATALOGUED",
+      "domain": "reconciliation",
+      "claim": "All 159 are previously uncatalogued Solar System bodies",
+      "manuscript_location": "abstract; main/01_opening",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Includes a known moon, two inferred secondaries of MPC-designated objects (one only a strong candidate), single-observer already-linked moon tracklets, six re-linkages of archived ITF tracklets, and at least 38 single-day arcs. The total is fixed by an assertion in a site builder. 70 of 159 appear in a table.",
+      "evidence_tags": [
+        "W-M",
+        "W-P",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m05_tally159.py"
+      ]
+    },
+    {
+      "id": "REC-LOWEST-INCLINATION",
+      "domain": "reconciliation",
+      "claim": "R25-D03 is the lowest-inclination body known with a > 150 au and q > 30 au",
+      "manuscript_location": "abstract; main/03_distant; methods/05_orbits",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "JPL SBDB lists 2026 EZ127 (1.47 deg), 2015 FQ561 (1.93), 2025 NH561 (2.44), 2025 MC403 (2.87) and 2026 EX122 (3.03) below R25-D03's 3.16 deg. 2025 NH561 is the authors' own blind recovery and is cited in Methods.",
+      "evidence_tags": [
+        "W-M",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/tmp/lead/sbdb_lowi_etno.json"
+      ]
+    },
+    {
+      "id": "REC-FOUR-MOONS",
+      "domain": "reconciliation",
+      "claim": "Four new irregular moons of Jupiter",
+      "manuscript_location": "abstract; main/05_moons; methods/05_orbits",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "J25-M04's detections are tagged J065S (Jupiter LXV, Pandia) and track Pandia's JPL ephemeris at 35.8-44.6 arcsec while moving 3,691 arcsec. J25-M01 and J25-M03 are single-observer tracklet sets already linked by their observers. S05's 'at least 699 arcsec from all known moons' is false for three of four.",
+      "evidence_tags": [
+        "W-P",
+        "W-M",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/lead/lead_pandia.py",
+        "work_brain3_galactic_integrity/scripts/provenance/p10_moon_gold004_vs_pandia.py"
+      ]
+    },
+    {
+      "id": "REC-STEREO-DISTANCE",
+      "domain": "reconciliation",
+      "claim": "Two TNOs have distances triangulated in a single night between Euclid and DECam",
+      "manuscript_location": "abstract; main/04_distances",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "evidence": "Distances (35.60 and 34.40 +/- 0.15 au) and DECam S/N match the raw file; the DECam detection is the maximum of a 221-trial search and 0.15 au may be a fallback constant.",
+      "evidence_tags": [
+        "W-P",
+        "W-M"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "REC-STEREO-ORBITS",
+      "domain": "reconciliation",
+      "claim": "EUC-S05 and EUC-S02 occupy moderately excited classical orbits (a = 42.71, 38.75 au; e = 0.17, 0.11)",
+      "manuscript_location": "methods/04_decam_euclid; methods/05_orbits; tab_group2_euclid_tnos",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "The printed values are minimum_semimajor_axis_au and minimum_eccentricity_bound for zero line-of-sight velocity. The fits give sigma_a ~17 au from arcs of about half a day; the tabulated 18 detections / 28.4 h are not in any output.",
+      "evidence_tags": [
+        "W-P",
+        "W-M",
+        "L"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "REC-NW189",
+      "domain": "reconciliation",
+      "claim": "A resolved wide cold-classical binary (2025 NW189)",
+      "manuscript_location": "abstract; main/05_moons",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "evidence": "A coherent quadrupole excess over 315 controls; never imaged as two sources; the figure inset is a model; the primary is MPC-designated; the printed orbit differs from the raw one.",
+      "evidence_tags": [
+        "W-P",
+        "W-M"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "REC-102-ASTEROIDS",
+      "domain": "reconciliation",
+      "claim": "102 asteroids and Jupiter Trojans, including 55 multi-satellite Euclid-SPHEREx asteroids",
+      "manuscript_location": "abstract; methods/01_data; methods/05_orbits",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "102 = 32 + 5 + 10 + 55 recounts. The 55 are LSST_DP2 + SPHEREx_Spec with n_euclid_obs = 0. EUC-G18 is called an Amor but its elements make it an Aten.",
+      "evidence_tags": [
+        "W-M",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m05b_sat3_pairs.py"
+      ]
+    },
+    {
+      "id": "REC-R25E02",
+      "domain": "reconciliation",
+      "claim": "A dwarf-planet candidate hidden against the Galactic bulge (R25-E02)",
+      "manuscript_location": "abstract; main/04_distances",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "evidence": "Elements, arc and counts match the raw fit and no known object matches. The 462-day arc rests on three archival detections at S/N 5.4, 5.8 and 3.7, drawn in the figure at 11.5 and 9.8.",
+      "evidence_tags": [
+        "W-M",
+        "W-P"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "REC-11-MOONS",
+      "domain": "reconciliation",
+      "claim": "Eleven known Jovian irregular moons recovered blindly",
+      "manuscript_location": "main/07_agents; methods/02_validation",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "evidence": "Eleven recovery chains: five distinct Jovian moons (Elara twice), one Saturnian, and Nereid four times.",
+      "evidence_tags": [
+        "L",
+        "W-M"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "REC-35-TNOS",
+      "domain": "reconciliation",
+      "claim": "35 known distant TNOs recovered blindly, none linked by the Rubin pipeline",
+      "manuscript_location": "main/02_pipelines; methods/06",
+      "verdict": "VERIFIED",
+      "evidence": "14 + 17 + 4 = 35 with dp2_sssource_count = 0; classification happens after linking with no ephemeris seeding found. Counts read from the authors' files, not re-run.",
+      "evidence_tags": [
+        "W-M",
+        "W-P"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "REC-6SIGMA",
+      "domain": "reconciliation",
+      "claim": "R25-D03 exceeds the Neptune-scattering bound by more than six standard deviations",
+      "manuscript_location": "main/03_distant; methods/05_orbits",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Monte Carlo from the authors' covariance gives 5.8 sigma.",
+      "evidence_tags": [
+        "W-M"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m07_stats_process.py"
+      ]
+    },
+    {
+      "id": "REC-579SIGMA",
+      "domain": "reconciliation",
+      "claim": "579 sigma L2 reflex curvature for EUC-CW04",
+      "manuscript_location": "tab_group2_euclid_tnos; methods/04",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "The number is distance over its uncertainty (42.494 / 0.073), not a significance of curvature.",
+      "evidence_tags": [
+        "W-M"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m07_stats_process.py"
+      ]
+    },
+    {
+      "id": "REC-CAPTURE-RECAPTURE",
+      "domain": "reconciliation",
+      "claim": "About 4 more dwarf-planet candidates (1-23) and about 9 more low-inclination extreme TNOs (1-46) remain",
+      "manuscript_location": "main/08_outlook; methods/07",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Point values follow from the stated inputs, but N_rec = 5 is unsupported (only 2001 KA77 lies within |b| < 15 deg; N_rec = 1 gives 24), lower limits are clipped to 1, and uncertainty in N_rec is ignored. The '0.26 incompleteness fraction' is new/known, not new/(new+known) = 0.20.",
+      "evidence_tags": [
+        "W-M",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m07_stats_process.py"
+      ]
+    },
+    {
+      "id": "REC-23-HOURS",
+      "domain": "reconciliation",
+      "claim": "Twenty-three active hours of work",
+      "manuscript_location": "abstract; main/07_agents",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "evidence": "23.05 is a constant in the figure script; no git history. The paper's own idle rule gives 19.6 h from embedded timestamps and 49.7 h from file times.",
+      "evidence_tags": [
+        "W-M",
+        "W-P"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m07_stats_process.py"
+      ]
+    },
+    {
+      "id": "REC-14-ARCHIVES",
+      "domain": "reconciliation",
+      "claim": "Fourteen ground and space archives behind one interface",
+      "manuscript_location": "abstract; main/07_agents",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Matches a code inventory that omits the MPC ITF (source of 10 bodies) and includes archives with no discovery-level output; the text names more than 20.",
+      "evidence_tags": [
+        "W-M"
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "REC-MANUSCRIPT-STATE",
+      "domain": "reconciliation",
+      "claim": "The manuscript is submission-ready and internally consistent",
+      "manuscript_location": "whole manuscript",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "evidence": "Nine author to-do notes remain (data DOIs, code release, MPC reporting, competing interests); 122 numeric mismatches and 58 internal inconsistencies in 1,726 comparisons.",
+      "evidence_tags": [
+        "W-M",
+        "L"
+      ],
+      "reproduce": [
+        "work_brain3_galactic_integrity/scripts/manuscript/m10_ledger.py"
+      ]
+    }
+  ]
+}

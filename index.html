@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rubin / Euclid Multi-Archive Discovery Portal</title>
+  <meta name="description" content="Audited Solar System candidates from Rubin, Euclid and a dozen further archives: 93 survivors of an independent audit, real archival pixels for 96 targets, the manuscript, cutout atlases and the audit verdict ledgers." />
+  <style>
+    /* Self-contained page: no external stylesheet, font or script. Dark first; data-theme="light" flips it. */
+    :root {
+      --bg: #070b12; --bg-raise: #0e1520; --bg-card: #111a27; --bg-inset: #0a111b;
+      --line: #223046; --line-strong: #33465f;
+      --text: #e7edf5; --text-2: #b2bfd0; --text-3: #8492a6;
+      --accent: #6fb1ff; --accent-soft: rgba(111, 177, 255, 0.14);
+      --ok: #4fd1a1; --ok-soft: rgba(79, 209, 161, 0.14);
+      --warn: #f2b24a; --warn-soft: rgba(242, 178, 74, 0.14);
+      --bad: #f2836b; --bad-soft: rgba(242, 131, 107, 0.14);
+      --quiet: #94a3b8; --quiet-soft: rgba(148, 163, 184, 0.14);
+      --stamp-bg: #f4f1ea;
+      --radius: 12px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+    }
+    [data-theme="light"] {
+      --bg: #f6f4ef; --bg-raise: #ffffff; --bg-card: #ffffff; --bg-inset: #f0ede6;
+      --line: #ddd8cc; --line-strong: #c3bcad;
+      --text: #171a1f; --text-2: #424a55; --text-3: #68717e;
+      --accent: #1b4d89; --accent-soft: rgba(27, 77, 137, 0.1);
+      --ok: #196b4d; --ok-soft: rgba(25, 107, 77, 0.1);
+      --warn: #8a5a05; --warn-soft: rgba(148, 98, 10, 0.12);
+      --bad: #a83d1e; --bad-soft: rgba(181, 68, 34, 0.1);
+      --quiet: #5c6673; --quiet-soft: rgba(67, 74, 84, 0.08);
+      --stamp-bg: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { color-scheme: dark; scroll-behavior: smooth; }
+    [data-theme="light"] { color-scheme: light; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.55; }
+    a { color: var(--accent); }
+    a:hover { text-decoration: none; }
+    code { font-family: var(--mono); font-size: 0.88em; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 22px; }
+
+    .topbar { position: sticky; top: 0; z-index: 10; background: var(--bg-raise); border-bottom: 1px solid var(--line); }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; }
+    .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 14px var(--ok); }
+    .topnav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .topnav a, .theme-toggle {
+      font: inherit; font-size: 0.86rem; font-weight: 600; color: var(--text-2); text-decoration: none;
+      background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 6px 11px; cursor: pointer;
+    }
+    .topnav a:hover, .theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+
+    .hero { padding: 46px 0 22px; }
+    .kicker { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ok); }
+    h1 { margin: 8px 0 12px; font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.15; letter-spacing: -0.01em; }
+    .lede { max-width: 860px; margin: 0; font-size: 1.06rem; color: var(--text-2); }
+    .live { margin-top: 14px; font-size: 0.82rem; color: var(--text-3); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; background: var(--bg-inset); }
+    .pill.ok { border-color: var(--ok); color: var(--ok); }
+    .pill.off { border-color: var(--line-strong); color: var(--text-3); }
+
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 18px 0 8px; }
+    .kpi { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 18px 16px; }
+    .kpi.lead { border-color: var(--ok); background: linear-gradient(180deg, var(--ok-soft), transparent 70%), var(--bg-card); }
+    .kpi-value { font-size: 2.5rem; font-weight: 750; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+    .kpi-label { margin-top: 8px; font-size: 0.98rem; font-weight: 700; }
+    .kpi-note { margin-top: 6px; font-size: 0.86rem; color: var(--text-2); }
+
+    .bar-block { margin: 14px 0 6px; }
+    .stack { display: flex; height: 16px; border-radius: 8px; overflow: hidden; gap: 2px; background: var(--bg); }
+    .stack span { display: block; min-width: 4px; }
+    .seg-survivor { background: var(--ok); }
+    .seg-disputed { background: var(--warn); }
+    .seg-eliminated { background: var(--bad); }
+    .seg-catalogued { background: var(--quiet); }
+    .legend { display: flex; gap: 6px 18px; flex-wrap: wrap; margin-top: 8px; font-size: 0.86rem; color: var(--text-2); }
+    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: baseline; }
+
+    section { padding: 26px 0 8px; }
+    h2 { margin: 0 0 6px; font-size: 1.35rem; }
+    .section-note { margin: 0 0 16px; color: var(--text-2); font-size: 0.95rem; max-width: 900px; }
+
+    .portals { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .card { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+    .card.featured { grid-column: 1 / -1; border-color: var(--ok); }
+    .card h3 { margin: 0; font-size: 1.12rem; }
+    .card p { margin: 0; color: var(--text-2); font-size: 0.94rem; }
+    .tag { align-self: flex-start; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ok); border: 1px solid var(--ok); background: var(--ok-soft); border-radius: 5px; padding: 2px 8px; }
+    .tag.blue { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+    .btn { font: inherit; font-size: 0.88rem; font-weight: 650; text-decoration: none; color: var(--text); background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 8px; padding: 8px 13px; display: inline-block; }
+    .btn:hover { filter: brightness(1.15); }
+    .btn.primary { background: var(--ok-soft); border-color: var(--ok); }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { font-size: 0.84rem; font-weight: 600; text-decoration: none; color: var(--text-2); background: var(--bg-inset); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
+    .chip:hover { color: var(--text); border-color: var(--accent); }
+    .chip b { font-variant-numeric: tabular-nums; margin-left: 6px; color: var(--text); }
+
+    .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+    .target { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .target:hover { border-color: var(--accent); }
+    .target.control { border-color: var(--warn); }
+    .target-thumb { aspect-ratio: 16 / 10; background: var(--stamp-bg); display: flex; align-items: center; justify-content: center; color: #68717e; font-size: 0.78rem; }
+    .target-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .target-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 3px; }
+    .target-name { font-weight: 700; font-size: 0.98rem; }
+    .target-alias { font-family: var(--mono); font-size: 0.74rem; color: var(--text-3); }
+    .target-class { font-size: 0.82rem; color: var(--text-2); }
+    .target-meta { font-size: 0.78rem; color: var(--text-3); }
+    .target-flag { align-self: flex-start; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em; color: var(--warn); border: 1px solid var(--warn); background: var(--warn-soft); border-radius: 4px; padding: 1px 6px; }
+
+    .artifacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+    .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; font-size: 0.92rem; }
+    .list li { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+    .list small { color: var(--text-3); }
+    .ext { font-family: var(--mono); font-size: 0.68rem; font-weight: 700; color: var(--text-3); border: 1px solid var(--line-strong); border-radius: 4px; padding: 0 5px; }
+
+    footer { margin-top: 30px; border-top: 1px solid var(--line); padding: 20px 0 46px; color: var(--text-3); font-size: 0.86rem; }
+    footer p { margin: 0 0 8px; max-width: 940px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand"><span class="brand-dot" aria-hidden="true"></span><span>Rubin / Euclid Discovery Portal</span></div>
+      <nav class="topnav" aria-label="Sections">
+        <a href="#portals">Portals</a>
+        <a href="#featured">Featured targets</a>
+        <a href="#artifacts">Manuscript &amp; audit</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme">Light theme</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="hero">
+      <div class="kicker">Audited results · real archival pixels</div>
+      <h1>Rubin / Euclid Multi-Archive Discovery Portal</h1>
+      <p class="lede">
+        Searches assembled across Vera C. Rubin Observatory, ESA Euclid, DECam and a dozen further public archives
+        proposed <span data-k="claims">157</span> Solar System candidates. An independent audit regraded every claim from
+        its own archive queries, orbit fits and pixels. This portal shows what survived, what did not, and the
+        archival images behind each target.
+      </p>
+      <div class="live" id="live" aria-live="polite">
+        <span class="pill off" id="live-manifests">manifests: loading</span>
+        <span class="pill off" id="live-catalog">catalogue: loading</span>
+        <span class="pill off" id="live-verdicts">audit ledger: loading</span>
+        <span class="pill off" id="live-api">API: checking</span>
+      </div>
+    </div>
+
+    <div class="kpis" aria-label="Audited key figures">
+      <div class="kpi lead">
+        <div class="kpi-value" data-k="survivors">93</div>
+        <div class="kpi-label">Audited Survivors</div>
+        <div class="kpi-note">
+          from <span data-k="claims">157</span> pre-audit Solar System claims:
+          <span data-k="disputed">17</span> disputed and uncounted, <span data-k="eliminated">6</span> eliminated,
+          <span data-k="catalogued">41</span> matched to catalogued objects
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" data-k="movie_targets">96</div>
+        <div class="kpi-label">Real-Pixel Movie Targets</div>
+        <div class="kpi-note">
+          <span data-k="movie_discovery">94</span> discovery targets + <span data-k="movie_controls">2</span> recovery
+          controls (<code>2019 UM31</code> and <code>2021 QB98</code>)
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" data-k="movie_frames">388</div>
+        <div class="kpi-label">Real Archival Frames</div>
+        <div class="kpi-note">
+          <span data-k="movie_single">249</span> single exposures · <span data-k="movie_synthetic">0</span> synthetic ·
+          <span data-k="movie_gaps">0</span> coverage gaps
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value"><span data-k="ms_pages">48</span></div>
+        <div class="kpi-label">Page AJ Manuscript</div>
+        <div class="kpi-note">text, tables, macros and figures synced to the audited catalogue</div>
+      </div>
+    </div>
+
+    <div class="bar-block" aria-label="How the claims were graded">
+      <div class="stack" role="img" id="claim-bar" aria-label="93 audited survivors, 17 disputed, 6 eliminated, 41 catalogued, out of 157 claims">
+        <span class="seg-survivor" style="flex: 93"></span>
+        <span class="seg-disputed" style="flex: 17"></span>
+        <span class="seg-eliminated" style="flex: 6"></span>
+        <span class="seg-catalogued" style="flex: 41"></span>
+      </div>
+      <div class="legend">
+        <span><i class="seg-survivor"></i><span data-k="survivors">93</span> audited survivors (<span data-k="tnos">46</span> trans-Neptunian, <span data-k="asteroids">43</span> asteroid, <span data-k="moons">3</span> Jovian-satellite and <span data-k="centaurs">1</span> Centaur candidates)</span>
+        <span><i class="seg-disputed"></i><span data-k="disputed">17</span> disputed, not counted</span>
+        <span><i class="seg-eliminated"></i><span data-k="eliminated">6</span> eliminated</span>
+        <span><i class="seg-catalogued"></i><span data-k="catalogued">41</span> catalogued objects, including the control <code>2019 UM31</code></span>
+      </div>
+    </div>
+
+    <section id="portals">
+      <h2>Portals</h2>
+      <p class="section-note">Four views of the same audited catalogue. Every survivor is a candidate that awaits a Minor Planet Center designation and independent recovery.</p>
+      <div class="portals">
+        <article class="card featured">
+          <span class="tag">Start here · real pixels</span>
+          <h3><span data-k="movie_targets">96</span>-Target Real-Pixel Multi-Epoch Movie Gallery</h3>
+          <p>
+            Animated WebP movies, 300-dpi contact sheets and vector PDFs for every target, with the audit verdict and a
+            per-frame provenance table (archive URI, exposure, aperture signal-to-noise, SHA-256). No frame is synthetic.
+            <span data-k="movie_no_epoch">12</span> targets have only static coadds at the detection position and are labelled as such.
+          </p>
+          <div class="chips" aria-label="Open the gallery by group">
+            <a class="chip" href="./movie_gallery/index.html?group=group1">Group I · Rubin + DECam<b data-k="g_group1">13</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=group2">Group II · Euclid TNO candidates<b data-k="g_group2">13</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=group5">Group V · Euclid asteroid candidates<b data-k="g_group5">43</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=galactic">Galactic stars<b data-k="g_galactic">25</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=controls">Recovery controls<b data-k="g_controls">2</b></a>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="./movie_gallery/index.html">Open the movie gallery</a>
+            <a class="btn" href="./movie_gallery/index.html?coverage=context">Targets without detection-epoch pixels</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="tag blue">Monograph · EN / 中文</span>
+          <h3>Discovery Research Monograph &amp; Ledger</h3>
+          <p>
+            Bilingual method monograph with interactive blink, quadrature and stereoscopy schematics, plates from the
+            audited manuscript, and the audited ledger: every pre-audit claim with its status badge.
+          </p>
+          <div class="actions">
+            <a class="btn" href="./discovery_blog/index.html">Read the monograph</a>
+            <a class="btn" href="./discovery_blog/index.html?lang=zh">中文版</a>
+            <a class="btn" href="./discovery_blog/index.html#sec-ledger">Audited ledger</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="tag blue">WebGL · Three.js</span>
+          <h3>Eyes on the Cosmos 3D Explorer &amp; Studio</h3>
+          <p>
+            Orbital simulation of <span data-k="objects">265</span> catalogued bodies with the
+            <span data-k="survivors">93</span> audited candidates flagged, a Gaia DR3 Milky Way, black-hole disks,
+            a WGS-84 Earth model and NORAD satellites. Fitted orbits are display solutions for short arcs.
+          </p>
+          <div class="actions">
+            <a class="btn" href="./eyes_3d/index.html">Open the 3D explorer</a>
+            <a class="btn" href="./eyes_3d/index.html?category=discoveries">Audited candidates</a>
+            <a class="btn" href="./eyes_3d/studio.html">3D studio</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="tag blue">Trajectories</span>
+          <h3>ADAM Trajectory &amp; Planetary Defense Console</h3>
+          <p>
+            Lambert transfer porkchop plots, impact-probability runs, ephemerides and precovery searches for
+            catalogued objects. A separate demonstration, not part of the audited counts.
+          </p>
+          <div class="actions">
+            <a class="btn" href="./adam_console/index.html">Open the console</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="featured">
+      <h2>Featured targets</h2>
+      <p class="section-note">Six entry points into the gallery: four audited candidates and the two recovery controls. Thumbnails are the contact sheets of real archival frames.</p>
+      <div class="strip" id="featured-strip">
+        <a class="target" href="./movie_gallery/index.html?target=R25-D03" data-target="R25-D03">
+          <div class="target-thumb">R25-D03</div>
+          <div class="target-body"><span class="target-name">R25-D03</span><span class="target-alias">DELTA_003</span><span class="target-class">Trans-Neptunian object candidate</span><span class="target-meta"></span></div>
+        </a>
+        <a class="target" href="./movie_gallery/index.html?target=EUC-S05" data-target="EUC-S05">
+          <div class="target-thumb">EUC-S05</div>
+          <div class="target-body"><span class="target-name">EUC-S05</span><span class="target-alias">EUC0005</span><span class="target-class">Euclid trans-Neptunian object candidate</span><span class="target-meta"></span></div>
+        </a>
+        <a class="target" href="./movie_gallery/index.html?target=EUC-S02" data-target="EUC-S02">
+          <div class="target-thumb">EUC-S02</div>
+          <div class="target-body"><span class="target-name">EUC-S02</span><span class="target-alias">EUC0002</span><span class="target-class">Euclid trans-Neptunian object candidate</span><span class="target-meta"></span></div>
+        </a>
+        <a class="target" href="./movie_gallery/index.html?target=R25-E02" data-target="R25-E02">
+          <div class="target-thumb">R25-E02</div>
+          <div class="target-body"><span class="target-name">R25-E02</span><span class="target-alias">EPS_002</span><span class="target-class">Trans-Neptunian object candidate</span><span class="target-meta"></span></div>
+        </a>
+        <a class="target control" href="./movie_gallery/index.html?target=2019_UM31_recovery_control" data-target="2019_UM31_recovery_control">
+          <div class="target-thumb">2019 UM31</div>
+          <div class="target-body"><span class="target-flag">CONTROL</span><span class="target-name">2019 UM31</span><span class="target-alias">EUC-G18 · EUCLID_EES149_GOLD_18</span><span class="target-class">Known main-belt asteroid, Euclid VIS recovery control</span><span class="target-meta"></span></div>
+        </a>
+        <a class="target control" href="./movie_gallery/index.html?target=2021_QB98_recovery_control" data-target="2021_QB98_recovery_control">
+          <div class="target-thumb">2021 QB98</div>
+          <div class="target-body"><span class="target-flag">CONTROL</span><span class="target-name">2021 QB98</span><span class="target-alias">Rubin recovery</span><span class="target-class">Known trans-Neptunian object, recovery control</span><span class="target-meta"></span></div>
+        </a>
+      </div>
+    </section>
+
+    <section id="artifacts">
+      <h2>Research artifacts, cutout atlases and independent audit verdicts</h2>
+      <p class="section-note">The manuscript, the vector atlases built from the same archival frames as the gallery, and the raw verdict ledgers of the independent audit.</p>
+      <div class="artifacts">
+        <article class="card">
+          <span class="tag">Manuscript</span>
+          <h3><span data-k="ms_pages">48</span>-page compiled AJ manuscript</h3>
+          <p>Numbers, tables and figures are generated from the audited catalogue and the real-pixel manifests.</p>
+          <div class="actions"><a class="btn primary" href="./outputs/manuscript_regenerated/ms.pdf">Open ms.pdf</a></div>
+        </article>
+
+        <article class="card">
+          <span class="tag blue">Vector atlases</span>
+          <h3>Cutout and photometry atlases</h3>
+          <ul class="list">
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_groups1_3_4.pdf">Cutouts · Groups I, III, IV</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group2_stereo.pdf">Cutouts · Group II and stereo candidates</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group5_p1.pdf">Cutouts · Group V, part 1</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group5_p2.pdf">Cutouts · Group V, part 2</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_groups1_3_4.pdf">Photometry · Groups I, III, IV</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group2.pdf">Photometry · Group II</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group5_p1.pdf">Photometry · Group V, part 1</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group5_p2.pdf">Photometry · Group V, part 2</a></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag blue">Audit ledgers</span>
+          <h3>Raw verdict files of the independent audit</h3>
+          <ul class="list">
+            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain1_euclid_verdicts.json">Euclid asteroids and trans-Neptunian candidates</a> <small id="verdicts-euclid"></small></li>
+            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain2_outerss_verdicts.json">Outer Solar System, moons, binaries, spectra</a></li>
+            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain3_galactic_integrity_verdicts.json">Galactic searches and data integrity</a></li>
+            <li><span class="ext">JSON</span><a href="./outputs/movies/movie_gallery_manifest.json">Movie gallery manifest</a></li>
+            <li><span class="ext">JSON</span><a href="./outputs/real_cutouts/real_cutouts_manifest.json">Real-cutout manifest</a></li>
+          </ul>
+          <p id="control-note">The Euclid track once listed as <code>EUC-G18</code> is the catalogued main-belt asteroid <code>2019 UM31</code>. It serves as a recovery control and is not a discovery.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        Image data: ESA Euclid DR1 (VIS and MER), CTIO DECam via the NOIRLab Astro Data Archive, Vera C. Rubin
+        Observatory DP1 and DP2, and Legacy Surveys DR10. Coadd frames are stamped with the midpoint of their epoch
+        span or labelled as static sky.
+      </p>
+      <p>This site publishes results and data products. The source code of the search pipelines is kept in a private repository.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+      var THEME_KEY = "rubin_euclid_portal_theme";
+
+      function $(id) { return document.getElementById(id); }
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        var btn = $("theme-toggle");
+        if (btn) btn.textContent = theme === "dark" ? "Light theme" : "Dark theme";
+      }
+
+      function initTheme() {
+        var saved = null;
+        try { saved = window.localStorage.getItem(THEME_KEY); } catch (_) { /* storage unavailable */ }
+        applyTheme(saved === "light" ? "light" : "dark");
+        $("theme-toggle").addEventListener("click", function () {
+          var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          applyTheme(next);
+          try { window.localStorage.setItem(THEME_KEY, next); } catch (_) { /* storage unavailable */ }
+        });
+      }
+
+      /* Write a figure into every element bound to it with data-k="name". */
+      function setFigures(values) {
+        Object.keys(values).forEach(function (key) {
+          var value = values[key];
+          if (value === null || value === undefined || (typeof value === "number" && !isFinite(value))) return;
+          var nodes = document.querySelectorAll('[data-k="' + key + '"]');
+          for (var i = 0; i < nodes.length; i += 1) nodes[i].textContent = String(value);
+        });
+      }
+
+      function setPill(id, ok, text) {
+        var el = $(id);
+        if (!el) return;
+        el.className = "pill " + (ok ? "ok" : "off");
+        el.textContent = text;
+      }
+
+      function fetchJson(url, timeoutMs) {
+        var controller = typeof AbortController === "function" ? new AbortController() : null;
+        var timer = controller && timeoutMs ? window.setTimeout(function () { controller.abort(); }, timeoutMs) : null;
+        return fetch(url, controller ? { signal: controller.signal } : undefined).then(function (resp) {
+          if (timer) window.clearTimeout(timer);
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          return resp.json();
+        });
+      }
+
+      function figuresFromManifests(movies, cutouts) {
+        var rows = movies.movies || [];
+        var sum = function (key) { return rows.reduce(function (s, m) { return s + (Number(m[key]) || 0); }, 0); };
+        var groups = movies.counts_by_group || {};
+        var controls = rows.filter(function (m) { return m.is_control; }).length;
+        var out = {
+          movie_targets: rows.length,
+          movie_controls: controls,
+          movie_discovery: rows.length - controls,
+          movie_frames: sum("n_frames"),
+          movie_single: sum("n_single_epoch_frames"),
+          movie_synthetic: rows.filter(function (m) { return m.synthetic; }).length,
+          movie_no_epoch: rows.filter(function (m) { return Number(m.n_detection_epoch_frames) === 0; }).length,
+          movie_gaps: Number(cutouts.n_coverage_gaps) || 0
+        };
+        Object.keys(groups).forEach(function (g) { out["g_" + g] = groups[g]; });
+        return out;
+      }
+
+      function decorateFeatured(movies) {
+        var byId = {};
+        (movies.movies || []).forEach(function (m) { byId[m.target_id] = m; });
+        var cards = $("featured-strip").querySelectorAll("[data-target]");
+        for (var i = 0; i < cards.length; i += 1) {
+          var card = cards[i];
+          var m = byId[card.getAttribute("data-target")];
+          if (!m) continue;
+          var thumb = card.querySelector(".target-thumb");
+          if (thumb && m.contact_sheet_png_path) {
+            var img = document.createElement("img");
+            img.setAttribute("loading", "lazy");
+            img.setAttribute("decoding", "async");
+            img.setAttribute("alt", m.display_id + ": contact sheet of " + m.n_frames + " real archival frames");
+            img.setAttribute("src", "./" + String(m.contact_sheet_png_path).replace(/^\/+/, ""));
+            thumb.textContent = "";
+            thumb.appendChild(img);
+          }
+          var cls = card.querySelector(".target-class");
+          if (cls && m.object_class && !card.classList.contains("control")) cls.textContent = m.object_class;
+          var meta = card.querySelector(".target-meta");
+          if (meta) {
+            meta.textContent = m.n_frames + " frames · " + m.n_single_epoch_frames + " single exposures"
+              + (m.detection_epoch_note ? " · " + m.detection_epoch_note : "");
+          }
+        }
+      }
+
+      function loadManifests() {
+        return Promise.all([
+          fetchJson("./outputs/movies/movie_gallery_manifest.json"),
+          fetchJson("./outputs/real_cutouts/real_cutouts_manifest.json")
+        ]).then(function (pair) {
+          setFigures(figuresFromManifests(pair[0], pair[1]));
+          decorateFeatured(pair[0]);
+          setPill("live-manifests", true, "manifests: live (" + (pair[0].movies || []).length + " targets, synthetic " + String(pair[0].synthetic === true) + ")");
+        }).catch(function () {
+          setPill("live-manifests", false, "manifests: not reachable, showing audited defaults");
+        });
+      }
+
+      function loadVerdicts() {
+        return fetchJson("./data/audit_verdicts/brain1_euclid_verdicts.json").then(function (ledger) {
+          var totals = ledger.totals || {};
+          var tally = function (obj) {
+            return Object.keys(obj || {}).map(function (k) { return obj[k] + " " + k.toLowerCase().replace(/_/g, " "); }).join(", ");
+          };
+          var note = (totals.n_objects ? totals.n_objects + " objects graded" : "") + (ledger.date_utc ? " on " + ledger.date_utc : "");
+          $("verdicts-euclid").textContent = note ? "(" + note + ")" : "";
+          var control = (ledger.objects || []).filter(function (o) { return o.paper_id === "EUC-G18"; })[0];
+          var match = control && control.known_object_match;
+          if (match && match.designation) {
+            $("control-note").textContent = "Audit of EUC-G18: " + (control.verdict_basis || "known object recovered") + " Matched body: "
+              + match.designation + " (" + String(match.orbit_class || "catalogued object").toLowerCase() + ", a = " + match.a_au + " au, H = " + match.H + "). "
+              + "Group II: " + tally(totals.group_II) + ". Group V: " + tally(totals.group_V) + ".";
+          }
+          setPill("live-verdicts", true, "audit ledger: live");
+        }).catch(function () {
+          setPill("live-verdicts", false, "audit ledger: not reachable");
+        });
+      }
+
+      /* The compiled catalogue is a script that defines window.SOLAR_CATALOG; its audit accounting
+         overrides the audited defaults printed in the page. */
+      function loadCatalog() {
+        return new Promise(function (resolve) {
+          var tag = document.createElement("script");
+          tag.src = "./eyes_3d/data/solar_catalog.js";
+          tag.async = true;
+          tag.onload = function () {
+            var meta = window.SOLAR_CATALOG && window.SOLAR_CATALOG.meta;
+            var acc = meta && meta.audit_accounting;
+            if (!acc) { setPill("live-catalog", false, "catalogue: no audit accounting"); resolve(); return; }
+            var cat = meta.new_discoveries_by_category || {};
+            var figures = {
+              claims: acc.claims_before_audit,
+              survivors: acc.audited_survivors,
+              disputed: acc.disputed_claims,
+              eliminated: acc.eliminated_rows_dropped,
+              catalogued: acc.catalogued_object_rows,
+              tnos: (cat.kuiper_etno || 0) + (cat.dwarf_planets || 0),
+              asteroids: cat.asteroids,
+              moons: cat.moons,
+              centaurs: cat.comets_centaurs,
+              objects: meta.total_objects
+            };
+            setFigures(figures);
+            var bar = $("claim-bar");
+            var segs = bar ? bar.querySelectorAll("span") : [];
+            var order = [figures.survivors, figures.disputed, figures.eliminated, figures.catalogued];
+            for (var i = 0; i < segs.length && i < order.length; i += 1) segs[i].style.flex = String(order[i]);
+            if (bar) {
+              bar.setAttribute("aria-label", figures.survivors + " audited survivors, " + figures.disputed + " disputed, " + figures.eliminated
+                + " eliminated, " + figures.catalogued + " catalogued, out of " + figures.claims + " claims");
+            }
+            setPill("live-catalog", true, "catalogue: live (" + figures.survivors + " of " + figures.claims + ")");
+            resolve();
+          };
+          tag.onerror = function () { setPill("live-catalog", false, "catalogue: not reachable, showing audited defaults"); resolve(); };
+          document.head.appendChild(tag);
+        });
+      }
+
+      /* A local API server may answer ./api/health; a static host answers 404, which is expected. */
+      function probeApi() {
+        return fetchJson("./api/health", 2500).then(function (health) {
+          var label = health && typeof health === "object" && health.status ? String(health.status) : "online";
+          setPill("live-api", true, "API: " + label);
+        }).catch(function () {
+          setPill("live-api", false, "API: static hosting");
+        });
+      }
+
+      function start() {
+        initTheme();
+        loadManifests();
+        loadVerdicts();
+        loadCatalog();
+        probeApi();
+      }
+
+      window.PortalHub = { figuresFromManifests: figuresFromManifests, setFigures: setFigures };
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+      else start();
+    })();
+  </script>
+</body>
+</html>

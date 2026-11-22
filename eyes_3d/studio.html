@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Object Playground — Eyes on the Cosmos</title>
+  <style>
+    :root {
+      --bg: #03060d;
+      --panel: rgba(7, 13, 26, 0.88);
+      --panel-strong: rgba(6, 11, 22, 0.96);
+      --border: rgba(148, 184, 240, 0.24);
+      --accent: #38bdf8;
+      --gold: #fbbf24;
+      --violet: #a78bfa;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+      --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 18px;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #playground-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      cursor: grab;
+    }
+
+    #playground-canvas:active { cursor: grabbing; }
+
+    /* Single Minimalist Top Bar */
+    #top-bar {
+      position: fixed;
+      top: 12px;
+      left: 14px;
+      right: 14px;
+      height: 64px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.58);
+      z-index: 30;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand-orb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff7d6 0%, #fbbf24 44%, #a855f7 88%, transparent 100%);
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.72);
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .selector-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .pg-select {
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text);
+      border: 1px solid rgba(148, 163, 184, 0.34);
+      border-radius: 10px;
+      padding: 9px 13px;
+      font-size: 17px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      max-width: 100%;
+    }
+
+    .pg-select:focus {
+      border-color: var(--accent);
+    }
+
+    #category-select { min-width: 210px; max-width: 280px; }
+    #object-select { flex: 1 1 260px; max-width: 420px; }
+
+    .nav-btn {
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.14s;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.24);
+      color: #ffffff;
+    }
+
+    .cta-link {
+      padding: 9px 14px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.24), rgba(56, 189, 248, 0.24));
+      border: 1px solid rgba(251, 191, 36, 0.6);
+      color: #fef08a;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .cta-link:hover {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.38), rgba(56, 189, 248, 0.38));
+      color: #ffffff;
+    }
+
+    .cta-link.subtle {
+      padding: 7px 10px;
+      background: transparent;
+      border-color: rgba(148, 163, 184, 0.28);
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .cta-link.subtle:hover {
+      background: rgba(30, 41, 59, 0.78);
+      border-color: rgba(125, 211, 252, 0.6);
+      color: #ffffff;
+    }
+
+    /* Controls Dropdown Panel */
+    .controls-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    #controls-panel {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 370px;
+      padding: 18px;
+      background: var(--panel-strong);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(56, 189, 248, 0.52);
+      border-radius: 14px;
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.82);
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 50;
+    }
+
+    #controls-panel.open { display: flex; }
+
+    .ctrl-hdr {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .ctrl-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 16px;
+      color: #e2e8f0;
+    }
+
+    .ctrl-slider-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ctrl-slider-block input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .ctrl-val {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: #7dd3fc;
+      font-weight: 700;
+    }
+
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .toggle-btn {
+      padding: 9px 11px;
+      border-radius: 9px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: rgba(15, 23, 42, 0.78);
+      color: #cbd5e1;
+      font-size: 15.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .toggle-btn.active {
+      background: rgba(45, 212, 191, 0.22);
+      border-color: rgba(45, 212, 191, 0.65);
+      color: #ccfbf1;
+    }
+
+    /* Compact Floating Object Info Box (bottom-left, collapsible) */
+    #info-card {
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      max-width: 480px;
+      padding: 16px 20px;
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.58);
+      z-index: 20;
+    }
+
+    .info-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .info-badge {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.2);
+      color: #7dd3fc;
+    }
+
+    .info-badge.bh {
+      background: rgba(167, 139, 250, 0.25);
+      color: #ddd6fe;
+    }
+
+    .info-badge.disc {
+      background: rgba(251, 191, 36, 0.24);
+      color: #fde047;
+    }
+
+    #info-name {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+
+    #info-desc {
+      font-size: 16.5px;
+      color: #cbd5e1;
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    .info-hint {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 10px;
+      font-family: var(--font-mono);
+    }
+
+    #loading-pill {
+      position: fixed;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(14, 24, 46, 0.92);
+      border: 1px solid var(--accent);
+      color: #e0f2fe;
+      font-size: 16px;
+      font-weight: 600;
+      z-index: 25;
+      display: none;
+    }
+
+    @media (max-width: 1120px) {
+      .brand-title { display: none; }
+      #top-bar { height: auto; flex-wrap: wrap; padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="playground-canvas"></canvas>
+
+  <header id="top-bar">
+    <div class="brand">
+      <div class="brand-orb" aria-hidden="true"></div>
+      <span class="brand-title">3D OBJECT PLAYGROUND</span>
+    </div>
+
+    <div class="selector-group">
+      <select id="category-select" class="pg-select" aria-label="Object category"></select>
+      <select id="object-select" class="pg-select" aria-label="3D Object"></select>
+      <button id="prev-btn" class="nav-btn" type="button" title="Previous object">‹</button>
+      <button id="next-btn" class="nav-btn" type="button" title="Next object">›</button>
+    </div>
+
+    <div class="controls-wrap">
+      <button id="controls-toggle-btn" class="nav-btn" type="button">Controls ▾</button>
+      <div id="controls-panel">
+        <div class="ctrl-hdr">Scene &amp; Material</div>
+        <div class="toggle-grid">
+          <button id="btn-spin" class="toggle-btn active" type="button">Auto-Spin</button>
+          <button id="btn-wireframe" class="toggle-btn" type="button">Wireframe</button>
+          <button id="btn-atmo" class="toggle-btn active" type="button">Atmosphere / Rings</button>
+          <button id="btn-fill" class="toggle-btn active" type="button">Studio Fill Light</button>
+        </div>
+
+        <div class="ctrl-slider-block">
+          <div class="ctrl-row">
+            <span>Sun Lighting Angle</span>
+            <span id="val-sun" class="ctrl-val">38°</span>
+          </div>
+          <input id="slider-sun" type="range" min="0" max="360" step="1" value="38" />
+        </div>
+
+        <div class="ctrl-slider-block">
+          <div class="ctrl-row">
+            <span>Rotation Speed</span>
+            <span id="val-spin" class="ctrl-val">1.0×</span>
+          </div>
+          <input id="slider-spin" type="range" min="0" max="4" step="0.1" value="1.0" />
+        </div>
+
+        <div id="bh-controls-block" style="display:none; flex-direction:column; gap:12px; border-top:1px solid rgba(148,163,184,0.2); padding-top:12px;">
+          <div class="ctrl-hdr" style="color:var(--violet);">Relativistic Black Hole Disk</div>
+          <div class="toggle-grid">
+            <button id="btn-bh-disk" class="toggle-btn active" type="button">Accretion Disk</button>
+            <button id="btn-bh-jets" class="toggle-btn active" type="button">Relativistic Jets</button>
+          </div>
+          <div class="ctrl-slider-block">
+            <div class="ctrl-row">
+              <span>Disk Inclination</span>
+              <span id="val-bh-inc" class="ctrl-val">46°</span>
+            </div>
+            <input id="slider-bh-inc" type="range" min="5" max="88" step="1" value="46" />
+          </div>
+        </div>
+
+        <button id="btn-reset-cam" class="nav-btn" type="button" style="width:100%;">Reset 360° Camera</button>
+      </div>
+    </div>
+
+    <a class="cta-link subtle" href="../index.html" title="Portal hub: audited counts, manuscript and atlases">Hub</a>
+    <a class="cta-link subtle" href="../movie_gallery/index.html" title="96 real-pixel archival movie targets">Movie Gallery</a>
+    <a class="cta-link" href="./index.html">3D Cosmos Explorer ↗</a>
+  </header>
+
+  <div id="loading-pill">Loading 3D Model...</div>
+
+  <section id="info-card">
+    <div class="info-top">
+      <span id="info-badge" class="info-badge">3D MODEL</span>
+      <button id="info-close-btn" class="nav-btn" type="button" style="padding:3px 9px; font-size:14px;">✕</button>
+    </div>
+    <h1 id="info-name">Sagittarius A* (Sgr A*)</h1>
+    <p id="info-desc">Interactive 360° rotatable relativistic black hole &amp; solar system 3D viewer.</p>
+    <div class="info-hint">Drag: 360° Rotate · Scroll: Zoom In/Out · Double-Click: Reset</div>
+  </section>
+
+  <script type="module">
+    import * as THREE from "./vendor/three.module.js";
+    import { OrbitControls } from "./vendor/OrbitControls.js";
+    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261119_v9";
+    import { createSunShaderMesh } from "./js/proceduralBodies.js?v=20261119_v9";
+    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261119_v9";
+
+    const PLAYGROUND_CATALOG = [
+      {
+        key: "black_holes",
+        label: "Black Holes & Accretion Disks",
+        items: [
+          { id: "SGR_A_STAR", name: "Sagittarius A* (Galactic Center SMBH)", kind: "bh", presetKey: "SGR_A_STAR", badge: "4.3M M☉ SMBH", camDist: 4.3, desc: "Supermassive black hole at the center of the Milky Way (8.277 kpc) with glowing RIAF plasma torus, warped photon ring, and relativistic S-star orbits (S2, S38, S55, S62)." },
+          { id: "CYGNUS_X1", name: "Cygnus X-1 (Accreting X-Ray Binary)", kind: "bh", presetKey: "CYGNUS_X1", badge: "21.2 M☉ Kerr BH", camDist: 3.9, desc: "Near-extremal spinning black hole (a* > 0.998) fed by 40.6 M☉ blue supergiant HDE 226868 with Doppler-beamed Shakura-Sunyaev disk, Roche stream, and bipolar jets." },
+          { id: "V404_CYG", name: "V404 Cygni (Microquasar)", kind: "bh", presetKey: "V404_CYG", badge: "9.0 M☉ Microquasar", camDist: 3.9, desc: "Low-mass X-ray binary at 2.39 kpc with warped gravitational-lensing disk arcs, K-subgiant donor star, and powerful relativistic jets." },
+          { id: "GRS_1915", name: "GRS 1915+105 (Superluminal Microquasar)", kind: "bh", presetKey: "GRS_1915", badge: "12.4 M☉ BH", camDist: 4.1, desc: "Rapid-spin Galactic microquasar launching 0.92c apparent superluminal radio jets from an ultra-hot inner accretion disk." },
+          { id: "GRO_J1655", name: "GRO J1655-40 (Runaway BH Binary)", kind: "bh", presetKey: "GRO_J1655", badge: "6.6 M☉ BH", camDist: 3.9, desc: "High-inclination microquasar exhibiting magnetically driven disk winds, Doppler-shifted inner ring, and collimated jets." },
+          { id: "MAXI_J1820", name: "MAXI J1820+070", kind: "bh", presetKey: "MAXI_J1820", badge: "8.5 M☉ BH", camDist: 3.9, desc: "Nearby bright optical/X-ray transient black hole binary at 2.96 kpc with bipolar jet ejecta and K4V companion." },
+          { id: "SS_433", name: "SS 433 (Precessing Jet Microquasar)", kind: "bh", presetKey: "SS_433", badge: "Precessing Jets", camDist: 4.3, desc: "Super-Eddington microquasar with 0.26c helical precessing relativistic jets and thick luminous accretion funnel." },
+          { id: "GAIA_BH1", name: "Gaia BH1 (Nearest Dormant Black Hole)", kind: "bh", presetKey: "GAIA_BH1", badge: "9.62 M☉ Dormant BH", camDist: 4.1, desc: "Quiescent 9.62 M☉ black hole at 478 pc discovered by El-Badry et al. via Gaia DR3 astrometry, showing gravitational Einstein lensing halo and orbiting G-dwarf star." },
+          { id: "GAIA_BH2", name: "Gaia BH2 (Wide Red-Giant BH Binary)", kind: "bh", presetKey: "GAIA_BH2", badge: "8.94 M☉ Dormant BH", camDist: 4.1, desc: "1,277-day wide astrometric dormant black hole system at 1.16 kpc paired with an alpha-enhanced red giant." },
+          { id: "GAIA_BH3", name: "Gaia BH3 (33 M☉ Metal-Poor Halo BH)", kind: "bh", presetKey: "GAIA_BH3", badge: "32.7 M☉ Halo BH", camDist: 4.2, desc: "Most massive known stellar-origin Milky Way black hole (32.7 M☉) in the ED-2 halo stream at 591 pc." }
+        ]
+      },
+      {
+        key: "planets",
+        label: "Sun & Major Planets",
+        items: [
+          { id: "sun", name: "Sun (SDO Photosphere + Corona)", kind: "sun", badge: "G2V Star", camDist: 4.0, desc: "SDO granulation map paired with live animated GLSL chromosphere and dual additive solar corona shells." },
+          { id: "mercury", name: "Mercury (MESSENGER Relief)", kind: "glb", modelId: "mercury", badge: "mercury.glb", camDist: 3.4, desc: "MESSENGER global mosaic with Caloris Basin, lobate thrust scarps, and bright rayed impact craters." },
+          { id: "venus", name: "Venus (Cloud Deck + Magellan)", kind: "glb", modelId: "venus", badge: "venus.glb", camDist: 3.4, desc: "Super-rotating sulfuric-acid cloud deck and Rayleigh/Mie golden atmospheric limb." },
+          { id: "earth", name: "Earth (8K Blue Marble + 4-Layer Atmo)", kind: "glb", modelId: "earth", badge: "earth.glb", camDist: 3.4, desc: "8K remote-sensing continents, ocean glint, drifting clouds, Suomi-NPP night city lights, and 4-layer stratified atmosphere." },
+          { id: "earth_cad_dem", name: "Earth (442k-Tri Land + Seafloor DEM CAD)", kind: "glb", modelId: "earth_cad_dem", badge: "WGS-84 CAD", camDist: 3.5, desc: "442,000-triangle hypsometric elevation mesh revealing Himalayan peaks and Mariana Trench bathymetry." },
+          { id: "mars", name: "Mars (Valles Marineris & Tharsis)", kind: "glb", modelId: "mars", badge: "mars.glb", camDist: 3.4, desc: "4,000 km Valles Marineris canyon, Tharsis shield volcanoes, spiral north-polar ice cap, and dusty limb." },
+          { id: "jupiter", name: "Jupiter + Main & Halo Rings", kind: "glb", modelId: "jupiter", badge: "jupiter.glb", camDist: 4.8, desc: "Oblate Cassini/Juno atmospheric bands, Great Red Spot, polar cyclones, and gossamer/main ring system." },
+          { id: "saturn", name: "Saturn + Full Ring Shadow Shader", kind: "glb", modelId: "saturn", badge: "saturn.glb", camDist: 6.2, desc: "D, C, B, Cassini Division, A, Encke/Keeler gaps, and F ring with exact analytic ray-ellipsoid shadows." },
+          { id: "uranus", name: "Uranus + 13-Ring System", kind: "glb", modelId: "uranus", badge: "uranus.glb", camDist: 7.4, desc: "97.77° sideways-tilted ice giant surrounded by all 13 narrow dusty/icy rings." },
+          { id: "neptune", name: "Neptune + Adams Ring Arcs", kind: "glb", modelId: "neptune", badge: "neptune.glb", camDist: 5.8, desc: "Deep-azure methane ice giant with Galle, Le Verrier, Lassell, Arago, and bright Adams ring arcs." }
+        ]
+      },
+      {
+        key: "discoveries",
+        label: "New Survey Discoveries",
+        items: [
+          { id: "delta_003", name: "★ LSST-DP2-D03 (DELTA_003 — eTNO)", kind: "glb", modelId: "delta_003", badge: "NEW DISCOVERY", isDisc: true, camDist: 3.3, desc: "Flagship extreme TNO (a = 156.6 AU, near Neptune 12:1 MMR) modeled with cosmic-ray-irradiated crimson tholins and ethane frost." },
+          { id: "eps_002", name: "★ R25-E02 (EPS_002 — Dwarf Candidate)", kind: "glb", modelId: "eps_002", badge: "NEW DISCOVERY", isDisc: true, camDist: 3.3, desc: "Galactic-plane dwarf planet candidate (~449 km) discovered inside the |b| < 15° blind spot." },
+          { id: "nw189_primary", name: "★ 2025 NW189 Primary (Cold-Classical KBO)", kind: "glb", modelId: "nw189_primary", badge: "NEW BINARY", isDisc: true, camDist: 3.3, desc: "Ultra-red Cold-Classical Kuiper Belt binary primary resolved with Euclid VIS." },
+          { id: "nw189_secondary", name: "★ S/(2025 NW189) 1 (Binary Companion)", kind: "glb", modelId: "nw189_secondary", badge: "NEW COMPANION", isDisc: true, camDist: 3.2, desc: "Wide 15,630 km binary companion detected at +14.8σ in multi-epoch Euclid VIS imaging." },
+          { id: "iota_004", name: "★ CENTAUR_343 (IOTA_004 — 45 km Centaur)", kind: "glb", modelId: "iota_004", badge: "NEW DISCOVERY", isDisc: true, camDist: 3.2, desc: "Ultra-red 45 km Centaur (a = 16.67 AU) verified across 30 SPHEREx spectral cutouts." },
+          { id: "euc0005", name: "★ EUC0005 (L2 Stereoscopic KBO)", kind: "glb", modelId: "euc0005", badge: "NEW DISCOVERY", isDisc: true, camDist: 3.2, desc: "Trans-Neptunian object pinned via 1.685M-km Earth–Euclid L2 stereoscopic parallax (+11.1σ)." },
+          { id: "gold_18", name: "★ EES149-G18 (111 m Amor NEO)", kind: "glb", modelId: "gold_18", badge: "NEW NEO", isDisc: true, camDist: 3.2, desc: "111-meter Amor near-Earth asteroid jointly detected in Euclid VIS + NISP." }
+        ]
+      },
+      {
+        key: "moons",
+        label: "Natural Moons",
+        items: [
+          { id: "moon", name: "Moon / Luna (LRO + LOLA Relief)", kind: "glb", modelId: "moon", badge: "moon.glb", camDist: 3.4, desc: "Mare Tranquillitatis, Tycho bright ejecta rays, and high-resolution LOLA crater relief." },
+          { id: "io", name: "Io (Volcanic Jovian Moon)", kind: "glb", modelId: "io", badge: "io.glb", camDist: 3.4, desc: "Galileo/Juno sulfur allotropes, Pele plume ring, and Loki Patera caldera." },
+          { id: "europa", name: "Europa (Subsurface Ocean World)", kind: "glb", modelId: "europa", badge: "europa.glb", camDist: 3.4, desc: "Fractured cycloidal lineae ridges and hydrated reddish-salt chaos terrain." },
+          { id: "ganymede", name: "Ganymede", kind: "glb", modelId: "ganymede", badge: "ganymede.glb", camDist: 3.4, desc: "Largest moon in the Solar System contrasting dark Galileo Regio against bright grooved ice." },
+          { id: "callisto", name: "Callisto", kind: "glb", modelId: "callisto", badge: "callisto.glb", camDist: 3.4, desc: "Ancient heavily cratered icy crust featuring the multi-ring Valhalla basin." },
+          { id: "enceladus", name: "Enceladus (Tiger Stripes + Plumes)", kind: "glb", modelId: "enceladus", badge: "enceladus.glb", camDist: 3.8, desc: "Fresh reflective water-ice shell with south-polar Tiger Stripes and 3D cryovolcanic geyser jets." },
+          { id: "titan", name: "Titan (Golden Haze + Methane Seas)", kind: "glb", modelId: "titan", badge: "titan.glb", camDist: 3.5, desc: "Dense orange photochemical haze, blue upper scattering limb, and Cassini RADAR seas." },
+          { id: "mimas", name: "Mimas (Herschel Crater)", kind: "glb", modelId: "mimas", badge: "mimas.glb", camDist: 3.1, desc: "Official NASA Cassini 3D shape model featuring the 139 km Herschel impact basin." },
+          { id: "iapetus", name: "Iapetus (20 km Equatorial Ridge)", kind: "glb", modelId: "iapetus", badge: "iapetus.glb", camDist: 3.4, desc: "Two-tone dark Cassini Regio vs bright icy trailing hemisphere with sculpted equatorial mountain belt." },
+          { id: "triton", name: "Triton (Cantaloupe Terrain)", kind: "glb", modelId: "triton", badge: "triton.glb", camDist: 3.4, desc: "Retrograde captured Kuiper Belt moon of Neptune with nitrogen ice polar cap and dark geyser streaks." },
+          { id: "charon", name: "Charon (Mordor Macula)", kind: "glb", modelId: "charon", badge: "charon.glb", camDist: 3.4, desc: "Pluto's binary partner showing dark-red tholin north pole and Serenity Chasma rift." },
+          { id: "phobos", name: "Phobos (Stickney Crater)", kind: "glb", modelId: "phobos", badge: "phobos.glb", camDist: 2.9, desc: "Official NASA 3D shape model of Mars's inner moon with 9 km Stickney crater and surface grooves." },
+          { id: "deimos", name: "Deimos", kind: "glb", modelId: "deimos", badge: "deimos.glb", camDist: 2.9, desc: "Smooth regolith-blanketed outer moon of Mars." },
+          { id: "hyperion", name: "Hyperion (Sponge Moon)", kind: "glb", modelId: "hyperion", badge: "hyperion.glb", camDist: 2.9, desc: "Chaotically rotating porous icy moon of Saturn from Cassini stereophotoclinometry." },
+          { id: "pan", name: "Pan (Saturn Ring Shepherd)", kind: "glb", modelId: "pan", badge: "pan.glb", camDist: 2.9, desc: "Cassini ravioli-shaped ring shepherd orbiting inside the Encke Gap." }
+        ]
+      },
+      {
+        key: "small_bodies",
+        label: "Dwarfs, Asteroids & Comets",
+        items: [
+          { id: "pluto", name: "Pluto (Tombaugh Regio Heart)", kind: "glb", modelId: "pluto", badge: "pluto.glb", camDist: 3.5, desc: "New Horizons Sputnik Planitia nitrogen-ice heart, Cthulhu Macula tholins, and blue atmospheric haze." },
+          { id: "ceres", name: "(1) Ceres (Occator Faculae)", kind: "glb", modelId: "ceres", badge: "ceres.glb", camDist: 3.4, desc: "Dawn oblate dwarf planet with bright sodium-carbonate evaporites in Occator Crater." },
+          { id: "haumea", name: "(136108) Haumea + Ring", kind: "glb", modelId: "haumea", badge: "haumea.glb", camDist: 5.4, desc: "Rapidly spinning triaxial Jacobi ellipsoid with a 2,287 km icy ring system." },
+          { id: "quaoar", name: "(50000) Quaoar + Dual Rings", kind: "glb", modelId: "quaoar", badge: "quaoar.glb", camDist: 10.5, desc: "Kuiper Belt dwarf planet encircled by rings well outside its classical Roche limit." },
+          { id: "chariklo", name: "(10199) Chariklo + W1/W2 Rings", kind: "glb", modelId: "chariklo", badge: "chariklo.glb", camDist: 6.4, desc: "Triaxial Centaur ringed by razor-sharp Oiapoque and Chuí ice rings." },
+          { id: "vesta", name: "(4) Vesta (Rheasilvia Basin)", kind: "glb", modelId: "vesta", badge: "vesta.glb", camDist: 3.0, desc: "Official NASA Dawn 3D shape model showing the 500 km south-polar impact basin." },
+          { id: "bennu", name: "(101955) Bennu", kind: "glb", modelId: "bennu", badge: "bennu.glb", camDist: 2.9, desc: "OSIRIS-REx rubble-pile spinning-top carbonaceous NEA." },
+          { id: "ryugu", name: "(162173) Ryugu", kind: "glb", modelId: "ryugu", badge: "ryugu.glb", camDist: 2.9, desc: "JAXA Hayabusa2 boulder-strewn C-type diamond asteroid." },
+          { id: "eros", name: "(433) Eros", kind: "glb", modelId: "eros", badge: "eros.glb", camDist: 2.9, desc: "NEAR Shoemaker elongated peanut-shaped S-type near-Earth asteroid." },
+          { id: "arrokoth", name: "(486958) Arrokoth", kind: "glb", modelId: "arrokoth", badge: "arrokoth.glb", camDist: 2.9, desc: "New Horizons contact-binary Cold-Classical Kuiper Belt planetesimal." },
+          { id: "67p", name: "67P/Churyumov–Gerasimenko", kind: "glb", modelId: "67p", badge: "67p.glb", camDist: 2.9, desc: "Official ESA Rosetta bilobed 3D comet nucleus." },
+          { id: "oumuamua", name: "1I/ʻOumuamua (Interstellar)", kind: "glb", modelId: "oumuamua", badge: "oumuamua.glb", camDist: 2.8, desc: "First confirmed interstellar visitor — elongated reddish extrasolar fragment." }
+        ]
+      },
+      {
+        key: "telescopes",
+        label: "Space Telescopes & Stations",
+        items: [
+          { id: "euclid", name: "ESA Euclid Space Telescope (L2)", kind: "glb", modelId: "euclid", badge: "65-Node CAD", camDist: 2.8, extraFill: 0.55, desc: "1.2-m SiC Korsch telescope, gold MLI service module, sunshield, and Ka-band high-gain dish." },
+          { id: "jwst", name: "James Webb Space Telescope (JWST)", kind: "glb", modelId: "jwst", badge: "jwst.glb", camDist: 3.0, extraFill: 0.55, desc: "18 gold-coated beryllium hexagonal primary mirror segments atop a 5-layer Kapton sunshield." },
+          { id: "spherex", name: "NASA SPHEREx Observatory", kind: "glb", modelId: "spherex", badge: "spherex.glb", camDist: 2.8, extraFill: 0.55, desc: "Triple V-groove photon shields protecting an all-sky 0.75–5.0 μm near-IR spectrophotometer." },
+          { id: "sc_gaia", name: "ESA Gaia Astrometry Observatory", kind: "glb", modelId: "sc_gaia", badge: "ESA 4K PBR", camDist: 2.8, extraFill: 0.52, desc: "ESA SciFleet 45.6k-triangle CAD of the astrometric mission powering our 82,199-star 3D Milky Way map." },
+          { id: "sc_roman", name: "Nancy Grace Roman Space Telescope", kind: "glb", modelId: "sc_roman", badge: "Official NASA CAD", camDist: 3.0, extraFill: 0.52, desc: "2.4-m wide-field infrared survey observatory for dark energy, microlensing, and exoplanets." },
+          { id: "sc_hubble", name: "Hubble Space Telescope (HST)", kind: "glb", modelId: "sc_hubble", badge: "sc_hubble.glb", camDist: 2.8, extraFill: 0.48, desc: "2.4-m optical/UV space observatory with dual solar wings and silver thermal blankets." },
+          { id: "sc_csst", name: "Xuntian Space Telescope (CSST)", kind: "glb", modelId: "sc_csst", badge: "sc_csst.glb", camDist: 2.8, extraFill: 0.50, desc: "2-m wide-field optical/UV survey telescope co-orbiting with Tiangong." },
+          { id: "sc_iss", name: "International Space Station (ISS)", kind: "glb", modelId: "sc_iss", badge: "sc_iss.glb", camDist: 2.7, extraFill: 0.48, desc: "109-m integrated truss, 8 solar array wings, pressurized laboratory modules, and thermal radiators." },
+          { id: "sc_tiangong", name: "China Space Station (Tiangong / 天宫)", kind: "glb", modelId: "sc_tiangong", badge: "17-Mat CAD", camDist: 2.8, extraFill: 0.50, desc: "T-shaped Tianhe + Wentian + Mengtian modular orbital station with docked Shenzhou/Tianzhou." },
+          { id: "sc_chandra", name: "Chandra X-Ray Observatory", kind: "glb", modelId: "sc_chandra", badge: "sc_chandra.glb", camDist: 2.8, extraFill: 0.50, desc: "Nested grazing-incidence iridium mirrors imaging black hole accretion disks and supernova remnants." }
+        ]
+      },
+      {
+        key: "spacecraft",
+        label: "Probes, SpaceX & Satellites",
+        items: [
+          { id: "sc_voyager", name: "Voyager 1 & 2 (Interstellar Space)", kind: "glb", modelId: "sc_voyager", badge: "sc_voyager.glb", camDist: 2.7, extraFill: 0.48, desc: "3.7-m high-gain parabolic dish, RTG boom, 13-m magnetometer truss, and plasma wave antennas." },
+          { id: "sc_new_horizons", name: "New Horizons (Kuiper Belt Probe)", kind: "glb", modelId: "sc_new_horizons", badge: "sc_new_horizons.glb", camDist: 2.7, extraFill: 0.48, desc: "Piano-sized RTG-powered explorer of Pluto, Charon, and Arrokoth." },
+          { id: "sc_psp", name: "Parker Solar Probe", kind: "glb", modelId: "sc_psp", badge: "sc_psp.glb", camDist: 2.7, extraFill: 0.48, desc: "Carbon-composite TPS heat shield diving straight through the Sun's Alfvén critical surface." },
+          { id: "sc_cassini", name: "Cassini–Huygens", kind: "glb", modelId: "sc_cassini", badge: "sc_cassini.glb", camDist: 2.8, extraFill: 0.48, desc: "Saturn Grand Finale orbiter carrying the gold-shielded Huygens Titan probe." },
+          { id: "sc_juno", name: "NASA Juno Polar Orbiter", kind: "glb", modelId: "sc_juno", badge: "sc_juno.glb", camDist: 2.8, extraFill: 0.48, desc: "Three-wing solar-powered Jupiter polar atmospheric and gravitational mapper." },
+          { id: "sc_europa_clipper", name: "NASA Europa Clipper", kind: "glb", modelId: "sc_europa_clipper", badge: "sc_europa_clipper.glb", camDist: 2.9, extraFill: 0.48, desc: "30.5-m solar-span ocean-world reconnaissance spacecraft bound for Jupiter." },
+          { id: "sc_starship", name: "SpaceX Starship (Block 2)", kind: "glb", modelId: "sc_starship", badge: "sc_starship.glb", camDist: 3.2, extraFill: 0.56, desc: "30X stainless-steel hull, four aero flaps, ventral hex heatshield, and six Raptor nozzles." },
+          { id: "sc_starman_roadster", name: "Tesla Roadster / Starman (2018-017A)", kind: "glb", modelId: "sc_starman_roadster", badge: "sc_starman_roadster.glb", camDist: 3.1, extraFill: 0.56, desc: "Falcon Heavy demonstration payload in heliocentric Mars-crossing orbit." },
+          { id: "sc_cybertruck", name: "Tesla Cybertruck (Payload CAD)", kind: "glb", modelId: "sc_cybertruck", badge: "Factory CAD", camDist: 2.6, extraFill: 0.62, desc: "Cold-rolled stainless exoskeleton CAD inspection model." },
+          { id: "sc_starlink", name: "SpaceX Starlink V2 Mini", kind: "glb", modelId: "sc_starlink", badge: "sc_starlink.glb", camDist: 2.8, extraFill: 0.54, desc: "Flat-panel Ku/Ka/E-band broadband bus with optical laser inter-satellite links." },
+          { id: "sc_crew_dragon", name: "SpaceX Crew Dragon", kind: "glb", modelId: "sc_crew_dragon", badge: "sc_crew_dragon.glb", camDist: 2.8, extraFill: 0.54, desc: "Crewed orbital capsule with solar trunk and Draco thrusters." },
+          { id: "sc_beidou_meo", name: "BeiDou-3 MEO Navigation Satellite", kind: "glb", modelId: "sc_beidou_meo", badge: "sc_beidou_meo.glb", camDist: 2.8, extraFill: 0.50, desc: "Global GNSS spacecraft featuring phased-array navigation payload and dual solar arrays." }
+        ]
+      }
+    ];
+
+    // ==================== THREE.JS SCENE & ORBIT CONTROLS ====================
+    const canvas = document.getElementById("playground-canvas");
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      logarithmicDepthBuffer: true,
+      powerPreference: "high-performance"
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.12;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x03060d);
+
+    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.05, 500.0);
+    camera.position.set(0, 2.2, 14.5);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.065;
+    controls.rotateSpeed = 0.82;
+    controls.zoomSpeed = 1.15;
+    controls.enablePan = false;
+    controls.minDistance = 1.25;
+    controls.maxDistance = 42.0;
+
+    // Subtle deep-space backdrop stars
+    {
+      const nStars = 1400;
+      const pos = new Float32Array(nStars * 3);
+      for (let i = 0; i < nStars; i++) {
+        const th = ((i * 137.508) % 360) * (Math.PI / 180);
+        const ph = Math.acos(1 - 2 * (((i * 0.6180339887) % 1)));
+        const rad = 140.0 + (i % 40);
+        pos[i * 3] = rad * Math.sin(ph) * Math.cos(th);
+        pos[i * 3 + 1] = rad * Math.cos(ph);
+        pos[i * 3 + 2] = rad * Math.sin(ph) * Math.sin(th);
+      }
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xcbd5e1, size: 1.4, sizeAttenuation: false, transparent: true, opacity: 0.72 })));
+    }
+
+    const keyLight = new THREE.DirectionalLight(0xfffaf2, 3.35);
+    const hemiLight = new THREE.HemisphereLight(0x93c5fd, 0x1e293b, 0.25);
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.08);
+    const rimLight = new THREE.DirectionalLight(0x93c5fd, 0.85);
+    rimLight.position.set(-10, 6, -9);
+    scene.add(keyLight, hemiLight, ambLight, rimLight);
+
+    const stageRoot = new THREE.Group();
+    scene.add(stageRoot);
+
+    // ==================== STATE & ACTIVE OBJECT MANAGEMENT ====================
+    const pgState = {
+      catIdx: 0,
+      objIdx: 0,
+      autoSpin: true,
+      spinSpeed: 1.0,
+      wireframe: false,
+      showAtmoRings: true,
+      studioFill: true,
+      sunAngleDeg: 38,
+      bhDiskVisible: true,
+      bhJetsVisible: true,
+      bhInclinationDeg: 46
+    };
+
+    const _sunDirWorld = new THREE.Vector3();
+    const _invMat3 = new THREE.Matrix3();
+    const _bhScaleInfo = { galacticFactor: 1.0 };
+
+    let activeItem = null;
+    let activeHolder = null;
+    let activeGlbInst = null;
+    let activeBhSys = null;
+    let activeSunUniforms = null;
+    let loadToken = 0;
+
+    function updateSunDirection() {
+      const rad = pgState.sunAngleDeg * (Math.PI / 180);
+      _sunDirWorld.set(Math.cos(rad) * 0.92, 0.32, Math.sin(rad) * 0.92).normalize();
+      keyLight.position.copy(_sunDirWorld).multiplyScalar(25.0);
+    }
+    updateSunDirection();
+
+    function applyMaterialFlags() {
+      if (!activeHolder) return;
+      activeHolder.traverse((child) => {
+        if (!child.isMesh) return;
+        const nm = (child.name || "").toLowerCase();
+        const isAtmoOrRing = nm.includes("ring") || nm.includes("atmo") || nm.includes("cloud") || nm.includes("haze");
+        if (isAtmoOrRing && activeItem?.kind === "glb") {
+          child.visible = pgState.showAtmoRings;
+        }
+        if (activeItem?.kind !== "bh" && child.material && "wireframe" in child.material) {
+          child.material.wireframe = pgState.wireframe;
+        }
+      });
+      const fillBase = activeItem?.extraFill || 0.14;
+      hemiLight.intensity = pgState.studioFill ? fillBase * 1.45 : 0.08;
+      ambLight.intensity = pgState.studioFill ? fillBase * 0.55 : 0.03;
+      rimLight.visible = pgState.studioFill && Boolean(activeItem?.extraFill);
+    }
+
+    function clearCurrentObject() {
+      if (activeGlbInst) {
+        activeGlbInst.dispose?.();
+        activeGlbInst = null;
+      }
+      if (activeBhSys) {
+        activeBhSys.dispose?.();
+        activeBhSys = null;
+      }
+      if (activeHolder) {
+        stageRoot.remove(activeHolder);
+        disposeObject3D(activeHolder, false);
+        activeHolder = null;
+      }
+      activeSunUniforms = null;
+    }
+
+    function resetCameraForItem(item) {
+      const d = item?.camDist || 3.6;
+      const yElev = item?.kind === "bh" ? d * 0.24 : d * 0.16;
+      camera.position.set(d * 0.22, yElev, d);
+      controls.target.set(0, 0, 0);
+      controls.minDistance = item?.kind === "bh" ? 1.35 : 1.32;
+      controls.maxDistance = item?.kind === "bh" ? 22.0 : 22.0;
+      controls.update();
+    }
+
+    function loadPlaygroundItem(catIdx, objIdx) {
+      const cat = PLAYGROUND_CATALOG[catIdx] || PLAYGROUND_CATALOG[0];
+      const item = cat.items[objIdx] || cat.items[0];
+      pgState.catIdx = catIdx;
+      pgState.objIdx = objIdx;
+      activeItem = item;
+      const myToken = ++loadToken;
+
+      clearCurrentObject();
+
+      const holder = new THREE.Group();
+      stageRoot.add(holder);
+      activeHolder = holder;
+
+      // Update Info Card & Controls visibility
+      const badge = document.getElementById("info-badge");
+      badge.textContent = item.badge || cat.label;
+      badge.className = `info-badge${item.kind === "bh" ? " bh" : (item.isDisc ? " disc" : "")}`;
+      document.getElementById("info-name").textContent = item.name;
+      document.getElementById("info-desc").textContent = item.desc || "";
+      document.getElementById("info-card").style.display = "block";
+
+      const bhBlock = document.getElementById("bh-controls-block");
+      bhBlock.style.display = item.kind === "bh" ? "flex" : "none";
+
+      const loadingPill = document.getElementById("loading-pill");
+
+      if (item.kind === "bh") {
+        loadingPill.style.display = "none";
+        const preset = BLACK_HOLE_PRESETS[item.presetKey] || BLACK_HOLE_PRESETS.SGR_A_STAR;
+        pgState.bhInclinationDeg = Math.round(preset.inc_deg || 46);
+        document.getElementById("slider-bh-inc").value = String(pgState.bhInclinationDeg);
+        document.getElementById("val-bh-inc").textContent = `${pgState.bhInclinationDeg}°`;
+
+        activeBhSys = createBlackHoleSystem(preset, {
+          radius: 1.0,
+          showJets: pgState.bhJetsVisible,
+          showCompanion: true
+        });
+        activeBhSys.setDiskVisible(pgState.bhDiskVisible);
+        activeBhSys.setJetsVisible(pgState.bhJetsVisible);
+        activeBhSys.setSpinRate(pgState.autoSpin ? pgState.spinSpeed : 0.0);
+        holder.add(activeBhSys.group);
+      } else if (item.kind === "sun") {
+        loadingPill.style.display = "none";
+        const sunGroup = createSunShaderMesh(1.0);
+        activeSunUniforms = sunGroup.userData.sunUniforms;
+        holder.add(sunGroup);
+      } else {
+        loadingPill.style.display = "block";
+        prioritizeModelLoad(item.modelId);
+        const inst = instantiateEnhanced3DBody(item.modelId, 1.0);
+        activeGlbInst = inst;
+        holder.add(inst.group);
+        inst.readyPromise
+          .then(() => {
+            if (myToken !== loadToken) return;
+            loadingPill.style.display = "none";
+            applyMaterialFlags();
+          })
+          .catch(() => {
+            if (myToken === loadToken) loadingPill.style.display = "none";
+          });
+      }
+
+      applyMaterialFlags();
+      resetCameraForItem(item);
+
+      try {
+        const u = new URL(window.location.href);
+        u.searchParams.set("id", item.id);
+        window.history.replaceState({}, "", u.toString());
+      } catch (_) {}
+    }
+
+    // ==================== POPULATE DROPDOWNS & WIRE UI ====================
+    const catSelect = document.getElementById("category-select");
+    const objSelect = document.getElementById("object-select");
+
+    function populateCategories() {
+      catSelect.innerHTML = "";
+      PLAYGROUND_CATALOG.forEach((cat, idx) => {
+        const opt = document.createElement("option");
+        opt.value = String(idx);
+        opt.textContent = `${cat.label} (${cat.items.length})`;
+        catSelect.appendChild(opt);
+      });
+    }
+
+    function populateObjects(catIdx) {
+      objSelect.innerHTML = "";
+      const cat = PLAYGROUND_CATALOG[catIdx] || PLAYGROUND_CATALOG[0];
+      cat.items.forEach((item, idx) => {
+        const opt = document.createElement("option");
+        opt.value = String(idx);
+        opt.textContent = item.name;
+        objSelect.appendChild(opt);
+      });
+    }
+
+    catSelect.addEventListener("change", () => {
+      const cIdx = Number(catSelect.value) || 0;
+      populateObjects(cIdx);
+      loadPlaygroundItem(cIdx, 0);
+    });
+
+    objSelect.addEventListener("change", () => {
+      loadPlaygroundItem(pgState.catIdx, Number(objSelect.value) || 0);
+    });
+
+    function stepObject(delta) {
+      const cat = PLAYGROUND_CATALOG[pgState.catIdx];
+      let nextObj = pgState.objIdx + delta;
+      let nextCat = pgState.catIdx;
+      if (nextObj >= cat.items.length) {
+        nextCat = (pgState.catIdx + 1) % PLAYGROUND_CATALOG.length;
+        nextObj = 0;
+      } else if (nextObj < 0) {
+        nextCat = (pgState.catIdx - 1 + PLAYGROUND_CATALOG.length) % PLAYGROUND_CATALOG.length;
+        nextObj = PLAYGROUND_CATALOG[nextCat].items.length - 1;
+      }
+      catSelect.value = String(nextCat);
+      populateObjects(nextCat);
+      objSelect.value = String(nextObj);
+      loadPlaygroundItem(nextCat, nextObj);
+    }
+
+    document.getElementById("prev-btn").addEventListener("click", () => stepObject(-1));
+    document.getElementById("next-btn").addEventListener("click", () => stepObject(1));
+
+    const controlsPanel = document.getElementById("controls-panel");
+    const controlsToggleBtn = document.getElementById("controls-toggle-btn");
+    controlsToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = controlsPanel.classList.toggle("open");
+      controlsToggleBtn.classList.toggle("active", open);
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".controls-wrap")) {
+        controlsPanel.classList.remove("open");
+        controlsToggleBtn.classList.remove("active");
+      }
+    });
+
+    document.getElementById("btn-spin").addEventListener("click", (e) => {
+      pgState.autoSpin = !pgState.autoSpin;
+      e.currentTarget.classList.toggle("active", pgState.autoSpin);
+      if (activeBhSys) activeBhSys.setSpinRate(pgState.autoSpin ? pgState.spinSpeed : 0.0);
+    });
+    document.getElementById("btn-wireframe").addEventListener("click", (e) => {
+      pgState.wireframe = !pgState.wireframe;
+      e.currentTarget.classList.toggle("active", pgState.wireframe);
+      applyMaterialFlags();
+    });
+    document.getElementById("btn-atmo").addEventListener("click", (e) => {
+      pgState.showAtmoRings = !pgState.showAtmoRings;
+      e.currentTarget.classList.toggle("active", pgState.showAtmoRings);
+      applyMaterialFlags();
+    });
+    document.getElementById("btn-fill").addEventListener("click", (e) => {
+      pgState.studioFill = !pgState.studioFill;
+      e.currentTarget.classList.toggle("active", pgState.studioFill);
+      applyMaterialFlags();
+    });
+    document.getElementById("slider-sun").addEventListener("input", (e) => {
+      pgState.sunAngleDeg = Number(e.target.value);
+      document.getElementById("val-sun").textContent = `${pgState.sunAngleDeg}°`;
+      updateSunDirection();
+    });
+    document.getElementById("slider-spin").addEventListener("input", (e) => {
+      pgState.spinSpeed = Number(e.target.value);
+      document.getElementById("val-spin").textContent = `${pgState.spinSpeed.toFixed(1)}×`;
+      if (activeBhSys && pgState.autoSpin) activeBhSys.setSpinRate(pgState.spinSpeed);
+    });
+    document.getElementById("btn-bh-disk").addEventListener("click", (e) => {
+      pgState.bhDiskVisible = !pgState.bhDiskVisible;
+      e.currentTarget.classList.toggle("active", pgState.bhDiskVisible);
+      activeBhSys?.setDiskVisible(pgState.bhDiskVisible);
+    });
+    document.getElementById("btn-bh-jets").addEventListener("click", (e) => {
+      pgState.bhJetsVisible = !pgState.bhJetsVisible;
+      e.currentTarget.classList.toggle("active", pgState.bhJetsVisible);
+      activeBhSys?.setJetsVisible(pgState.bhJetsVisible);
+    });
+    document.getElementById("slider-bh-inc").addEventListener("input", (e) => {
+      pgState.bhInclinationDeg = Number(e.target.value);
+      document.getElementById("val-bh-inc").textContent = `${pgState.bhInclinationDeg}°`;
+      activeBhSys?.setInclination(pgState.bhInclinationDeg);
+    });
+    document.getElementById("btn-reset-cam").addEventListener("click", () => resetCameraForItem(activeItem));
+    document.getElementById("info-close-btn").addEventListener("click", () => {
+      document.getElementById("info-card").style.display = "none";
+    });
+    canvas.addEventListener("dblclick", () => resetCameraForItem(activeItem));
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // ==================== INITIALIZATION (DEEP LINK SUPPORT) ====================
+    populateCategories();
+    const params = new URLSearchParams(window.location.search);
+    const reqId = (params.get("id") || "").trim().toUpperCase();
+    let initCat = 0;
+    let initObj = 0;
+    if (reqId) {
+      for (let ci = 0; ci < PLAYGROUND_CATALOG.length; ci++) {
+        const idx = PLAYGROUND_CATALOG[ci].items.findIndex((it) => it.id.toUpperCase() === reqId);
+        if (idx >= 0) {
+          initCat = ci;
+          initObj = idx;
+          break;
+        }
+      }
+    }
+    catSelect.value = String(initCat);
+    populateObjects(initCat);
+    objSelect.value = String(initObj);
+    loadPlaygroundItem(initCat, initObj);
+
+    // ==================== 60-FPS RENDER LOOP (ZERO ALLOCATIONS) ====================
+    let lastMs = performance.now();
+    function tick(nowMs) {
+      requestAnimationFrame(tick);
+      const dt = Math.min(0.1, Math.max(0.0, (nowMs - lastMs) * 0.001));
+      lastMs = nowMs;
+
+      if (activeHolder && pgState.autoSpin && activeItem?.kind !== "bh") {
+        activeHolder.rotation.y += dt * 0.28 * pgState.spinSpeed;
+      }
+      if (activeSunUniforms) {
+        activeSunUniforms.uTime.value = nowMs * 0.001;
+      }
+      if (activeGlbInst && activeHolder) {
+        activeGlbInst.sunDirWorldUniform.value.copy(_sunDirWorld);
+        activeHolder.updateWorldMatrix(true, false);
+        _invMat3.setFromMatrix4(activeHolder.matrixWorld).invert();
+        activeGlbInst.sunDirLocalUniform.value.copy(_sunDirWorld).applyMatrix3(_invMat3).normalize();
+      }
+      if (activeBhSys) {
+        activeBhSys.update(dt, camera, _bhScaleInfo);
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    window.__PLAYGROUND__ = { camera, controls, scene, loadPlaygroundItem, PLAYGROUND_CATALOG };
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

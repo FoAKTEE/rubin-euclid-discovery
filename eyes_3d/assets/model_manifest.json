@@ -1,0 +1,461 @@
+{
+  "version": "3.0-quadsphere",
+  "models": {
+    "sun": {
+      "file": "sun.glb",
+      "bytes": 1783344,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "mercury": {
+      "file": "mercury.glb",
+      "bytes": 3547220,
+      "vertices": 16854,
+      "triangles": 32448
+    },
+    "venus": {
+      "file": "venus.glb",
+      "bytes": 3165940,
+      "vertices": 22620,
+      "triangles": 43200
+    },
+    "earth": {
+      "file": "earth.glb",
+      "bytes": 2700616,
+      "vertices": 24492,
+      "triangles": 46848
+    },
+    "mars": {
+      "file": "mars.glb",
+      "bytes": 3131304,
+      "vertices": 16854,
+      "triangles": 32448
+    },
+    "jupiter": {
+      "file": "jupiter.glb",
+      "bytes": 1321020,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "saturn": {
+      "file": "saturn.glb",
+      "bytes": 1222464,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "uranus": {
+      "file": "uranus.glb",
+      "bytes": 838556,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "neptune": {
+      "file": "neptune.glb",
+      "bytes": 877256,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "moon": {
+      "file": "moon.glb",
+      "bytes": 3628440,
+      "vertices": 16854,
+      "triangles": 32448
+    },
+    "phobos": {
+      "file": "phobos.glb",
+      "bytes": 895344,
+      "vertices": 16449,
+      "triangles": 32040
+    },
+    "deimos": {
+      "file": "deimos.glb",
+      "bytes": 860848,
+      "vertices": 16649,
+      "triangles": 32512
+    },
+    "io": {
+      "file": "io.glb",
+      "bytes": 2938728,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "europa": {
+      "file": "europa.glb",
+      "bytes": 3191656,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "ganymede": {
+      "file": "ganymede.glb",
+      "bytes": 3200088,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "callisto": {
+      "file": "callisto.glb",
+      "bytes": 3348076,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "mimas": {
+      "file": "mimas.glb",
+      "bytes": 831120,
+      "vertices": 5559,
+      "triangles": 10930
+    },
+    "enceladus": {
+      "file": "enceladus.glb",
+      "bytes": 3602436,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "tethys": {
+      "file": "tethys.glb",
+      "bytes": 3654576,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "dione": {
+      "file": "dione.glb",
+      "bytes": 3403548,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "rhea": {
+      "file": "rhea.glb",
+      "bytes": 3602040,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "titan": {
+      "file": "titan.glb",
+      "bytes": 2409640,
+      "vertices": 22236,
+      "triangles": 42432
+    },
+    "iapetus": {
+      "file": "iapetus.glb",
+      "bytes": 3380012,
+      "vertices": 16854,
+      "triangles": 32448
+    },
+    "miranda": {
+      "file": "miranda.glb",
+      "bytes": 1622472,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "ariel": {
+      "file": "ariel.glb",
+      "bytes": 2426344,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "umbriel": {
+      "file": "umbriel.glb",
+      "bytes": 1379904,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "titania": {
+      "file": "titania.glb",
+      "bytes": 2326420,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "oberon": {
+      "file": "oberon.glb",
+      "bytes": 2146808,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "triton": {
+      "file": "triton.glb",
+      "bytes": 2613268,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "proteus": {
+      "file": "proteus.glb",
+      "bytes": 928452,
+      "vertices": 2642,
+      "triangles": 5120
+    },
+    "charon": {
+      "file": "charon.glb",
+      "bytes": 2501716,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "dimorphos": {
+      "file": "dimorphos.glb",
+      "bytes": 2696136,
+      "vertices": 4059,
+      "triangles": 7928
+    },
+    "dysnomia": {
+      "file": "dysnomia.glb",
+      "bytes": 945896,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "hiiaka": {
+      "file": "hiiaka.glb",
+      "bytes": 983512,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "xiangliu": {
+      "file": "xiangliu.glb",
+      "bytes": 964324,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "weywot": {
+      "file": "weywot.glb",
+      "bytes": 955932,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "vanth": {
+      "file": "vanth.glb",
+      "bytes": 939320,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "romulus": {
+      "file": "romulus.glb",
+      "bytes": 1181440,
+      "vertices": 2053,
+      "triangles": 3924
+    },
+    "remus": {
+      "file": "remus.glb",
+      "bytes": 1113228,
+      "vertices": 2068,
+      "triangles": 3988
+    },
+    "nw189_secondary": {
+      "file": "nw189_secondary.glb",
+      "bytes": 946556,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "pluto": {
+      "file": "pluto.glb",
+      "bytes": 2750604,
+      "vertices": 16854,
+      "triangles": 32448
+    },
+    "ceres": {
+      "file": "ceres.glb",
+      "bytes": 3379828,
+      "vertices": 14406,
+      "triangles": 27648
+    },
+    "haumea": {
+      "file": "haumea.glb",
+      "bytes": 1905848,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "eris": {
+      "file": "eris.glb",
+      "bytes": 3195796,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "makemake": {
+      "file": "makemake.glb",
+      "bytes": 3494616,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "quaoar": {
+      "file": "quaoar.glb",
+      "bytes": 998536,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "gonggong": {
+      "file": "gonggong.glb",
+      "bytes": 971872,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "sedna": {
+      "file": "sedna.glb",
+      "bytes": 960428,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "orcus": {
+      "file": "orcus.glb",
+      "bytes": 949096,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "chariklo": {
+      "file": "chariklo.glb",
+      "bytes": 1036712,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "chiron": {
+      "file": "chiron.glb",
+      "bytes": 994440,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "vesta": {
+      "file": "vesta.glb",
+      "bytes": 1877912,
+      "vertices": 17558,
+      "triangles": 34560
+    },
+    "eros": {
+      "file": "eros.glb",
+      "bytes": 1034084,
+      "vertices": 839,
+      "triangles": 1536
+    },
+    "bennu": {
+      "file": "bennu.glb",
+      "bytes": 1314364,
+      "vertices": 4341,
+      "triangles": 8458
+    },
+    "ryugu": {
+      "file": "ryugu.glb",
+      "bytes": 2146756,
+      "vertices": 9136,
+      "triangles": 17974
+    },
+    "psyche": {
+      "file": "psyche.glb",
+      "bytes": 1815844,
+      "vertices": 4031,
+      "triangles": 7848
+    },
+    "didymos": {
+      "file": "didymos.glb",
+      "bytes": 2457572,
+      "vertices": 4061,
+      "triangles": 7954
+    },
+    "apophis": {
+      "file": "apophis.glb",
+      "bytes": 2095980,
+      "vertices": 2631,
+      "triangles": 4962
+    },
+    "67p": {
+      "file": "67p.glb",
+      "bytes": 1196720,
+      "vertices": 1037,
+      "triangles": 1968
+    },
+    "oumuamua": {
+      "file": "oumuamua.glb",
+      "bytes": 2473344,
+      "vertices": 1980,
+      "triangles": 3620
+    },
+    "pallas": {
+      "file": "pallas.glb",
+      "bytes": 991212,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "hygiea": {
+      "file": "hygiea.glb",
+      "bytes": 953632,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "sylvia": {
+      "file": "sylvia.glb",
+      "bytes": 980884,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "euclid": {
+      "file": "euclid.glb",
+      "bytes": 1779776,
+      "vertices": 29534,
+      "triangles": 38652
+    },
+    "spherex": {
+      "file": "spherex.glb",
+      "bytes": 4619464,
+      "vertices": 70668,
+      "triangles": 75425
+    },
+    "jwst": {
+      "file": "jwst.glb",
+      "bytes": 4112968,
+      "vertices": 102307,
+      "triangles": 79012
+    },
+    "delta_003": {
+      "file": "delta_003.glb",
+      "bytes": 968208,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "eps_002": {
+      "file": "eps_002.glb",
+      "bytes": 1000212,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "nw189_primary": {
+      "file": "nw189_primary.glb",
+      "bytes": 979684,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "iota_004": {
+      "file": "iota_004.glb",
+      "bytes": 967008,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "euc0005": {
+      "file": "euc0005.glb",
+      "bytes": 960436,
+      "vertices": 12150,
+      "triangles": 23232
+    },
+    "gold_18": {
+      "file": "gold_18.glb",
+      "bytes": 1181440,
+      "vertices": 2053,
+      "triangles": 3924
+    },
+    "asteroid_s_template": {
+      "file": "asteroid_s_template.glb",
+      "bytes": 1181440,
+      "vertices": 2053,
+      "triangles": 3924
+    },
+    "asteroid_c_template": {
+      "file": "asteroid_c_template.glb",
+      "bytes": 1113232,
+      "vertices": 2068,
+      "triangles": 3988
+    },
+    "asteroid_v_template": {
+      "file": "asteroid_v_template.glb",
+      "bytes": 1094060,
+      "vertices": 2088,
+      "triangles": 4042
+    },
+    "kbo_template": {
+      "file": "kbo_template.glb",
+      "bytes": 965016,
+      "vertices": 12150,
+      "triangles": 23232
+    }
+  }
+}

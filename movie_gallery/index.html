@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Pixel Multi-Epoch Movie Gallery — Rubin / Euclid Discovery Portal</title>
+  <meta name="description" content="Archival image sequences for the audited Rubin and Euclid candidates, the Galactic high-proper-motion stars and two recovery controls. Every frame is real archival data; no frame is synthetic." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <div>
+          <div class="brand-kicker">Rubin / Euclid Discovery Portal</div>
+          <h1 class="brand-title">Real-Pixel Multi-Epoch Movie Gallery</h1>
+        </div>
+      </div>
+      <nav class="topnav" aria-label="Portals">
+        <a href="../index.html">Portal Hub</a>
+        <a href="../discovery_blog/index.html">Research Monograph</a>
+        <a href="../eyes_3d/index.html">3D Explorer</a>
+        <a href="../adam_console/index.html">ADAM Console</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme">Light theme</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="provenance" aria-label="Provenance summary">
+      <div class="prov-stat prov-lead">
+        <span class="prov-value" id="stat-showing">–</span>
+        <span class="prov-label" id="stat-showing-label">targets shown</span>
+      </div>
+      <div class="prov-stat">
+        <span class="prov-value" id="stat-synthetic">–</span>
+        <span class="prov-label">synthetic (manifest flag)</span>
+      </div>
+      <div class="prov-stat">
+        <span class="prov-value" id="stat-frames">–</span>
+        <span class="prov-label">real archival frames</span>
+      </div>
+      <div class="prov-stat">
+        <span class="prov-value" id="stat-single">–</span>
+        <span class="prov-label">single exposures</span>
+      </div>
+      <div class="prov-stat">
+        <span class="prov-value" id="stat-gaps">–</span>
+        <span class="prov-label">coverage gaps</span>
+      </div>
+      <div class="prov-stat">
+        <span class="prov-value" id="stat-split">–</span>
+        <span class="prov-label">discovery targets + controls</span>
+      </div>
+    </section>
+
+    <section class="callout" id="no-epoch-callout" hidden>
+      <div>
+        <strong><span id="no-epoch-count">–</span> targets have no detection-epoch pixels.</strong>
+        The archive serves only static deep coadds at those positions, so their movies show the sky at the
+        detection position and cannot show the moving object itself. Each is marked
+        <em>no detection-epoch pixels available</em> on its card and on its contact sheet.
+      </div>
+      <button type="button" class="btn" id="no-epoch-filter-btn">Show only these targets</button>
+    </section>
+
+    <section class="filters" aria-label="Filters">
+      <div class="filter-row">
+        <span class="filter-label" id="group-label">Group</span>
+        <div class="chip-row" id="group-chips" role="group" aria-labelledby="group-label"></div>
+      </div>
+      <div class="filter-grid">
+        <label class="field">
+          <span>Audit verdict</span>
+          <select id="filter-verdict"></select>
+        </label>
+        <label class="field">
+          <span>Survey</span>
+          <select id="filter-survey"></select>
+        </label>
+        <label class="field">
+          <span>Epoch coverage</span>
+          <select id="filter-coverage"></select>
+        </label>
+        <label class="field">
+          <span>Sort</span>
+          <select id="filter-sort"></select>
+        </label>
+        <label class="field field-wide">
+          <span>Search</span>
+          <input type="search" id="filter-q" placeholder="Target, class, designation, claim id, survey…" autocomplete="off" />
+        </label>
+        <div class="field">
+          <span>View</span>
+          <div class="segmented" role="group" aria-label="View mode">
+            <button type="button" class="seg-btn" data-view="sheets" id="view-sheets">Contact sheets + hover WebP</button>
+            <button type="button" class="seg-btn" data-view="movies" id="view-movies">Animated WebP grid</button>
+          </div>
+        </div>
+        <div class="field field-reset">
+          <button type="button" class="btn btn-quiet" id="reset-filters">Reset filters</button>
+        </div>
+      </div>
+    </section>
+
+    <p class="status" id="status" role="status" aria-live="polite">Loading the two manifests…</p>
+    <section class="grid" id="grid" aria-label="Movie targets"></section>
+
+    <footer class="page-footer">
+      <p>
+        Every frame is a public archival image: Euclid DR1 VIS and MER, CTIO DECam, Rubin DP1 and DP2, and
+        Legacy Surveys DR10. Coadd frames are stamped with the midpoint of their epoch span or labelled as static
+        sky; the footer of each movie states which. Animated GIF copies are not published here; the WebP movie, the
+        300-dpi contact sheet and the vector PDF carry the same frames.
+      </p>
+      <p>
+        Manifests:
+        <a href="../outputs/movies/movie_gallery_manifest.json">movie_gallery_manifest.json</a> ·
+        <a href="../outputs/real_cutouts/real_cutouts_manifest.json">real_cutouts_manifest.json</a> ·
+        <a href="../index.html#artifacts">manuscript, atlases and audit verdicts</a>
+      </p>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" id="modal-dialog">
+      <header class="modal-head">
+        <div class="modal-title-wrap">
+          <div class="badge-row" id="modal-badges"></div>
+          <h2 id="modal-title">Target</h2>
+          <div class="modal-sub" id="modal-sub"></div>
+        </div>
+        <div class="modal-nav">
+          <button type="button" class="btn btn-quiet" id="modal-prev" aria-label="Previous target">← Prev</button>
+          <span class="modal-pos" id="modal-pos"></span>
+          <button type="button" class="btn btn-quiet" id="modal-next" aria-label="Next target">Next →</button>
+          <button type="button" class="btn" id="modal-close" aria-label="Close">Close (Esc)</button>
+        </div>
+      </header>
+
+      <div class="modal-body">
+        <div class="callout callout-inline" id="modal-epoch-note" hidden></div>
+
+        <div class="tabs" role="tablist" aria-label="Media">
+          <button type="button" class="tab" role="tab" id="tab-movie" data-tab="movie">Animated Movie (WebP)</button>
+          <button type="button" class="tab" role="tab" id="tab-sheet" data-tab="sheet">300-dpi Contact Sheet (PNG)</button>
+        </div>
+        <div class="media-frame">
+          <img id="modal-media" alt="" />
+        </div>
+        <div class="link-row" id="modal-links"></div>
+
+        <section class="modal-section">
+          <h3>Audit verdict</h3>
+          <div id="modal-audit"></div>
+        </section>
+
+        <section class="modal-section" id="modal-skipped-section" hidden>
+          <h3>Frames the harvester skipped</h3>
+          <ul class="plain-list" id="modal-skipped"></ul>
+        </section>
+
+        <section class="modal-section">
+          <h3>Per-frame archival provenance</h3>
+          <p class="status" id="modal-frames-status" role="status" aria-live="polite"></p>
+          <div class="table-wrap">
+            <table class="frames-table" id="modal-frames" hidden>
+              <thead>
+                <tr>
+                  <th>Frame</th>
+                  <th>Role</th>
+                  <th>Epoch kind</th>
+                  <th>UTC</th>
+                  <th>MJD</th>
+                  <th>Survey · band</th>
+                  <th>Exp. (s)</th>
+                  <th>Scale (″/px)</th>
+                  <th>Aperture S/N</th>
+                  <th>Padded</th>
+                  <th>Centering</th>
+                  <th>Source SHA-256</th>
+                  <th>Archive</th>
+                </tr>
+              </thead>
+              <tbody id="modal-frames-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="modal-section">
+          <h3>Bundle SHA-256 digests</h3>
+          <dl class="digests" id="modal-digests"></dl>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="gallery.js"></script>
+</body>
+</html>

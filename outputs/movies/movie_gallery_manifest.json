@@ -1,0 +1,4438 @@
+{
+  "generated_utc": "2026-11-21T22:49:28Z",
+  "synthetic": false,
+  "in_dir": "outputs/real_cutouts",
+  "out_dir": "outputs/movies",
+  "ffmpeg_available": false,
+  "total_movies_rendered": 96,
+  "total_bundles_not_rendered": 0,
+  "counts_by_group": {
+    "controls": 2,
+    "galactic": 25,
+    "group1": 13,
+    "group2": 13,
+    "group5": 43
+  },
+  "n_recovery_control_movies": 2,
+  "n_movies_without_detection_epoch_pixels": 12,
+  "pruned_stale_outputs": [
+    "outputs/movies/group1/2021_QB98/2021_QB98_movie.gif",
+    "outputs/movies/group1/2021_QB98/2021_QB98_movie.webp",
+    "outputs/movies/group1/2021_QB98/2021_QB98_contact_sheet.png",
+    "outputs/movies/group1/2021_QB98/2021_QB98_contact_sheet.pdf"
+  ],
+  "movies": [
+    {
+      "target_id": "2019_UM31_recovery_control",
+      "display_id": "2019 UM31 recovery control",
+      "group": "controls",
+      "object_class": "Known Main-Belt Asteroid (2019 UM31) Recovery Control",
+      "synthetic": false,
+      "is_control": true,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "2019 UM31 recovery control | Known Main-Belt Asteroid (2019 UM31) Recovery Control | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.97236,
+      "baseline_years": 0.0027,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/controls/2019_UM31_recovery_control/2019_UM31_recovery_control_movie.gif",
+      "webp_path": "outputs/movies/controls/2019_UM31_recovery_control/2019_UM31_recovery_control_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/controls/2019_UM31_recovery_control/2019_UM31_recovery_control_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/controls/2019_UM31_recovery_control/2019_UM31_recovery_control_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "75dfba25003e1ee070349c5a72f0d2fb78c0b49f1c2b727cf612c89128983517",
+        "webp": "77a11289701db850b2188a0d4414ae975c9a3521c300eefc99eaa47141e728bd",
+        "contact_sheet_png": "dcd8df0e37948cca0ee40b2488a1a62213f3d0a65011b49a4484a1d20b097d8d",
+        "contact_sheet_pdf": "4cd6216f8070d1230e4207689c0b8ba4810aff58709dacf3acc09e26a811dff2"
+      },
+      "source_bundle": "outputs/real_cutouts/controls/2019_UM31_recovery_control",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "2021_QB98_recovery_control",
+      "display_id": "2021 QB98",
+      "group": "controls",
+      "object_class": "Known Trans-Neptunian Object (2021 QB98) Recovery Control",
+      "synthetic": false,
+      "is_control": true,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "2021 QB98 | Known Trans-Neptunian Object (2021 QB98) Recovery Control | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2928.05331,
+      "baseline_years": 8.0166,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/controls/2021_QB98_recovery_control/2021_QB98_recovery_control_movie.gif",
+      "webp_path": "outputs/movies/controls/2021_QB98_recovery_control/2021_QB98_recovery_control_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/controls/2021_QB98_recovery_control/2021_QB98_recovery_control_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/controls/2021_QB98_recovery_control/2021_QB98_recovery_control_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "4053a2ddc9eaf789a9903a68200fc9c635af33745029d8bd60192d1278ed6bca",
+        "webp": "c5f6f1f314f443049991630d3be6e8d4f198afe72bd6a7455af241807a75cd77",
+        "contact_sheet_png": "c2b44df90f9edc61152b16659380b2461d298ac32fd2232f9118a1ad8c794b85",
+        "contact_sheet_pdf": "ea187ac6783d0cb140241a1a28424bd8e2931b56d3afb4acc07e3355348ab6da"
+      },
+      "source_bundle": "outputs/real_cutouts/controls/2021_QB98_recovery_control",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-BD-01",
+      "display_id": "GLC-BD-01",
+      "group": "galactic",
+      "object_class": "High-proper-motion late-M/early-L dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-BD-01 | High-proper-motion late-M/early-L dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3177.65896,
+      "baseline_years": 8.7,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-BD-01/GLC-BD-01_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-BD-01/GLC-BD-01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-BD-01/GLC-BD-01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-BD-01/GLC-BD-01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "61a9387b8aec9929268abfa49f13c41f9d242d625520b032ccb16ca269c41690",
+        "webp": "51b03bc35240a52d3db4c8f5439c15f32f01438b2c2c88b8647cd4b6d0b8de54",
+        "contact_sheet_png": "d9ea1cc94978f800f3d4adf72ab7a1d1fc022bfd3ebda4af797c31db1c6e19da",
+        "contact_sheet_pdf": "d853cc47681f90b672af0d84013ad6b29053f89d81620dc7de1813ca1a1dd50f"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-BD-01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-BD-02",
+      "display_id": "GLC-BD-02",
+      "group": "galactic",
+      "object_class": "High-proper-motion late-M/early-L dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-BD-02 | High-proper-motion late-M/early-L dwarf candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3437.58363,
+      "baseline_years": 9.4116,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-BD-02/GLC-BD-02_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-BD-02/GLC-BD-02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-BD-02/GLC-BD-02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-BD-02/GLC-BD-02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "4e7a07ee725d05df07fe8c2d41cdd3729f921748c92c3baff164347241812edd",
+        "webp": "8965690c53326d0b3030453b71843a9875ecb11761129e8c0e49dff7a316f506",
+        "contact_sheet_png": "8ee792385c10bb769064fbf9e27649a68fb775e9d32659aa8ae5e35423cfbf33",
+        "contact_sheet_pdf": "325802fa6c880607c5678b7c3cc604285bb96d5dcae549f6352de4bddbe03082"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-BD-02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-LM-01",
+      "display_id": "GLC-LM-01",
+      "group": "galactic",
+      "object_class": "High-proper-motion late-M dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-LM-01 | High-proper-motion late-M dwarf candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3092.92526,
+      "baseline_years": 8.468,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-LM-01/GLC-LM-01_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-LM-01/GLC-LM-01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-LM-01/GLC-LM-01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-LM-01/GLC-LM-01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "5f1f4edc007091ca53efae061f8ea685c6603476dd413e2b4dce7ef58b65bbf0",
+        "webp": "b30cf7e53da1d267074ac63050c40e6ab9ac175ca7708540c805e3ee270c0361",
+        "contact_sheet_png": "bb722eda02139a031a1d2a34d82f7124331bba69121eb41f20cce7f7ba3aa16a",
+        "contact_sheet_pdf": "3a6119702fa707f30823cdcf8159690ce7526ffd63c04d7b976319471671d9cb"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-LM-02",
+      "display_id": "GLC-LM-02",
+      "group": "galactic",
+      "object_class": "High-proper-motion late-M dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-LM-02 | High-proper-motion late-M dwarf candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3092.44784,
+      "baseline_years": 8.4667,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-LM-02/GLC-LM-02_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-LM-02/GLC-LM-02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-LM-02/GLC-LM-02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-LM-02/GLC-LM-02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "86c5c118f652cadd0a35668ae0cc8be40b617b922ec17792e61c8f75235c8fae",
+        "webp": "fbf4007f5714a97f3453440104e6c26deef1ab7a370ee7fe8bf848290066d036",
+        "contact_sheet_png": "7b987ef4d2d5dad30bdb7f8308b2ef67a54849e95b86206f1ea2daafe4195fa9",
+        "contact_sheet_pdf": "3fd1b3a33eabe2786ac48b7c5d57cbc9e6088310f12254528978908d40d31a98"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-LM-03",
+      "display_id": "GLC-LM-03",
+      "group": "galactic",
+      "object_class": "High-proper-motion late-M dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-LM-03 | High-proper-motion late-M dwarf candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3074.53178,
+      "baseline_years": 8.4176,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-LM-03/GLC-LM-03_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-LM-03/GLC-LM-03_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-LM-03/GLC-LM-03_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-LM-03/GLC-LM-03_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "f23fcc073b5339196ee46dcffd66459eae711acb52e64cd7e55dad1f90a821df",
+        "webp": "c8ed9f1bd7fbd94dd76624e488be30fdb8168e2d4a320b4146a87907bfa22b70",
+        "contact_sheet_png": "630e81cf5ec1fdc80f77bd6159e8e321b9e95b1ce125d97e3276ac613b126526",
+        "contact_sheet_pdf": "aeecafcd9a5058e5e5f95d3bccd19f909ea086655cffb4b5545c9e765f81a54e"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-03",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-LM-04",
+      "display_id": "GLC-LM-04",
+      "group": "galactic",
+      "object_class": "High-proper-motion late-M dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-LM-04 | High-proper-motion late-M dwarf candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3074.52781,
+      "baseline_years": 8.4176,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-LM-04/GLC-LM-04_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-LM-04/GLC-LM-04_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-LM-04/GLC-LM-04_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-LM-04/GLC-LM-04_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "a173883fcdbb999bd0d07c566aa8077687e794ba60f30360dae18596450f002d",
+        "webp": "9f89b2685af712ca0365dbf27f300645bdb1a0264b95194b1196c84d35bd8b8f",
+        "contact_sheet_png": "6ada2a054deb2b642ca384d4e377371363ac26e508ceddd59f6f57e67b8781e3",
+        "contact_sheet_pdf": "76d13085b2ed76fafa51fd7f6ad79cbc98a86a3e07816fdc5f2170af8cc80922"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-04",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-LM-05",
+      "display_id": "GLC-LM-05",
+      "group": "galactic",
+      "object_class": "High-proper-motion late-M dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 6,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 6,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-LM-05 | High-proper-motion late-M dwarf candidate | 6 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP1",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3090.99967,
+      "baseline_years": 8.4627,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-LM-05/GLC-LM-05_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-LM-05/GLC-LM-05_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-LM-05/GLC-LM-05_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-LM-05/GLC-LM-05_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "665281b72da9c8d008ca4b34f1f3f357bb771a56073fc37df0b662f29944f68f",
+        "webp": "2b81d24c7c311733482cb15f3209b9e0ced893fcdf263fcbd3b91aaccaa9963f",
+        "contact_sheet_png": "702dbc3b5013fe653e9bd605c337b0c49f1b336f239fe7deba369bb59bb7e768",
+        "contact_sheet_pdf": "5ba8d88054576b64ce7fe70204b26389fd9fea0b1bda3f44b81b4008b89bde10"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-05",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-01",
+      "display_id": "GLC-UCD-01",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-01 | High-proper-motion ultracool dwarf candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3443.58914,
+      "baseline_years": 9.428,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-01/GLC-UCD-01_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-01/GLC-UCD-01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-01/GLC-UCD-01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-01/GLC-UCD-01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "83656486be103863acde8f185e4f8d002e3317a85932d4bede04d0b3b1d25668",
+        "webp": "8bff1139245f2565ad19bd9262df63872051bd1e86dbfa8a579d290878c6dbde",
+        "contact_sheet_png": "5987d8e5e93c919c9836378e1eb769f8ca57980f907f183d143a317fb34ae6ae",
+        "contact_sheet_pdf": "b830c4023e8873ca18a88abfa0653d3148fc3cfc92fb39ee9063de2115aefc06"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-02",
+      "display_id": "GLC-UCD-02",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-02 | High-proper-motion ultracool dwarf candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3460.48324,
+      "baseline_years": 9.4743,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-02/GLC-UCD-02_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-02/GLC-UCD-02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-02/GLC-UCD-02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-02/GLC-UCD-02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "33ec0c2196ee7545ef131b21fa88253dd51b0808e342493a70b373dcd3c93a16",
+        "webp": "7daf0868cfe06d7aba73457909f0bccf14d9c6cba82afa37bd898746c5001134",
+        "contact_sheet_png": "ef302e3c87683294483670d677656f76cdae923f06de5e19afc543a1301066b9",
+        "contact_sheet_pdf": "e77d03eec01fc9e3ddadbb7aa2dd7c91ebba2158f72ee21a0809a2dc4829494e"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-03",
+      "display_id": "GLC-UCD-03",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-03 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3007.31609,
+      "baseline_years": 8.2336,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-03/GLC-UCD-03_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-03/GLC-UCD-03_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-03/GLC-UCD-03_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-03/GLC-UCD-03_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "e69eafeaa5cb5d48fa91598676b282e103e8624cb327c8d27ea00670c977deb1",
+        "webp": "02d53e5c0f102e8c46c0df04b72c9ead16fbc87734dd2f9dca3e55c5f6fc376d",
+        "contact_sheet_png": "6cdbc803050b43a3795360d2e5ea6fcd32c19421ccc70ebb964719b92fbe9044",
+        "contact_sheet_pdf": "adf7b7d3fecce86505af3b1ffbf04679124e6b56fa69a50c5aaca1985c75b6fa"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-03",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-04",
+      "display_id": "GLC-UCD-04",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-04 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3178.30064,
+      "baseline_years": 8.7017,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-04/GLC-UCD-04_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-04/GLC-UCD-04_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-04/GLC-UCD-04_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-04/GLC-UCD-04_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "1d2e79ee63407044dcde1d7eec36595735b58bb391168dc04ac273f58a1288df",
+        "webp": "fc0cd81fca9297b3c1bdb5ee00651057a040fbc4c5cc5b8267ef13c67a0fb46d",
+        "contact_sheet_png": "9d146a529957a899f3eb51e1ff211c1e413c6c47a65a1fe9ed705f6ee7e5bc5b",
+        "contact_sheet_pdf": "ca4ab59371b7defe019d6fc88f864c2881c1f6f7bb2f357570489114cd8ebc2a"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-04",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-05",
+      "display_id": "GLC-UCD-05",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-05 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 2993.37948,
+      "baseline_years": 8.1954,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-05/GLC-UCD-05_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-05/GLC-UCD-05_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-05/GLC-UCD-05_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-05/GLC-UCD-05_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "53a6ddc033571eee272641fc975ac78e25c8f3ba813555b8930a8ea5c68ce39f",
+        "webp": "4bbb6d66eeba0ed826938ae9a092a4935345344315b60388e1ae0e065efa652d",
+        "contact_sheet_png": "0ccfd929d5bfd8f2cf5a4a088e5b2d436fce2efb80f2381fd96e2f20c67b41f0",
+        "contact_sheet_pdf": "bf0d8c1d9d4dc86895f607925f254c0cbebcd5e846198503850bc0d504116335"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-05",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-06",
+      "display_id": "GLC-UCD-06",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-06 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 2956.9029,
+      "baseline_years": 8.0956,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-06/GLC-UCD-06_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-06/GLC-UCD-06_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-06/GLC-UCD-06_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-06/GLC-UCD-06_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "24619ad3d65a624a84ce0c32112490f024c8b0846b88b375dfdec85bb58a4aa8",
+        "webp": "15799b760096e3cda9815b688934c14a839391c055f8e837523104d9f7bed7d1",
+        "contact_sheet_png": "5e9791c6881aef2750248e30eb9bb522f7027d3c8c71592c46c1a761420900ce",
+        "contact_sheet_pdf": "008367e483edb8c5ca9ca98c5200fbce0c357471be5f1f4ecb0fdcf5c9d898bc"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-06",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-07",
+      "display_id": "GLC-UCD-07",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-07 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3235.13405,
+      "baseline_years": 8.8573,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-07/GLC-UCD-07_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-07/GLC-UCD-07_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-07/GLC-UCD-07_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-07/GLC-UCD-07_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "0ec5d1e6c92dc860da791fda2f1cd35e61159e0d4a07a8afa4fe54ee42c62238",
+        "webp": "924ff6afa78fa538bc2cafd94dc62ac31cc2f8d4262bce1acd8883c0e060798c",
+        "contact_sheet_png": "c7b586cfcd65242822c6bc2eea50602dc64003c3c6ae8c163c5a550ec578600b",
+        "contact_sheet_pdf": "2848f01c4e202d3829d9939d52d05f15abb3af40c6933e9070fddd5e7bf2b977"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-07",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-08",
+      "display_id": "GLC-UCD-08",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-08 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 2992.72562,
+      "baseline_years": 8.1936,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-08/GLC-UCD-08_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-08/GLC-UCD-08_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-08/GLC-UCD-08_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-08/GLC-UCD-08_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "eda7741fb4a233b393dd055442f161b37443088c9d4200937983fc570a80c626",
+        "webp": "df2e3a17efe99d8866c40725f1df13afbcd46b5ee2f66bd4c60b238cf89a1aa3",
+        "contact_sheet_png": "d633a64c3c44a715c71826506e28ccce4a38c771a238783998f6bb1c060f8426",
+        "contact_sheet_pdf": "fc5324ef61059b204d5f0e35b93ebdeb5ecbb3143cd4dc35cf8cc3c654b8a153"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-08",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-09",
+      "display_id": "GLC-UCD-09",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-09 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3061.62537,
+      "baseline_years": 8.3823,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-09/GLC-UCD-09_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-09/GLC-UCD-09_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-09/GLC-UCD-09_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-09/GLC-UCD-09_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "b797064a9d12e73d7e344987102f1e738ea33711fe1825f041be47a73bb4ee71",
+        "webp": "d489f8f7b68981a0495e7b78a7f642c6705f006f5056790cba1ce5fe246f81c0",
+        "contact_sheet_png": "0dab888a6c3175f83e23585d9505d6bec308835755ee0b0e911025bf402eaa98",
+        "contact_sheet_pdf": "1b20def57dbfae2952474f5ad4272a831216021127f5960e187ace3e11647647"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-09",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-10",
+      "display_id": "GLC-UCD-10",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-10 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 2960.23957,
+      "baseline_years": 8.1047,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-10/GLC-UCD-10_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-10/GLC-UCD-10_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-10/GLC-UCD-10_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-10/GLC-UCD-10_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "3e02410254242b9fe4c73230fed628d45cf63a3a59562244cf42abc2fb9c49cb",
+        "webp": "bfdbb62328e89dfe50c6bb43818e09f5c707e40cdb499d6a5ae69fb02a06bec9",
+        "contact_sheet_png": "a0451adbf6e7d0c8190d7ca47a57b57bb81df410c7207d607ee950110bb0df02",
+        "contact_sheet_pdf": "a7c3fbc58ea656a47d953db28cc302bb7c70d94b9c1f30d05494e2f30f9a4d05"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-10",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-11",
+      "display_id": "GLC-UCD-11",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-11 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3092.78047,
+      "baseline_years": 8.4676,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-11/GLC-UCD-11_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-11/GLC-UCD-11_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-11/GLC-UCD-11_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-11/GLC-UCD-11_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "da6dee53ab1b7f8a686aad65fb16a19b800756716d0aef2963dcb76612a4d247",
+        "webp": "beeaa789320e6d18742d7b05a33c3ba3888fc1e983a20815d2293e4c6e94b018",
+        "contact_sheet_png": "98ad12a8eff79d27e0e0ddeb95795dde6fbc9be568385fd0917317dce4fce809",
+        "contact_sheet_pdf": "728e50aea463e19961fd21e20e12e281cd21bc0930d6c8dc1c4ac8d337a4cd21"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-11",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-12",
+      "display_id": "GLC-UCD-12",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-12 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3092.7908,
+      "baseline_years": 8.4676,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-12/GLC-UCD-12_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-12/GLC-UCD-12_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-12/GLC-UCD-12_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-12/GLC-UCD-12_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "8a4b377b47c885c4b43a47f2c21ed717ac0f590cb48e6d49910ff8fff1dc6bae",
+        "webp": "e1275a8805c0e1abd545a43d181c434843b94daec7d499f75a02eaf477cae16e",
+        "contact_sheet_png": "e2cd1958f1b535354370460f2456a9f1c37954d353ec7ec444658dfe30b8b923",
+        "contact_sheet_pdf": "5af99b91cf0459f749b46e97cc3e8b4532c4ce4c8bfe1238c446912a458cd752"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-12",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-13",
+      "display_id": "GLC-UCD-13",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-13 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3162.19406,
+      "baseline_years": 8.6576,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-13/GLC-UCD-13_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-13/GLC-UCD-13_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-13/GLC-UCD-13_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-13/GLC-UCD-13_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "2f73f85a8648b00b68c0a1e78bc0a2fdb9e8945872ce279ed90764ca14ab9a36",
+        "webp": "6861875da4798718b50660c083c3c98183c4452f705e5cdba200911547344f28",
+        "contact_sheet_png": "2d14163aa282c6a0ed03460ede784f10ae2cd70828f4c3047ecc545ad1a8dddc",
+        "contact_sheet_pdf": "bff4af4d5dacef730c71caebbc679e3543a131a637e1e111f788f4d12e0fd827"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-13",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-14",
+      "display_id": "GLC-UCD-14",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-14 | High-proper-motion ultracool dwarf candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3596.60939,
+      "baseline_years": 9.847,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-14/GLC-UCD-14_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-14/GLC-UCD-14_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-14/GLC-UCD-14_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-14/GLC-UCD-14_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "6e69a8400261f4f0e7d8f3f0c66e09f1c81313a3b45c21f2e29be3097daa8afd",
+        "webp": "5d482b353bf0e3b2c8a1ff2f95b9ebc6058c9b8de2b8d0c1157e93ae564b4e7a",
+        "contact_sheet_png": "1d728a9fd1dccf16f9037116c94a1f5fed86ffce18a646f4f59df33968ec125f",
+        "contact_sheet_pdf": "ebe8c5bb563b72427e20c8f0713499fd35203b8bcd49e62b0cef5b9e02da4593"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-14",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-15",
+      "display_id": "GLC-UCD-15",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-15 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3000.90646,
+      "baseline_years": 8.216,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-15/GLC-UCD-15_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-15/GLC-UCD-15_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-15/GLC-UCD-15_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-15/GLC-UCD-15_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "40bc320b7d4fe1418ef0225dc615f3b546956e50ca5e2f3eea2e62a5c4f1b97f",
+        "webp": "d5ed700c2fdc4dc2a8489dd0b86e0c9d756b498339ecc9ef0ad5ee75205abe06",
+        "contact_sheet_png": "a8463e812ed40c6cc9f09b2cdd31e860d477d95726b6bd023b3d7306ffd81162",
+        "contact_sheet_pdf": "b40e7f5a66863b6156fbc26e5288b1c4bd332a0befa79232f3db78c73e804955"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-15",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-16",
+      "display_id": "GLC-UCD-16",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-16 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3042.41872,
+      "baseline_years": 8.3297,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-16/GLC-UCD-16_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-16/GLC-UCD-16_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-16/GLC-UCD-16_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-16/GLC-UCD-16_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "29426a1f9bd156418a5fe4984d93c1d7f990ed18c90b1a3bf38a1fed73ca38f6",
+        "webp": "301716b369dfa75710e3deb709dfabba9aea7c89d27d62c92275fee5e59c2105",
+        "contact_sheet_png": "e628a03ec6565f2c56123e49a70f3bf4a731e3d1e0d6e571446435fbac76442d",
+        "contact_sheet_pdf": "a27acab3ea5b69aa7051d1787a6701e1629951a0d32b7c8cfcdfabd28e9a4f04"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-16",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-UCD-17",
+      "display_id": "GLC-UCD-17",
+      "group": "galactic",
+      "object_class": "High-proper-motion ultracool dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 0,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-UCD-17 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 2960.34171,
+      "baseline_years": 8.105,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-UCD-17/GLC-UCD-17_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-UCD-17/GLC-UCD-17_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-UCD-17/GLC-UCD-17_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-UCD-17/GLC-UCD-17_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "f8b5e95e717e0727e3684ebb21e86a078e071364f4183d8baa830242ba25a1b2",
+        "webp": "ba09946abd56ea0675e705f65bef2ed98c00f50ccd577659a838eb29e19a5854",
+        "contact_sheet_png": "a8429d738338863ef7d3110900f45dd5fb58e338d620944f83b7cafbfc5ddb24",
+        "contact_sheet_pdf": "55ccd40b8112da8a20007ecf7c30c6fb90734540444d40c117356d1c4fe04f21"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-17",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "GLC-WD-01",
+      "display_id": "GLC-WD-01",
+      "group": "galactic",
+      "object_class": "High-proper-motion white dwarf candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 6,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 6,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "GLC-WD-01 | High-proper-motion white dwarf candidate | 6 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 MER H",
+        "Euclid DR1 MER VIS",
+        "Legacy Survey DR10",
+        "Rubin DP1",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 3083.05514,
+      "baseline_years": 8.4409,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/galactic/GLC-WD-01/GLC-WD-01_movie.gif",
+      "webp_path": "outputs/movies/galactic/GLC-WD-01/GLC-WD-01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/galactic/GLC-WD-01/GLC-WD-01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/galactic/GLC-WD-01/GLC-WD-01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "ba716d58f69a6385114b478c921a515828741d3e814780a673b91ca88cd75f84",
+        "webp": "8e4e0b384a5bf504fb55b41d1a70f6a2e367591c823635b1a096660e75575885",
+        "contact_sheet_png": "7a08ec1099024435bb3d6fbaeeb85fa6bf923fd296de31119102b7410beb7980",
+        "contact_sheet_pdf": "920ef74be4ff3e4f5f54cd3ead15af3018ee177970db514ca623749b21d5dd50"
+      },
+      "source_bundle": "outputs/real_cutouts/galactic/GLC-WD-01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "2025_NU192",
+      "display_id": "2025 NU192",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object (binary claim not supported)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "2025 NU192 | Trans-Neptunian object (binary claim not supported) | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 1429.17062,
+      "baseline_years": 3.9129,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/2025_NU192/2025_NU192_movie.gif",
+      "webp_path": "outputs/movies/group1/2025_NU192/2025_NU192_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/2025_NU192/2025_NU192_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/2025_NU192/2025_NU192_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "19036b7afae0e653d7ab4a781330eb3d374b213ae07513fe8b88d86cd4cf40d0",
+        "webp": "842a49457c58188caf1b375e7b421aacf6e230e6f1ba43162dd1051622b1542f",
+        "contact_sheet_png": "06b593aed9c592e59cdbbfa7b42b12438825f37dd6279446f16dfc1fc1ffa05c",
+        "contact_sheet_pdf": "c27121ba58ff7847b1f2461a02dd638a5ef7b63b1288ba5cbc5a7f63e5a8c5d9"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/2025_NU192",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "2025_NW189",
+      "display_id": "2025 NW189",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object, wide-binary candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "2025 NW189 | Trans-Neptunian object, wide-binary candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2194.95549,
+      "baseline_years": 6.0095,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/2025_NW189/2025_NW189_movie.gif",
+      "webp_path": "outputs/movies/group1/2025_NW189/2025_NW189_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/2025_NW189/2025_NW189_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/2025_NW189/2025_NW189_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "1de30d9aa6a89ea028d0ad46746b4a3a6bff68723afdfca971acba2de47e3c9f",
+        "webp": "0f891a5b08d9eaa645e4104c9f19bb24cb6cba2587e122d8f6e15e442b204a0a",
+        "contact_sheet_png": "1655b58198fb7b791a5fbcb8fbe0d2b65b15711535ef1fab2d862550e6a2bb2c",
+        "contact_sheet_pdf": "2ab627a820a3d774a4ca60bae491a9d854d53f6966705e99dea4f412fa993b3b"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/2025_NW189",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-D03",
+      "display_id": "R25-D03",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-D03 | Trans-Neptunian object candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2920.25391,
+      "baseline_years": 7.9952,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-D03/R25-D03_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-D03/R25-D03_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-D03/R25-D03_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-D03/R25-D03_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "73e16c9b7e83fa395b89aa1f8c3453ea5998d8f3f1ded433a2b4eee5e9360598",
+        "webp": "581611a48106965592b776b9621d1e1fbc011f58aa61b1d22278c6478e55a015",
+        "contact_sheet_png": "71b06854b25f1a8c63df05d63e796e87fcad741f8bc161ab6540e83b5d481019",
+        "contact_sheet_pdf": "d0c0f174390281bd8ef6d59af4e81233fa27aa8a1a972a09459aec9b90ab0caf"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-D03",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-D04",
+      "display_id": "R25-D04",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-D04 | Trans-Neptunian object candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2902.2819,
+      "baseline_years": 7.946,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-D04/R25-D04_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-D04/R25-D04_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-D04/R25-D04_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-D04/R25-D04_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "a10ecae14a730cf7ebc1659d232b0fc8a32461687b348ff75a8cc1c3414ae491",
+        "webp": "62a1460b19399e7439c5747c25c849c062d1a12948bf670071a9419961bbb11b",
+        "contact_sheet_png": "db7f667ffacd332ed632b17bfa40cec35fb756a8c62fd87e55c228d275aeae0e",
+        "contact_sheet_pdf": "d3426ea97ce121283c38f40f5297c834e6e80f3aaabcfe1aa35c27bcfc6e5e92"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-D04",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-D09",
+      "display_id": "R25-D09",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 6,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 1,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "R25-D09 | Trans-Neptunian object candidate | 6 real archival frames"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2536.15841,
+      "baseline_years": 6.9436,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-D09/R25-D09_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-D09/R25-D09_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-D09/R25-D09_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-D09/R25-D09_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "a78d8ba9e0a509a220df5a39a887c0deec40c35622bc50469600aff0bdc08f29",
+        "webp": "308781b3e7aa147e51a5f849ffe091d40288975d1f7b450ecb09662c785e76b7",
+        "contact_sheet_png": "34f560db33a3a8948a3fcf18afee5914c1bfdba71747e27fd37588efe37c5b66",
+        "contact_sheet_pdf": "c80de75d08a0165b7f17a60297b2e776f85b27b3b852beb8ebeb94dc84cbd7e0"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-D09",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-D14",
+      "display_id": "R25-D14",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-D14 | Trans-Neptunian object candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2898.3056,
+      "baseline_years": 7.9351,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-D14/R25-D14_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-D14/R25-D14_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-D14/R25-D14_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-D14/R25-D14_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "9ced3b939a947b2d85fd65402f9998ef5dc71cc8b4109305fe3fa0386c424824",
+        "webp": "f91f84f924b5b41d6e06a567118b2d3329050c9a91888512ff2373cde29b8d86",
+        "contact_sheet_png": "8eaba013fa79e4e9cd403ddd01716da8251bb70b37d1530529d7146948b823b8",
+        "contact_sheet_pdf": "7184933e8551127c448bb4eebf91a43a9f3f8adeba9a71e817263de94d029549"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-D14",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-E02",
+      "display_id": "R25-E02",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 6,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "R25-E02 | Trans-Neptunian object candidate | 6 real archival frames"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 460.88327,
+      "baseline_years": 1.2618,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-E02/R25-E02_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-E02/R25-E02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-E02/R25-E02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-E02/R25-E02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "3ae31e6ba2af39a06aa48a29a1e9451fa144e95a55ea99817ab4a92c74cb7e6a",
+        "webp": "9910909bab3d7aed6f0d12e17a5c3e4d8fa7918aeceef0aca12c0fbcfe332f2e",
+        "contact_sheet_png": "79148f9f9eb4f5c648961acca91b897b43413c32248a60f2ce91809fc8c2572d",
+        "contact_sheet_pdf": "915242257178099b0bdb9337310a960df9d5503ef373094180651119eb5b76df"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-E02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-E07",
+      "display_id": "R25-E07",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-E07 | Trans-Neptunian object candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2590.86221,
+      "baseline_years": 7.0934,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-E07/R25-E07_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-E07/R25-E07_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-E07/R25-E07_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-E07/R25-E07_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "6b37955668175b888de8df5385b8d79593d52b221296c043df52421f5683547f",
+        "webp": "592850fdc75591b8451a5f7358ecde61e90a82951559b331f9cd87eb2ec16318",
+        "contact_sheet_png": "7683b878488c5714f1cbbe7fda3181511423007242983e45586cb79bfcb55a7b",
+        "contact_sheet_pdf": "6240cd64fba655b73a4ed4e582c07087251e9678b8b624a317a872f32b9483b0"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-E07",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-I04",
+      "display_id": "R25-I04",
+      "group": "group1",
+      "object_class": "Centaur candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-I04 | Centaur candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2164.27389,
+      "baseline_years": 5.9255,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-I04/R25-I04_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-I04/R25-I04_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-I04/R25-I04_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-I04/R25-I04_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "e97243f3a37e800a4f5c587fb277c90586e930a664f3f37ee4b2b602bbca9efe",
+        "webp": "d7cd0c9a664def11cddbd48713019b274af48437435d4e998f8dc614a0a4e5e7",
+        "contact_sheet_png": "40a7be7e460dfa6d07161b85f094b652e15ce05521abc875c37b676f3465db5c",
+        "contact_sheet_pdf": "aaf69ff94328814c66e2b679068abe05f72935ab7705602c37c83b0404338dfe"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-I04",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-T07",
+      "display_id": "R25-T07",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-T07 | Trans-Neptunian object candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 1416.07111,
+      "baseline_years": 3.877,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-T07/R25-T07_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-T07/R25-T07_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-T07/R25-T07_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-T07/R25-T07_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "181db3b623fd5fb3ca2dd778ca67675c319804c4cdb386366a8b5465a57fad9c",
+        "webp": "8c0333f600199bf4e3bd2c43fa824b5bbff5541bbf6367acf15994bc9ce2b61f",
+        "contact_sheet_png": "920423423ef1d9b212a4f96f100e2a47a8c23ab5b9a8b2e970bce2e591cc2b46",
+        "contact_sheet_pdf": "c3d44da8c5eb8db33b281dc5b1f0516d9bc413d9b7330d0c6c027ba9f3339af6"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-T07",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-T09",
+      "display_id": "R25-T09",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-T09 | Trans-Neptunian object candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2241.0766,
+      "baseline_years": 6.1357,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-T09/R25-T09_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-T09/R25-T09_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-T09/R25-T09_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-T09/R25-T09_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "8806a37aade18b6f7f632535514a45c150f2af324b3d388e172d920f5b3bd7b1",
+        "webp": "d0a40e7c2e4ca406f020301cf2d9ca6c6d4477d4298933853961e7f3b3d9e282",
+        "contact_sheet_png": "2604f55e97844c3797a76d62caf0c316ecbdf8cc95a3c55ab3a57190ceb1385a",
+        "contact_sheet_pdf": "cbbe9c1999e4422a0d47f0c42d686ad08b64872a509b4778cb7c07b2071bfe11"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-T09",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-T12",
+      "display_id": "R25-T12",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-T12 | Trans-Neptunian object candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 3615.1639,
+      "baseline_years": 9.8978,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-T12/R25-T12_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-T12/R25-T12_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-T12/R25-T12_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-T12/R25-T12_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "18c2440d7164ee60ff2ed44d1114c632ccf8459d77a2ffa7bb3a388b1884555a",
+        "webp": "038bc9211105ac033ffe620c672042849f7bd425df7a76ae4aa97dd42dd73308",
+        "contact_sheet_png": "3881bba71a33e6ae05fd22a1707500e732f472f23b7fd3ceeab96f728823f13f",
+        "contact_sheet_pdf": "41fe1cec2f4751a748ed10bb2ed0680db43c2aaa2fdb5a8cccf148e72a1102f6"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-T12",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "R25-T13",
+      "display_id": "R25-T13",
+      "group": "group1",
+      "object_class": "Trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 7,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 0,
+      "detection_epoch_note": "no detection-epoch pixels available",
+      "contact_sheet_header": [
+        "R25-T13 | Trans-Neptunian object candidate | 7 real archival frames",
+        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Rubin DP2"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 1723.32175,
+      "baseline_years": 4.7182,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group1/R25-T13/R25-T13_movie.gif",
+      "webp_path": "outputs/movies/group1/R25-T13/R25-T13_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group1/R25-T13/R25-T13_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group1/R25-T13/R25-T13_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "cd154ae638f33a8001b6b8e6689301a137aca87bc45faf1f637bafab17febad3",
+        "webp": "44b38f18aca7529aec428469a3f8b56a1ef8ee92b8f216ee5751be77493e4b2a",
+        "contact_sheet_png": "36924ecfd53d66e8fc0610ab2a57a21abece9fef32c93f29d6cc0f335407b03c",
+        "contact_sheet_pdf": "868f07b8481f6fe72ef397085063ec29a75243eb9feb444e2688925aeda81405"
+      },
+      "source_bundle": "outputs/real_cutouts/group1/R25-T13",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_02",
+      "display_id": "C3 GOLD 02",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 02 | Euclid trans-Neptunian object candidate | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.49241,
+      "baseline_years": 0.0013,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/C3_GOLD_02/C3_GOLD_02_movie.gif",
+      "webp_path": "outputs/movies/group2/C3_GOLD_02/C3_GOLD_02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/C3_GOLD_02/C3_GOLD_02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/C3_GOLD_02/C3_GOLD_02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "f3fe9f4e438f60c5252fe2357fe621371b0dbf8b85fe3a5ee84edc294171b39e",
+        "webp": "afb450cecee76697f4532df8ea4e101042f14a4d70b4c3211b3edfc15bf49637",
+        "contact_sheet_png": "9a860be550ae136f6db8bfb44b167f215600e813dd18d30c3eeef4298c7b6628",
+        "contact_sheet_pdf": "f17d8cedfa6477ed942b58263fd150274eb8e16992c457a8bb86b307c1b1a3eb"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_07",
+      "display_id": "C3 GOLD 07",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 6,
+      "n_single_epoch_frames": 6,
+      "n_detection_epoch_frames": 6,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 07 | Euclid trans-Neptunian object candidate | 6 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.34903,
+      "baseline_years": 0.001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/C3_GOLD_07/C3_GOLD_07_movie.gif",
+      "webp_path": "outputs/movies/group2/C3_GOLD_07/C3_GOLD_07_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/C3_GOLD_07/C3_GOLD_07_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/C3_GOLD_07/C3_GOLD_07_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "ee3edc3a4d4c39d342edec2fb7ac80e5280d452398a1f01f2957516c563f4df9",
+        "webp": "8d30fa17c78a46da37aecf27a923b1e515218c75caf58e7c03d0bcdd9a8f6361",
+        "contact_sheet_png": "41b0e76dd261be0a240a43a3edc58c83aa5b846d558cd3a33a35cf9828105d6e",
+        "contact_sheet_pdf": "51a271eab7a6c0590637996646cb656b76809323b7472f036c94ff6da4da1ee9"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_07",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_11",
+      "display_id": "C3 GOLD 11",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 11 | Euclid trans-Neptunian object candidate | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2.48676,
+      "baseline_years": 0.0068,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/C3_GOLD_11/C3_GOLD_11_movie.gif",
+      "webp_path": "outputs/movies/group2/C3_GOLD_11/C3_GOLD_11_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/C3_GOLD_11/C3_GOLD_11_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/C3_GOLD_11/C3_GOLD_11_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "30217e244f90282879124c1b8b41a3eb69e34680ff73a986cfa10bab15dbcc8b",
+        "webp": "815e749948540fbe60faf85119f7606e8de20d01d44b17e2aa65ac07bc4e84fd",
+        "contact_sheet_png": "2c7b8cb709aeef12cb7fd3ac5274366356fc8f33ccbd414958498a6f3b8982c8",
+        "contact_sheet_pdf": "ca422767b6807335724daf625614b412a0fc9a3e7546f4ee58478a2b68ce660f"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_11",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-CN01",
+      "display_id": "EUC-CN01",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-CN01 | Euclid trans-Neptunian object candidate | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 1.88359,
+      "baseline_years": 0.0052,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/EUC-CN01/EUC-CN01_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-CN01/EUC-CN01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-CN01/EUC-CN01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-CN01/EUC-CN01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "d1b9a17fb6b6edcd392839b424957bfd271bfb302150ed08639edbdbbeae7db8",
+        "webp": "fd6a771ffdde5c6c1485301a82315614ac974eca832b8a01c7257114a47c8364",
+        "contact_sheet_png": "ec2ea97a09c659a0a95a916615737417c4fe27bcf55e33a677f0c0fe3c2e7800",
+        "contact_sheet_pdf": "4a7c70b878ee350f1333cf60869385494db23849a11014d524e8bccc286c122c"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-CN01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-CS02",
+      "display_id": "EUC-CS02",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-CS02 | Euclid trans-Neptunian object candidate | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2.7043,
+      "baseline_years": 0.0074,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/EUC-CS02/EUC-CS02_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-CS02/EUC-CS02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-CS02/EUC-CS02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-CS02/EUC-CS02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "3fe1e9360d09c1912ff78a1c51773b656567d6f4d0218433830d72c4aab7acda",
+        "webp": "53a8b4686663cc5f040876bbb02735ab7f5f8acddff788e0b31fb7d0ce7a9b78",
+        "contact_sheet_png": "695262319ff77ef2111e9d64d8ea42b83c78e37f81275393a66a2890b4d10ee6",
+        "contact_sheet_pdf": "0a9e891068240c183552bfcc58b0a3ccb3b4870a24ffcc9b1189ad05edd65af9"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-CS02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-CS03",
+      "display_id": "EUC-CS03",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-CS03 | Euclid trans-Neptunian object candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 1.26807,
+      "baseline_years": 0.0035,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/EUC-CS03/EUC-CS03_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-CS03/EUC-CS03_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-CS03/EUC-CS03_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-CS03/EUC-CS03_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "fabe751cf33f94658f26b15ef8be9146f895c745ac4f3efe894fd62f35d710b2",
+        "webp": "d3a22ba63350ef036f7cf209e4467f7751b215f58544c1a7feba61178dbff5a0",
+        "contact_sheet_png": "5cab32dbbb20a451a1daadc842980ff655fb4c219ac408276541fcb9c08f11c5",
+        "contact_sheet_pdf": "c893eee6cb0bd43386bd4d30803fd58459a1001de1015da1bd2ffb9187cd6a93"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-CS03",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-CW04",
+      "display_id": "EUC-CW04",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 6,
+      "n_single_epoch_frames": 6,
+      "n_detection_epoch_frames": 6,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-CW04 | Euclid trans-Neptunian object candidate | 6 real archival frames"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 2.4991,
+      "baseline_years": 0.0068,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/EUC-CW04/EUC-CW04_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-CW04/EUC-CW04_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-CW04/EUC-CW04_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-CW04/EUC-CW04_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "ff2c34e859c6caa91c7758b6ca1a2ba447dafb8c25c72d902ce8bbee9d4d208a",
+        "webp": "95a32b43389184fdb7ced7766b71d9fca4483beb648d06661f88de760fd06762",
+        "contact_sheet_png": "d5346de8d88c52a3bd35ea9aaff2046d4230aad2d9fe2c8734e952c97087b453",
+        "contact_sheet_pdf": "d759e1b8397147774f818198e898184946aac5f565e4db2dacc901bdf8b89794"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-CW04",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-CW05",
+      "display_id": "EUC-CW05",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-CW05 | Euclid trans-Neptunian object candidate | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 1.47323,
+      "baseline_years": 0.004,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/EUC-CW05/EUC-CW05_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-CW05/EUC-CW05_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-CW05/EUC-CW05_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-CW05/EUC-CW05_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "493ecb2d9b25c576f93b7a0bb261fba33a96681ada8278f9eddaaa43cd717c11",
+        "webp": "b4cdbea59e99d8243065d7e000a8c021f26a19516369543953bdc82f62c6505c",
+        "contact_sheet_png": "d82f1ddc5fafe916bd950fe9d66bdc68f2432db1bf82dd44a611264fe915dda3",
+        "contact_sheet_pdf": "86ab2d5fefa43e092a792723a3aa664658687afdc3caf10a33d0b673b1722910"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-CW05",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-CW06",
+      "display_id": "EUC-CW06",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-CW06 | Euclid trans-Neptunian object candidate | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 2.4991,
+      "baseline_years": 0.0068,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group2/EUC-CW06/EUC-CW06_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-CW06/EUC-CW06_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-CW06/EUC-CW06_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-CW06/EUC-CW06_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "e4462043dab27b356827259701f86b2ea2ce1b23981f185350183d4e0a6776cb",
+        "webp": "1a1bf64eb2b80dd607d26a56f27b2f82666bda0ce978f577ddf146750b9d5b5a",
+        "contact_sheet_png": "a0178d16d3dedf5e9b6e1361597d5cab727f01ca3a58acea3abb854ec987bb6a",
+        "contact_sheet_pdf": "06246fc5026176d924312f98acb57597c7df7ff3319d02a29ec7948466b92338"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-CW06",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-S02",
+      "display_id": "EUC-S02",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-S02 | Euclid trans-Neptunian object candidate | 5 real archival frames"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.33657,
+      "baseline_years": 0.0009,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group2/EUC-S02/EUC-S02_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-S02/EUC-S02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-S02/EUC-S02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-S02/EUC-S02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "eef5618749ef232b0b6227534600d4b93ceb3322e6882ec69b52c7439065a934",
+        "webp": "2cc703b31234c5d715b06b3c6845bdb2979ef8ef3d67566cfb17d9f463696a4e",
+        "contact_sheet_png": "d552a282eea2e3ae093380dbdb4405e964767daf7d4c39c04dcf9897127d6588",
+        "contact_sheet_pdf": "39162e99759e95351eb7c7c091cda8e08d2bdd10081e75068703308bbde59f02"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-S02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-S05",
+      "display_id": "EUC-S05",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 6,
+      "n_single_epoch_frames": 6,
+      "n_detection_epoch_frames": 6,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-S05 | Euclid trans-Neptunian object candidate | 6 real archival frames"
+      ],
+      "surveys": [
+        "CTIO DECam InstCal",
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.45013,
+      "baseline_years": 0.0012,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/EUC-S05/EUC-S05_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-S05/EUC-S05_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-S05/EUC-S05_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-S05/EUC-S05_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "7af3b02b415915c540179ce44b9c5b161de12fecad54f65f7d7962eab9f1e9dd",
+        "webp": "63c78728bc8b31bb7327acb20b69c9fe5518c1417820c288989477d0a0ac2e93",
+        "contact_sheet_png": "f4015f959fe76f4e21a7cc7233b6870ab24b45e7ffc0d65dbb77fe68d50173df",
+        "contact_sheet_pdf": "4619393eaed9af60cf2a2c1fa03fa1a41cb2feb40c05e0cf2f106686960633af"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-S05",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-V02",
+      "display_id": "EUC-V02",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-V02 | Euclid trans-Neptunian object candidate | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.34903,
+      "baseline_years": 0.001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/EUC-V02/EUC-V02_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-V02/EUC-V02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-V02/EUC-V02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-V02/EUC-V02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "ece57a99cdd3a23498524c788a5bc046cd61fc94f99ab5536abee20fab67dd1c",
+        "webp": "217d426e8522cd0e864fa71924a48d6fb7295093680663749f6318148bcece82",
+        "contact_sheet_png": "aafe709231e7ae8d8789b20e021ef484499272834c7de0f48dc7dade0a8b0c41",
+        "contact_sheet_pdf": "d3c4f085030e3ab46120c175ee1ede007c3867af68c2eda512c53659780a86b9"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-V02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-V03",
+      "display_id": "EUC-V03",
+      "group": "group2",
+      "object_class": "Euclid trans-Neptunian object candidate",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-V03 | Euclid trans-Neptunian object candidate | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.29921,
+      "baseline_years": 0.0008,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group2/EUC-V03/EUC-V03_movie.gif",
+      "webp_path": "outputs/movies/group2/EUC-V03/EUC-V03_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group2/EUC-V03/EUC-V03_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group2/EUC-V03/EUC-V03_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "7c3d7e313e6db0d8c4bb8742cd8ceb6f9d01b10ae256bc7bac32bf84650f1a50",
+        "webp": "663a022a656b7120b8b92d6d52c7beea84d5854dd612245192db73b0862353bc",
+        "contact_sheet_png": "bc08e7c065a963058d2d5585651faaae74774c00240d30c0de87fb7991419b37",
+        "contact_sheet_pdf": "972fece67eadcdebd63447e6540793bf67d81756a2400697e398d8043fc20725"
+      },
+      "source_bundle": "outputs/real_cutouts/group2/EUC-V03",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_01",
+      "display_id": "C3 GOLD 01",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 01 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03701,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/C3_GOLD_01/C3_GOLD_01_movie.gif",
+      "webp_path": "outputs/movies/group5/C3_GOLD_01/C3_GOLD_01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/C3_GOLD_01/C3_GOLD_01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/C3_GOLD_01/C3_GOLD_01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "cd9de1a770f8631ec6a59e23b1f32f3ceda8d6a23b71991e2a3ea271720ffb22",
+        "webp": "c1baad95b7553367a62fe387e8bba9f18c21d1c93adc4f198390479162ca2982",
+        "contact_sheet_png": "c487515431a15f8da8f9d27a2b88db8c5745c8bee697835c6eabbf1c1c7a7fae",
+        "contact_sheet_pdf": "97b09709bbbc9bf425a8d47d16454778607aa44010a1faa450ee0de3932dcf9e"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_04",
+      "display_id": "C3 GOLD 04",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 04 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03701,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/C3_GOLD_04/C3_GOLD_04_movie.gif",
+      "webp_path": "outputs/movies/group5/C3_GOLD_04/C3_GOLD_04_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/C3_GOLD_04/C3_GOLD_04_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/C3_GOLD_04/C3_GOLD_04_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "473e6a84abd9007a9ca579f02772e1688476627912d488bb47b44c50972c73e5",
+        "webp": "6926fae51211864a3bccaa2cb6e1ae0d866cb1fa65c5a138713fd50d5b0a87bd",
+        "contact_sheet_png": "6bf46ebfb82d0690d893cd7ef7d157b94c52e55fe45f078c5b5d70c05712b73d",
+        "contact_sheet_pdf": "59bc3b78af5b716f8631c3323435852c7196f336646737fc3fe2bace6647999c"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_04",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_05",
+      "display_id": "C3 GOLD 05",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 05 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02468,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/C3_GOLD_05/C3_GOLD_05_movie.gif",
+      "webp_path": "outputs/movies/group5/C3_GOLD_05/C3_GOLD_05_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/C3_GOLD_05/C3_GOLD_05_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/C3_GOLD_05/C3_GOLD_05_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "11ad6aa186dfb21d427981acbb89aa48cc49e45040ed53aa5522cca434b513e1",
+        "webp": "b25218741d88734e26eda06cf24477ac2a4444aecaace116bdc7e7651dea2cb9",
+        "contact_sheet_png": "c167fc5cd0b51c01da6e91d5837090ec53263d433ee5353c790ac20de501cb58",
+        "contact_sheet_pdf": "bb38be3a309b35402a2ae0422ee688cf38ae3fe6f9cb9909cca110f0026c0c3a"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_05",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_06",
+      "display_id": "C3 GOLD 06",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 06 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02468,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/C3_GOLD_06/C3_GOLD_06_movie.gif",
+      "webp_path": "outputs/movies/group5/C3_GOLD_06/C3_GOLD_06_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/C3_GOLD_06/C3_GOLD_06_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/C3_GOLD_06/C3_GOLD_06_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "98be84518cf26eb7d3ec52cf24fa0986ffc22c10e56e14206b517cbdd63078b4",
+        "webp": "1057684db704837a5bcf6e3a07af3776919b54ae330fd642e77a3a4ec1373897",
+        "contact_sheet_png": "13c00a6aa8103bf00683ccebb3c522c5adfed064b516261559988adc2873c41a",
+        "contact_sheet_pdf": "c2b3cffb7e5b5b346297554eecc7ba4ac4e9e83ae611c0bacd888f19d372562e"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_06",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_09",
+      "display_id": "C3 GOLD 09",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 09 | Asteroid candidate (short arc, orbit undetermined) | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 2.28161,
+      "baseline_years": 0.0062,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/C3_GOLD_09/C3_GOLD_09_movie.gif",
+      "webp_path": "outputs/movies/group5/C3_GOLD_09/C3_GOLD_09_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/C3_GOLD_09/C3_GOLD_09_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/C3_GOLD_09/C3_GOLD_09_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "70acaa1f0febd7b2ccdc425418dea9ac9d98adabda80155af73a15540c760c9d",
+        "webp": "3ecd40ba7c118e239d731fe61b5eaa0428049e42a0a95b6d52ef0adafed6ba57",
+        "contact_sheet_png": "6b23cb05b1383df489e92f4292656c7ffb5abdb1e1a08f6b3385c406c5cfbc26",
+        "contact_sheet_pdf": "62667d553d2acff9b16c3d5fad85766adb093298e36f913991d05c79d26fbaf3"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_09",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_13",
+      "display_id": "C3 GOLD 13",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 13 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02468,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/C3_GOLD_13/C3_GOLD_13_movie.gif",
+      "webp_path": "outputs/movies/group5/C3_GOLD_13/C3_GOLD_13_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/C3_GOLD_13/C3_GOLD_13_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/C3_GOLD_13/C3_GOLD_13_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "94ac07cc632a7bc683baec90d8c837465272b2a2c36b0b4de764812649a66512",
+        "webp": "22fb70e80c453e050ed26a6ddefc89173801ef10c95ad1aef93befdb1efeae58",
+        "contact_sheet_png": "30e593691556e75c75c8247a524fe5695b617148f0e3f891d68a4446faa00e45",
+        "contact_sheet_pdf": "d884d0e0181a41436b2432cf21722a22b29d2b98e3aa68d094d9806cea984627"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_13",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "C3_GOLD_17",
+      "display_id": "C3 GOLD 17",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "C3 GOLD 17 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02468,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/C3_GOLD_17/C3_GOLD_17_movie.gif",
+      "webp_path": "outputs/movies/group5/C3_GOLD_17/C3_GOLD_17_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/C3_GOLD_17/C3_GOLD_17_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/C3_GOLD_17/C3_GOLD_17_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "33a5dd738325931b61992eac57944bef9a004a1490a20801a01198bd84c304dc",
+        "webp": "8f52e1ecce8cf0dfb19a791a468882f3c2e00f3dddda5242b332c9937014a53e",
+        "contact_sheet_png": "9bf5a345c497b31af9c80e0fba0e26db2e02dee04c503f766d3f07207aff9c2b",
+        "contact_sheet_pdf": "3d6a0abbf1c38415e8894682b38d2260a5e0dfcdc203c28453c6af33626a4ee3"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_17",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G01",
+      "display_id": "EUC-G01",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G01 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G01/EUC-G01_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G01/EUC-G01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G01/EUC-G01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G01/EUC-G01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "1a9169e658a41d0b108c79f6bf28e5eadbdfb9e01456e3001366a0c48600a552",
+        "webp": "aca1096ef70c4e2d304fe1bcaf1a397104d0a3b61479d6a592968fc3a94a8259",
+        "contact_sheet_png": "76ed84e9e9164ba79704395e11a2df65a0c52ff355447270299726675e4fdbfa",
+        "contact_sheet_pdf": "a502d7d281ae5a250276efb720d6e0643ff0dae8726d37644b37bbe9323be129"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G02",
+      "display_id": "EUC-G02",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G02 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03942,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G02/EUC-G02_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G02/EUC-G02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G02/EUC-G02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G02/EUC-G02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "46cc05d8f72a53d63d09fbe6257a34cd32d8ddc8cccc03452e3779168373fb36",
+        "webp": "dd0d6b3057909e51272742160e19e40b8070d888e1d29ac45fd1e092af32b80a",
+        "contact_sheet_png": "67559fb5e8d86f283a04e203e31b13157e0a9ffee08093f08cae62a8856f80ad",
+        "contact_sheet_pdf": "791c48c2881ef47f9ab53a0fc1ba235cc6720157bd048e7bade3c2d4ad3a5b32"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G03",
+      "display_id": "EUC-G03",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G03 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G03/EUC-G03_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G03/EUC-G03_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G03/EUC-G03_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G03/EUC-G03_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "59622bf620ddcad10055838f1c47e09049dfdd690de72654267afbc6db285824",
+        "webp": "d09d263ae39c9ed041ec17f758e6f6684fc30144a8cbbd960a2106872d61efca",
+        "contact_sheet_png": "ae67595f992a6ebf1ecc5338d9133b6fa253ddb9f855cb0ad6c78c588211b72c",
+        "contact_sheet_pdf": "82e074ab0c4f1321737d36d8a6d8056e3430a3b1f2d5dfde48b04615c78f3fc7"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G03",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G04",
+      "display_id": "EUC-G04",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G04 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G04/EUC-G04_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G04/EUC-G04_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G04/EUC-G04_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G04/EUC-G04_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "64a78307feb7ac10cb8cfaf0b09531e99fd56ed9d9af9435fcdb80a83337852a",
+        "webp": "ed6f9a0c3e8ae8438e0e609ade9331f25bcc17de8fde3aed292f86702470b2c0",
+        "contact_sheet_png": "049f0c3f87026d83dc53e0692fc8f0324dbcbc76c12223b675c0e2b81f939187",
+        "contact_sheet_pdf": "865942fe590cc2fa6c180885697a99211d52d12213bc0c534cf655203aa0cbf3"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G04",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G05",
+      "display_id": "EUC-G05",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G05 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G05/EUC-G05_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G05/EUC-G05_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G05/EUC-G05_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G05/EUC-G05_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "75e284a7ae03d1a3c8de73ad8747b68448455ac12452b7909fce75c604dc9296",
+        "webp": "5ef9aa5c33a30b4bdb91093ecadbcecc0596533acc601af1ee1a56e883fe530c",
+        "contact_sheet_png": "f68951b22d261f90313a111bd6535852b83c78825385317a16634019a4643a86",
+        "contact_sheet_pdf": "e39f64723bfc74f3fc766a95160705ab20e1bc6a1c3090f2833ef9580fa90a09"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G05",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G06",
+      "display_id": "EUC-G06",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G06 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G06/EUC-G06_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G06/EUC-G06_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G06/EUC-G06_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G06/EUC-G06_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "448413d455cbaf5b585e0f7604c7151f66e0e1ef74d90956e5bc2a05a116e032",
+        "webp": "16efaa0a6e7b2fcb413c27f144865756f4cb5500b16b3d76807e397f928279b8",
+        "contact_sheet_png": "a4eab314793394de37624cfa13f326ec49df14060646619064dd923359275fca",
+        "contact_sheet_pdf": "cb6e0a87d59996718d523fdfc7ddb3d14ea288cd962b3b09180f54f00941376b"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G06",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G07",
+      "display_id": "EUC-G07",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G07 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G07/EUC-G07_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G07/EUC-G07_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G07/EUC-G07_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G07/EUC-G07_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "f5a650b9f1343501dbc97f0c0752e021794d085e07014c76893984ee2009dce3",
+        "webp": "5f0b34413ced901ed08a2fd2f96bb89947e014d9c33c656ae8081c6ca83d1c03",
+        "contact_sheet_png": "470f5d1f0ab90e81bece55c68232cb0cd05dcc97783d5ffc88d6075531308592",
+        "contact_sheet_pdf": "678ad75b2d53bc186278fa5d4aae755adba7b0a5d1b67114b768006b21706114"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G07",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G08",
+      "display_id": "EUC-G08",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G08 | Asteroid candidate (short arc, orbit undetermined) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G08/EUC-G08_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G08/EUC-G08_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G08/EUC-G08_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G08/EUC-G08_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "201d9781273a8a30ddf19bb3ed0ced59184c492ca03e3852a1ea55d6696f8a30",
+        "webp": "b3aa29b465f3672fab4acaba8c3eea49a8b7353add3ad5673365392da0b73a25",
+        "contact_sheet_png": "cbaf633a3220e39a055d5b96801935014b80c25b3eb2dbf442f494a47296f209",
+        "contact_sheet_pdf": "7b292fb2a9f21b14d6e040fc3d7bc871f4a4ea1cbb52c92fdbfd6fb2e2a47a97"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G08",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G09",
+      "display_id": "EUC-G09",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G09 | Asteroid candidate (short arc, orbit undetermined) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.02697,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G09/EUC-G09_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G09/EUC-G09_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G09/EUC-G09_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G09/EUC-G09_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "2f664a2ab0a1f67d1470df58da8085f12ec51b9411dda3c8d0986fef696c4c43",
+        "webp": "783c4fcacc7852c3ce7bd7bd0be090a31bc6237c8c28e9f7d09ed30a266dc9db",
+        "contact_sheet_png": "576c4708549e66cb4e6fe84f992db0696de33b91545608d829f300ced8156e2e",
+        "contact_sheet_pdf": "003058fec2e85733cef1c8c03accc33d4983a22be5827ce8a0ab81d7c584089f"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G09",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G10",
+      "display_id": "EUC-G10",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G10 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G10/EUC-G10_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G10/EUC-G10_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G10/EUC-G10_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G10/EUC-G10_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "d6ff8752b1d94083f915d294520ac7b148a359078f51be86efd18c1d6fbe4259",
+        "webp": "182aa1494cae585a8e6cd325173440100dc710f6f736bf8e35c1632c38fb0ffc",
+        "contact_sheet_png": "811f3d19c9f5e178c6961aece8eb79d063ed6745fbc993b3fe9ba97338c9d080",
+        "contact_sheet_pdf": "0a8495bcb6bbe77fd55e58ebabd02da5c0ae53542989ecf6ab5acc4ebeaefa14"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G10",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G11",
+      "display_id": "EUC-G11",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G11 | Asteroid candidate (short arc, orbit undetermined) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.01245,
+      "baseline_years": 0.0,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G11/EUC-G11_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G11/EUC-G11_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G11/EUC-G11_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G11/EUC-G11_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "79a4c62fc9a6ef49a744459816372a442b4348dc05e3bef7cbebf7bcbd229fc4",
+        "webp": "6a4396921b9c6fe374ea7727151827f6a85dec3c22b54dc07fc309b69d84456f",
+        "contact_sheet_png": "048b73354cfd9bf73fa2d5acfcf3ebd55acf43016fff75dee19fe1bd4b85bf77",
+        "contact_sheet_pdf": "326f8760998d6bf4ed2c6951205488e645e99cd871204a94d6f6008ad4aef621"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G11",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G12",
+      "display_id": "EUC-G12",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G12 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.32412,
+      "baseline_years": 0.0009,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G12/EUC-G12_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G12/EUC-G12_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G12/EUC-G12_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G12/EUC-G12_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "9d29cbd0950e19c81afb753529a61a88042fcf9bf4288a3c5e2ea71ead0f8676",
+        "webp": "a84e82969e42842991561c0081f747f0b7dad45cbbc0375ff3cb117ebb18e564",
+        "contact_sheet_png": "fe427d6c94acc41f84e05d81b8083d4e3c26cf7fb946d555167ad090ccb0c6fe",
+        "contact_sheet_pdf": "a45f064cf65bd12920bd9fc68b93b0b52b5eef044e194b5902a2eff33aae614f"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G12",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G13",
+      "display_id": "EUC-G13",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G13 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G13/EUC-G13_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G13/EUC-G13_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G13/EUC-G13_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G13/EUC-G13_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "ab8f7ad69c266e67373958950b62d737aa54d4347933646369e675781d1dab5c",
+        "webp": "e84801363a89277fe696dab7d025efe149dbad50a0103f14cd0bf21e5dc46acc",
+        "contact_sheet_png": "638dd61121210ce165ef79118c06c5702c5549e0934267cd39c4d8e2d898f0ad",
+        "contact_sheet_pdf": "668ebb4637dcb3c1cd271685c76d7f166027b3ad44586c98e5ec3a994b58719e"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G13",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G14",
+      "display_id": "EUC-G14",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G14 | Asteroid candidate (short arc, orbit undetermined) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.01245,
+      "baseline_years": 0.0,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G14/EUC-G14_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G14/EUC-G14_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G14/EUC-G14_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G14/EUC-G14_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "de3d03b2d1181723c315d73e8073467799fd2a785f277d2831be4ed3eaa03683",
+        "webp": "0235b5b72b961b9f5970036735eaa2c39cbbf5c52bf028f243fc86e5e8951ad9",
+        "contact_sheet_png": "d1eba1fabe01a256fde352b2c6b2e42c03f1c0d75c0223a7d39e732a01f2b9c6",
+        "contact_sheet_pdf": "932734eb1fc7531f757e5ebd022d614ef1913d22f2eb3b7cebf28fa77474a8b9"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G14",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G15",
+      "display_id": "EUC-G15",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G15 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G15/EUC-G15_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G15/EUC-G15_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G15/EUC-G15_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G15/EUC-G15_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "3d4a42542057783aef40a724ba0cc728f9c1e5fc34d2009ab76c2d17acc04a5a",
+        "webp": "a9183438e9ebf5026b6b498dc81296ef90744d1755d13a328ea3922cd7911c71",
+        "contact_sheet_png": "21fe9e69050cf441ddd06169c0be614851f209b0a5db07cb90fa583985af9fad",
+        "contact_sheet_pdf": "99b007071528866b37b708d97a0d81e67497cf4f01425bfab7f515c293f74f25"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G15",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G16",
+      "display_id": "EUC-G16",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G16 | Asteroid candidate (short arc, orbit undetermined) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G16/EUC-G16_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G16/EUC-G16_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G16/EUC-G16_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G16/EUC-G16_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "762ad93e18c7be1de1175fc719de5bb4d2bba7a274390f786b8c28c0781ab29d",
+        "webp": "9c58a826201469685c6e37ca8d6c224ca9360c0951a2e73207b9afe5a695e5a6",
+        "contact_sheet_png": "bc0639c1b55696ca9f0b23e0735f116c43b166294df616958b72c36960f41022",
+        "contact_sheet_pdf": "d4f55c5e12e8e4265a5c6cdd9fa15673fa5231a755cbcd49bbdf2264d49bba64"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G16",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G17",
+      "display_id": "EUC-G17",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G17 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G17/EUC-G17_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G17/EUC-G17_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G17/EUC-G17_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G17/EUC-G17_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "6fdcd6ec3f106dd775cf6b03292b9fa60d0c813a9c49c5dea4f3e0e8c5faa25e",
+        "webp": "cc1ff0230ce7e1a890a58f755548af2be245f8127f58494d33065cdbf0b681ed",
+        "contact_sheet_png": "18033f6fcf03d9b985efb2bb3f7928c0f82b9b7c75836c71fdc2d40ed5aabec1",
+        "contact_sheet_pdf": "7779b1e7a1db1dc065b655570244e84e79522dcfb3ce89c42c4a33ef3797cc77"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G17",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G19",
+      "display_id": "EUC-G19",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G19 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G19/EUC-G19_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G19/EUC-G19_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G19/EUC-G19_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G19/EUC-G19_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "ca5af714ca2dfe24042a7801a8cdc847aec23a85b663e96dec69d1b572004ee5",
+        "webp": "09dbe8d2b11333f981cdd860786a3d2265b8170b1cc440d49ed0f88795faf3a7",
+        "contact_sheet_png": "a05efb8ad3b57b7cd1c35b632aa455b6e7f5c428c2f0431c66f7bdc85ba340d0",
+        "contact_sheet_pdf": "11849c19ddaee75509d216f7d84437246a158534eaabeddf40c82fe3aa3bdef1"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G19",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G20",
+      "display_id": "EUC-G20",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G20 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.34903,
+      "baseline_years": 0.001,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G20/EUC-G20_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G20/EUC-G20_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G20/EUC-G20_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G20/EUC-G20_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "5f94a48ab917e33185de4325b11cea2c8408b8afa557bdbb70bacd2e707cfe71",
+        "webp": "2002bcd221ca139ee0350cda2b30c53b563abfa1a004aa01acbf09848afcfd1f",
+        "contact_sheet_png": "75366f8e81b3cf0424b30068b1b50adc4777e2a931ebc3f2c356afb5474bfe54",
+        "contact_sheet_pdf": "6ad42abf9e55689b8820487e4244c5e56d28d4c55fa63bfca025c1c42a533a9c"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G20",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G21",
+      "display_id": "EUC-G21",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G21 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G21/EUC-G21_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G21/EUC-G21_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G21/EUC-G21_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G21/EUC-G21_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "3ea9929cadd9788967e5140f3ff62bf2e71501a111cd1ebac9bedbf5c23cd50a",
+        "webp": "d6cfde3c8b62575ca1801d00d372bb8c15755680665e5badccad07d134fcd218",
+        "contact_sheet_png": "364671c2c4fa9884c6e4c76ef10d72f3373f9b39e3c87cc9d19811e29f466b7c",
+        "contact_sheet_pdf": "58a3e82a62a943a6cda35a9b7408770fc8711719c7746b2309a68096e9805a33"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G21",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G22",
+      "display_id": "EUC-G22",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G22 | Asteroid candidate (short arc, orbit undetermined) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G22/EUC-G22_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G22/EUC-G22_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G22/EUC-G22_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G22/EUC-G22_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "74af27501911b12ad6b11130596617b3748ea23b47036397627fcc120cadc4dc",
+        "webp": "582d443ef22de07ee0c966c48310c16c79d8c07860086b396f3e12b1e8f357f1",
+        "contact_sheet_png": "e6580b934f64413b4918a17a8e70b24f124a898af880e015d6b5e47c08dd5cea",
+        "contact_sheet_pdf": "2afbf7259a8cd1a9cd35a2e90761c81ebef64f15226c74abaa4aee2b6b693a5d"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G22",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G23",
+      "display_id": "EUC-G23",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G23 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G23/EUC-G23_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G23/EUC-G23_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G23/EUC-G23_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G23/EUC-G23_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "dcfd1914bdc83d9a724e14accf1ba66852b61f5768702bf1418f14773df82de7",
+        "webp": "481cba2e1e3017154b057aa301adac9a0a452c9caede35e6575ca9bca8804ba1",
+        "contact_sheet_png": "4c0b597e4ab34a153d39e88b1d0883dce8f596111e5fe07112cffed459b5f5cf",
+        "contact_sheet_pdf": "eb67066085df0a59ef2f04da714e20147a2c1d0ee32b781f5ff469132fa97ce3"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G23",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G24",
+      "display_id": "EUC-G24",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G24 | Asteroid candidate (short arc, orbit undetermined) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.01245,
+      "baseline_years": 0.0,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G24/EUC-G24_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G24/EUC-G24_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G24/EUC-G24_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G24/EUC-G24_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "f3cf95020131ab05b2606d03738525cde1a422ad09c517f10d127ee2a02998a6",
+        "webp": "d62cc428427ac9b5f0eada79b13789572447c3b1bd051efefdd9b5716f3761db",
+        "contact_sheet_png": "026caa9b05cc3b62f4d2fb24538e523941c10be1229736f6c7ce07e900a212f3",
+        "contact_sheet_pdf": "1fb32aaeff514cad0c2d511541112da776b51d84f501e5114cd0e2a0038e33f1"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G24",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G25",
+      "display_id": "EUC-G25",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G25 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G25/EUC-G25_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G25/EUC-G25_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G25/EUC-G25_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G25/EUC-G25_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "e229980f50e3b299d9a83e194affc0c65e7b90160ca1249bf1f4a1ff79f24d4c",
+        "webp": "2ae49118d2d7b573a450ea99690a2096ac448610e391ed74d1c186f0514b7ad5",
+        "contact_sheet_png": "39aa75e3e200bb58c55fd223ea4a5db106f2e78fa7e2def941a9d8da0943e155",
+        "contact_sheet_pdf": "6ce45f804f0b0981161ab4dddc889ae2f0b137edf761a534bbea60e7a537259e"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G25",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G26",
+      "display_id": "EUC-G26",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G26 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G26/EUC-G26_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G26/EUC-G26_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G26/EUC-G26_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G26/EUC-G26_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "fa71975c80cd414497d475c07ff2ef03b9ee9e019eab216fd55b1ed81487b035",
+        "webp": "759501c06b0dcde30c62497686d0bebb220d309b056e282b4c4fd85e1b345764",
+        "contact_sheet_png": "ac022fa4d89a301edbe41ae5b8f97f084ce6ca5d4a7292043e2a59d297b9d566",
+        "contact_sheet_pdf": "9083d48a65db0333ea387c8d33ea5e7e4a942825826ef5b61f8e689892772a3b"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G26",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G27",
+      "display_id": "EUC-G27",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G27 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G27/EUC-G27_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G27/EUC-G27_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G27/EUC-G27_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G27/EUC-G27_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "c58ccbcbbb30dd1eb37b717c58fb7d803d3a6ef348f1e5e7c035b4ea2e627d6d",
+        "webp": "9c72fa2329dfa7e0588eab527e231bb95b2c77dd1bf501696ff4275f7af22433",
+        "contact_sheet_png": "bacb221ff8f7908d8513c63d26c664d4230aa71787f70bb4d8378ecbefce2b1c",
+        "contact_sheet_pdf": "6eb7a4a2007a8f636de25b01bd908033e6080a37c6b02b02d79acb3360048717"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G27",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G28",
+      "display_id": "EUC-G28",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G28 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G28/EUC-G28_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G28/EUC-G28_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G28/EUC-G28_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G28/EUC-G28_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "528194b694a6bd5fb10621ed7f20f164be92b0d763f4d69b14cd16806383924a",
+        "webp": "fe3e8570fb644c10461e967432661fb7a1e452ad9046bbdf5268d635a917a79c",
+        "contact_sheet_png": "53d5d600cc59c863eb2367b0da397071d59c315e21381b327cbce3a55dd110b5",
+        "contact_sheet_pdf": "cc789656f24fd8f4048d72dada0c8ee177aaa45006300b82f8aa5f60fc5ed9c9"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G28",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G29",
+      "display_id": "EUC-G29",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G29 | Asteroid candidate (short arc, orbit undetermined) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G29/EUC-G29_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G29/EUC-G29_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G29/EUC-G29_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G29/EUC-G29_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "c2e01743d4798551662293f3780a690d6a0306e6912d9882ab326b795b82dfc2",
+        "webp": "8cc793ee37bb2e19afcd2980d8f3b7ab1618a73265ccfb55d963ec2fbfe1c937",
+        "contact_sheet_png": "c0ba2d532d015bf2b44bccc4f6aad11b90c4262282fcf87e741035c2adcd91b6",
+        "contact_sheet_pdf": "595f3ebf31fd8a77532d8168d12e1da6e15968310d0238f007de73ef10eace19"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G29",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G30",
+      "display_id": "EUC-G30",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G30 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02491,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G30/EUC-G30_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G30/EUC-G30_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G30/EUC-G30_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G30/EUC-G30_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "11687bbeb68ce6cfd1be304d8edf2e917e215b7cabfd6547f92b84aa4a560912",
+        "webp": "3480428ce926d42a1f70a4bf086e8c7e76f831a84db0966fa946a5612ee57709",
+        "contact_sheet_png": "bd2e9905ea4e31328d081237988149e77901a35e3aaad196dddbd5f5faded565",
+        "contact_sheet_pdf": "1f80e4553965d6bc01b574abf1014305010240e72a33b70462219efb67b3da6d"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G30",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G31",
+      "display_id": "EUC-G31",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G31 | Asteroid candidate (short arc, orbit undetermined) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G31/EUC-G31_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G31/EUC-G31_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G31/EUC-G31_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G31/EUC-G31_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "73ff4d17f25bb4fff9bc13709a71b286a2505c27bc660522fa20f6c51bcd7c7f",
+        "webp": "03ca5b10dd3fb638bb71a7f95933e12b601229ca3a0d102068bf061e5890fb1c",
+        "contact_sheet_png": "4fa66b3933d175d52b6143241193aae9c16e36eb61f283e9d88bdb774fb29bda",
+        "contact_sheet_pdf": "51d733ed82ae7b0f0dacb8948e562104bb8e5a3731ad91d466248c06b588ac0d"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G31",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-G32",
+      "display_id": "EUC-G32",
+      "group": "group5",
+      "object_class": "Asteroid candidate (short arc, orbit undetermined)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-G32 | Asteroid candidate (short arc, orbit undetermined) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03736,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-G32/EUC-G32_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-G32/EUC-G32_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-G32/EUC-G32_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-G32/EUC-G32_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "9dde804ad5649211c354afbed33375b67b92c976d77b004875ce8a7f6f0f3db3",
+        "webp": "598d7375faa68af24736e61bfb153b77eac3744b952fd6df5207403510fdffe0",
+        "contact_sheet_png": "81ce5f94bf3b65627d4d50204a9cbad9e051a7e404c9bbc22770c9a91a668ac6",
+        "contact_sheet_pdf": "a9e09731d761e3df1c0b1f29ef5c2ab5c22a0da38febbd1768bd57ba529abf8b"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-G32",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-J01",
+      "display_id": "EUC-J01",
+      "group": "group5",
+      "object_class": "Jupiter Trojan candidate (short arc)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 4,
+      "n_single_epoch_frames": 4,
+      "n_detection_epoch_frames": 4,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-J01 | Jupiter Trojan candidate (short arc) | 4 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03701,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-J01/EUC-J01_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-J01/EUC-J01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-J01/EUC-J01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-J01/EUC-J01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "b360612fdea8dd7b4b349cdbbd5ea210004d5c07d384066ec527be754309949f",
+        "webp": "8726d883589a723ef8a052b7ebb616efab62c66767cb5ff4eebd33a4de1a5810",
+        "contact_sheet_png": "dc30a28e6e95f241b61766a28b68be3054411e7cc9071b107373f186358adaa2",
+        "contact_sheet_pdf": "a34cede050682066a223c85151adfaf8ff8b6432c4edb52b4600e8ff52a69384"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-J01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-J02",
+      "display_id": "EUC-J02",
+      "group": "group5",
+      "object_class": "Jupiter Trojan candidate (short arc)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 5,
+      "n_single_epoch_frames": 5,
+      "n_detection_epoch_frames": 5,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-J02 | Jupiter Trojan candidate (short arc) | 5 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 1.2168,
+      "baseline_years": 0.0033,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-J02/EUC-J02_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-J02/EUC-J02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-J02/EUC-J02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-J02/EUC-J02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "2b35237fa3828bd29964e746251e214def48bdd8d638dde48d09a4c8acc626a0",
+        "webp": "be7068bfa54fec1aad876192b6a232bf539953b61baa61977c9d40009b5afa55",
+        "contact_sheet_png": "a29d041457a0b587a5b83bfa0fd420c2ce04dd16cd64571084c1a0314d3525aa",
+        "contact_sheet_pdf": "ce4dfa1d0e66dad8f3bc9997f63f08d1f1a2d70869c06d7de7563672432b7f9b"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-J02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-M01",
+      "display_id": "EUC-M01",
+      "group": "group5",
+      "object_class": "Main-belt asteroid candidate (short arc)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-M01 | Main-belt asteroid candidate (short arc) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.02468,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-M01/EUC-M01_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-M01/EUC-M01_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-M01/EUC-M01_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-M01/EUC-M01_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "1326f7d66101e07108b671b4726c56df6498a72e0de9b52eb0680459688125f3",
+        "webp": "901bdfe907a795917e4fdbbd48567887dc2a04c3c322a514437c39c07e12529e",
+        "contact_sheet_png": "1303ac0c7a8a5e1b206f7eefd9f031fbdb32e85ad576adc6787a3f7ac4ed1e89",
+        "contact_sheet_pdf": "ba0886ecd99fcd37d47915790748b7203624d577208159ebaad006839e786c7b"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-M01",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-M02",
+      "display_id": "EUC-M02",
+      "group": "group5",
+      "object_class": "Main-belt asteroid candidate (short arc)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 2,
+      "n_single_epoch_frames": 2,
+      "n_detection_epoch_frames": 2,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-M02 | Main-belt asteroid candidate (short arc) | 2 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": false,
+      "baseline_days": 0.03701,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        756,
+        855
+      ],
+      "gif_path": "outputs/movies/group5/EUC-M02/EUC-M02_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-M02/EUC-M02_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-M02/EUC-M02_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-M02/EUC-M02_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "129fb25e3ebd25756f52a80179946e07a4670dad33ecd065203a0ec7aa6c3af3",
+        "webp": "e73b92e41c63ccdc4af638bc7bdfde234217ad060983427969fa71684da36736",
+        "contact_sheet_png": "c8447adc0e0800aac896c4fa439d6231146b634bfae1f92f7a6e52b8c41a79e4",
+        "contact_sheet_pdf": "ba8ab1699381a8a45e7471f348e28eb4b245c4fc4ad89a46bf1518720e7f0ed0"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-M02",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    },
+    {
+      "target_id": "EUC-M03",
+      "display_id": "EUC-M03",
+      "group": "group5",
+      "object_class": "Main-belt asteroid candidate (short arc)",
+      "synthetic": false,
+      "is_control": false,
+      "n_frames": 3,
+      "n_single_epoch_frames": 3,
+      "n_detection_epoch_frames": 3,
+      "detection_epoch_note": null,
+      "contact_sheet_header": [
+        "EUC-M03 | Main-belt asteroid candidate (short arc) | 3 real archival frames"
+      ],
+      "surveys": [
+        "Euclid DR1 VIS"
+      ],
+      "has_difference_panels": true,
+      "baseline_days": 0.03701,
+      "baseline_years": 0.0001,
+      "frame_dimensions_px": [
+        1332,
+        729
+      ],
+      "gif_path": "outputs/movies/group5/EUC-M03/EUC-M03_movie.gif",
+      "webp_path": "outputs/movies/group5/EUC-M03/EUC-M03_movie.webp",
+      "contact_sheet_png_path": "outputs/movies/group5/EUC-M03/EUC-M03_contact_sheet.png",
+      "contact_sheet_pdf_path": "outputs/movies/group5/EUC-M03/EUC-M03_contact_sheet.pdf",
+      "mp4_path": null,
+      "mp4_generated": false,
+      "sha256": {
+        "gif": "1826a2868c75d23aa65ca88f821a56457cacd58019bfdd29992338d82ff2e605",
+        "webp": "ab02ce67e594ddb2ec3699f3eca4e0248eb2d67e0d59159b836729f75663a71b",
+        "contact_sheet_png": "40686e64d98842c2764c4371c6f1665f102f8d900afc832cbf46859d745ad6e6",
+        "contact_sheet_pdf": "043139ef8f1e1523d970b7d02779b18ac9bb9f9b2bcca01ec35bd1c96cda9f2c"
+      },
+      "source_bundle": "outputs/real_cutouts/group5/EUC-M03",
+      "checks": {
+        "synthetic_is_false": true,
+        "min_2_frames": true,
+        "all_frames_finite_nonconstant": true,
+        "no_banned_words": true,
+        "no_bold_italic": true
+      }
+    }
+  ],
+  "not_rendered": []
+}

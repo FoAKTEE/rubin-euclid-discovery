@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eyes on the Cosmos — 3D Solar System, Oort Cloud &amp; Milky Way Explorer</title>
+  <link rel="stylesheet" href="css/styles.css?v=20261119_v9" />
+</head>
+<body>
+  <!-- Full-Bleed 3D WebGL + CSS2D Viewport -->
+  <div id="viewport-container">
+    <canvas id="webgl-canvas"></canvas>
+    <div id="css2d-layer"></div>
+  </div>
+
+  <!-- Single Minimalist Top Navigation Bar with Dropdown Menus -->
+  <header id="top-bar" class="glass-bar">
+    <div class="brand-block">
+      <div class="brand-orb" aria-hidden="true"></div>
+      <span id="brand-title" class="brand-title">EYES ON THE COSMOS</span>
+    </div>
+
+    <div class="search-wrapper">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="search-input" type="text" autocomplete="off" placeholder="Search planets, discoveries, black holes, Sgr A*, Starlink, NORAD..." />
+      <button id="search-clear" type="button" aria-label="Clear search">✕</button>
+      <div id="search-dropdown"></div>
+    </div>
+
+    <nav class="top-menus" aria-label="Primary controls">
+      <!-- 1. Explore / Catalog Dropdown -->
+      <div class="menu-group" data-menu="explore">
+        <button id="btn-menu-explore" class="menu-trigger" type="button" aria-expanded="false">
+          <span id="lbl-menu-explore">Explore</span> <span class="caret">▾</span>
+        </button>
+        <div class="menu-panel menu-panel-wide" id="panel-explore">
+          <div class="menu-section-hdr">
+            <span id="lbl-explore-cats">Catalog Categories</span>
+            <button id="auto-tour-btn" class="tour-btn" type="button">▶ Guided Tour</button>
+          </div>
+          <div id="category-filter-bar" class="dropdown-cat-grid"></div>
+          <div class="menu-section-hdr" style="margin-top:10px;">
+            <span id="catalog-count-label">Objects</span>
+          </div>
+          <div id="object-list-scroll" class="dropdown-obj-list"></div>
+        </div>
+      </div>
+
+      <!-- 2. View & Scale Dropdown -->
+      <div class="menu-group" data-menu="view">
+        <button id="btn-menu-view" class="menu-trigger" type="button" aria-expanded="false">
+          <span id="lbl-menu-view">View &amp; Scale</span> <span class="caret">▾</span>
+        </button>
+        <div class="menu-panel" id="panel-view">
+          <div id="lbl-scale-hdr" class="menu-section-hdr">Spatial Scale</div>
+          <div class="seg-group full-width" role="group" aria-label="Scale mode">
+            <button id="scale-log-btn" class="seg-btn active" type="button">Deep-Space Log</button>
+            <button id="scale-true-btn" class="seg-btn" type="button">True 1:1 AU</button>
+          </div>
+
+          <div id="lbl-orbits" class="menu-section-hdr" style="margin-top:14px;">Orbits</div>
+          <select id="orbit-mode-select" class="hud-select full-width">
+            <option id="opt-orbits-major" value="major">Discoveries + Major</option>
+            <option id="opt-orbits-all" value="all">All Orbits</option>
+            <option id="opt-orbits-selected" value="selected">Selected Only</option>
+            <option id="opt-orbits-off" value="off">Hidden</option>
+          </select>
+
+          <div class="menu-section-hdr" style="margin-top:14px;">Overlays</div>
+          <div class="menu-toggle-stack">
+            <button id="toggle-galaxy-btn" class="toggle-chip active" type="button">Milky Way Stars &amp; Gas</button>
+            <button id="toggle-rings-btn" class="toggle-chip active" type="button">Distance &amp; 12:1 MMR Rings</button>
+            <button id="toggle-galactic-btn" class="toggle-chip" type="button">Galactic Plane Zone</button>
+            <button id="toggle-labels-btn" class="toggle-chip active" type="button">3D Labels</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Layers & Satellites Dropdown -->
+      <div class="menu-group" data-menu="layers">
+        <button id="btn-menu-layers" class="menu-trigger" type="button" aria-expanded="false">
+          <span id="lbl-menu-layers">Layers &amp; Sats</span> <span class="caret">▾</span>
+        </button>
+        <div class="menu-panel" id="panel-layers">
+          <div class="menu-section-hdr">Earth Megaconstellations</div>
+          <button id="toggle-sats-btn" class="toggle-chip active full-width" type="button">Earth Satellites (22,022)</button>
+          <select id="sat-family-select" class="hud-select full-width" style="margin-top:10px;" aria-label="Satellite constellation filter">
+            <option id="opt-sat-all" value="4095">All Cataloged Satellites (22,022)</option>
+            <option id="opt-sat-musk" value="3">SpaceX Constellations — All (11,669)</option>
+            <option id="opt-sat-comm-all" value="255">Commercial Constellations — All (17,887)</option>
+            <option id="opt-sat-comm-other" value="252">Commercial Operators — Non-SpaceX (6,218)</option>
+            <option id="opt-sat-starlink" value="1">SpaceX Starlink V1 / V2 (11,311)</option>
+            <option id="opt-sat-spx-other" value="2">SpaceX Starshield, Swarm &amp; Dragon (358)</option>
+            <option id="opt-sat-oneweb-kuiper" value="12">Eutelsat OneWeb &amp; Project Kuiper (1,046)</option>
+            <option id="opt-sat-cn" value="16">Qianfan / Guowang / Geespace / Tianqi (671)</option>
+            <option id="opt-sat-d2d" value="32">Mobile &amp; IoT: AST / Iridium / Globalstar (1,190)</option>
+            <option id="opt-sat-eo" value="64">Earth Obs. &amp; SAR: Jilin-1 / Planet / ICEYE (1,689)</option>
+            <option id="opt-sat-geo" value="128">GEO / MEO Comms: Intelsat / SES / ViaSat (1,622)</option>
+            <option id="opt-sat-gnss" value="256">GNSS: BeiDou / GPS / Galileo / GLONASS (406)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 4. Camera & Galaxy Dropdown -->
+      <div class="menu-group" data-menu="camera">
+        <button id="btn-menu-camera" class="menu-trigger" type="button" aria-expanded="false">
+          <span id="lbl-menu-camera">Camera &amp; Galaxy</span> <span class="caret">▾</span>
+        </button>
+        <div class="menu-panel" id="panel-camera">
+          <div class="menu-section-hdr">Solar System &amp; Oort Cloud</div>
+          <div class="menu-preset-stack">
+            <button id="preset-earth-sats-btn" class="preset-btn" type="button">Earth Orbit</button>
+            <button id="preset-inner-btn" class="preset-btn" type="button">Inner System</button>
+            <button id="preset-outer-btn" class="preset-btn" type="button">Kuiper Belt</button>
+            <button id="preset-oort-btn" class="preset-btn" type="button">Oort Cloud (85,000 AU)</button>
+          </div>
+          <div class="menu-section-hdr" style="margin-top:14px;">Milky Way &amp; Black Holes</div>
+          <div class="menu-preset-stack">
+            <button id="preset-local-stars-btn" class="preset-btn galactic" type="button">Local Stars (100 pc)</button>
+            <button id="preset-gaia-bh1-btn" class="preset-btn galactic" type="button">Gaia BH1 (478 pc)</button>
+            <button id="preset-cygx1-btn" class="preset-btn galactic" type="button">Cygnus X-1 (2.2 kpc)</button>
+            <button id="preset-sgra-btn" class="preset-btn galactic" type="button">Galactic Center (Sgr A*)</button>
+            <button id="preset-milkyway-btn" class="preset-btn galactic" type="button">Full Milky Way (100 kly)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. ADAM Platform Mission & Planetary Defense Dropdown -->
+      <div class="menu-group" data-menu="adam">
+        <button id="btn-menu-adam" class="menu-trigger" type="button" aria-expanded="false">
+          <span id="lbl-menu-adam">ADAM Platform</span> <span class="caret">▾</span>
+        </button>
+        <div class="menu-panel" id="panel-adam">
+          <div class="menu-section-hdr">3D Mission &amp; Hazard Layers</div>
+          <div class="menu-toggle-stack">
+            <button id="toggle-adam-transfers-btn" class="toggle-chip active" type="button">Lambert Transfer Trajectories</button>
+            <button id="toggle-adam-impactors-btn" class="toggle-chip active" type="button">Virtual Impactor Tubes</button>
+            <button id="toggle-adam-corridors-btn" class="toggle-chip active" type="button">Earth &amp; Moon Risk Corridors</button>
+            <button id="toggle-adam-precovery-btn" class="toggle-chip active" type="button">Precovery Sky Arcs</button>
+          </div>
+          <div class="menu-section-hdr" style="margin-top:12px;">Quick Views</div>
+          <div class="menu-preset-stack">
+            <button id="preset-adam-transfers-btn" class="preset-btn" type="button">Frame Interplanetary Transfers</button>
+            <button id="preset-adam-corridor-btn" class="preset-btn" type="button">Inspect Earth Impact Corridor</button>
+          </div>
+          <div id="adam-overlay-summary" style="margin-top:10px;font-size:11px;color:#94a3b8;line-height:1.4;"></div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="top-right-links">
+      <a id="hub-nav-link" class="cta-link subtle" href="../index.html" title="Portal hub: audited counts, manuscript and atlases">Hub</a>
+      <a id="gallery-nav-link" class="cta-link subtle" href="../movie_gallery/index.html" title="96 real-pixel archival movie targets">96-Target Movie Gallery</a>
+      <a id="adam-console-link" class="cta-link" href="../adam_console/index.html" target="_blank" rel="noopener">ADAM Console ↗</a>
+      <a id="studio-nav-link" class="cta-link" href="studio.html" target="_blank" rel="noopener">3D Playground ↗</a>
+      <a id="blog-nav-link" class="cta-link secondary" href="../discovery_blog/index.html?lang=en" target="_blank" rel="noopener">Research Blog ↗</a>
+      <button id="lang-toggle-btn" class="lang-btn" type="button" aria-label="Switch language">中文</button>
+    </div>
+  </header>
+
+  <!-- Reopen Compact Right Inspector Button -->
+  <button id="inspector-reopen-btn" class="glass-bar" type="button">Inspector ◂</button>
+
+  <!-- Compact Floating Expandable Right Inspector Box (Accordion / Active-Tab Sections) -->
+  <aside id="inspector-drawer" class="glass-bar">
+    <div class="inspector-top">
+      <div class="inspector-title-wrap">
+        <div id="insp-badges" class="inspector-badge-row"></div>
+        <h2 id="insp-title">LSST-DP2-D03 (DELTA_003)</h2>
+        <div id="insp-id-sub">ID: DELTA_003</div>
+      </div>
+      <button id="insp-collapse-btn" class="icon-close-btn" type="button" aria-label="Collapse inspector">✕</button>
+    </div>
+
+    <div class="inspector-cam-actions">
+      <button id="btn-zoom-surface" class="cam-action-btn" type="button">Zoom to 3D</button>
+      <button id="btn-frame-orbit" class="cam-action-btn secondary" type="button">Frame Orbit</button>
+    </div>
+
+    <!-- Selectable Section Bar: sections expand ONLY when selected -->
+    <div class="insp-tab-bar" role="tablist" aria-label="Inspector sections">
+      <button id="tab-overview" class="insp-tab active" data-sec="overview" type="button" role="tab">Overview</button>
+      <button id="tab-orbit" class="insp-tab" data-sec="orbit" type="button" role="tab">Orbit</button>
+      <button id="tab-physical" class="insp-tab" data-sec="physical" type="button" role="tab">Physical</button>
+      <button id="tab-media" class="insp-tab" data-sec="media" type="button" role="tab" style="display:none;">Media</button>
+      <button id="tab-system" class="insp-tab" data-sec="system" type="button" role="tab" style="display:none;">System</button>
+    </div>
+
+    <div id="inspector-body" class="inspector-body">
+      <!-- Section 1: Overview & Science -->
+      <section class="insp-section active" data-sec-panel="overview">
+        <div id="insp-headline" class="insp-headline"></div>
+        <p id="insp-summary" class="insp-summary"></p>
+        <div id="insp-telescopes-wrap" style="margin-top:12px;">
+          <div id="sec-telescopes-hdr" class="insp-section-title">Observatories &amp; Provenance</div>
+          <div id="insp-telescopes-list" class="facility-badges"></div>
+        </div>
+        <div class="insp-footer-links">
+          <a id="insp-blog-btn" class="insp-link-btn" href="../discovery_blog/index.html?lang=en" target="_blank" rel="noopener">Research Blog ↗</a>
+          <button id="insp-copy-link-btn" class="insp-link-btn secondary" type="button">Copy Deep-Link</button>
+        </div>
+      </section>
+
+      <!-- Section 2: Orbit & Ephemeris -->
+      <section class="insp-section" data-sec-panel="orbit">
+        <div id="sec-orbital-hdr" class="insp-section-title">J2000 Orbital Elements</div>
+        <div id="insp-orbital-grid" class="telemetry-grid"></div>
+      </section>
+
+      <!-- Section 3: Physical & Science -->
+      <section class="insp-section" data-sec-panel="physical">
+        <div id="sec-physical-hdr" class="insp-section-title">Physical &amp; Rotational Properties</div>
+        <div id="insp-physical-grid" class="telemetry-grid"></div>
+      </section>
+
+      <!-- Section 4: Cutout & Media -->
+      <section class="insp-section" data-sec-panel="media">
+        <div id="sec-cutout-hdr" class="insp-section-title">Survey Verification Cutout</div>
+        <img id="insp-cutout-img" alt="Discovery Cutout" class="insp-cutout-img" />
+      </section>
+
+      <!-- Section 5: Companions / System / Earth Geodetic Controls -->
+      <section class="insp-section" data-sec-panel="system">
+        <div id="insp-satellites-wrap" style="display:none;">
+          <div id="sec-satellites-hdr" class="insp-section-title">Companion Bodies</div>
+          <div id="insp-satellites-list" class="satellite-chips"></div>
+        </div>
+
+        <div id="insp-earth-precision-wrap" class="earth-precision-card" style="display:none;">
+          <div id="sec-earth-precision-hdr" class="insp-section-title">WGS-84 Geodetic Elevation &amp; Stratified Atmosphere</div>
+          <div class="earth-btn-row">
+            <button id="btn-earth-8k" class="sat-chip-btn" type="button">8K Remote-Sensing Globe</button>
+            <button id="btn-earth-cad" class="sat-chip-btn" type="button">442k-Tri Land+Seafloor CAD</button>
+          </div>
+          <div class="earth-slider-row">
+            <span id="lbl-earth-elev">DEM Vertical Scale</span>
+            <strong id="val-earth-elev">1×</strong>
+          </div>
+          <input id="earth-dem-slider" type="range" min="1" max="45" step="1" value="1" class="full-width" />
+          <div class="earth-btn-row">
+            <button class="spd-chip earth-dem-preset" data-dem="1" type="button">1×</button>
+            <button class="spd-chip earth-dem-preset" data-dem="8" type="button">8×</button>
+            <button class="spd-chip earth-dem-preset" data-dem="20" type="button">20×</button>
+            <button class="spd-chip earth-dem-preset" data-dem="40" type="button">40×</button>
+          </div>
+          <div class="earth-btn-row">
+            <button id="btn-atmo-phys" class="sat-chip-btn" type="button">4-Layer Atmosphere</button>
+            <button id="btn-atmo-prof" class="sat-chip-btn" type="button">Altitude Shells</button>
+            <button id="btn-atmo-bare" class="sat-chip-btn" type="button">Bare DEM</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </aside>
+
+  <!-- Compact Bottom Time & Scale Readout Bar -->
+  <footer id="bottom-time-bar" class="glass-bar">
+    <div class="tracking-readout">
+      <span id="tracking-pill" class="lock-pill">LOCKED</span>
+      <span id="tracking-name" class="lock-target-name">Sun</span>
+      <button id="release-lock-btn" class="icon-close-btn" type="button" aria-label="Release lock">✕</button>
+    </div>
+
+    <div class="time-controls-center">
+      <button id="time-play-btn" class="play-btn" type="button">Pause</button>
+      <div id="epoch-readout">2025-08-13 00:00:00 UTC</div>
+      <select id="speed-select" class="hud-select" aria-label="Simulation speed"></select>
+      <button id="epoch-now-btn" class="preset-btn compact" type="button">Sync UTC</button>
+      <button id="epoch-reset-btn" class="preset-btn compact" type="button">Aug 2025</button>
+    </div>
+
+    <div class="scale-readout">
+      <span id="lbl-scale-range" class="scale-readout-key">Range</span>
+      <span id="cam-range-val" class="scale-readout-val">—</span>
+    </div>
+  </footer>
+
+  <!-- Catalog Data + Application Engine -->
+  <script src="data/solar_catalog.js?v=20261119_v9" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
+  <script src="data/spacecraft_extra_catalog.js?v=20261119_v9"></script>
+  <script src="data/adam_overlay.js?v=20261119_v10" onerror="window.__ADAM_OVERLAY__=null"></script>
+  <script type="module" src="js/app.js?v=20261119_v10"></script>
+</body>
+</html>

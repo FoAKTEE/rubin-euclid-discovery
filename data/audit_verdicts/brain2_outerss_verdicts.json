@@ -1,0 +1,1109 @@
+{
+  "audit": "Audit Brain 2 - Outer Solar System, MPC ITF, Wide Binaries, Jovian Moons, Volatiles and Planet Nine",
+  "manuscript": "snapshot_ro/papers/rubin_euclid_multifreq_aj",
+  "audit_date_utc": "2026-11-21",
+  "lead_model": "claude-fable-5-2",
+  "workers": [
+    "rubin-decam-tno-auditor",
+    "itf-moons-binaries-auditor",
+    "volatiles-p9-auditor"
+  ],
+  "verdict_vocabulary": [
+    "VERIFIED",
+    "PLAUSIBLE_NEEDS_FOLLOWUP",
+    "DISPUTED_OR_OVERCLAIMED",
+    "INVALID_OR_UNSUPPORTED"
+  ],
+  "global_limitations": [
+    "Rubin DP2 tables and pixels were not accessible (no RSP credentials); Rubin detections were checked only against the DP2 visit table and by orbit-fit self-consistency.",
+    "JPL sb_ident rate limit (20 requests / 5 min, shared): known-object checks were completed by the lead for all ten core Rubin TNOs, R25-I04 and the 19 additional TNOs (one to three epochs each); ITF coverage is stated in the report.",
+    "No 10-25 Myr integrations were run (single shared CPU core)."
+  ],
+  "tally": {
+    "INVALID_OR_UNSUPPORTED": 16,
+    "DISPUTED_OR_OVERCLAIMED": 23,
+    "PLAUSIBLE_NEEDS_FOLLOWUP": 17,
+    "VERIFIED": 9
+  },
+  "n_entries": 65,
+  "verdicts": [
+    {
+      "id": "X-01",
+      "group": "cross-cutting",
+      "object": "image figures",
+      "claim": "Cutout figures and the data/model/residual PSF-fit figure show real detections ('direct pixel verification')",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "Figures are rendered from seeded RNG noise plus Moffat profiles at typed S/N (targets forced to >=9.5 sigma; DECam panels typed at S/N 11.5/9.8 vs measured 5.4/5.8/3.7); real_rubin_visit_stamps.json holds catalogue source lists, not pixels; PDFs in the manuscript are these renders.",
+      "measured_by": [
+        "lead"
+      ],
+      "evidence_refs": [
+        "papers/.../scripts/generate_all_source_atlases.py:133-230,520-523",
+        "papers/.../scripts/generate_aj_figures.py:525-660",
+        "figures/fig_remeasure.pdf",
+        "figures/fig_cutouts_group2_stereo.pdf"
+      ]
+    },
+    {
+      "id": "X-02",
+      "group": "cross-cutting",
+      "object": "tables and macros",
+      "claim": "Tables and number macros are generated from pipeline outputs",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "8 of 12 tables are string literals in build_numbers_and_tables.py; the builder writes nBrandNewTotal=59, nBrandNewTNOs=22 while macros/numbers.tex has 159/50; manuscript tables differ from builder output in 2-83 lines; >12 typed values contradict the pipeline JSON (chi2, rms, elements, significances).",
+      "measured_by": [
+        "lead",
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "evidence_refs": [
+        "work_brain2_outerss/tmp/lead/builder_sandbox",
+        "papers/.../macros/ms_macros.tex"
+      ]
+    },
+    {
+      "id": "X-03",
+      "group": "cross-cutting",
+      "object": "validation checks",
+      "claim": "Every candidate passed leave-one-night-out and known-object checks",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "LONO returns canned True,0.12 / True,0.14 for arcs with <4 nights; pass thresholds >=2.2 arcsec; known-moon tolerance 24 arcsec; pipeline sb_ident timed out for all six ITF objects and R25-I04.",
+      "measured_by": [
+        "W2",
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/run_w3_forensic_jpl_and_cutout_audit.py:368-371",
+        "scripts/run_w4b_multiopposition_moon_lock_and_audit.py:163-168,445"
+      ]
+    },
+    {
+      "id": "X-04",
+      "group": "cross-cutting",
+      "object": "in-scope share of 159 new bodies",
+      "claim": "42 in-scope new bodies (35 TNOs, 2 binaries, 4 moons, 1 Centaur)",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "Counts are typed; ITF-02 invalid, J25-M04 is Pandia, TNO_W1_03 is (612029) 1995 HM5, binaries not established, 19 additional TNOs untabulated; moons and ITF links are other observers' detections.",
+      "measured_by": [
+        "lead"
+      ],
+      "evidence_refs": [
+        "outputs/discoveries/all_branches_unified_discoveries.csv"
+      ]
+    },
+    {
+      "id": "I-D03-01",
+      "group": "I",
+      "object": "R25-D03",
+      "claim": "Real, uncatalogued distant object (r~51 au, i~3.2 deg), 12 detections on 8 nights over 124.8 d",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium-high",
+      "decisive_evidence": "12 rows match real DP2 visits; N-body fits self-consistent (chi2 26/18); sb_ident from X05 at 3 epochs finds no catalogued slow mover within 194-1690 arcsec; all detections S/N 5.3-8.5; no DP2 pixel access.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_d03.py",
+        "tmp/lead/sbdb/sbident_d03_*.json",
+        "scripts/w1_fit_d03.py"
+      ]
+    },
+    {
+      "id": "I-D03-02",
+      "group": "I",
+      "object": "R25-D03",
+      "claim": "Barycentric a=156.58+-9.95 au, q=35.78+-0.43 au, e=0.7715, i=3.1566 deg (extreme TNO)",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "Independent fits: a=156.4+-8.2 (lead), 156.5+-8.0 (W1). Solution rests on two November detections (S/N 6.0 and 5.5); without them a=60.9+-3.1 and a~157 is disfavoured by dchi2 6-9. November points predict each other to 0.20-0.31 arcsec.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_d03.py",
+        "scripts/lead_d03_corridor.py",
+        "scripts/lead_d03_crosspred.py"
+      ]
+    },
+    {
+      "id": "I-D03-03",
+      "group": "I",
+      "object": "R25-D03",
+      "claim": "Lowest inclination among all known bodies with a>150 au and q>30 au",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "JPL SBDB 2026-11-21: 111 such objects, five with i<3.157 deg (2026 EZ127 1.47, 2015 FQ561 1.93, 2025 NH561 2.44, 2025 MC403 2.87, 2026 EX122 3.03); 2025 NH561 is the paper's own blind control.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "tmp/lead/sbdb/a150_q30.json",
+        "scripts/w1_sbdb_lowi.py"
+      ]
+    },
+    {
+      "id": "I-D03-04",
+      "group": "I",
+      "object": "R25-D03",
+      "claim": "T_N=3.091 exceeds the Neptune-scattering bound by >6 sigma, requiring an external perihelion-lifting mechanism",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "T_N-3 is 5.5-7.1 sigma depending on weights, but T_N=3 is just q=33.26 au at this a,i; 56 of 111 catalogued a>150,q>30 objects have T_N>3 and 39 exceed R25-D03's value; conditional on the November link.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "tmp/lead/sbdb/a150_q30.json"
+      ]
+    },
+    {
+      "id": "I-D03-05",
+      "group": "I",
+      "object": "R25-D03",
+      "claim": "Sticks near Neptune's 12:1 (0.10 sigma) and 21:2 resonances over 25 Myr",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "1-sigma range in a contains 11:1, 23:2, 35:3, 12:1, 37:3, 25:2, 13:1; resonance identity not determinable from a 125-d arc; integrations not re-run.",
+      "measured_by": [
+        "W1"
+      ],
+      "evidence_refs": [
+        "reports/workers/brain2_rubin_decam_tnos.md"
+      ]
+    },
+    {
+      "id": "I-D03-06",
+      "group": "I",
+      "object": "R25-D03",
+      "claim": "Fit quality chi2/dof=11.4/18 (3.8/18 with floor) and progressive-orbit table rows",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "Rows give 26.0-26.8/18 and 15.9/18; the '+Aug Source, 10 obs, 89 d, a=148.2' row matches no subset (10-obs Jul-Sep set gives a=60.9); delivered-arc interval is unbounded above.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_d03.py",
+        "papers/.../scripts/build_numbers_and_tables.py:361-365"
+      ]
+    },
+    {
+      "id": "I-E02-01",
+      "group": "I",
+      "object": "R25-E02",
+      "claim": "Real, bright (r~22) uncatalogued TNO at Galactic latitude +7.1 deg",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "11 Rubin rows on 7 nights match real visits and fit (chi2 10.5/16); JPL sb_ident from X05 at 2025-07-13 finds no slow mover (nearest catalogued object 146 arcsec, main-belt rate); S/N only 5-11.5 for r~22; no DP2 pixel access.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_e02_d09.py",
+        "tmp/lead/sbident_core.txt"
+      ]
+    },
+    {
+      "id": "I-E02-02",
+      "group": "I",
+      "object": "R25-E02",
+      "claim": "DECam exposures exist: 2024-04-18 (x2) and 2024-04-24, r band, 150 s, program 2024A-537967",
+      "verdict": "VERIFIED",
+      "confidence": "high",
+      "decisive_evidence": "NOIRLab archive: c4d_240418_073434/073735 and c4d_240424_065624/065926, r, 150 s, PROPID 2024A-537967; claimed positions fall on CCDs N26/N25.",
+      "measured_by": [
+        "W1",
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/w1_noirlab_decam.py",
+        "tmp/lead/noirlab_e02.json"
+      ]
+    },
+    {
+      "id": "I-E02-03",
+      "group": "I",
+      "object": "R25-E02",
+      "claim": "Object is present in the 2024 DECam frames",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "W1 pixel differences: Apr 24 5.8/6.0 sigma in two frames (free centroids within 0.2 arcsec of claim), Apr 18 3.2-5.6 sigma depending on method; 0 of 78 control configurations reach the claimed configuration; no static star; one NSC single-detection source 0.77 arcsec away.",
+      "measured_by": [
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/w1_decam_pixels.py",
+        "scripts/w1_decam_lov_control.py"
+      ]
+    },
+    {
+      "id": "I-E02-04",
+      "group": "I",
+      "object": "R25-E02",
+      "claim": "Detected at S/N=8.7 on two nights; precovery astrometry rms 38/31 mas; blind 0.27 arcsec prediction",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "8.7 is the quadrature sum of 5.36, 5.84 and 3.7; DECam points contribute chi2=0.17 over 6 coordinates, the two Apr-18 frames agree to 16 mas, and the position sits ~1 arcsec from the Rubin-only nominal (1-sigma along-track 115-124 arcsec): positions behave as orbit-forced; rms from rows is 63/147 mas.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_e02_d09.py",
+        "reports/workers/brain2_rubin_decam_tnos.md"
+      ]
+    },
+    {
+      "id": "I-E02-05",
+      "group": "I",
+      "object": "R25-E02",
+      "claim": "a=49.08+-0.79 au, q=39.78 au, stable detached orbit just outside the 2:1",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "Rows as given: a=49.07+-0.85, q=39.80+-1.42 (lead), 49.08+-0.84 (W1); with W1's independent DECam centroids a=50.8+-0.7, q=37.6+-0.7; Rubin-only a=49.8+-11.5.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_e02_d09.py",
+        "scripts/w1_e02_centroids.py"
+      ]
+    },
+    {
+      "id": "I-E02-06",
+      "group": "I",
+      "object": "R25-E02",
+      "claim": "Dwarf-planet candidate, 370-500 km; H_i=4.72, r-i=0.24",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "medium",
+      "decisive_evidence": "H_V=5.28 gives 234-585 km for p_V 0.25-0.04; size range is an albedo assumption; no i-band detection exists (bands g,z,r only), so H_i and r-i are unsupported table entries.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "outputs/team_eta_multiyear_locked_orbits.json"
+      ]
+    },
+    {
+      "id": "I-D09-01",
+      "group": "I",
+      "object": "R25-D09",
+      "claim": "2022 DECam VR precovery (2022-08-30, 2022-08-31) is real",
+      "verdict": "VERIFIED",
+      "confidence": "high",
+      "decisive_evidence": "Exposures c4d_220830_031815 and c4d_220831_034159 (PROPID 2022A-246202) exist; W1 differences show S/N 14.2 and 15.2 point sources present only on their own night; free centroids within 0.04 arcsec of claim; Rubin-only prediction offset is statistically normal.",
+      "measured_by": [
+        "W1",
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/w1_decam_pixels.py",
+        "scripts/lead_fit_e02_d09.py"
+      ]
+    },
+    {
+      "id": "I-D09-02",
+      "group": "I",
+      "object": "R25-D09",
+      "claim": "a=47.553+-0.073 au from 16 obs / 12 nights / 1173 d",
+      "verdict": "VERIFIED",
+      "confidence": "medium-high",
+      "decisive_evidence": "a=47.556+-0.076 (lead), 47.553+-0.074 (W1), 47.568+-0.076 with W1's own centroids; sb_ident clean at the 2022 epoch. Tabulated rms (29/24 mas) and H magnitudes are wrong (109/153 mas; 0.55 mag).",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_e02_d09.py",
+        "scripts/w1_fit_others.py"
+      ]
+    },
+    {
+      "id": "I-D09-03",
+      "group": "I",
+      "object": "R25-D09",
+      "claim": "Pinned to the 2:1 separatrix; Kozai-coupled capture",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "medium",
+      "decisive_evidence": "a lies 0.2 au (~2.5 sigma) inside the nominal 2:1 at 47.73 au; libration not demonstrated in this audit; 'near the 2:1' is supportable.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_e02_d09.py"
+      ]
+    },
+    {
+      "id": "I-CORE-01",
+      "group": "I",
+      "object": "R25-E07, D04, D14, T07, T09, T12, T13",
+      "claim": "Seven further new Rubin TNOs exist",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "Rows match real DP2 visits; W1 fits reproduce nominal elements and stored chi2; JPL sb_ident from X05 at a mid-arc detection of each of the seven finds no catalogued slow mover (nearest: 2025 LF3, 571 arcsec from R25-T09); no pixel access.",
+      "measured_by": [
+        "W1",
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/w1_fit_others.py",
+        "scripts/w1_visits_check.py",
+        "scripts/lead_sbident_core.py",
+        "tmp/lead/sbident_core.txt"
+      ]
+    },
+    {
+      "id": "I-CORE-02",
+      "group": "I",
+      "object": "R25-E07, D04, D14, T07, T09, T12, T13",
+      "claim": "Tabulated uncertainties and dynamical classes (2:1 resonant candidate, detached, cold classical ...)",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "Table errors differ from pipeline JSON (T07 +-3.6 vs +-20.3; T09 +-2.4 vs +-0.18); a unbounded above for D14, T07; classes not assignable from 29-67 d arcs; E07 row (12/5/36.1 d) matches no raw record.",
+      "measured_by": [
+        "W1",
+        "lead"
+      ],
+      "evidence_refs": [
+        "reports/workers/brain2_rubin_decam_tnos.md",
+        "tmp/lead/builder_sandbox"
+      ]
+    },
+    {
+      "id": "I-ITF-01",
+      "group": "I",
+      "object": "ITF-02",
+      "claim": "Extreme scattered body a=224.99 au, q=17.55 au, 13 obs on 4 nights over 374 d, rms 0.591 arcsec",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "Three nights, not four; orbit only threads three mean positions; each tracklet's own rate disagrees with the orbit at 6.0, 11.6 and 8.5 sigma; chi2=404/20 (0.15 arcsec), 909/20 (0.10), 101/20 (0.30); implied g-r=1.65; no bound two-tracklet subset.",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_itf.py",
+        "scripts/w2_itf02_kinematics.py"
+      ]
+    },
+    {
+      "id": "I-ITF-02",
+      "group": "I",
+      "object": "ITF-01, 03, 04, 05, 06",
+      "claim": "Five further real outer-system objects linked from the MPC ITF",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "All detections are verbatim live-ITF Subaru rows; three-tracklet links fit at chi2/dof 0.4-2.3; ITF still contains them (not linked by MPC); sb_ident shows no catalogued match (lead: unrestricted, ITF-01/03/04; W2: TNO/Centaur/comet classes, three epochs, all six).",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_itf.py",
+        "scripts/w2_provenance_live_itf.py",
+        "tmp/lead/sbident_itf.txt",
+        "tmp/lead/sbident_itf2.txt",
+        "scripts/w2_sb_ident.py"
+      ]
+    },
+    {
+      "id": "I-ITF-03",
+      "group": "I",
+      "object": "ITF-01, 03, 04, 05, 06",
+      "claim": "Tabulated elements, dynamical classes, night counts, '>282 arcsec clearance', LONO; described as discoveries",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "Only ITF-03 is constrained (a=106+-3..6); ITF-01 a 44-131 au, ITF-04 62-118, ITF-05 42-385 (q<30 or >30 undetermined); ITF-01 has 3 nights not 4; LONO canned for 3-night arcs; clearance number not in JSON; tracklets are other observers'.",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_itf.py",
+        "scripts/w2_itf_profile.py"
+      ]
+    },
+    {
+      "id": "I-19-01",
+      "group": "I",
+      "object": "TNO_W1_01,02,04-13, CAMP2_001/002/004/005, ZETA_002/004",
+      "claim": "Eighteen of the nineteen additional multi-survey TNOs are real, uncatalogued objects",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "Set is defined by all_branches_unified_discoveries.csv (group etno); rows are real-looking DP2 detections (7-46 detections, 6-11 nights) with acceptable distant-orbit fits (chi2/dof 0.3-1.1; ZETA_004 29.8/16); JPL sb_ident at a mid-arc detection finds no catalogued slow mover at any of the 18 positions; not tabulated in the manuscript; no pixel access.",
+      "measured_by": [
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_19.py",
+        "tmp/lead/fit19.json",
+        "scripts/lead_sbident_19.py",
+        "tmp/lead/sbident_19.txt"
+      ]
+    },
+    {
+      "id": "I-19-03",
+      "group": "I",
+      "object": "TNO_W1_03",
+      "claim": "TNO_W1_03 (one of the 19 additional TNOs) is a new uncatalogued TNO",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "It is the numbered plutino (612029) 1995 HM5: sb_ident 0.1 arcsec; Horizons ephemeris from X05 matches all 18 detections to 0.10-0.45 arcsec (median 0.27); fitted a=39.1, e=0.263, i=4.817 vs SBDB 39.3, 0.249, 4.81. Catalogue lists it as new with a=56.03 au.",
+      "measured_by": [
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/lead_w103_vs_1995HM5.py",
+        "tmp/lead/sbident_19.txt"
+      ]
+    },
+    {
+      "id": "I-19-02",
+      "group": "I",
+      "object": "19 additional TNOs",
+      "claim": "Semimajor axes span a=39.0-134.5 au; counted as verified discoveries",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "CAMP2_004 '134.5 au' is one point of a degenerate 23-d-arc family (best fit 53 au, unbounded); TNO_W1_03/04/08 catalogue a values disagree with their rows; several rows have e != 1-q/a; no astrometry or table in the manuscript.",
+      "measured_by": [
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_19.py"
+      ]
+    },
+    {
+      "id": "I-SUM-01",
+      "group": "I",
+      "object": "Group I",
+      "claim": "Group I totals 35 newly discovered trans-Neptunian bodies",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "ITF-02 is invalid; one of the 19 additional objects is (612029) 1995 HM5; the 19 are untabulated; counts are typed macros; 9 of 10 core objects rest on unverifiable DP2 rows.",
+      "measured_by": [
+        "lead"
+      ],
+      "evidence_refs": [
+        "reports/brain2_outerss_audit_report.md#8"
+      ]
+    },
+    {
+      "id": "I-QB98-01",
+      "group": "I",
+      "object": "2021 QB98",
+      "claim": "Rubin detections are a recovery of the U=9 object 2021 QB98",
+      "verdict": "VERIFIED",
+      "confidence": "medium-high",
+      "decisive_evidence": "W1 joint fit of 6 MPC + 9 Rubin rows: chi2=14.6/24 over 1460 d; SBDB confirms U=9, 6 obs.",
+      "measured_by": [
+        "W1",
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/w1_fit_others.py",
+        "tmp/lead/sbdb/obj_2021_QB98.json"
+      ]
+    },
+    {
+      "id": "I-QB98-02",
+      "group": "I",
+      "object": "2021 QB98",
+      "claim": "Elements a=51.615, q=39.53, e=0.234, i=11.42 deg; 15 obs/11 nights/1472 d; sigma_a shrink x167",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "Joint fit gives q=34.22+-0.02, e=0.338, i=3.883 deg; SBDB i=3.86 deg; 14 nights, 1460 d; shrink ~1900.",
+      "measured_by": [
+        "W1",
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/w1_fit_others.py"
+      ]
+    },
+    {
+      "id": "I-CTRL-01",
+      "group": "I",
+      "object": "35 blind known-TNO controls",
+      "claim": "Rubin's standard processing linked zero of 35 known distant TNOs that the search recovered blindly (blind-spot demonstration)",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "MPC get-obs for 36 control designations: 32 have astrometry only from Rubin X05 with 2025 designations, 3 more include 31-58 X05 observations; i.e. Rubin detections were already linked and reported by another search. The '0 linked' is a typed literal; dp2.SSObject not queryable.",
+      "measured_by": [
+        "lead",
+        "W1"
+      ],
+      "evidence_refs": [
+        "scripts/lead_known_controls_mpc.py",
+        "tmp/lead/mpc/known_controls_summary.json"
+      ]
+    },
+    {
+      "id": "I-CR-01",
+      "group": "I",
+      "object": "capture-recapture",
+      "claim": "~4 more bulge dwarf candidates (1-23) and ~9 more low-i extreme TNOs (1-46) remain",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "Only 1 of 5 'H<5.5' recovered objects has H<5.5 (2001 KA77 5.29; others 5.53-6.24) -> estimator gives ~24; eTNO case uses 2025 NH561 and N_known~10 where SBDB has >=15; lower bounds floored in code.",
+      "measured_by": [
+        "W1",
+        "lead"
+      ],
+      "evidence_refs": [
+        "papers/.../scripts/build_numbers_and_tables.py:147-157",
+        "tmp/lead/sbdb/obj_*.json"
+      ]
+    },
+    {
+      "id": "III-M04-01",
+      "group": "III",
+      "object": "J25-M04",
+      "claim": "New prograde Himalia-group moon (a=0.065 au, i=30.6 deg, P=196 d), bound on a single apparition",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "JPL Horizons Pandia (565) lies 36.0, 37.8, 44.6 arcsec from the three nightly positions and co-moves over 15 d; with the 6 unused J065S rows the fit is Pandia's orbit (a=0.0768 au, i=27.5 deg, P=252 d); short arc admits unbound solutions within dchi2<1; pipeline JSON itself lists Pandia at 37.8 arcsec.",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/lead_moon_known_check.py",
+        "scripts/lead_fit_moons.py",
+        "scripts/w2_moon_fit.py"
+      ]
+    },
+    {
+      "id": "III-M01-01",
+      "group": "III",
+      "object": "J25-M01",
+      "claim": "Bound, uncatalogued Jovian irregular satellite",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "N-body fit v/v_esc=0.655+-0.046, no unbound solution; no co-moving match among 110 Horizons Jovian satellites (lead) / 115 (W2); LONO for last night 3.65 arcsec (W2).",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_moons.py",
+        "tmp/lead/moon_prov_check.txt",
+        "tmp/lead/moon_numbered_check.txt"
+      ]
+    },
+    {
+      "id": "III-M02-01",
+      "group": "III",
+      "object": "J25-M02",
+      "claim": "Bound, uncatalogued Jovian irregular satellite",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "low-medium",
+      "decisive_evidence": "v/v_esc=0.587+-0.069; unbound alternative dchi2=22.6; no catalogued match; December tracklet weakly tied (58 arcsec shift when dropped).",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_moons.py",
+        "scripts/w2_moon_fit.py"
+      ]
+    },
+    {
+      "id": "III-M03-01",
+      "group": "III",
+      "object": "J25-M03",
+      "claim": "Bound, uncatalogued Jovian irregular satellite",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "v/v_esc=0.619+-0.017; chi2 27.2/14; no catalogued match; LONO first night 7.4 arcsec (W2).",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_moons.py",
+        "scripts/w2_moon_fit.py"
+      ]
+    },
+    {
+      "id": "III-MOON-01",
+      "group": "III",
+      "object": "J25-M01..M04",
+      "claim": "Discovers four new kilometre-scale Jovian moons",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "One is Pandia; M01 and M03 carry a single observer-assigned tracklet ID across all nights and telescopes (already linked by the observers, with discovery flag); only M02 was cross-linked here; tracklets are other observers' ITF submissions.",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/w2_provenance_live_itf.py"
+      ]
+    },
+    {
+      "id": "III-MOON-02",
+      "group": "III",
+      "object": "J25-M01..M04",
+      "claim": "All >=699 arcsec from every known moon; LONO 0.13-0.53 arcsec; 11 known irregular moons recovered blindly",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "Pipeline JSON nearest-moon separations 37.8, 593, 631 arcsec; LONO canned 0.14 for M04 and 3.65-58 arcsec on worst nights; '11 recoveries' are 11 chains of 7 moons (5 Jovian).",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "outputs/discoveries_v3/w4_giant_planet_irregular_moon_discoveries.json"
+      ]
+    },
+    {
+      "id": "III-MOON-03",
+      "group": "III",
+      "object": "J25-M01..M03",
+      "claim": "Family assignments (Carme; Ananke/Pasiphae)",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "medium",
+      "decisive_evidence": "M03 a=0.114-0.121 au is inside all 92 known retrograde moons (0.128-0.164 au); M02 ambiguous; M01 compatible with Carme.",
+      "measured_by": [
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/w2_moon_families.py"
+      ]
+    },
+    {
+      "id": "III-BIN-01",
+      "group": "III",
+      "object": "2025 NW189",
+      "claim": "Resolved wide binary: s=0.48 arcsec, 14.48 sigma sky quadrupole, PA locked 34.6+-1.5 deg over 111 deg rotation, two-PSF dchi2>95",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "Rotation code error (census.py:192) leaks trace into Q2 at rotation ~175 deg, where 6 of 7 'locked' visits lie; own late PAs 0-19, 88, 176 deg; |Q|/dT=2.1 violates the physical bound (known binaries 0.65-0.84); empirical significance 4.9-6 sigma; 0.48 arcsec pair would give ~1 sigma; no two-PSF code or pixels; blend check done 27 deg away; trace excess does exceed all 315 controls, so binarity is undecided.",
+      "measured_by": [
+        "W2",
+        "lead"
+      ],
+      "evidence_refs": [
+        "src/euclid_asteroid/team_lambda_rubin_mbc_binary_census.py:192",
+        "scripts/w2_binary_quadrupole.py"
+      ]
+    },
+    {
+      "id": "III-BIN-02",
+      "group": "III",
+      "object": "2025 NU192",
+      "claim": "Strong candidate wide binary (8.25 sigma Q2, 3.84 sigma trace, s~0.43 arcsec)",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "medium",
+      "decisive_evidence": "|Q|/dT=2.05 (unphysical); trace excess equals the control maximum; same rotation error; no per-visit data in snapshot.",
+      "measured_by": [
+        "W2",
+        "lead"
+      ],
+      "evidence_refs": [
+        "outputs/team_lambda_rubin_mbc_binary_census.json"
+      ]
+    },
+    {
+      "id": "III-BIN-03",
+      "group": "III",
+      "object": "2014 JR80, 2001 QT297, 2014 LQ28",
+      "claim": "Three known wide binaries rank 1-3 (24.6, 21.2, 18.4 sigma; all cold classical), new objects 4-5",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "Pipeline values are 26.2, 12.7, 5.5 sigma (NW189 would rank 2nd, NU192 4th); 2014 JR80 is a plutino (a=39.2, i=15.4 deg per SBDB), tabulated as cold classical a=44.38, i=2.41.",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "outputs/team_lambda_rubin_mbc_binary_census.json",
+        "tmp/lead/sbdb/obj_2014_JR80.json"
+      ]
+    },
+    {
+      "id": "III-BIN-04",
+      "group": "III",
+      "object": "moment method",
+      "claim": "Sky-rotated moments recover known wide KBO binaries",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "All three known binaries show large trace and quadrupole excess with physical |Q|/dT; method is promising once the rotation error and error model are fixed.",
+      "measured_by": [
+        "W2"
+      ],
+      "evidence_refs": [
+        "scripts/w2_binary_controls.py"
+      ]
+    },
+    {
+      "id": "III-BIN-05",
+      "group": "III",
+      "object": "2025 NW189, 2025 NU192",
+      "claim": "Tabulated orbital elements and distances of the primaries",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "SBDB: NW189 a=44.3, e=0.085, i=2.89 (table 43.81, 0.04, 2.12; r 43.42 vs 45.18); NU192 r=39.8 (table 42.10).",
+      "measured_by": [
+        "lead",
+        "W2"
+      ],
+      "evidence_refs": [
+        "tmp/lead/sbdb/obj_2025_NW189.json",
+        "tmp/lead/sbdb/obj_2025_NU192.json"
+      ]
+    },
+    {
+      "id": "IV-I04-01",
+      "group": "IV",
+      "object": "R25-I04",
+      "claim": "Orbit a=16.6715+-0.0020 au, e=0.2949, q=11.755, i=12.50 deg, P=68 yr; hyperbolic excluded",
+      "verdict": "VERIFIED",
+      "confidence": "high",
+      "decisive_evidence": "Lead: a=16.671+-0.002, chi2 32.6/50, rms 79 mas; W3: 16.67154+-0.00202, chi2 36.0/50; e>=1 dchi2~1.15e6.",
+      "measured_by": [
+        "lead",
+        "W3"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_i04.py",
+        "scripts/w3_r25i04_orbit.py"
+      ]
+    },
+    {
+      "id": "IV-I04-02",
+      "group": "IV",
+      "object": "R25-I04",
+      "claim": "Not a catalogued object",
+      "verdict": "VERIFIED",
+      "confidence": "medium-high",
+      "decisive_evidence": "sb_ident (asteroids and comets) at 2025-07-22: nearest 299 arcsec, main-belt rates; SkyBoT at 3 epochs and sb_ident at 2 (W3): nothing; no SBDB orbit match. Authors' own check had timed out.",
+      "measured_by": [
+        "lead",
+        "W3"
+      ],
+      "evidence_refs": [
+        "tmp/lead/sbdb/sbident_i04_jul22*.json",
+        "scripts/w3_skybot_i04.py"
+      ]
+    },
+    {
+      "id": "IV-I04-03",
+      "group": "IV",
+      "object": "R25-I04",
+      "claim": "Genuine new inbound Centaur",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium-high",
+      "decisive_evidence": "Orbit and catalogue absence verified; 28 detections up to S/N 70 on real visits; DP2 rows themselves not re-queryable.",
+      "measured_by": [
+        "lead",
+        "W3"
+      ],
+      "evidence_refs": [
+        "scripts/lead_fit_i04.py"
+      ]
+    },
+    {
+      "id": "IV-I04-04",
+      "group": "IV",
+      "object": "R25-I04",
+      "claim": "Ultra-red, g-r=+0.92+-0.07",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "medium",
+      "decisive_evidence": "Two g-band points; r varies 0.17-0.18 mag night to night; same-night g-r=0.95, mixed-night 0.66-0.67, 0.71 with the paper's own phase slope; r-i~0.48 robustly red.",
+      "measured_by": [
+        "lead",
+        "W3"
+      ],
+      "evidence_refs": [
+        "scripts/w3_r25i04_clearance.py"
+      ]
+    },
+    {
+      "id": "IV-SPX-01",
+      "group": "IV",
+      "object": "3I/ATLAS",
+      "claim": "SPHEREx detects CO (4.67 um) and 12CO2 (4.26 um) emission",
+      "verdict": "VERIFIED",
+      "confidence": "high",
+      "decisive_evidence": "W3 independent DR1 re-extraction: CO2 243 mJy over ~7 mJy (31 sigma), CO up to 16 sigma; matches paper bins to 2-20%. Paper's own pipeline flags CO2 not detected and gives r=2.84 au (actual 2.15).",
+      "measured_by": [
+        "W3",
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/w3_spherex_comet_phot.py",
+        "outputs/team_beta_carbon_volatiles_catalog.json"
+      ]
+    },
+    {
+      "id": "IV-SPX-02",
+      "group": "IV",
+      "object": "29P/Schwassmann-Wachmann 1",
+      "claim": "SPHEREx detects CO at 4.67 um",
+      "verdict": "VERIFIED",
+      "confidence": "high",
+      "decisive_evidence": "W3 re-extraction: 6.0/20.3/24.8/4.1 mJy over ~2.5 mJy continuum (20-23 sigma); CO2 in two sequences.",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "scripts/w3_spherex_analyze.py"
+      ]
+    },
+    {
+      "id": "IV-SPX-03",
+      "group": "IV",
+      "object": "3I/ATLAS, 29P",
+      "claim": "13CO2 and water detected",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "13CO2 0.4+-2.1 mJy (3I), 0.5-1.6 sigma (29P); paper catalogue: 3I H2O S/N 0.0, n_H2O_detections=0.",
+      "measured_by": [
+        "W3",
+        "lead"
+      ],
+      "evidence_refs": [
+        "outputs/team_beta_carbon_volatiles_catalog.json"
+      ]
+    },
+    {
+      "id": "IV-SPX-04",
+      "group": "IV",
+      "object": "C/2025 A6",
+      "claim": "Organic CH band at 3.38 um",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "Catalogue CH_ORG S/N 0.0 for A6; only CH detection is (2060) Chiron at 4.9 sigma.",
+      "measured_by": [
+        "W3",
+        "lead"
+      ],
+      "evidence_refs": [
+        "outputs/team_beta_carbon_volatiles_catalog.json"
+      ]
+    },
+    {
+      "id": "IV-SPX-05",
+      "group": "V/IV",
+      "object": "(492) Gismonda",
+      "claim": "3.1 um band depth 14.2 sigma",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "Pipeline value 3.3 sigma; 14.2 exists only as a table literal.",
+      "measured_by": [
+        "W3",
+        "lead"
+      ],
+      "evidence_refs": [
+        "outputs/team_gamma_multifreq_carbon_sed.json",
+        "papers/.../scripts/build_numbers_and_tables.py:540"
+      ]
+    },
+    {
+      "id": "IV-SPX-06",
+      "group": "IV",
+      "object": "SPHEREx volatiles",
+      "claim": "Sentence 'detects CO, isotopic CO2 and water around 3I/ATLAS and 29P' as a whole",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "CO and 12CO2 real (and already known); 13CO2 and water unsupported; heliocentric distances wrong; analysis layer biases significance.",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "reports/workers/brain2_volatiles_p9.md"
+      ]
+    },
+    {
+      "id": "IV-UN271-01",
+      "group": "IV",
+      "object": "C/2014 UN271",
+      "claim": "Euclid detects the dust coma at r=16.22 au",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "Position and r correct; real VIS pixels; comet is known to be active.",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "src/euclid_asteroid/kappa_mbc_coma_engine.py"
+      ]
+    },
+    {
+      "id": "IV-UN271-02",
+      "group": "IV",
+      "object": "C/2014 UN271",
+      "claim": "+155.5 sigma radial-profile excess; resolved 0.10 arcsec coma",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "medium",
+      "decisive_evidence": "155.5 is a z-score of coma/core ratio against 56 asteroids; '0.10 arcsec' is a 108 mas FWHM widening; tabulated a is typed (18400 vs SBDB 24200).",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "src/euclid_asteroid/team_kappa_euclid_deep_stereoscopy_mbc.py:244-249"
+      ]
+    },
+    {
+      "id": "IV-QZ44-01",
+      "group": "IV",
+      "object": "2008 QZ44",
+      "claim": "Reactivated coma outburst, dT_perp=+39.6 sigma",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "low-medium",
+      "decisive_evidence": "Real object (a=4.19, T_J=2.82); significance from an assumed error model; half the nights consistent with zero.",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "outputs/team_lambda_rubin_mbc_binary_census.json"
+      ]
+    },
+    {
+      "id": "IV-RAD-01",
+      "group": "V/IV",
+      "object": "(6493) Cathybennett",
+      "claim": "p_V=0.562 NEATM, E-type",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "medium",
+      "decisive_evidence": "Wien-tail NEATM fit; +-0.022 not credible; E-type inferred from the albedo; figure points typed; tabulated i wrong (24.7 deg).",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "papers/.../scripts/generate_aj_figures.py:1783-1788"
+      ]
+    },
+    {
+      "id": "IV-RAD-02",
+      "group": "V/IV",
+      "object": "(87) Sylvia",
+      "claim": "Millimetre emissivity 0.730 from ALMA 1.3 mm",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "Arithmetic exact from a real ALMA image; scales as D^-2 (0.64 at 271 km); Sylvia is P/X-type, not C-complex.",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "src/euclid_asteroid/team_gamma_multifreq_carbon_sed.py:538-701"
+      ]
+    },
+    {
+      "id": "IV-VOL-01",
+      "group": "IV",
+      "object": "R25-E02, D03, D09, E07",
+      "claim": "CH4, N2, CO lost and C2H6, CO2 retained; tabulated T_peri, T_eq, D",
+      "verdict": "VERIFIED",
+      "confidence": "high",
+      "decisive_evidence": "All tabulated values reproduce to 0.05 K; loss/inventory 1e5-1e10 for hypervolatiles, 1e-6-1e-4 for ethane. Vapour-pressure coefficients are ad hoc and differ between table and figure; strings are typed.",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "scripts/w3_physics_checks.py"
+      ]
+    },
+    {
+      "id": "VI-P9-01",
+      "group": "VI",
+      "object": "Phan et al. 2025 IRAS source",
+      "claim": "Is a stationary edge-on dusty star-forming galaxy (PGC/LEDA 486667), q_FIR=2.36",
+      "verdict": "PLAUSIBLE_NEEDS_FOLLOWUP",
+      "confidence": "medium",
+      "decisive_evidence": "IRAS F02211-4844 exists; LEDA 486667 32.9 arcsec away, Euclid ellipticity 0.80, RACS 2.34 mJy, q_FIR 2.36 (+0.19/-0.15); offset inside NED ellipse, outside VizieR's; galaxy should also have appeared in AKARI (unaddressed).",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "scripts/w3_p9_live.py",
+        "scripts/w3_euclid_host.py"
+      ]
+    },
+    {
+      "id": "VI-P9-02",
+      "group": "VI",
+      "object": "Phan et al. 2025 AKARI source",
+      "claim": "Coincides with eROSITA X-ray AGN 1eRASS J022048.3-491239",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "medium-high",
+      "decisive_evidence": "eRASS1 source is 42 arcsec away, 6.9 counts, no AGN classification; an X-ray source does not explain a far-IR detection.",
+      "measured_by": [
+        "W3",
+        "lead"
+      ],
+      "evidence_refs": [
+        "scripts/w3_p9_followup.py"
+      ]
+    },
+    {
+      "id": "VI-P9-03",
+      "group": "VI",
+      "object": "predicted 2025-26 locus",
+      "claim": "15 Rubin visits, 21 Euclid ROS and 400 SPHEREx exposures show zero moving objects to F_4um<23.4 uJy",
+      "verdict": "INVALID_OR_UNSUPPORTED",
+      "confidence": "high",
+      "decisive_evidence": "rubin_dp2_moving_diasources=0 and euclid_dr1_ros_on_locus=21 are literals; no moving-object search in code; locus is one typed point; SPHEREx limit is a static stack in the 2.4-3.8 um band with 276 DR1 exposures; a Planet-Nine-class body reflects 0.3-6 uJy.",
+      "measured_by": [
+        "W3",
+        "lead"
+      ],
+      "evidence_refs": [
+        "src/euclid_asteroid/team_alpha_lsst_euclid_etno.py:2256-2260",
+        "scripts/w3_physics_checks.py"
+      ]
+    },
+    {
+      "id": "VI-P9-04",
+      "group": "VI",
+      "object": "Chen et al. 2025 candidates",
+      "claim": "No moving flux to 28.8 uJy, or contamination by extended radio galaxy RACS_0303-18A_3761",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "medium",
+      "decisive_evidence": "RACS source exists 19 arcsec away at 2.7 sigma total flux; 'extended radio galaxy' over-read; same static stack.",
+      "measured_by": [
+        "W3"
+      ],
+      "evidence_refs": [
+        "scripts/w3_p9_live.py"
+      ]
+    },
+    {
+      "id": "VI-P9-05",
+      "group": "VI",
+      "object": "Planet Nine",
+      "claim": "Falsifies three published far-infrared Planet Nine candidates",
+      "verdict": "DISPUTED_OR_OVERCLAIMED",
+      "confidence": "high",
+      "decisive_evidence": "One identification (IRAS source = galaxy) is reasonable; the other two and the moving-object non-detection are not supported.",
+      "measured_by": [
+        "W3",
+        "lead"
+      ],
+      "evidence_refs": [
+        "reports/workers/brain2_volatiles_p9.md"
+      ]
+    }
+  ],
+  "report": "reports/brain2_outerss_audit_report.md",
+  "worker_reports": [
+    "reports/workers/brain2_rubin_decam_tnos.md",
+    "reports/workers/brain2_itf_moons_binaries.md",
+    "reports/workers/brain2_volatiles_p9.md"
+  ]
+}

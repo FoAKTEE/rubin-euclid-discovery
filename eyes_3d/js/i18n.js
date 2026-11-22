@@ -1,0 +1,392 @@
+// Extensible Multi-Language Dictionary Architecture for Eyes on the Solar System 2.0
+// Default on fresh page load is strictly 100% pure English ("en").
+
+export const I18N = {
+  en: {
+    brandTitle: "EYES ON THE COSMOS",
+    brandSubtitle: "Solar System · Oort Cloud · Milky Way Galaxy",
+    searchPlaceholder: "Search planets, discoveries, black holes, Sgr A*, Starlink, NORAD...",
+    menuExplore: "Explore",
+    menuView: "View & Scale",
+    menuLayers: "Layers & Sats",
+    menuCamera: "Camera & Galaxy",
+    playgroundLink: "3D Playground",
+    blogLinkLabel: "Research Blog",
+    presetLocalStars: "Local Stars (100 pc)",
+    presetSgrA: "Galactic Center (Sgr A*)",
+    presetGaiaBH1: "Gaia BH1 (478 pc)",
+    presetCygX1: "Cygnus X-1 (2.2 kpc)",
+    presetMilkyWay: "Full Milky Way (100 kly)",
+    galaxyLayerToggle: "Milky Way Stars & Gas",
+    tabOverview: "Overview",
+    tabOrbit: "Orbit & Ephemeris",
+    tabPhysical: "Physical & Science",
+    tabMedia: "Cutout & Media",
+    tabSystem: "System",
+    cat_galactic: "Milky Way & Black Holes",
+    lblBhMass: "Black Hole Mass",
+    lblCompanion: "Companion Star",
+    lblGalDist: "Heliocentric Distance",
+    lblKerrSpin: "Kerr Spin (a*)",
+    lblRaDec: "ICRS (RA, Dec)",
+    lblScaleRange: "Range",
+    controlsHint: "Drag: 360° Orbit · Scroll: Zoom (100 m → 100,000 ly) · Click: 3D Lock-On",
+    scaleModeLabel: "Scale",
+    scaleTrue: "True 1:1 AU",
+    scaleLog: "Deep-Space Log",
+    orbitsLabel: "Orbits",
+    orbitsAll: "All Orbits",
+    orbitsMajor: "Discoveries + Major",
+    orbitsSelected: "Selected Only",
+    orbitsOff: "Hidden",
+    ringsToggle: "Distance & 12:1 MMR Rings",
+    galacticToggle: "Galactic Plane Zone",
+    labelsToggle: "3D Labels",
+    satsSwarmToggle: "Earth Satellites (22,022)",
+    satFilterAll: "All Cataloged Satellites (22,022)",
+    satFilterMusk: "SpaceX Constellations — All (11,669)",
+    satFilterCommAll: "Commercial Constellations — All (17,887)",
+    satFilterCommOther: "Commercial Operators — Non-SpaceX (6,218)",
+    satFilterStarlink: "SpaceX Starlink V1 / V2 (11,311)",
+    satFilterSpxOther: "SpaceX Starshield, Swarm & Dragon (358)",
+    satFilterOneWebKuiper: "Eutelsat OneWeb & Project Kuiper (1,046)",
+    satFilterCN: "Qianfan / Guowang / Geespace / Tianqi (671)",
+    satFilterD2D: "Mobile & IoT: AST / Iridium / Globalstar (1,190)",
+    satFilterEO: "Earth Obs. & SAR: Jilin-1 / Planet / ICEYE (1,689)",
+    satFilterGEO: "GEO / MEO Comms: Intelsat / SES / ViaSat (1,622)",
+    satFilterGNSS: "GNSS: BeiDou / GPS / Galileo / GLONASS (406)",
+    viewPresetsLabel: "Camera",
+    presetEarthSats: "Earth Orbit",
+    presetInner: "Inner System",
+    presetOuter: "Kuiper Belt",
+    presetOort: "Oort Cloud",
+    newBadge: "NEW",
+    physicsBadge: "HIGHLIGHT",
+    spotlightHeader: "Rubin–Euclid Survey Highlights",
+    spotlightSub: "Select a target to enter 3D orbital tracking",
+    autoTourStart: "▶ Guided Tour",
+    autoTourStop: "■ Stop Tour",
+    browseListToggle: "Catalog List",
+    trackingLabel: "LOCKED ON",
+    freeCamLabel: "FREE ORBIT",
+    zoomSurfaceBtn: "Zoom to 3D Surface",
+    frameOrbitBtn: "Frame Full Orbit",
+    releaseLockBtn: "Release Lock",
+    timeEpochReset: "Aug 2025 Epoch",
+    timePlay: "Play",
+    timePause: "Pause",
+    timeReal: "Real-Time",
+    time10m: "10 min/s",
+    time1h: "1 hr/s",
+    time1d: "1 day/s",
+    time1mo: "1 mo/s",
+    time1yr: "1 yr/s",
+    time25yr: "25 yr/s",
+    time200yr: "200 yr/s",
+    timeNowUtc: "Sync UTC",
+    inspectorTitle: "Telemetry & Science Inspector",
+    inspectorClose: "Collapse",
+    inspectorOpen: "Inspector",
+    secOrbital: "J2000 Barycentric / Orbital Elements",
+    secPhysical: "Physical, Rotational & Photometric Properties",
+    secEarthPrecision: "WGS-84 Geodetic Elevation & Stratified Atmosphere",
+    earthMode8k: "8K Remote-Sensing Globe",
+    earthModeCad: "442k-Tri Land+Seafloor CAD",
+    earthElevLabel: "DEM Vertical Scale",
+    earthAtmoPhysical: "4-Layer Atmosphere",
+    earthAtmoProfile: "12/50/100/400 km Shells",
+    earthAtmoBare: "Bare DEM CAD",
+    lblSiderealRot: "Sidereal Rotation",
+    lblAxialTilt: "Axial Obliquity",
+    lblPoleRaDec: "IAU Pole (α₀, δ₀)",
+    lblPrimeMeridian: "Prime Meridian (W)",
+    lblSubsolar: "Subsolar Point",
+    secTelescopes: "Observatories & Survey Provenance",
+    secScience: "Discovery & Multi-Frequency Science",
+    secCutout: "Survey Verification Cutout / Blink",
+    secSatellites: "Orbiting Satellites / Companion Bodies",
+    parentBodyLabel: "Central Body",
+    lblSemimajor: "Semimajor Axis (a)",
+    lblPerihelion: "Perihelion (q)",
+    lblAphelion: "Aphelion (Q)",
+    lblEccentricity: "Eccentricity (e)",
+    lblInclination: "Inclination (i)",
+    lblNode: "Ascending Node (Ω)",
+    lblArgPeri: "Arg. of Perihelion (ω)",
+    lblVarpi: "Lon. of Perihelion (ϖ)",
+    lblHelioDist: "Current Distance (r)",
+    lblPeriod: "Orbital Period (P)",
+    lblDiameter: "Estimated Diameter (D)",
+    lblAbsMag: "Absolute Magnitude (H)",
+    lblCamDist: "Camera Range",
+    valHyperbolic: "Hyperbolic (Unbound)",
+    valSolarCenter: "Barycentric Origin",
+    openBlogStory: "Read Full Analysis in Research Blog ↗",
+    copyDeepLink: "Copy 3D Deep-Link URL",
+    copiedDeepLink: "Copied Deep-Link!",
+    catalogCountFmt: "{shown} shown · {newCount} audited discoveries",
+    noSearchMatches: "No matching Solar System objects found",
+    ringLabel1AU: "1 AU · Earth Orbit",
+    ringLabel5AU: "5.2 AU · Jupiter",
+    ringLabel30AU: "30.1 AU · Neptune",
+    ringLabel50AU: "50 AU · Kuiper Cliff",
+    ringLabelMMR: "157.62 AU · Neptune 12:1 MMR (DELTA_003)",
+    ringLabel1000AU: "1,000 AU · Sednoid Zone",
+    ringLabel10000AU: "10,000 AU · Hills Inner Oort Torus",
+    ringLabel50000AU: "50,000 AU · Outer Oort Cloud Shell",
+    galacticBandLabel: "Galactic Plane Zone (|b| < 15°)",
+    cat_all: "All Objects",
+    cat_discoveries: "Survey Discoveries",
+    cat_spacecraft: "Spacecraft & Observatories",
+    cat_planets: "Planets",
+    cat_moons_l2: "Natural Moons",
+    cat_starlink_sats: "Active Earth Satellites (NORAD)",
+    cat_dwarf_planets: "Dwarf Planets",
+    cat_asteroids: "Asteroids & NEOs",
+    cat_comets_centaurs: "Comets & Centaurs",
+    cat_interstellar: "Interstellar",
+    cat_kuiper_etnos: "Kuiper Belt & eTNOs",
+    cat_oort_cloud: "Oort Cloud",
+    cat_star: "Central Star",
+    tourCards: {
+      DELTA_003: { tag: "Flagship eTNO", sub: "a = 156.6 AU · Near 12:1 MMR" },
+      EPS_002: { tag: "Dwarf Planet Cand.", sub: "D ≈ 449 km · Galactic Plane" },
+      W4_JUP_MOON_GOLD_001: { tag: "Jupiter Moon Candidate", sub: "Carme Group · 20.4M km Orbit" },
+      NW189_2025: { tag: "Known KBO 2025 NW189", sub: "Wide-binary claim disputed by the audit" },
+      CENTAUR_343_IOTA004: { tag: "Centaur Candidate", sub: "a = 16.67 AU · R25-I04" },
+      EUC0005: { tag: "L2 × DECam Stereo Candidate", sub: "1.685M-km Baseline · Needs Follow-Up" },
+      EUCLID_EES149_GOLD_18: { tag: "Recovery Control", sub: "Known main-belt asteroid 2019 UM31 · Euclid VIS" },
+      ATLAS_3I: { tag: "Interstellar 3I", sub: "SPHEREx CO + 12CO2 + 13CO2" },
+      OORT_OUTER_REP_1: { tag: "Outer Oort Cloud", sub: "a = 35,000 AU Deep Space" },
+    }
+  },
+  zh: {
+    brandTitle: "太阳系与银河系三维巡天平台",
+    brandSubtitle: "太阳系 · 奥尔特云 · 银河系",
+    searchPlaceholder: "搜索行星、新发现、人马座 A*、盖亚黑洞、星链、NORAD...",
+    menuExplore: "天体分类",
+    menuView: "视图与尺度",
+    menuLayers: "图层与卫星",
+    menuCamera: "视角与银河",
+    playgroundLink: "3D 展台",
+    blogLinkLabel: "研究博客",
+    presetLocalStars: "太阳近邻恒星 (100 pc)",
+    presetSgrA: "银心黑洞 (Sgr A*)",
+    presetGaiaBH1: "盖亚 BH1 (478 pc)",
+    presetCygX1: "天鹅座 X-1 (2.2 kpc)",
+    presetMilkyWay: "银河系全景 (10万光年)",
+    galaxyLayerToggle: "银河恒星与三维星际气体",
+    tabOverview: "概览",
+    tabOrbit: "轨道与星历",
+    tabPhysical: "物理与科学",
+    tabMedia: "证认切图",
+    tabSystem: "伴星系统",
+    cat_galactic: "银河系与黑洞",
+    lblBhMass: "黑洞质量",
+    lblCompanion: "伴星类型",
+    lblGalDist: "日心距离",
+    lblKerrSpin: "克尔自旋 (a*)",
+    lblRaDec: "天球坐标 (RA, Dec)",
+    lblScaleRange: "当前尺度",
+    controlsHint: "拖拽：360°旋转 · 滚轮：无极缩放 (100米 → 10万光年) · 点击：三维锁定",
+    scaleModeLabel: "空间尺度",
+    scaleTrue: "真实 1:1 天文单位",
+    scaleLog: "深空对数尺度",
+    orbitsLabel: "轨道显示",
+    orbitsAll: "全部轨道",
+    orbitsMajor: "巡天发现与主要天体",
+    orbitsSelected: "仅当前选中",
+    orbitsOff: "隐藏轨道",
+    ringsToggle: "距离标尺与 12:1 共振环",
+    galacticToggle: "银道面区域带",
+    labelsToggle: "三维标签",
+    satsSwarmToggle: "地球在轨卫星 (22,022)",
+    satFilterAll: "全部编目在轨卫星 (22,022)",
+    satFilterMusk: "SpaceX 全部在轨星座 (11,669)",
+    satFilterCommAll: "全球商业在轨卫星总计 (17,887)",
+    satFilterCommOther: "其他商业运营商卫星 (6,218)",
+    satFilterStarlink: "SpaceX 星链 V1 / V2 (11,311)",
+    satFilterSpxOther: "SpaceX 星盾 / Swarm / 龙飞船 (358)",
+    satFilterOneWebKuiper: "Eutelsat OneWeb 与 Kuiper (1,046)",
+    satFilterCN: "千帆 / 国网 / 吉利 / 天启商业星座 (671)",
+    satFilterD2D: "移动直连与物联网: AST / 铱星 / 全球星 (1,190)",
+    satFilterEO: "对地观测与雷达: 吉林一号 / Planet / ICEYE (1,689)",
+    satFilterGEO: "高轨与中轨通信: Intelsat / SES / 中星 (1,622)",
+    satFilterGNSS: "全球卫星导航: 北斗 / GPS / 伽利略 / GLONASS (406)",
+    viewPresetsLabel: "视角预设",
+    presetEarthSats: "近地空间",
+    presetInner: "内太阳系",
+    presetOuter: "柯伊伯带",
+    presetOort: "奥尔特云",
+    newBadge: "新发现",
+    physicsBadge: "重点目标",
+    spotlightHeader: "鲁宾-欧几里得联合巡天重点目标",
+    spotlightSub: "选择任一目标进入三维轨道跟踪模式",
+    autoTourStart: "▶ 自动巡航导览",
+    autoTourStop: "■ 停止巡航",
+    browseListToggle: "天体总表",
+    trackingLabel: "已锁定伴飞",
+    freeCamLabel: "自由视角",
+    zoomSurfaceBtn: "抵近三维表面",
+    frameOrbitBtn: "俯瞰完整轨道",
+    releaseLockBtn: "解除锁定",
+    timeEpochReset: "重置至 2025年8月发现历元",
+    timePlay: "播放演化",
+    timePause: "暂停演化",
+    timeReal: "实时速率",
+    time10m: "10 分/秒",
+    time1h: "1 小时/秒",
+    time1d: "1 天/秒",
+    time1mo: "1 月/秒",
+    time1yr: "1 年/秒",
+    time25yr: "25 年/秒",
+    time200yr: "200 年/秒",
+    timeNowUtc: "当前 UTC",
+    inspectorTitle: "天体遥测与科学详情面板",
+    inspectorClose: "收起面板",
+    inspectorOpen: "科学详情",
+    secOrbital: "J2000 质心系轨道根数",
+    secPhysical: "物理尺寸、IAU 自转与光度性质",
+    secEarthPrecision: "WGS-84 三维高程 CAD 与四层大气控制",
+    earthMode8k: "8K 遥感地球",
+    earthModeCad: "44万面陆海高程 CAD",
+    earthElevLabel: "海拔垂直夸大倍率",
+    earthAtmoPhysical: "四层物理大气",
+    earthAtmoProfile: "12/50/100/400 km 分层标尺",
+    earthAtmoBare: "无大气裸地 CAD",
+    lblSiderealRot: "恒星自转周期",
+    lblAxialTilt: "自转轴倾角",
+    lblPoleRaDec: "IAU 北极 (α₀, δ₀)",
+    lblPrimeMeridian: "本初子午线相位 (W)",
+    lblSubsolar: "实时太阳直射点",
+    secTelescopes: "联合观测设施与数据来源",
+    secScience: "新发现证认与多波段物理摘要",
+    secCutout: "巡天探测证认切图 / 闪烁动画",
+    secSatellites: "环绕卫星与伴星系统",
+    parentBodyLabel: "中心母天体",
+    lblSemimajor: "轨道半长轴 (a)",
+    lblPerihelion: "近日点距离 (q)",
+    lblAphelion: "远日点距离 (Q)",
+    lblEccentricity: "轨道偏心率 (e)",
+    lblInclination: "黄道倾角 (i)",
+    lblNode: "升交点黄经 (Ω)",
+    lblArgPeri: "近日点幅角 (ω)",
+    lblVarpi: "近日点黄经 (ϖ)",
+    lblHelioDist: "当前距离 (r)",
+    lblPeriod: "公转周期 (P)",
+    lblDiameter: "估计直径 (D)",
+    lblAbsMag: "绝对星等 (H)",
+    lblCamDist: "当前视距",
+    valHyperbolic: "双曲线非束缚轨道",
+    valSolarCenter: "太阳系质心原点",
+    openBlogStory: "在研究博客中阅读完整科学报告 ↗",
+    copyDeepLink: "复制三维直达链接",
+    copiedDeepLink: "直达链接已复制！",
+    catalogCountFmt: "当前显示 {shown} 个天体 · 含 {newCount} 项经独立审核保留的新发现",
+    noSearchMatches: "未找到匹配的太阳系天体",
+    ringLabel1AU: "1 AU · 地球轨道",
+    ringLabel5AU: "5.2 AU · 木星轨道",
+    ringLabel30AU: "30.1 AU · 海王星轨道",
+    ringLabel50AU: "50 AU · 柯伊伯带断崖",
+    ringLabelMMR: "157.62 AU · 海王星 12:1 外共振环 (DELTA_003)",
+    ringLabel1000AU: "1,000 AU · 塞德娜族区域",
+    ringLabel10000AU: "10,000 AU · 希尔斯内奥尔特云盘",
+    ringLabel50000AU: "50,000 AU · 外奥尔特云球壳",
+    galacticBandLabel: "银河系盘面遮蔽盲区 (|b| < 15°)",
+    cat_all: "全部天体",
+    cat_discoveries: "巡天新发现",
+    cat_spacecraft: "航天器与空间天文台",
+    cat_planets: "八大行星",
+    cat_moons_l2: "行星与小行星天然卫星",
+    cat_starlink_sats: "全球在轨人造卫星 (NORAD)",
+    cat_dwarf_planets: "矮行星与候选体",
+    cat_asteroids: "小行星与近地天体",
+    cat_comets_centaurs: "彗星与半人马小行星",
+    cat_interstellar: "星际访客",
+    cat_kuiper_etnos: "柯伊伯带与极端海外天体",
+    cat_oort_cloud: "奥尔特云",
+    cat_star: "中心恒星",
+    tourCards: {
+      DELTA_003: { tag: "旗舰极端海外天体", sub: "a = 156.6 AU · 紧贴 12:1 共振" },
+      EPS_002: { tag: "矮行星候选体", sub: "直径约 449 km · 银道面盲区" },
+      W4_JUP_MOON_GOLD_001: { tag: "木星不规则卫星候选体", sub: "加尔美逆行群 · 2037万 km" },
+      NW189_2025: { tag: "已知柯伊伯带天体 2025 NW189", sub: "宽距双星判定受独立审核质疑" },
+      CENTAUR_343_IOTA004: { tag: "半人马天体候选体", sub: "a = 16.67 AU · R25-I04" },
+      EUC0005: { tag: "天地立体视差候选体", sub: "168.5 万 km 基线 · 尚待后续观测" },
+      EUCLID_EES149_GOLD_18: { tag: "回收对照", sub: "已编目主带小行星 2019 UM31 · Euclid VIS" },
+      ATLAS_3I: { tag: "星际访客 3I", sub: "SPHEREx CO + 12CO2 + 13CO2" },
+      OORT_OUTER_REP_1: { tag: "外奥尔特云深空", sub: "a = 35,000 AU 远日球壳" },
+    }
+  }
+};
+
+const STORAGE_KEY = "eyes3d_lang";
+
+export function resolveInitialLanguage() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = (params.get("lang") || "").trim().toLowerCase();
+    if (urlLang && I18N[urlLang]) {
+      return urlLang;
+    }
+    const stored = (window.localStorage.getItem(STORAGE_KEY) || "").trim().toLowerCase();
+    if (stored && I18N[stored]) {
+      return stored;
+    }
+  } catch (_) {
+    // Ignore storage/security errors and default cleanly to English
+  }
+  return "en";
+}
+
+export function persistLanguageChoice(lang) {
+  if (!I18N[lang]) return;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, lang);
+  } catch (_) {
+    // Ignore storage errors
+  }
+}
+
+export function tr(lang, key, vars = null) {
+  const dict = I18N[lang] || I18N.en;
+  let str = dict[key] !== undefined ? dict[key] : (I18N.en[key] || key);
+  if (vars && typeof str === "string") {
+    for (const [k, v] of Object.entries(vars)) {
+      str = str.replaceAll(`{${k}}`, String(v));
+    }
+  }
+  return str;
+}
+
+export function getObjectName(obj, lang) {
+  if (!obj) return "";
+  if (lang === "zh") {
+    return obj.name_zh || obj.name_en || obj.name || obj.id;
+  }
+  return obj.name_en || obj.name || obj.id;
+}
+
+export function getObjectHeadline(obj, lang) {
+  const sci = obj?.science || {};
+  if (lang === "zh") {
+    return sci.headline_zh || obj.headline_zh || sci.headline_en || sci.headline || obj.headline || "";
+  }
+  return sci.headline_en || sci.headline || obj.headline_en || obj.headline || "";
+}
+
+export function getObjectSummary(obj, lang) {
+  const sci = obj?.science || {};
+  if (lang === "zh") {
+    return sci.summary_zh || obj.summary_zh || sci.description_zh || sci.summary_en || sci.summary || obj.summary || obj.description || "";
+  }
+  return sci.summary_en || sci.summary || sci.description_en || obj.summary_en || obj.summary || obj.description || "";
+}
+
+export function getCategoryLabel(catId, lang, customCatMeta = null) {
+  if (customCatMeta) {
+    if (lang === "zh" && customCatMeta.label_zh) return customCatMeta.label_zh;
+    if (lang === "en" && customCatMeta.label_en) return customCatMeta.label_en;
+  }
+  return tr(lang, `cat_${catId}`);
+}
