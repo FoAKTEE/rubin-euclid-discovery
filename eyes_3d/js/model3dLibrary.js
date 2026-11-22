@@ -4,9 +4,9 @@
 import * as THREE from "../vendor/three.module.js";
 import { GLTFLoader } from "../vendor/GLTFLoader.js";
 import { DRACOLoader } from "../vendor/DRACOLoader.js";
-import { MeshoptDecoder } from "../vendor/meshopt_decoder.module.js?v=20261122_v12";
+import { MeshoptDecoder } from "../vendor/meshopt_decoder.module.js?v=20261122_v13";
 
-export const ASSET_VERSION = "20261122_v12";
+export const ASSET_VERSION = "20261122_v13";
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath(new URL("../vendor/draco/", import.meta.url).href);
@@ -101,6 +101,141 @@ export const ATMOSPHERE_PARAMS = {
   neptune: { color: [0.38, 0.58, 1.00], sunset: [0.52, 0.72, 1.00], ry: 24341.0 / 24764.0, scale: 1.026, intensity: 0.52, power: 3.9 },
   pluto: { color: [0.45, 0.78, 1.00], sunset: [0.35, 0.65, 0.98], ry: 1.0, scale: 1.036, intensity: 0.42, power: 3.2 }
 };
+
+// ---------------------------------------------------------------------------------------------
+// Procedural studio reflection environment (zero network): a miniature light-box scene with soft
+// key / fill / rim panels, an overhead strip and a faint galactic horizon band, prefiltered with
+// THREE.PMREMGenerator so glossy curved surfaces pick up smooth continuous highlights.
+// ---------------------------------------------------------------------------------------------
+const studioEnvCache = new WeakMap(); // renderer -> PMREM texture
+
+export function createStudioLightBoxScene() {
+  const envScene = new THREE.Scene();
+  const disposables = [];
+  const track = (obj) => { disposables.push(obj); return obj; };
+
+  // Backdrop: deep-space gradient with a subtle warm/cool horizon band
+  const domeGeom = track(new THREE.SphereGeometry(50, 48, 24));
+  const pos = domeGeom.attributes.position;
+  const col = new Float32Array(pos.count * 3);
+  const v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i).normalize();
+    const band = Math.exp(-Math.pow(v.y / 0.16, 2.0));
+    const sky = Math.max(0.0, v.y);
+    const ground = Math.max(0.0, -v.y);
+    const warm = 0.5 + 0.5 * v.x;
+    col[i * 3] = 0.020 + 0.050 * sky + band * (0.060 + 0.050 * warm) + 0.012 * ground;
+    col[i * 3 + 1] = 0.026 + 0.062 * sky + band * (0.066 + 0.020 * warm) + 0.013 * ground;
+    col[i * 3 + 2] = 0.040 + 0.090 * sky + band * (0.105 - 0.030 * warm) + 0.018 * ground;
+  }
+  domeGeom.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  const domeMat = track(new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide, depthWrite: false }));
+  envScene.add(new THREE.Mesh(domeGeom, domeMat));
+
+  // Emissive soft boxes (HDR radiance > 1 so they survive prefiltering as crisp highlights)
+  const addPanel = (w, h, radiance, rgb, position, lookAt = [0, 0, 0]) => {
+    const g = track(new THREE.PlaneGeometry(w, h));
+    const m = track(new THREE.MeshBasicMaterial({ side: THREE.DoubleSide }));
+    m.color.setRGB(rgb[0] * radiance, rgb[1] * radiance, rgb[2] * radiance);
+    const mesh = new THREE.Mesh(g, m);
+    mesh.position.set(position[0], position[1], position[2]);
+    mesh.lookAt(lookAt[0], lookAt[1], lookAt[2]);
+    envScene.add(mesh);
+  };
+  addPanel(26, 13, 9.0, [1.00, 0.97, 0.92], [22, 20, 18]);        // key soft box (front-right, high)
+  addPanel(30, 7, 5.5, [1.00, 0.99, 0.97], [0, 33, 2]);           // overhead strip (long hood / deck sweep)
+  addPanel(18, 16, 2.6, [0.80, 0.88, 1.00], [-30, 9, 10]);        // cool fill (front-left)
+  addPanel(6, 22, 6.0, [0.72, 0.84, 1.00], [-20, 12, -27]);       // rim strip (rear-left)
+  addPanel(5, 18, 4.5, [1.00, 0.90, 0.80], [27, 8, -22]);         // warm kicker (rear-right)
+  addPanel(40, 3, 1.6, [0.85, 0.90, 1.00], [0, -16, 30]);         // low front bounce
+  return { scene: envScene, dispose: () => disposables.forEach((d) => d.dispose()) };
+}
+
+export function getStudioEnvironmentTexture(renderer) {
+  if (!renderer) return null;
+  let tex = studioEnvCache.get(renderer);
+  if (tex) return tex;
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const box = createStudioLightBoxScene();
+  tex = pmrem.fromScene(box.scene, 0.035, 0.1, 200).texture;
+  tex.name = "procedural_studio_lightbox_pmrem";
+  box.dispose();
+  pmrem.dispose();
+  studioEnvCache.set(renderer, tex);
+  return tex;
+}
+
+// Automotive-grade PBR for the Tesla Roadster / Starman assembly, keyed by glTF material name.
+// These materials keep their authored colours and gloss (they bypass the generic spacecraft
+// clamp below) and carry their own reflection strength.
+const ROADSTER_MODEL_ID = "sc_starman_roadster";
+const ROADSTER_PBR = {
+  cherry_red_paint: { metalness: 0.38, roughness: 0.15, clearcoat: 1.0, clearcoatRoughness: 0.04, env: 1.18 },
+  brake_caliper_red: { metalness: 0.32, roughness: 0.20, clearcoat: 0.88, clearcoatRoughness: 0.08, env: 0.92 },
+  taillight_red: { clearcoat: 0.92, clearcoatRoughness: 0.05, env: 0.95 },
+  headlights: { env: 0.95 },
+  starman_visor: { metalness: 0.85, roughness: 0.05, clearcoat: 1.0, clearcoatRoughness: 0.02, env: 1.40 },
+  windshield_glass: { clearcoat: 1.0, clearcoatRoughness: 0.025, env: 1.30, glass: true },
+  headlight_lens: { clearcoat: 1.0, clearcoatRoughness: 0.025, env: 1.30, glass: true },
+  chrome_trim: { metalness: 0.92, roughness: 0.10, env: 1.30 },
+  silver_alloy: { metalness: 0.76, roughness: 0.22, clearcoat: 0.50, clearcoatRoughness: 0.14, env: 1.05 },
+  carbon_trim: { metalness: 0.24, roughness: 0.34, clearcoat: 0.42, clearcoatRoughness: 0.20, env: 0.72 },
+  mvac_niobium_bell: { metalness: 0.78, roughness: 0.24, env: 0.98 },
+  mvac_regen_steel: { metalness: 0.84, roughness: 0.20, env: 1.08 },
+  stage_aluminum: { metalness: 0.76, roughness: 0.24, env: 0.95 },
+  fh_stage_white: { metalness: 0.10, roughness: 0.28, clearcoat: 0.30, clearcoatRoughness: 0.22, env: 0.62 },
+  starman_white_suit: { metalness: 0.05, roughness: 0.40, env: 0.48 },
+  tire_rubber: { metalness: 0.04, roughness: 0.82, env: 0.26 },
+  matte_black: { metalness: 0.10, roughness: 0.54, env: 0.32 }
+};
+const ROADSTER_DEFAULT_ENV = 0.6;
+const ROADSTER_NO_SCENE_ENV_GAIN = 0.62; // deep-space explorer: keep reflections subtler than in the studio
+
+function buildRoadsterMaterial(srcMat) {
+  const cfg = ROADSTER_PBR[(srcMat.name || "").toLowerCase()] || {};
+  let mat;
+  if (typeof cfg.clearcoat === "number" && !srcMat.isMeshPhysicalMaterial) {
+    mat = new THREE.MeshPhysicalMaterial();
+    THREE.MeshStandardMaterial.prototype.copy.call(mat, srcMat);
+  } else {
+    mat = srcMat.clone();
+  }
+  if (typeof cfg.metalness === "number") mat.metalness = cfg.metalness;
+  if (typeof cfg.roughness === "number") mat.roughness = cfg.roughness;
+  if (typeof cfg.clearcoat === "number") {
+    mat.clearcoat = cfg.clearcoat;
+    mat.clearcoatRoughness = cfg.clearcoatRoughness ?? 0.08;
+  }
+  if (cfg.glass) {
+    mat.transparent = true;
+    mat.depthWrite = false;
+  }
+  mat.envMapIntensity = cfg.env ?? ROADSTER_DEFAULT_ENV;
+  mat.userData.envMapIntensity = mat.envMapIntensity;
+  mat.userData.keepAuthoredPBR = true;
+  return mat;
+}
+
+// Scenes without scene.environment (the deep-space explorer) still need something for clearcoat
+// and chrome to reflect: lazily attach the procedural light box to this material only.
+function attachLazyStudioEnvironment(mesh, mat) {
+  mesh.onBeforeRender = (renderer, scene) => {
+    if (scene.environment || mat.envMap || mat.userData.studioEnvRequested) return;
+    mat.userData.studioEnvRequested = true;
+    setTimeout(() => {
+      try {
+        const tex = getStudioEnvironmentTexture(renderer);
+        if (!tex) return;
+        mat.envMap = tex;
+        mat.envMapIntensity = (mat.userData.envMapIntensity ?? ROADSTER_DEFAULT_ENV) * ROADSTER_NO_SCENE_ENV_GAIN;
+        mat.needsUpdate = true;
+      } catch (_) {
+        /* reflections are optional */
+      }
+    }, 0);
+  };
+}
 
 function getAuxTexture(url, srgb = true) {
   const versionedUrl = url.includes("?") ? url : `${url}?v=${ASSET_VERSION}`;
@@ -671,10 +806,15 @@ export function instantiateEnhanced3DBody(modelId, meshRadius = 1.0, options = {
         child.material = createPlanetaryRingShaderMaterial(ringTex, ringCfg.ry, sunDirLocalUniform);
         child.renderOrder = 3;
       } else if (child.material) {
-        const mat = child.material.clone();
+        const isRoadsterModel = modelId === ROADSTER_MODEL_ID;
+        const mat = isRoadsterModel ? buildRoadsterMaterial(child.material) : child.material.clone();
         const isSpacecraftModel =
           modelId.startsWith("sc_") || modelId === "euclid" || modelId === "spherex" || modelId === "jwst";
-        if (isSpacecraftModel) {
+        if (isRoadsterModel) {
+          // Authored automotive PBR is kept as-is (no metalness/roughness/albedo clamp).
+          if (typeof mat.emissiveIntensity === "number") mat.emissiveIntensity = Math.min(mat.emissiveIntensity, 1.0);
+          attachLazyStudioEnvironment(child, mat);
+        } else if (isSpacecraftModel) {
           if (typeof mat.metalness === "number") mat.metalness = Math.min(mat.metalness, 0.42);
           if (typeof mat.roughness === "number") mat.roughness = Math.max(mat.roughness, 0.36);
           if (mat.color) {

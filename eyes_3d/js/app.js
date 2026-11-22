@@ -78,9 +78,9 @@ import {
   formatSiderealPeriod,
   computeEarthSubsolarLatLon
 } from "./planetaryRotation.js";
-import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261122_v12";
-import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261122_v12";
-import { createADAMOverlayManager } from "./adamOverlay.js?v=20261122_v12";
+import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261122_v13";
+import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261122_v13";
+import { createADAMOverlayManager } from "./adamOverlay.js?v=20261122_v13";
 
 const SPEED_TIERS = [
   { daysPerSec: 1.0 / 86400.0, i18nKey: "timeReal" },

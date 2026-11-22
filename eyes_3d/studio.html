@@ -425,9 +425,9 @@
   <script type="module">
     import * as THREE from "./vendor/three.module.js";
     import { OrbitControls } from "./vendor/OrbitControls.js";
-    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261122_v12";
-    import { createSunShaderMesh } from "./js/proceduralBodies.js?v=20261122_v12";
-    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261122_v12";
+    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, getStudioEnvironmentTexture, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261122_v13";
+    import { createSunShaderMesh } from "./js/proceduralBodies.js?v=20261122_v13";
+    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261122_v13";
 
     const PLAYGROUND_CATALOG = [
       {
@@ -601,6 +601,19 @@
     rimLight.position.set(-10, 6, -9);
     scene.add(keyLight, hemiLight, ambLight, rimLight);
 
+    // Procedural studio reflection environment (PMREM over an offscreen light-box scene, no network).
+    // Glossy spacecraft pick up continuous highlights; planets and moons keep it almost off so their
+    // night sides stay dark. Shader-driven black holes and the Sun ignore it.
+    let studioEnvReady = false;
+    try {
+      scene.environment = getStudioEnvironmentTexture(renderer);
+      studioEnvReady = Boolean(scene.environment);
+    } catch (err) {
+      console.warn("Studio environment unavailable:", err);
+    }
+    const ENV_INTENSITY_SPACECRAFT = 0.42;
+    const ENV_INTENSITY_NATURAL = 0.035;
+
     const stageRoot = new THREE.Group();
     scene.add(stageRoot);
 
@@ -639,6 +652,8 @@
 
     function applyMaterialFlags() {
       if (!activeHolder) return;
+      const isCraft = Boolean(activeItem?.extraFill);
+      const envGain = pgState.studioFill ? 1.0 : 0.3;
       activeHolder.traverse((child) => {
         if (!child.isMesh) return;
         const nm = (child.name || "").toLowerCase();
@@ -649,10 +664,19 @@
         if (activeItem?.kind !== "bh" && child.material && "wireframe" in child.material) {
           child.material.wireframe = pgState.wireframe;
         }
+        if (activeItem?.kind === "glb" && child.material && "envMapIntensity" in child.material) {
+          const authored = child.material.userData?.envMapIntensity;
+          const base = typeof authored === "number"
+            ? authored
+            : (isCraft ? ENV_INTENSITY_SPACECRAFT : ENV_INTENSITY_NATURAL);
+          child.material.envMapIntensity = base * envGain;
+        }
       });
       const fillBase = activeItem?.extraFill || 0.14;
-      hemiLight.intensity = pgState.studioFill ? fillBase * 1.45 : 0.08;
-      ambLight.intensity = pgState.studioFill ? fillBase * 0.55 : 0.03;
+      // With image-based reflections on, spacecraft need a little less flat fill for the same exposure
+      const fillTrim = studioEnvReady && isCraft ? 0.82 : 1.0;
+      hemiLight.intensity = pgState.studioFill ? fillBase * 1.45 * fillTrim : 0.08;
+      ambLight.intensity = pgState.studioFill ? fillBase * 0.55 * fillTrim : 0.03;
       rimLight.visible = pgState.studioFill && Boolean(activeItem?.extraFill);
     }
 
