@@ -46,8 +46,27 @@ import {
   computeEuclidL2LocalOffsetEclipticAU,
   sampleHeliocentricOrbitRawAU,
   getMeanMotionRadPerDay,
-  jdToUTCString
+  jdToUTCString,
+  initNBodyFromCatalogMeta,
+  getSolarSystemNBody,
+  getNBodyIndex,
+  prepareSolarSystemNBodyAtFrameJD,
+  evaluateNBodyHeliocentricEclipticAU,
+  FRAME_CLOCK,
+  evaluateNBodyHeliocentricAtFrameJD,
+  computeLocalKeplerianAtFrameJD,
+  computeLagrangeHaloOffsetAtFrameJD,
+  computeMoonGeocentricAtFrameJD,
+  sampleNBodyOsculatingOrbitRawAU,
+  getNBodyOsculatingShapeInto,
+  NBODY_FRAME_BUDGET_CHECKPOINTS
 } from "./orbitalMechanics.js";
+import {
+  CATEGORY_COLORS,
+  LEGEND_SOLAR_SYSTEM,
+  LEGEND_STELLAR,
+  LEGEND_GALACTIC
+} from "./colorSystem.js";
 
 import { createProceduralBodyNode, getGlowSpriteTexture } from "./proceduralBodies.js";
 import { prioritizeModelLoad, evictLRUModels, ASSET_VERSION } from "./model3dLibrary.js";
@@ -59,9 +78,9 @@ import {
   formatSiderealPeriod,
   computeEarthSubsolarLatLon
 } from "./planetaryRotation.js";
-import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261119_v9";
-import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261119_v9";
-import { createADAMOverlayManager } from "./adamOverlay.js?v=20261119_v10";
+import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261122_v12";
+import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261122_v12";
+import { createADAMOverlayManager } from "./adamOverlay.js?v=20261122_v12";
 
 const SPEED_TIERS = [
   { daysPerSec: 1.0 / 86400.0, i18nKey: "timeReal" },
@@ -74,18 +93,18 @@ const SPEED_TIERS = [
   { daysPerSec: 365.25 * 200.0, i18nKey: "time200yr" }
 ];
 
-const SPOTLIGHT_TOUR_IDS = [
-  "DELTA_003",
-  "CENTAUR_343_IOTA004",
-  "EPS_002",
-  "W4_JUP_MOON_GOLD_001",
-  "EUC0005",
-  "ATLAS_3I",
-  "SGR_A_STAR",
-  "GAIA_BH1",
-  "CYGNUS_X1",
-  "OORT_OUTER_REP_1"
+// Guided tour stops. The default tour is a general Solar System and Milky Way itinerary; the
+// survey candidates join it only while the opt-in discoveries layer is on.
+const COSMOS_TOUR_IDS = [
+  "SUN", "MERCURY", "EARTH", "MARS", "JUPITER", "SATURN", "URANUS", "NEPTUNE", "PLUTO",
+  "ATLAS_3I", "OORT_OUTER_REP_1", "GAIA_BH1", "CYGNUS_X1", "SGR_A_STAR"
 ];
+const DISCOVERY_TOUR_IDS = [
+  "SUN", "EARTH", "JUPITER", "W4_JUP_MOON_GOLD_001", "CENTAUR_343_IOTA004", "SATURN", "NEPTUNE", "PLUTO",
+  "EUC0005", "EPS_002", "DELTA_003", "ATLAS_3I", "OORT_OUTER_REP_1", "GAIA_BH1", "CYGNUS_X1", "SGR_A_STAR"
+];
+// Bodies whose orbits "Major Orbits" draws besides the planets and interstellar visitors.
+const MAJOR_ORBIT_IDS = new Set(["PLUTO", "CERES", "ERIS", "HAUMEA", "MAKEMAKE", "SEDNA"]);
 
 // Research-blog link that works on the local two-port dev layout (explorer on :8765, blog on :8766)
 // and on any static host where the portals are sibling folders.
@@ -101,20 +120,7 @@ function buildBlogUrl(lang, suffix = "") {
   return `${base}?lang=${encodeURIComponent(lang)}${suffix}`;
 }
 
-const CATEGORY_DOT_COLORS = {
-  all: "#94a3b8",
-  discoveries: "#fbbf24",
-  galactic: "#a78bfa",
-  spacecraft: "#38bdf8",
-  planets: "#38bdf8",
-  moons_l2: "#c084fc",
-  dwarf_planets: "#f472b6",
-  asteroids: "#4ade80",
-  comets_centaurs: "#2dd4bf",
-  interstellar: "#fb7185",
-  kuiper_etnos: "#60a5fa",
-  oort_cloud: "#cbd5e1"
-};
+const CATEGORY_DOT_COLORS = CATEGORY_COLORS;
 
 const MAX_VISIBLE_LABELS = 24;
 
@@ -131,8 +137,12 @@ const _frustum = new THREE.Frustum();
 const _projScreenMat = new THREE.Matrix4();
 const _pickProj = new THREE.Vector3();
 const _labelProjTmp = new THREE.Vector3();
-const _acceptedLabelBoxes = new Float32Array(MAX_VISIBLE_LABELS * 4);
+const MAX_LABEL_BOXES = MAX_VISIBLE_LABELS + 12; // body labels plus the reference-ring labels
+const _acceptedLabelBoxes = new Float32Array(MAX_LABEL_BOXES * 4);
+// Screen rectangle of the open colour key (labels are not placed underneath it).
+const legendBox = { open: false, right: 0.0, top: 0.0 };
 const _pointerDownXY = new THREE.Vector2();
+const _oscShape3 = new Float64Array(3);
 const _scaleInfo = {
   logBlend: 1.0,
   cameraDistScene: 100.0,
@@ -142,6 +152,7 @@ const _scaleInfo = {
   simJD: DISCOVERY_EPOCH_JD,
   galacticFactor: 0.0,
   focusedOnBlackHole: false,
+  blackHoleCloseUp: false,
   focusedObjectId: null
 };
 
@@ -152,18 +163,19 @@ const state = {
   logBlend: 1.0,
   targetLogBlend: 1.0,
   activeCategory: "all",
-  orbitMode: "major",
-  showRings: true,
+  orbitMode: "off",
+  showRings: false,
   showGalacticBand: false,
   showGalaxyLayer: true,
-  showLabels: true,
+  showLabels: false,
+  showDiscoveries: false,
   simJD: DISCOVERY_EPOCH_JD,
   isPlaying: true,
   speedIndex: 0,
   selectedObj: null,
   lockedObj: null,
   hoveredObj: null,
-  inspectorCollapsed: false,
+  inspectorCollapsed: true,
   activeInspectorTab: "overview",
   inspectorBodyCollapsed: false,
   autoTourTimer: null,
@@ -181,9 +193,39 @@ if (urlParams.get("category")) {
   const cKey = normalizeCategoryKey(urlParams.get("category"));
   if (CATEGORY_ORDER.includes(cKey)) state.activeCategory = cKey;
 }
+// The survey candidates are an opt-in layer: off on a bare start, on for ?discoveries=1,
+// ?category=discoveries, or a deep link to a candidate (handled where the focus is resolved).
+const isTruthyParam = (v) => v === "1" || v === "true" || v === "on" || v === "yes";
+if (isTruthyParam(urlParams.get("discoveries")) || state.activeCategory === "discoveries") {
+  state.showDiscoveries = true;
+}
+// Orbits are hidden on a bare start. Links written before that default keep what they promise: a
+// category or discoveries link shows that group's orbits, and a ?focus= link shows the orbit of
+// its target (set where the focus is resolved). ?orbits= always wins.
+const orbitsParamGiven = ["major", "all", "selected", "off"].includes(urlParams.get("orbits"));
+if (orbitsParamGiven) state.orbitMode = urlParams.get("orbits");
+else if (state.activeCategory !== "all" || state.showDiscoveries) state.orbitMode = "major";
+if (isTruthyParam(urlParams.get("labels"))) state.showLabels = true;
+if (isTruthyParam(urlParams.get("rings"))) state.showRings = true;
+if (urlParams.get("jd")) {
+  const jVal = Number(urlParams.get("jd"));
+  if (Number.isFinite(jVal) && jVal > 2400000) state.simJD = jVal;
+} else if (urlParams.get("utc") === "now") {
+  state.simJD = Date.now() / 86400000.0 + 2440587.5;
+}
 
 // ==================== LOAD SOLAR + GALACTIC CATALOG ====================
 const catalog = loadUnifiedSolarCatalog();
+const discoveryCount = catalog.objects.filter((o) => o.is_new_discovery).length;
+
+// Sun, planets and Pluto follow the N-body integration started from the catalogue's ephemeris
+// state vectors (the same table is built into orbitalMechanics.js as a fallback). A short span
+// around the start date is integrated now; the rest is filled a little every frame.
+initNBodyFromCatalogMeta(catalog.meta?.nbody_epoch_states);
+const nbodyEngine = getSolarSystemNBody();
+nbodyEngine.ensureCoverage(state.simJD + 400.0, 4000);
+nbodyEngine.ensureCoverage(state.simJD - 400.0, 4000);
+
 const childrenByParent = new Map();
 for (const obj of catalog.objects) {
   if (obj.parent_id) {
@@ -203,7 +245,26 @@ const renderer = new THREE.WebGLRenderer({
   logarithmicDepthBuffer: true,
   powerPreference: "high-performance"
 });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+const BASE_PIXEL_RATIO = Math.min(window.devicePixelRatio || 1, 2);
+renderer.setPixelRatio(BASE_PIXEL_RATIO);
+
+// Quality governor for the galactic views. The volumetric Milky Way and the black-hole lensing are
+// full-screen ray marches; on a software or integrated renderer one frame of them can take seconds,
+// which freezes the controls. While such a view is on screen the governor lowers the ray-march
+// step count first and the render resolution second until frames are interactive again, and
+// restores full resolution on return to the Solar System. A software renderer starts one level in.
+const QUALITY_STEPS = [44, 26, 16, 12, 10];
+const QUALITY_PIXEL_SCALE = [1.0, 1.0, 1.0, 0.7, 0.5];
+const quality = { level: 0, emaMs: 16.0, slowFrames: 0, fastFrames: 0, pixelRatio: BASE_PIXEL_RATIO, software: false };
+try {
+  const glProbe = renderer.getContext();
+  const dbg = glProbe.getExtension("WEBGL_debug_renderer_info");
+  const glName = String(dbg ? glProbe.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : "");
+  quality.software = /swiftshader|llvmpipe|software|softpipe/i.test(glName);
+  if (quality.software) quality.level = 3;
+} catch (_) {
+  quality.software = false;
+}
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x02050c, 1.0);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -215,6 +276,7 @@ labelRenderer.domElement.style.position = "absolute";
 labelRenderer.domElement.style.top = "0";
 labelRenderer.domElement.style.left = "0";
 labelRenderer.domElement.style.pointerEvents = "none";
+labelRenderer.domElement.style.display = "none";
 css2dHost.appendChild(labelRenderer.domElement);
 
 const scene = new THREE.Scene();
@@ -222,7 +284,16 @@ scene.background = new THREE.Color(0x02050c);
 
 // Extended near/far with logarithmicDepthBuffer spans 100 m -> 100,000 AU -> 800+ kpc extragalactic halo without far-plane clipping
 const camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, 0.000005, 250000000);
-camera.position.set(16, 48, 86);
+// Start-up camera: 81 scene units from the Sun (the Kuiper belt reaches the sides of a 16:10
+// window), 25 deg above the ecliptic, at ecliptic longitude 64 deg. From there the line of sight
+// meets the galactic plane 25 deg from the Galactic Centre, so the Milky Way crosses the frame
+// behind the planets with its bulge off to one side.
+// In a window narrower than 16:10 the camera starts further back by the same ratio, so the Kuiper
+// belt still reaches the sides; the factor is 1 at 16:10 or wider and stops growing at a square.
+const START_ASPECT = window.innerWidth / window.innerHeight;
+const DEFAULT_FIT = START_ASPECT > 0 ? Math.min(1.6, Math.max(1.0, 1.6 / START_ASPECT)) : 1.0;
+const DEFAULT_CAMERA_POS = new THREE.Vector3(32.2 * DEFAULT_FIT, 34.3 * DEFAULT_FIT, -65.9 * DEFAULT_FIT);
+camera.position.copy(DEFAULT_CAMERA_POS);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -240,8 +311,9 @@ scene.add(new THREE.HemisphereLight(0x8ab4f8, 0x161a24, 0.11));
 scene.add(new THREE.AmbientLight(0xffffff, 0.045));
 
 // ==================== BELTS, OVERLAYS & MILKY WAY GALAXY LAYER ====================
-const { group: beltsGroup, beltNodes, skyBackdrop } = buildAllParticleBelts(catalog.belts);
-for (const bNode of Object.values(beltNodes)) {
+const { group: beltsGroup, beltNodes, skyBackdrop, updateBeltDynamics } = buildAllParticleBelts(catalog.belts);
+const beltNodeList = Object.values(beltNodes);
+for (const bNode of beltNodeList) {
   bNode.renderOrder = 7;
 }
 scene.add(beltsGroup);
@@ -250,6 +322,8 @@ const overlays = buildReferenceOverlays(state.lang);
 overlays.ringsGroup.renderOrder = 8;
 scene.add(overlays.overlayGroup);
 overlays.updateOverlaysScaleAndLang(state.logBlend, state.lang);
+overlays.ringsGroup.visible = state.showRings;
+overlays.setDiscoveriesVisible(state.showDiscoveries);
 
 const galaxyLayer = createGalaxyLayer({ opacity: 1.0, showGas: true });
 scene.add(galaxyLayer.group);
@@ -261,9 +335,13 @@ galacticObjectsRoot.name = "galacticObjectsRoot";
 scene.add(orbitsRoot, bodiesRoot, galacticObjectsRoot);
 
 const runtimeMap = new Map();
+// Same runtimes in insertion order, for index loops in the frame update (no iterator objects).
+const runtimeList = [];
 const galacticBlackHoleControllers = [];
 
 // ==================== BATCHED GPU SHADER HELIOCENTRIC ORBITS (1 DRAW CALL!) ====================
+const nbodyOrbitRanges = [];
+
 function buildBatchedHeliocentricOrbits(objects) {
   const segments = [];
   let totalVerts = 0;
@@ -271,19 +349,38 @@ function buildBatchedHeliocentricOrbits(objects) {
 
   for (const obj of objects) {
     if (obj.parent_id || obj.category === "star" || obj.is_galactic) continue;
-    const { positions, closed } = sampleHeliocentricOrbitRawAU(obj);
+    // Planets and Pluto: the osculating ellipse of the N-body state at the current date, so the
+    // body always lies on its line. Everything else: the catalogue ellipse.
+    const nbodyIdx = getNBodyIndex(obj.id);
+    let positions, closed;
+    if (nbodyIdx > 0) {
+      positions = sampleNBodyOsculatingOrbitRawAU(obj.id, state.simJD);
+      closed = true;
+    } else {
+      ({ positions, closed } = sampleHeliocentricOrbitRawAU(obj));
+    }
     const nPts = positions.length / 3;
     if (nPts < 2) continue;
     const segCount = closed ? nPts : nPts - 1;
     const vertCount = segCount * 2;
+    const isHelioCraft = obj.category === "spacecraft" || Boolean(obj.visual_type?.startsWith("spacecraft"));
     const baseOpacity = obj.is_new_discovery
-      ? (obj.id === "DELTA_003" ? 0.92 : 0.62)
+      ? (obj.id === "DELTA_003" ? 0.96 : 0.90)
       : obj.category === "planets"
-        ? 0.52
-        : 0.30;
-    const col = new THREE.Color(obj.color || "#60a5fa");
+        ? 0.88
+        : (obj.category === "asteroids" || isHelioCraft)
+          ? 0.66
+          : 0.74;
+    const col = new THREE.Color(obj.color || CATEGORY_COLORS.kuiper_etnos);
     segments.push({ id: obj.id, positions, nPts, closed, startVert: totalVerts, vertCount, baseOpacity, col });
-    orbitRanges.set(obj.id, { startVert: totalVerts, vertCount, baseOpacity, col, rawPositions: positions, closed });
+    const range = { id: obj.id, startVert: totalVerts, vertCount, baseOpacity, col, rawPositions: positions, closed, nbodyIdx, lastRefreshJD: state.simJD, refreshDays: 0.0 };
+    if (nbodyIdx > 0) {
+      // Re-derive the ellipse every 1/120 of a revolution of simulated time.
+      const shape = getNBodyOsculatingShapeInto(obj.id, state.simJD, _oscShape3);
+      range.refreshDays = shape ? shape[2] / 120.0 : 30.0;
+      nbodyOrbitRanges.push(range);
+    }
+    orbitRanges.set(obj.id, range);
     totalVerts += vertCount;
   }
 
@@ -319,7 +416,9 @@ function buildBatchedHeliocentricOrbits(objects) {
   }
 
   const geom = new THREE.BufferGeometry();
-  geom.setAttribute("position", new THREE.BufferAttribute(posArr, 3));
+  const posAttr = new THREE.BufferAttribute(posArr, 3);
+  posAttr.setUsage(THREE.DynamicDrawUsage);
+  geom.setAttribute("position", posAttr);
   geom.setAttribute("aColor", new THREE.BufferAttribute(colArr, 3));
   const alphaAttr = new THREE.BufferAttribute(alphaArr, 1);
   alphaAttr.setUsage(THREE.DynamicDrawUsage);
@@ -331,11 +430,22 @@ function buildBatchedHeliocentricOrbits(objects) {
     uGlobalFade: { value: 1.0 }
   };
 
+  // Premultiplied "over" compositing: where rings cross, the nearer line covers the farther one
+  // instead of summing with it, so dense crossings keep their hue and never wash out to white the
+  // way additive lines do. Lines at full strength get a small lift so the selected orbit reads
+  // clearly against the star field.
   const mat = new THREE.ShaderMaterial({
     uniforms,
     transparent: true,
     depthTest: true,
     depthWrite: false,
+    premultipliedAlpha: true,
+    blending: THREE.CustomBlending,
+    blendEquation: THREE.AddEquation,
+    blendSrc: THREE.OneFactor,
+    blendDst: THREE.OneMinusSrcAlphaFactor,
+    blendSrcAlpha: THREE.OneFactor,
+    blendDstAlpha: THREE.OneMinusSrcAlphaFactor,
     vertexShader: `
       #include <common>
       #include <logdepthbuf_pars_vertex>
@@ -346,7 +456,8 @@ function buildBatchedHeliocentricOrbits(objects) {
       varying vec3 vColor;
       varying float vAlpha;
       void main() {
-        vColor = aColor;
+        float lift = 1.0 + 0.22 * smoothstep(0.93, 1.0, aAlpha);
+        vColor = min(aColor * lift, vec3(1.0));
         vAlpha = aAlpha * uGlobalFade;
         float r = length(position);
         vec3 dir = r > 1e-9 ? position / r : vec3(0.0);
@@ -364,7 +475,7 @@ function buildBatchedHeliocentricOrbits(objects) {
       void main() {
         if (vAlpha < 0.01) discard;
         #include <logdepthbuf_fragment>
-        gl_FragColor = vec4(vColor, vAlpha);
+        gl_FragColor = vec4(vColor * vAlpha, vAlpha);
       }
     `
   });
@@ -373,13 +484,54 @@ function buildBatchedHeliocentricOrbits(objects) {
   mesh.frustumCulled = false;
   mesh.renderOrder = 8;
   orbitsRoot.add(mesh);
-  return { mesh, uniforms, alphaArr, alphaAttr, orbitRanges };
+  return { mesh, uniforms, posArr, posAttr, alphaArr, alphaAttr, orbitRanges };
 }
 
 const batchedOrbits = buildBatchedHeliocentricOrbits(catalog.objects);
 
+// Rewrite the vertices of the planetary and Pluto orbits from the current N-body state, in place
+// (no buffer is reallocated; only the touched vertex ranges are uploaded). An orbit is refreshed
+// once the simulated time has moved by its refresh interval, or always when force is set. The
+// date is FRAME_CLOCK[0].
+function refreshNBodyOrbits(force) {
+  const jd = FRAME_CLOCK[0];
+  const posArr = batchedOrbits.posArr;
+  let touched = false;
+  for (let i = 0; i < nbodyOrbitRanges.length; i++) {
+    const rg = nbodyOrbitRanges[i];
+    if (!force && Math.abs(jd - rg.lastRefreshJD) < rg.refreshDays) continue;
+    rg.lastRefreshJD = jd;
+    const p = sampleNBodyOsculatingOrbitRawAU(rg.id, null, rg.rawPositions);
+    const n = (p.length / 3) | 0;
+    let w = rg.startVert * 3;
+    for (let k = 0; k < n; k++) {
+      const a3 = k * 3;
+      const b3 = ((k + 1) % n) * 3;
+      posArr[w] = p[a3];
+      posArr[w + 1] = p[a3 + 1];
+      posArr[w + 2] = p[a3 + 2];
+      posArr[w + 3] = p[b3];
+      posArr[w + 4] = p[b3 + 1];
+      posArr[w + 5] = p[b3 + 2];
+      w += 6;
+    }
+    batchedOrbits.posAttr.addUpdateRange(rg.startVert * 3, rg.vertCount * 3);
+    touched = true;
+  }
+  if (touched) batchedOrbits.posAttr.needsUpdate = true;
+}
+
 // ==================== CHILD SATELLITE OFFSETS & RINGS ====================
 function computeChildSceneOffset(parentRuntime, childObj, jd, outSceneVec3) {
+  const saved = FRAME_CLOCK[0];
+  FRAME_CLOCK[0] = jd;
+  computeChildSceneOffsetAtFrameJD(parentRuntime, childObj, outSceneVec3);
+  FRAME_CLOCK[0] = saved;
+}
+
+// Scene offset of a moon or spacecraft from its parent at the date in FRAME_CLOCK[0]. The frame
+// loop calls this directly; no number is passed or returned, so nothing is allocated.
+function computeChildSceneOffsetAtFrameJD(parentRuntime, childObj, outSceneVec3) {
   const parentObj = parentRuntime.obj;
   const parentMeshR = parentRuntime.node.userData.meshRadius;
   const parentPhysRadiusAU = Math.max(1e-9, ((parentObj.diameter_km || 2000.0) * 0.5) / AU_KM);
@@ -387,17 +539,19 @@ function computeChildSceneOffset(parentRuntime, childObj, jd, outSceneVec3) {
   const isL1 = childObj.l1_phase_deg !== null && childObj.l1_phase_deg !== undefined;
   const isL2 = childObj.l2_phase_deg !== null && childObj.l2_phase_deg !== undefined;
   if (isL1) {
-    computeEuclidL2LocalOffsetEclipticAU(parentRuntime.eclPosAU, jd, _localEcl3, childObj.l1_phase_deg, true);
+    computeLagrangeHaloOffsetAtFrameJD(parentRuntime.eclPosAU, _localEcl3, childObj, true);
   } else if (isL2) {
-    computeEuclidL2LocalOffsetEclipticAU(parentRuntime.eclPosAU, jd, _localEcl3, childObj.l2_phase_deg, false);
+    computeLagrangeHaloOffsetAtFrameJD(parentRuntime.eclPosAU, _localEcl3, childObj, false);
+  } else if (childObj.id === "MOON") {
+    computeMoonGeocentricAtFrameJD(_localEcl3);
   } else {
-    computeLocalKeplerianEclipticAU(childObj, jd, _localEcl3);
+    computeLocalKeplerianAtFrameJD(childObj, _localEcl3);
   }
 
-  const rLocalAU = Math.hypot(_localEcl3[0], _localEcl3[1], _localEcl3[2]);
+  const rLocalAU = Math.sqrt(_localEcl3[0] * _localEcl3[0] + _localEcl3[1] * _localEcl3[1] + _localEcl3[2] * _localEcl3[2]);
   if (rLocalAU < 1e-13) {
     outSceneVec3.set(parentMeshR * 1.4, 0, 0);
-    return rLocalAU;
+    return;
   }
 
   if (parentObj.id === "EARTH") {
@@ -408,7 +562,7 @@ function computeChildSceneOffset(parentRuntime, childObj, jd, outSceneVec3) {
     if (!isL1 && !isL2 && childObj.id !== "MOON") {
       outSceneVec3.applyAxisAngle(_xAxisUnit, -OBLIQUITY_J2000_RAD);
     }
-    return rLocalAU;
+    return;
   }
 
   const uRadii = Math.max(1.015, rLocalAU / parentPhysRadiusAU);
@@ -425,20 +579,37 @@ function computeChildSceneOffset(parentRuntime, childObj, jd, outSceneVec3) {
   }
   const factor = rSceneLocal / rLocalAU;
   outSceneVec3.set(_localEcl3[0] * factor, _localEcl3[2] * factor, -_localEcl3[1] * factor);
-  return rLocalAU;
+}
+
+const MOON_SIDEREAL_DAYS = 27.321661;
+
+// One sidereal month of the perturbed lunar path centred on jdCenter, written into coords. The
+// path is not a fixed ellipse (the node regresses in 18.6 yr, the apsides advance in 8.85 yr), so
+// the ring is re-sampled as the date moves.
+function fillMoonRing(coords, parentRuntime, moonObj, jdCenter) {
+  const steps = (coords.length / 3) | 0;
+  for (let k = 0; k < steps; k++) {
+    computeChildSceneOffset(parentRuntime, moonObj, jdCenter + (k / steps - 0.5) * MOON_SIDEREAL_DAYS, _tmpVec);
+    coords[k * 3] = _tmpVec.x;
+    coords[k * 3 + 1] = _tmpVec.y;
+    coords[k * 3 + 2] = _tmpVec.z;
+  }
 }
 
 function buildSatelliteOrbitRing(parentRuntime, childObj) {
   const isLagrange =
     (childObj.l1_phase_deg !== null && childObj.l1_phase_deg !== undefined) ||
     (childObj.l2_phase_deg !== null && childObj.l2_phase_deg !== undefined);
+  const isMoonRing = childObj.id === "MOON";
   const nRadDay = isLagrange ? TWO_PI / 178.4 : getMeanMotionRadPerDay(childObj);
   const periodDays = TWO_PI / Math.max(1e-9, nRadDay);
   const ecc = Math.min(0.97, Math.max(0.0, childObj.e || 0.0));
   const steps = isLagrange ? 180 : (ecc > 0.30 ? 256 : 180);
   const coords = new Float32Array(steps * 3);
 
-  if (isLagrange) {
+  if (isMoonRing) {
+    fillMoonRing(coords, parentRuntime, childObj, state.simJD);
+  } else if (isLagrange) {
     for (let k = 0; k < steps; k++) {
       const jdSample = DISCOVERY_EPOCH_JD + (periodDays * k) / steps;
       computeChildSceneOffset(parentRuntime, childObj, jdSample, _tmpVec);
@@ -463,17 +634,24 @@ function buildSatelliteOrbitRing(parentRuntime, childObj) {
   }
 
   const geom = new THREE.BufferGeometry();
-  geom.setAttribute("position", new THREE.BufferAttribute(coords, 3));
+  const posAttr = new THREE.BufferAttribute(coords, 3);
+  if (isMoonRing) posAttr.setUsage(THREE.DynamicDrawUsage);
+  geom.setAttribute("position", posAttr);
   const isSC = Boolean(childObj.visual_type?.startsWith("spacecraft") || childObj.category === "spacecraft");
-  const baseOpacity = isSC ? 0.45 : 0.35;
+  const baseOpacity = 0.78;
   const mat = new THREE.LineBasicMaterial({
-    color: isSC ? new THREE.Color(childObj.color || "#38bdf8") : new THREE.Color(0xa78bfa),
+    color: new THREE.Color(isSC ? (childObj.color || CATEGORY_COLORS.spacecraft) : CATEGORY_COLORS.moons_l2),
     transparent: true,
     opacity: baseOpacity,
     depthWrite: false
   });
   const loop = new THREE.LineLoop(geom, mat);
-  loop.userData = { childId: childObj.id, isSpacecraftRing: isSC, baseOpacity };
+  loop.userData = { childId: childObj.id, isSpacecraftRing: isSC, baseOpacity, isLagrange, isMoonRing, ringJD: state.simJD };
+  if (isLagrange) {
+    // The halo ring is drawn for the Sun-Earth direction of this instant and then turned with
+    // Earth's heliocentric longitude, which increases with time (prograde motion).
+    loop.userData.initAng = Math.atan2(parentRuntime.eclPosAU[1], parentRuntime.eclPosAU[0]);
+  }
   return loop;
 }
 
@@ -523,11 +701,14 @@ for (const obj of catalog.objects) {
   const { labelObj, labelEl, nameSpan, badgeSpan, labelHalfW } = createBodyLabel(obj, node.userData.meshRadius * 1.3);
   node.add(labelObj);
 
-  runtimeMap.set(obj.id, {
+  const rtNew = {
     obj,
     node,
     satOrbitGroup: null,
     satRingsMap: new Map(),
+    satRingList: [],
+    nbodyIdx: obj.parent_id ? -1 : getNBodyIndex(obj.id),
+    isEarth: obj.id === "EARTH",
     labelObj,
     labelEl,
     nameSpan,
@@ -538,13 +719,17 @@ for (const obj of catalog.objects) {
     liveHelioR_AU: obj.r_au || 0,
     worldPos: new THREE.Vector3(),
     prevWorldPos: new THREE.Vector3()
-  });
+  };
+  runtimeMap.set(obj.id, rtNew);
+  runtimeList.push(rtNew);
 }
 
 // Compute initial primary & tier-1 moon positions for satellite rings
 for (const rt of runtimeMap.values()) {
   if (!rt.obj.parent_id) {
-    rt.liveHelioR_AU = computeLocalKeplerianEclipticAU(rt.obj, state.simJD, rt.eclPosAU);
+    rt.liveHelioR_AU = rt.nbodyIdx > 0
+      ? evaluateNBodyHeliocentricEclipticAU(rt.obj.id, state.simJD, rt.eclPosAU)
+      : computeLocalKeplerianEclipticAU(rt.obj, state.simJD, rt.eclPosAU);
     helioAUToSceneInto(rt.eclPosAU[0], rt.eclPosAU[1], rt.eclPosAU[2], state.logBlend, rt.worldPos);
     rt.node.position.copy(rt.worldPos);
   }
@@ -570,6 +755,7 @@ for (const [parentId, children] of childrenByParent.entries()) {
     const ring = buildSatelliteOrbitRing(parentRt, ch);
     satGroup.add(ring);
     parentRt.satRingsMap.set(ch.id, ring);
+    parentRt.satRingList.push(ring);
   }
 }
 
@@ -653,11 +839,14 @@ function mountGalacticObjects(galacticJson) {
     const { labelObj, labelEl, nameSpan, badgeSpan, labelHalfW } = createBodyLabel(gObj, labelYOffset);
     node.add(labelObj);
 
-    runtimeMap.set(gObj.id, {
+    const rtGal = {
       obj: gObj,
       node,
       satOrbitGroup: null,
       satRingsMap: new Map(),
+      satRingList: [],
+      nbodyIdx: -1,
+      isEarth: false,
       labelObj,
       labelEl,
       nameSpan,
@@ -668,7 +857,9 @@ function mountGalacticObjects(galacticJson) {
       liveHelioR_AU: (gObj.dist_kpc || 1.0) * 206264806.2,
       worldPos,
       prevWorldPos: worldPos.clone()
-    });
+    };
+    runtimeMap.set(gObj.id, rtGal);
+    runtimeList.push(rtGal);
   }
 }
 
@@ -686,9 +877,9 @@ galaxyLayer
     renderCatalogObjectList();
     updateVisibilityAndOrbits();
     // Re-check deep link in case URL pointed to a Galactic black hole (e.g. ?focus=SGR_A_STAR)
-    const fp = urlParams.get("focus") || extractHashFocusSlug();
-    if (fp && (!state.selectedObj || state.selectedObj.id === "DELTA_003")) {
-      const hit = resolveObjectByQuery(catalog, fp);
+    if (pendingDeepLinkFocus) {
+      const hit = resolveObjectByQuery(catalog, pendingDeepLinkFocus);
+      pendingDeepLinkFocus = null;
       if (hit && hit.is_galactic) selectAndFlyTo(hit, urlParams.get("mode") || "auto");
     }
   })
@@ -712,6 +903,63 @@ constellationMgr.load().then((ok) => {
 
 // ==================== CAMERA FLY-TO & LOCK-ON TRACKING ====================
 let flyTween = null;
+// False until start-up routing is done (start-up calls must not move the camera on their own).
+let appReady = false;
+// A ?focus= target that was not in the catalogue yet (black holes and clusters arrive with the
+// galactic catalogue); resolved again when that catalogue has been mounted.
+let pendingDeepLinkFocus = null;
+
+// ==================== OPT-IN LAYERS & INSPECTOR DRAWER ====================
+// With the inspector open on a desktop-width window, the projection is shifted by half the
+// drawer's width, so the tracked object and a framed orbit sit in the middle of the free area
+// instead of partly under the drawer.
+function applyInspectorViewOffset() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  if (!state.inspectorCollapsed && w > 960) camera.setViewOffset(w, h, 215, 0, w, h);
+  else camera.clearViewOffset();
+}
+
+function setInspectorCollapsed(collapsed) {
+  state.inspectorCollapsed = Boolean(collapsed);
+  document.getElementById("inspector-drawer")?.classList.toggle("collapsed", state.inspectorCollapsed);
+  const reopen = document.getElementById("inspector-reopen-btn");
+  if (reopen) reopen.style.display = state.inspectorCollapsed ? "block" : "none";
+  applyInspectorViewOffset();
+}
+
+function isHiddenDiscovery(obj) {
+  return Boolean(obj.is_new_discovery) && !state.showDiscoveries;
+}
+
+// Show or hide the audited survey candidates as one layer: bodies, beacons, reticles, orbits,
+// labels, list rows and the 12:1 resonance ring.
+function setDiscoveriesVisible(flag, refreshUI = true) {
+  state.showDiscoveries = Boolean(flag);
+  document.getElementById("toggle-discoveries-btn")?.classList.toggle("active", state.showDiscoveries);
+  overlays.setDiscoveriesVisible(state.showDiscoveries);
+  if (!state.showDiscoveries) {
+    if (state.activeCategory === "discoveries") state.activeCategory = "all";
+    if (state.selectedObj?.is_new_discovery) state.selectedObj = catalog.byId.get("SUN") || null;
+    if (state.lockedObj?.is_new_discovery) {
+      state.lockedObj = catalog.byId.get("SUN") || null;
+      controls.minDistance = 0.0001;
+    }
+  }
+  if (!refreshUI) return;
+  renderCategoryFilterBar();
+  renderCatalogObjectList();
+  updateVisibilityAndOrbits();
+  updateTrackingBarUI();
+  updateInspectorUI();
+}
+
+function setLabelsVisible(flag) {
+  state.showLabels = Boolean(flag);
+  labelRenderer.domElement.style.display = state.showLabels ? "" : "none";
+  if (!state.showLabels) overlays.setOverlayLabelsVisible(false);
+  document.getElementById("toggle-labels-btn")?.classList.toggle("active", state.showLabels);
+}
 
 function easeOutCubic(t) {
   return 1.0 - Math.pow(1.0 - t, 3);
@@ -766,6 +1014,14 @@ function computeIdealInspectionDistance(obj, mode) {
 export function selectAndFlyTo(obj, mode = "auto") {
   if (!obj) return;
   closeAllMenus();
+  // Selecting a survey candidate (deep link, search, list or tour) turns its layer on, and any
+  // selection opens the inspector.
+  if (obj.is_new_discovery && !state.showDiscoveries) {
+    setDiscoveriesVisible(true, false);
+    renderCategoryFilterBar();
+    renderCatalogObjectList();
+  }
+  if (state.inspectorCollapsed) setInspectorCollapsed(false);
 
   if (obj.is_constellation_sat) {
     if ((obj.period_days || 0.066) < 0.25 && state.speedIndex >= 2) {
@@ -929,9 +1185,11 @@ function flyToScenePreset(presetName) {
     startCameraTween(_tmpVec.set(0, 0, 0), _tmpVec2.set(r * 0.35, r * 0.85, r * 1.35), 0.95);
   } else if (presetName === "outer") {
     state.lockedObj = catalog.byId.get("SUN") || null;
-    const d03 = catalog.byId.get("DELTA_003");
-    if (d03) state.selectedObj = d03;
-    const r = mapRadiusAU(210.0, state.targetLogBlend);
+    const outerPick = state.showDiscoveries
+      ? catalog.byId.get("DELTA_003")
+      : (catalog.byId.get("PLUTO") || catalog.byId.get("NEPTUNE"));
+    if (outerPick) state.selectedObj = outerPick;
+    const r = mapRadiusAU(state.showDiscoveries ? 210.0 : 95.0, state.targetLogBlend);
     startCameraTween(_tmpVec.set(0, 0, 0), _tmpVec2.set(r * 0.28, r * 0.88, r * 1.25), 1.05);
   } else if (presetName === "oort") {
     state.lockedObj = catalog.byId.get("SUN") || null;
@@ -1014,6 +1272,7 @@ function updateVisibilityAndOrbits() {
     const isChildOfSelected = obj.parent_id && (obj.parent_id === selId || obj.parent_id === lockId);
     const matchesCat = isSun || isSelectedOrLocked || isChildOfSelected || obj.is_galactic || objectMatchesCategory(obj, cat);
 
+    const hiddenDisc = isHiddenDiscovery(obj);
     if (obj.is_galactic) {
       const focusedGalactic = Boolean(
         state.lockedObj?.is_galactic ||
@@ -1021,29 +1280,34 @@ function updateVisibilityAndOrbits() {
       );
       rt.node.visible = state.showGalaxyLayer && (focusedGalactic || galacticObjectsAllowedByDist);
     } else {
-      rt.node.visible = matchesCat;
+      rt.node.visible = matchesCat && !hiddenDisc;
+      if (!rt.node.visible && rt.node.userData.discoveryReticle) rt.node.userData.discoveryReticle.visible = false;
     }
     rt.labelEl.classList.toggle("is-selected", obj.id === selId);
 
     const orbInfo = batchedOrbits.orbitRanges.get(obj.id);
     if (orbInfo) {
       let showOrb = false;
-      if (matchesCat && state.orbitMode !== "off") {
+      if (matchesCat && !hiddenDisc && state.orbitMode !== "off") {
         if (state.orbitMode === "all") showOrb = true;
         else if (state.orbitMode === "selected") showOrb = isSelectedOrLocked;
         else {
           showOrb =
             cat !== "all" ||
             isSelectedOrLocked ||
-            obj.is_new_discovery ||
-            obj.is_signature_highlight ||
             obj.category === "planets" ||
             obj.category === "interstellar" ||
-            obj.id === "SEDNA" ||
-            obj.id === "PLUTO";
+            MAJOR_ORBIT_IDS.has(obj.id) ||
+            // Candidates of the outer Solar System have multi-night orbit fits. The asteroid
+            // candidates are sub-day arcs, which give no orbit, so no ellipse is drawn for them
+            // here (they still have one under "All Orbits" or when selected).
+            (state.showDiscoveries && obj.is_new_discovery && obj.category !== "asteroids");
         }
       }
-      const alpha = showOrb ? (isSelectedOrLocked ? 0.98 : orbInfo.baseOpacity) : 0.0;
+      let alpha = showOrb ? (isSelectedOrLocked ? 1.0 : orbInfo.baseOpacity) : 0.0;
+      if (showOrb && !isSelectedOrLocked && obj.is_new_discovery && cat === "all" && state.orbitMode === "major" && obj.id !== "DELTA_003") {
+        alpha *= 0.62;
+      }
       const end = orbInfo.startVert + orbInfo.vertCount;
       for (let i = orbInfo.startVert; i < end; i++) {
         alphaArr[i] = alpha;
@@ -1051,6 +1315,10 @@ function updateVisibilityAndOrbits() {
     }
   }
   batchedOrbits.alphaAttr.needsUpdate = true;
+  if (state.orbitMode !== "off") {
+    FRAME_CLOCK[0] = state.simJD;
+    refreshNBodyOrbits(true);
+  }
 }
 
 // ==================== PER-FRAME SIMULATION, GALAXY CROSS-FADE & CAPPED FRUSTUM LABELS ====================
@@ -1072,12 +1340,21 @@ const GALACTIC_PRIORITY_IDS = new Set([
 
 // Preallocated label candidate pool to avoid per-frame array/object allocation churn
 const _labelCandidates = [];
+const compareLabelPriority = (a, b) => b._labelPriority - a._labelPriority;
+let lastMoonRingWallMs = 0;
 
 function updateSimulationPositions(dtSec) {
   if (state.isPlaying) {
     const speedDaysPerSec = SPEED_TIERS[state.speedIndex]?.daysPerSec ?? 1.0;
     state.simJD += speedDaysPerSec * dtSec;
   }
+
+  // Date of this frame for every ephemeris routine (read from the slot, never passed as a value).
+  FRAME_CLOCK[0] = state.simJD;
+
+  // Bounded slice of N-body integration toward the playhead and a little ahead of it.
+  FRAME_CLOCK[1] = state.isPlaying ? Math.min(3650.0, Math.max(30.0, (SPEED_TIERS[state.speedIndex]?.daysPerSec ?? 1.0) * 1.5)) : 30.0;
+  prepareSolarSystemNBodyAtFrameJD(NBODY_FRAME_BUDGET_CHECKPOINTS);
 
   // Smooth GPU scale morphing (zero CPU geometry rebuild!)
   if (Math.abs(state.logBlend - state.targetLogBlend) > 1e-4) {
@@ -1087,8 +1364,8 @@ function updateSimulationPositions(dtSec) {
     if (Math.abs(state.logBlend - state.targetLogBlend) < 1e-3) {
       state.logBlend = state.targetLogBlend;
     }
-    for (const bNode of Object.values(beltNodes)) {
-      bNode.userData.uniforms.uLogBlend.value = state.logBlend;
+    for (let bi = 0; bi < beltNodeList.length; bi++) {
+      beltNodeList[bi].userData.uniforms.uLogBlend.value = state.logBlend;
     }
     batchedOrbits.uniforms.uLogBlend.value = state.logBlend;
     overlays.updateOverlaysScaleAndLang(state.logBlend, null);
@@ -1126,18 +1403,22 @@ function updateSimulationPositions(dtSec) {
   batchedOrbits.mesh.visible = solarFade > 0.01 && state.orbitMode !== "off";
   adamOverlay.update(state.logBlend, solarFade);
 
-  for (const bNode of Object.values(beltNodes)) {
+  for (let bi = 0; bi < beltNodeList.length; bi++) {
+    const bNode = beltNodeList[bi];
     const f = (bNode.userData.catFactor ?? 1.0) * solarFade;
     bNode.userData.uniforms.uOpacity.value = bNode.userData.baseOpacity * f;
     bNode.visible = f > 0.015;
   }
+  updateBeltDynamics();
+  if (batchedOrbits.mesh.visible) refreshNBodyOrbits(false);
   overlays.ringsGroup.visible = state.showRings && solarFade > 0.15;
   overlays.galacticGroup.visible = state.showGalacticBand && solarFade > 0.15;
   overlays.setOverlayLabelsVisible(state.showLabels && solarFade > 0.35);
 
   // Pass 1: Update Sun & Heliocentric Primary Bodies (skipped cleanly when zoomed deep into Milky Way)
   if (solarFade > 0.005 || !state.lockedObj?.is_galactic) {
-    for (const rt of runtimeMap.values()) {
+    for (let ri = 0; ri < runtimeList.length; ri++) {
+      const rt = runtimeList[ri];
       const obj = rt.obj;
       if (obj.parent_id || obj.is_galactic) continue;
 
@@ -1146,7 +1427,9 @@ function updateSimulationPositions(dtSec) {
         rt.node.position.set(0, 0, 0);
         if (rt.node.userData.sunUniforms) rt.node.userData.sunUniforms.uTime.value = nowSec;
       } else {
-        rt.liveHelioR_AU = computeLocalKeplerianEclipticAU(obj, state.simJD, rt.eclPosAU);
+        if (rt.nbodyIdx > 0) evaluateNBodyHeliocentricAtFrameJD(rt.nbodyIdx, rt.isEarth, rt.eclPosAU);
+        else computeLocalKeplerianAtFrameJD(obj, rt.eclPosAU);
+        rt.liveHelioR_AU = Math.sqrt(rt.eclPosAU[0] * rt.eclPosAU[0] + rt.eclPosAU[1] * rt.eclPosAU[1] + rt.eclPosAU[2] * rt.eclPosAU[2]);
         helioAUToSceneInto(rt.eclPosAU[0], rt.eclPosAU[1], rt.eclPosAU[2], state.logBlend, rt.worldPos);
         rt.node.position.copy(rt.worldPos);
       }
@@ -1170,7 +1453,8 @@ function updateSimulationPositions(dtSec) {
 
     // Pass 2: Tier-1 Planetary Moons & Tier-2 Lunar Sub-Orbiters
     for (let tierPass = 0; tierPass < 2; tierPass++) {
-      for (const rt of runtimeMap.values()) {
+      for (let ri = 0; ri < runtimeList.length; ri++) {
+        const rt = runtimeList[ri];
         const obj = rt.obj;
         if (!obj.parent_id || obj.is_galactic) continue;
         const parentRt = runtimeMap.get(obj.parent_id);
@@ -1178,7 +1462,7 @@ function updateSimulationPositions(dtSec) {
         const isTier2 = Boolean(parentRt.obj.parent_id);
         if ((tierPass === 0 && isTier2) || (tierPass === 1 && !isTier2)) continue;
 
-        computeChildSceneOffset(parentRt, obj, state.simJD, _tmpVec);
+        computeChildSceneOffsetAtFrameJD(parentRt, obj, _tmpVec);
         rt.worldPos.copy(parentRt.worldPos).add(_tmpVec);
         rt.node.position.copy(rt.worldPos);
         rt.liveHelioR_AU = parentRt.liveHelioR_AU;
@@ -1192,12 +1476,26 @@ function updateSimulationPositions(dtSec) {
 
     const earthRt = runtimeMap.get("EARTH");
     if (earthRt && earthRt.satOrbitGroup) {
-      const curAng = Math.atan2(-earthRt.eclPosAU[1], earthRt.eclPosAU[0]);
-      for (const [chId, ring] of earthRt.satRingsMap.entries()) {
-        const chObj = catalog.byId.get(chId);
-        if (chObj && (chObj.l1_phase_deg !== null || chObj.l2_phase_deg !== null)) {
-          if (ring.userData.initAng === undefined) ring.userData.initAng = curAng;
+      // Earth's heliocentric ecliptic longitude. A turn of the ring about scene +Y by an angle
+      // equals a turn about the ecliptic pole by the same angle, so the L1/L2 halo rings follow
+      // the Sun-Earth line in the prograde sense.
+      const curAng = Math.atan2(earthRt.eclPosAU[1], earthRt.eclPosAU[0]);
+      const rings = earthRt.satRingList;
+      for (let k = 0; k < rings.length; k++) {
+        const ring = rings[k];
+        if (ring.userData.isLagrange) {
           ring.rotation.y = curAng - ring.userData.initAng;
+        } else if (
+          ring.userData.isMoonRing &&
+          earthRt.satOrbitGroup.visible &&
+          Math.abs(state.simJD - ring.userData.ringJD) > 0.35 &&
+          nowMs - lastMoonRingWallMs > 120
+        ) {
+          const attr = ring.geometry.attributes.position;
+          fillMoonRing(attr.array, earthRt, catalog.byId.get("MOON"), state.simJD);
+          attr.needsUpdate = true;
+          ring.userData.ringJD = state.simJD;
+          lastMoonRingWallMs = nowMs;
         }
       }
     }
@@ -1220,6 +1518,11 @@ function updateSimulationPositions(dtSec) {
   _scaleInfo.simJD = state.simJD;
   _scaleInfo.galacticFactor = state.galacticFactor;
   _scaleInfo.focusedOnBlackHole = focusedGalacticBH;
+  // Tracking a black hole from close by (not the fly-through of the whole-galaxy preset).
+  _scaleInfo.blackHoleCloseUp = Boolean(
+    lockedRt && state.lockedObj?.is_black_hole &&
+    camera.position.distanceTo(lockedRt.worldPos) < lockedRt.node.userData.meshRadius * 40.0
+  );
   _scaleInfo.focusedObjectId = state.lockedObj?.id || (flyTween ? state.selectedObj?.id : null) || null;
 
   if (state.showGalaxyLayer) {
@@ -1300,7 +1603,10 @@ function updateSimulationPositions(dtSec) {
 
   _labelCandidates.length = 0;
 
-  for (const rt of runtimeMap.values()) {
+  const orbitsOff = state.orbitMode === "off";
+  const orbitsSelectedOnly = state.orbitMode === "selected";
+  for (let ri = 0; ri < runtimeList.length; ri++) {
+    const rt = runtimeList[ri];
     rt.labelObj.visible = false;
     if (!rt.node.visible) continue;
 
@@ -1329,7 +1635,14 @@ function updateSimulationPositions(dtSec) {
           const pRatio = pRt ? camPos.distanceTo(pRt.worldPos) / Math.max(1e-7, pRt.node.userData.meshRadius) : 999.0;
           fade *= THREE.MathUtils.clamp(1.0 - (pRatio - 13.0) / 10.0, 0.0, 1.0);
         }
-        rt.node.userData.beaconSprite.material.opacity = fade * (obj.is_new_discovery ? 0.95 : (obj.parent_id ? 0.42 : 0.78));
+        const isStar = obj.category === "star";
+        const beaconGain = isStar ? 1.0 : obj.is_new_discovery ? (isFocusObj ? 0.95 : 0.5) : obj.parent_id ? 0.42 : obj.category === "planets" ? 0.95 : 0.6;
+        rt.node.userData.beaconSprite.material.opacity = fade * beaconGain;
+        if (isStar) {
+          // The Sun's glare shrinks in the galactic view, where it only marks "you are here".
+          const sg = rt.node.userData.baseBeaconScale * (1.0 - 0.6 * state.galacticFactor);
+          rt.node.userData.beaconSprite.scale.set(sg, sg, 1);
+        }
         rt.node.userData.beaconSprite.visible = fade > 0.02;
       }
       if (rt.node.userData.spacecraftPip) {
@@ -1342,38 +1655,44 @@ function updateSimulationPositions(dtSec) {
       }
       if (rt.node.userData.discoveryReticle) {
         const fade = THREE.MathUtils.clamp((ratio - 5.5) / 18.0, 0.0, 1.0) * solarFade;
-        const sc = (isFocusObj ? 0.046 : 0.033) * pulse;
+        const sc = (isFocusObj ? 0.046 : 0.024) * pulse;
         rt.node.userData.discoveryReticle.scale.set(sc, sc, 1);
-        rt.node.userData.discoveryReticle.material.opacity = fade * (isFocusObj ? 1.0 : 0.85);
+        rt.node.userData.discoveryReticle.material.opacity = fade * (isFocusObj ? 1.0 : 0.42);
         rt.node.userData.discoveryReticle.visible = fade > 0.02;
       }
 
       if (rt.satOrbitGroup) {
         const childSelected = (state.selectedObj?.parent_id === obj.id) || (state.lockedObj?.parent_id === obj.id);
-        if ((obj.id === "EARTH" && constellationMgr.enabled && !childSelected && cat !== "spacecraft" && cat !== "moons_l2") || solarFade < 0.1) {
+        if (orbitsOff || (obj.id === "EARTH" && constellationMgr.enabled && !childSelected && cat !== "spacecraft" && cat !== "moons_l2") || solarFade < 0.1) {
+          // "Hidden" switches off the planetocentric rings together with the heliocentric orbits.
           rt.satOrbitGroup.visible = false;
         } else {
           const maxShowRatio = (cat === "moons_l2" || cat === "spacecraft") ? 110.0 : (childSelected ? 75.0 : 34.0);
           rt.satOrbitGroup.visible = ratio < maxShowRatio;
           if (rt.satOrbitGroup.visible) {
-            for (const [chId, ring] of rt.satRingsMap.entries()) {
+            const rings = rt.satRingList;
+            for (let k = 0; k < rings.length; k++) {
+              const ring = rings[k];
+              const chId = ring.userData.childId;
               const isChSel = chId === selId || chId === lockId;
               const isScRing = ring.userData.isSpacecraftRing;
               if (isChSel) {
                 ring.visible = true;
-                ring.material.opacity = 0.90;
+                ring.material.opacity = 0.98;
+              } else if (orbitsSelectedOnly) {
+                ring.visible = false;
               } else if (isScRing) {
                 const f = cat === "spacecraft"
                   ? THREE.MathUtils.clamp(1.0 - (ratio - 35.0) / 45.0, 0.0, 1.0)
                   : THREE.MathUtils.clamp(1.0 - (ratio - 4.2) / 4.3, 0.0, 1.0);
                 ring.visible = f > 0.02;
-                ring.material.opacity = (cat === "spacecraft" ? 0.48 : 0.24) * f;
+                ring.material.opacity = ring.userData.baseOpacity * f;
               } else {
                 const f = cat === "moons_l2"
                   ? THREE.MathUtils.clamp(1.0 - (ratio - 55.0) / 55.0, 0.0, 1.0)
                   : THREE.MathUtils.clamp(1.0 - (ratio - 14.0) / 20.0, 0.0, 1.0);
                 ring.visible = f > 0.02;
-                ring.material.opacity = (ring.userData.baseOpacity || 0.35) * f;
+                ring.material.opacity = ring.userData.baseOpacity * f;
               }
             }
           }
@@ -1447,7 +1766,7 @@ function updateSimulationPositions(dtSec) {
 
   // Zero-allocation 2D screen-space AABB overlap rejection pass (eliminates stacked CSS2D label piles)
   if (_labelCandidates.length > 1) {
-    _labelCandidates.sort((a, b) => b._labelPriority - a._labelPriority);
+    _labelCandidates.sort(compareLabelPriority);
   }
   const viewW = window.innerWidth;
   const viewH = window.innerHeight;
@@ -1478,6 +1797,7 @@ function updateSimulationPositions(dtSec) {
     if (!isPinnedSel) {
       if (bMinX < 10.0 || bMaxX > viewW - 10.0 || bMinY < 80.0 || bMaxY > viewH - 68.0) continue;
       if (inspOpenDesktop && bMaxX > viewW - 446.0 && bMaxY > 82.0 && bMinY < viewH - 80.0) continue;
+      if (legendBox.open && bMinX < legendBox.right && bMaxY > legendBox.top) continue;
     }
 
     let overlaps = false;
@@ -1504,8 +1824,9 @@ function updateSimulationPositions(dtSec) {
     }
   }
 
-  // De-collide reference ring distance labels against accepted higher-priority planet/body labels
-  if (state.showLabels && overlays.ringsGroup.visible && acceptedLabels > 0) {
+  // Reference-ring labels: kept only inside the free viewport (clear of the bars, the colour key
+  // and the inspector) and clear of the accepted body labels and of each other.
+  if (state.showLabels && overlays.ringsGroup.visible) {
     const rChildren = overlays.ringsGroup.children;
     for (let r = 0; r < rChildren.length; r++) {
       const ch = rChildren[r];
@@ -1517,18 +1838,29 @@ function updateSimulationPositions(dtSec) {
       }
       const rx = _labelProjTmp.x * halfViewW + halfViewW;
       const ry = -_labelProjTmp.y * halfViewH + halfViewH;
-      const rMinX = rx - 66.0, rMaxX = rx + 66.0, rMinY = ry - 15.0, rMaxY = ry + 15.0;
-      for (let j = 0; j < acceptedLabels; j++) {
+      const hw = 4.7 * ch.element.textContent.length + 12.0;
+      const rMinX = rx - hw, rMaxX = rx + hw, rMinY = ry - 15.0, rMaxY = ry + 15.0;
+      let blocked =
+        rMinX < 10.0 || rMaxX > viewW - 10.0 || rMinY < 84.0 || rMaxY > viewH - 84.0 ||
+        (inspOpenDesktop && rMaxX > viewW - 446.0) ||
+        (legendBox.open && rMinX < legendBox.right && rMaxY > legendBox.top);
+      for (let j = 0; j < acceptedLabels && !blocked; j++) {
         const base = j * 4;
-        if (
+        blocked =
           rMinX < _acceptedLabelBoxes[base + 2] &&
           rMaxX > _acceptedLabelBoxes[base + 0] &&
           rMinY < _acceptedLabelBoxes[base + 3] &&
-          rMaxY > _acceptedLabelBoxes[base + 1]
-        ) {
-          ch.visible = false;
-          break;
-        }
+          rMaxY > _acceptedLabelBoxes[base + 1];
+      }
+      if (blocked) {
+        ch.visible = false;
+      } else if (acceptedLabels < MAX_LABEL_BOXES) {
+        const wIdx = acceptedLabels * 4;
+        _acceptedLabelBoxes[wIdx + 0] = rMinX;
+        _acceptedLabelBoxes[wIdx + 1] = rMinY;
+        _acceptedLabelBoxes[wIdx + 2] = rMaxX;
+        _acceptedLabelBoxes[wIdx + 3] = rMaxY;
+        acceptedLabels++;
       }
     }
   }
@@ -1675,13 +2007,20 @@ function formatObjectDist(obj) {
   return formatDistAU(obj.parent_id ? obj.a_au : (obj.r_au || Math.abs(obj.a_au)));
 }
 
+// A catalogue row is listed under a category chip when it matches it and its layer is on. The
+// "Survey Discoveries" chip always lists the candidates; choosing it switches their layer on.
+function isListedInCategory(obj, catKey) {
+  if (!objectMatchesCategory(obj, catKey)) return false;
+  return catKey === "discoveries" || !isHiddenDiscovery(obj);
+}
+
 function renderCategoryFilterBar() {
   const bar = document.getElementById("category-filter-bar");
   if (!bar) return;
   bar.innerHTML = "";
 
   for (const catKey of CATEGORY_ORDER) {
-    const count = catalog.objects.filter((o) => objectMatchesCategory(o, catKey)).length;
+    const count = catalog.objects.filter((o) => isListedInCategory(o, catKey)).length;
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = `cat-pill${catKey === "discoveries" ? " cat-discoveries" : ""}${state.activeCategory === catKey ? " active" : ""}`;
@@ -1690,7 +2029,7 @@ function renderCategoryFilterBar() {
     left.className = "cat-pill-left";
     const dot = document.createElement("span");
     dot.className = "cat-dot";
-    dot.style.background = CATEGORY_DOT_COLORS[catKey] || "#38bdf8";
+    dot.style.background = CATEGORY_DOT_COLORS[catKey] || CATEGORY_COLORS.spacecraft;
     const lbl = document.createElement("span");
     lbl.textContent = getCategoryLabel(catKey, state.lang, catalog.customCategories[catKey]);
     left.append(dot, lbl);
@@ -1703,6 +2042,7 @@ function renderCategoryFilterBar() {
     btn.addEventListener("click", () => {
       stopAutoTour();
       state.activeCategory = catKey;
+      if (catKey === "discoveries" && !state.showDiscoveries) setDiscoveriesVisible(true, false);
       renderCategoryFilterBar();
       renderCatalogObjectList();
       updateVisibilityAndOrbits();
@@ -1720,7 +2060,7 @@ function renderCatalogObjectList() {
   if (!container || !countLabel) return;
   container.innerHTML = "";
 
-  const filtered = catalog.objects.filter((o) => objectMatchesCategory(o, state.activeCategory));
+  const filtered = catalog.objects.filter((o) => isListedInCategory(o, state.activeCategory));
   filtered.sort((a, b) => {
     const rank = (x) =>
       x.category === "star" ? 0
@@ -1749,7 +2089,7 @@ function renderCatalogObjectList() {
     left.className = "obj-row-left";
     const dot = document.createElement("span");
     dot.className = "cat-dot";
-    dot.style.background = obj.color || "#38bdf8";
+    dot.style.background = obj.color || CATEGORY_COLORS.spacecraft;
     left.appendChild(dot);
 
     if (obj.is_new_discovery) {
@@ -1814,7 +2154,7 @@ function makeTelemetryCell(keyStr, valStr) {
 }
 
 function updateInspectorUI() {
-  const obj = state.selectedObj || catalog.byId.get("DELTA_003") || catalog.objects[0];
+  const obj = state.selectedObj || catalog.byId.get("SUN") || catalog.objects[0];
   if (!obj) return;
   const rt = runtimeMap.get(obj.id);
 
@@ -2034,10 +2374,16 @@ function applyLanguageToStaticDOM() {
 
   document.getElementById("brand-title").textContent = tr(L, "brandTitle");
   document.getElementById("search-input").placeholder = tr(L, "searchPlaceholder");
+  document.getElementById("search-input").title = tr(L, "searchTitle");
   document.getElementById("lbl-menu-explore").textContent = tr(L, "menuExplore");
   document.getElementById("lbl-menu-view").textContent = tr(L, "menuView");
   document.getElementById("lbl-menu-layers").textContent = tr(L, "menuLayers");
   document.getElementById("lbl-menu-camera").textContent = tr(L, "menuCamera");
+  document.getElementById("lbl-menu-portals").textContent = tr(L, "menuPortals");
+  document.getElementById("lbl-portals-hdr").textContent = tr(L, "portalsHdr");
+  document.getElementById("hub-nav-link").textContent = tr(L, "portalHubLink");
+  document.getElementById("gallery-nav-link").textContent = tr(L, "galleryLink");
+  document.getElementById("adam-console-link").textContent = `${tr(L, "adamConsoleLink")} ↗`;
   document.getElementById("studio-nav-link").textContent = `${tr(L, "playgroundLink")} ↗`;
 
   const blogNav = document.getElementById("blog-nav-link");
@@ -2057,6 +2403,10 @@ function applyLanguageToStaticDOM() {
   document.getElementById("toggle-rings-btn").textContent = tr(L, "ringsToggle");
   document.getElementById("toggle-galactic-btn").textContent = tr(L, "galacticToggle");
   document.getElementById("toggle-labels-btn").textContent = tr(L, "labelsToggle");
+  document.getElementById("toggle-discoveries-btn").textContent = tr(L, "discoveriesToggle", { n: discoveryCount });
+  document.getElementById("toggle-legend-btn").textContent = tr(L, "legendToggle");
+  document.getElementById("lbl-overlays-hdr").textContent = tr(L, "overlaysHdr");
+  renderColorLegend();
   document.getElementById("toggle-sats-btn").textContent = tr(L, "satsSwarmToggle");
 
   document.getElementById("opt-sat-all").textContent = tr(L, "satFilterAll");
@@ -2127,6 +2477,65 @@ function applyLanguageToStaticDOM() {
   updateInspectorUI();
 }
 
+// Outreach colour key: the radial Solar System scale, the stellar temperature sequence and the
+// galactic object types, all read from colorSystem.js (the same tokens the scene uses).
+function renderColorLegend() {
+  const host = document.getElementById("color-legend-body");
+  if (!host) return;
+  const L = state.lang;
+  host.innerHTML = "";
+  const addSection = (titleKey, rows, withGradient) => {
+    const hdr = document.createElement("div");
+    hdr.className = "legend-section-hdr";
+    hdr.textContent = tr(L, titleKey);
+    host.appendChild(hdr);
+    if (withGradient) {
+      const bar = document.createElement("div");
+      bar.className = "legend-gradient";
+      bar.style.background = `linear-gradient(90deg, ${rows.map((r) => r.color).join(", ")})`;
+      host.appendChild(bar);
+    }
+    const grid = document.createElement("div");
+    grid.className = "legend-grid";
+    for (const r of rows) {
+      const text = (L === "zh" ? r.label_zh : r.label_en) || r.label_en || r.key;
+      const row = document.createElement("div");
+      row.className = (L === "zh" ? text.length > 12 : text.length > 23) ? "legend-row legend-row-wide" : "legend-row";
+      const sw = document.createElement("span");
+      sw.className = "legend-swatch";
+      sw.style.background = r.color;
+      const lb = document.createElement("span");
+      lb.className = "legend-label";
+      lb.textContent = text;
+      row.append(sw, lb);
+      grid.appendChild(row);
+    }
+    host.appendChild(grid);
+  };
+  addSection("legendSolar", LEGEND_SOLAR_SYSTEM, false);
+  addSection("legendStellar", LEGEND_STELLAR, true);
+  addSection("legendGalactic", LEGEND_GALACTIC, false);
+  const title = document.getElementById("color-legend-title");
+  if (title) title.textContent = tr(L, "legendTitle");
+  measureLegendBox();
+}
+
+function measureLegendBox() {
+  const panel = document.getElementById("color-legend-panel");
+  legendBox.open = Boolean(panel?.classList.contains("open"));
+  if (legendBox.open) {
+    const rc = panel.getBoundingClientRect();
+    legendBox.right = rc.right + 8.0;
+    legendBox.top = rc.top - 8.0;
+  }
+}
+
+function setLegendOpen(flag) {
+  document.getElementById("color-legend-panel")?.classList.toggle("open", Boolean(flag));
+  document.getElementById("toggle-legend-btn")?.classList.toggle("active", Boolean(flag));
+  measureLegendBox();
+}
+
 function setLanguage(lang, persist = true) {
   if (!I18N[lang]) return;
   state.lang = lang;
@@ -2143,6 +2552,8 @@ function syncURLState() {
     else u.searchParams.delete("category");
     if (state.lang !== "en") u.searchParams.set("lang", state.lang);
     else u.searchParams.delete("lang");
+    if (state.showDiscoveries) u.searchParams.set("discoveries", "1");
+    else u.searchParams.delete("discoveries");
     window.history.replaceState({}, "", u.toString());
   } catch (_) {}
 }
@@ -2249,7 +2660,8 @@ function toggleAutoTour() {
   btn.classList.add("running");
   btn.textContent = tr(state.lang, "autoTourStop");
   const stepTour = () => {
-    const id = SPOTLIGHT_TOUR_IDS[state.autoTourIdx % SPOTLIGHT_TOUR_IDS.length];
+    const tourIds = state.showDiscoveries ? DISCOVERY_TOUR_IDS : COSMOS_TOUR_IDS;
+    const id = tourIds[state.autoTourIdx % tourIds.length];
     state.autoTourIdx++;
     const obj = resolveObjectByQuery(catalog, id);
     if (obj) selectAndFlyTo(obj, "auto");
@@ -2259,7 +2671,24 @@ function toggleAutoTour() {
 }
 
 // ==================== WIRE CONTROLS ====================
+// Vertical half-field of the camera per unit distance (tan of half the 46 deg field of view).
+const HALF_FOV_TAN = Math.tan((46.0 * Math.PI) / 360.0);
+
 function setScaleMode(mode) {
+  // Switching scale re-frames a Sun-centred view so that the same radius in AU stays at the edge
+  // of the window: without this, an inner-system view in the log scale becomes a 30 AU view in
+  // the true scale, with the inner planets crushed into the centre.
+  if (appReady && mode !== state.scaleMode && controls.target.lengthSq() < 0.25 && camera.position.length() < 300.0) {
+    const d0 = camera.position.distanceTo(controls.target);
+    const halfField = d0 * HALF_FOV_TAN;
+    const d1 = mode === "true"
+      ? (LOG_R0 * (Math.exp(Math.min(18.0, halfField / LOG_S0)) - 1.0)) / HALF_FOV_TAN
+      : (LOG_S0 * Math.log(1.0 + halfField / LOG_R0)) / HALF_FOV_TAN;
+    if (Number.isFinite(d1) && d1 > 0.02 && d0 > 1e-6) {
+      _tmpVec2.copy(camera.position).sub(controls.target).multiplyScalar(d1 / d0).add(controls.target);
+      startCameraTween(controls.target, _tmpVec2, 0.7);
+    }
+  }
   state.scaleMode = mode;
   state.targetLogBlend = mode === "log" ? 1.0 : 0.0;
   document.getElementById("scale-log-btn").classList.toggle("active", mode === "log");
@@ -2286,14 +2715,22 @@ document.getElementById("toggle-rings-btn").addEventListener("click", (e) => {
   overlays.ringsGroup.visible = state.showRings;
   e.currentTarget.classList.toggle("active", state.showRings);
 });
+document.getElementById("toggle-discoveries-btn").addEventListener("click", () => {
+  stopAutoTour();
+  setDiscoveriesVisible(!state.showDiscoveries);
+  syncURLState();
+});
+document.getElementById("toggle-legend-btn").addEventListener("click", () => {
+  setLegendOpen(!document.getElementById("color-legend-panel").classList.contains("open"));
+});
+document.getElementById("color-legend-close")?.addEventListener("click", () => setLegendOpen(false));
 document.getElementById("toggle-galactic-btn").addEventListener("click", (e) => {
   state.showGalacticBand = !state.showGalacticBand;
   overlays.galacticGroup.visible = state.showGalacticBand;
   e.currentTarget.classList.toggle("active", state.showGalacticBand);
 });
-document.getElementById("toggle-labels-btn").addEventListener("click", (e) => {
-  state.showLabels = !state.showLabels;
-  e.currentTarget.classList.toggle("active", state.showLabels);
+document.getElementById("toggle-labels-btn").addEventListener("click", () => {
+  setLabelsVisible(!state.showLabels);
 });
 document.getElementById("toggle-sats-btn").addEventListener("click", (e) => {
   const next = !constellationMgr.enabled;
@@ -2324,6 +2761,14 @@ const bindAdamToggle = (btnId, layerKey) => {
     e.currentTarget.classList.toggle("active", next);
   });
 };
+for (const [btnId, layerKey] of [
+  ["toggle-adam-transfers-btn", "transfers"],
+  ["toggle-adam-impactors-btn", "impactors"],
+  ["toggle-adam-corridors-btn", "corridors"],
+  ["toggle-adam-precovery-btn", "precovery"]
+]) {
+  document.getElementById(btnId)?.classList.toggle("active", Boolean(adamOverlay.layerState[layerKey]));
+}
 bindAdamToggle("toggle-adam-transfers-btn", "transfers");
 bindAdamToggle("toggle-adam-impactors-btn", "impactors");
 bindAdamToggle("toggle-adam-corridors-btn", "corridors");
@@ -2346,16 +2791,8 @@ document.getElementById("btn-zoom-surface").addEventListener("click", () => {
 document.getElementById("btn-frame-orbit").addEventListener("click", () => {
   if (state.selectedObj) selectAndFlyTo(state.selectedObj, "orbit");
 });
-document.getElementById("insp-collapse-btn").addEventListener("click", () => {
-  state.inspectorCollapsed = true;
-  document.getElementById("inspector-drawer").classList.add("collapsed");
-  document.getElementById("inspector-reopen-btn").style.display = "block";
-});
-document.getElementById("inspector-reopen-btn").addEventListener("click", () => {
-  state.inspectorCollapsed = false;
-  document.getElementById("inspector-drawer").classList.remove("collapsed");
-  document.getElementById("inspector-reopen-btn").style.display = "none";
-});
+document.getElementById("insp-collapse-btn").addEventListener("click", () => setInspectorCollapsed(true));
+document.getElementById("inspector-reopen-btn").addEventListener("click", () => setInspectorCollapsed(false));
 document.getElementById("insp-copy-link-btn").addEventListener("click", async (e) => {
   const btn = e.currentTarget;
   syncURLState();
@@ -2441,20 +2878,16 @@ document.getElementById("epoch-reset-btn")?.addEventListener("click", () => {
   updateInspectorUI();
 });
 
-if (urlParams.get("jd")) {
-  const jVal = Number(urlParams.get("jd"));
-  if (Number.isFinite(jVal) && jVal > 2400000) state.simJD = jVal;
-} else if (urlParams.get("utc") === "now") {
-  state.simJD = Date.now() / 86400000.0 + 2440587.5;
-}
 if (urlParams.get("sats") === "0") {
   constellationMgr.setEnabled(false);
   document.getElementById("toggle-sats-btn")?.classList.remove("active");
 }
 
 window.addEventListener("resize", () => {
+  measureLegendBox();
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+  applyInspectorViewOffset();
   renderer.setSize(window.innerWidth, window.innerHeight);
   labelRenderer.setSize(window.innerWidth, window.innerHeight);
 });
@@ -2466,6 +2899,13 @@ function extractHashFocusSlug() {
   const parts = rawHash.split("/").filter(Boolean);
   return parts.length > 0 ? decodeURIComponent(parts[parts.length - 1]) : null;
 }
+
+// Bring the controls in line with the start-up state (defaults, or the URL overrides above).
+setInspectorCollapsed(state.inspectorCollapsed);
+setLabelsVisible(state.showLabels);
+document.getElementById("orbit-mode-select").value = state.orbitMode;
+document.getElementById("toggle-rings-btn").classList.toggle("active", state.showRings);
+document.getElementById("toggle-discoveries-btn").classList.toggle("active", state.showDiscoveries);
 
 setScaleMode(state.scaleMode);
 applyLanguageToStaticDOM();
@@ -2486,18 +2926,33 @@ if (presetParam) {
   flyToScenePreset(presetParam);
 } else if (focusParam) {
   const targetObj = resolveObjectByQuery(catalog, focusParam);
-  if (targetObj) selectAndFlyTo(targetObj, urlParams.get("mode") || "auto");
-  else {
-    state.selectedObj = catalog.byId.get("DELTA_003") || catalog.objects[0];
+  if (!orbitsParamGiven && state.orbitMode === "off") {
+    state.orbitMode = "selected";
+    document.getElementById("orbit-mode-select").value = state.orbitMode;
+  }
+  // A survey candidate has no imaged surface, so a link to one opens on its orbit (Sun-centred,
+  // the whole ellipse in frame) and leaves the close-up to "Zoom to 3D Surface".
+  if (targetObj) {
+    selectAndFlyTo(targetObj, urlParams.get("mode") || (targetObj.is_new_discovery && !targetObj.parent_id ? "orbit" : "auto"));
+  } else {
+    // Not in the Solar System catalogue: it may be a black hole or cluster of the galactic
+    // catalogue, which is still loading. Start on the Sun and resolve it again on arrival.
+    pendingDeepLinkFocus = focusParam.startsWith("NORAD_") ? null : focusParam;
+    state.selectedObj = catalog.byId.get("SUN") || catalog.objects[0];
     state.lockedObj = catalog.byId.get("SUN") || null;
+    camera.position.copy(DEFAULT_CAMERA_POS);
+    controls.target.set(0, 0, 0);
+    if (pendingDeepLinkFocus) setInspectorCollapsed(false);
   }
 } else if (state.activeCategory === "oort_cloud") {
   state.selectedObj = catalog.byId.get("OORT_OUTER_REP_1") || catalog.objects[0];
   flyToScenePreset("oort");
 } else {
-  state.selectedObj = catalog.byId.get("DELTA_003") || catalog.objects[0];
+  // Bare start: the Sun is selected and tracked, the inspector stays folded, and the camera frames
+  // the planetary system out to the Kuiper belt against the Milky Way (see DEFAULT_CAMERA_POS).
+  state.selectedObj = catalog.byId.get("SUN") || catalog.objects[0];
   state.lockedObj = catalog.byId.get("SUN") || null;
-  camera.position.set(16, 48, 86);
+  camera.position.copy(DEFAULT_CAMERA_POS);
   controls.target.set(0, 0, 0);
 }
 
@@ -2513,23 +2968,73 @@ updateVisibilityAndOrbits();
 updateTrackingBarUI();
 updateInspectorUI();
 highlightSelectedInLists();
+appReady = true;
 
 // ==================== MAIN 60-FPS RENDER LOOP ====================
 let lastHudUpdateMs = 0;
 const epochEl = document.getElementById("epoch-readout");
 const camRangeEl = document.getElementById("cam-range-val");
 
+// One governor step per frame (see the quality notes at the renderer set-up).
+function updateQualityGovernor(frameMs) {
+  const heavyView = state.galacticFactor > 0.02 || Boolean(state.lockedObj?.is_galactic);
+  let wantRatio = BASE_PIXEL_RATIO;
+  if (heavyView) {
+    quality.emaMs = 0.6 * quality.emaMs + 0.4 * Math.min(frameMs, 6000.0);
+    if (frameMs > 2500.0) {
+      quality.level = QUALITY_STEPS.length - 1;
+      quality.slowFrames = 0;
+    } else if (quality.emaMs > (quality.level >= 2 ? 900.0 : 150.0)) {
+      if (++quality.slowFrames >= 2 && quality.level < QUALITY_STEPS.length - 1) {
+        quality.level++;
+        quality.slowFrames = 0;
+        quality.emaMs *= 0.6;
+      }
+    } else {
+      quality.slowFrames = 0;
+    }
+    if (quality.emaMs < 34.0) {
+      if (++quality.fastFrames > 180 && quality.level > 0) {
+        quality.level--;
+        quality.fastFrames = 0;
+      }
+    } else {
+      quality.fastFrames = 0;
+    }
+    wantRatio = BASE_PIXEL_RATIO * QUALITY_PIXEL_SCALE[quality.level];
+  } else {
+    quality.emaMs = 16.0;
+    quality.slowFrames = 0;
+    quality.fastFrames = 0;
+  }
+  galaxyLayer.setRaymarchSteps(QUALITY_STEPS[quality.level]);
+  if (Math.abs(wantRatio - quality.pixelRatio) > 1e-3) {
+    quality.pixelRatio = wantRatio;
+    renderer.setPixelRatio(wantRatio);
+  }
+}
+
 function animate(nowMs) {
   requestAnimationFrame(animate);
-  const dtSec = Math.min(0.1, Math.max(0.0, (nowMs - lastFrameTime) * 0.001));
+  const frameMs = nowMs - lastFrameTime;
+  const dtSec = Math.min(0.1, Math.max(0.0, frameMs * 0.001));
   lastFrameTime = nowMs;
 
   updateSimulationPositions(dtSec);
   controls.update();
+  updateQualityGovernor(frameMs);
 
   if (nowMs - lastHudUpdateMs > 100) {
     epochEl.textContent = jdToUTCString(state.simJD);
-    camRangeEl.textContent = sceneDistToDisplayString(camera.position.distanceTo(controls.target), state.logBlend);
+    // Sun-centred view in the log scale: the read-out is the heliocentric radius at the side edge
+    // of the window (the camera's own log-scale distance is not a physical length). Otherwise it
+    // is the distance from the camera to its target.
+    const camDist = camera.position.distanceTo(controls.target);
+    const sunCentred = state.logBlend > 0.5 && controls.target.lengthSq() < 0.25 && camDist > 1.0 && camDist < 320.0;
+    camRangeEl.textContent = sceneDistToDisplayString(
+      sunCentred ? camDist * HALF_FOV_TAN * Math.max(1.0, camera.aspect) : camDist,
+      state.logBlend
+    );
     lastHudUpdateMs = nowMs;
   }
 
@@ -2539,6 +3044,8 @@ function animate(nowMs) {
   }
 }
 
+// Debug handles for the console and for the verification script.
+window.__BELTS__ = beltNodes;
 window.__EYES3D__ = {
   camera,
   controls,
@@ -2546,6 +3053,13 @@ window.__EYES3D__ = {
   state,
   galaxyLayer,
   adamOverlay,
+  overlays,
+  batchedOrbits,
+  nbodyEngine,
+  quality,
+  updateBeltClock: updateBeltDynamics,
+  setDiscoveriesVisible,
+  setLabelsVisible,
   selectAndFlyTo,
   flyToScenePreset,
   updateEarthConfig,

@@ -5,6 +5,7 @@ import * as THREE from "../vendor/three.module.js";
 import { DEG2RAD } from "./orbitalMechanics.js";
 import { instantiateEnhanced3DBody, createQuadsphereGeometry, prioritizeModelLoad } from "./model3dLibrary.js";
 import { applyIAUPoleOrientationToTiltGroup } from "./planetaryRotation.js";
+import { SUN_COLOR, DISCOVERY_GOLD, CATEGORY_COLORS, temperatureToHex } from "./colorSystem.js";
 
 let sharedGlowTexture = null;
 let sharedReticleTexture = null;
@@ -37,7 +38,8 @@ export function getDiscoveryReticleTexture() {
   const c = size / 2;
 
   ctx.clearRect(0, 0, size, size);
-  ctx.strokeStyle = "rgba(255, 214, 70, 0.92)";
+  ctx.strokeStyle = DISCOVERY_GOLD;
+  ctx.globalAlpha = 0.94;
   ctx.lineWidth = 4.0;
   for (let k = 0; k < 4; k++) {
     const a0 = k * (Math.PI / 2) + 0.22;
@@ -46,7 +48,8 @@ export function getDiscoveryReticleTexture() {
     ctx.arc(c, c, 92, a0, a1);
     ctx.stroke();
   }
-  ctx.strokeStyle = "rgba(56, 235, 255, 0.88)";
+  ctx.strokeStyle = "rgba(255, 236, 196, 0.86)";
+  ctx.globalAlpha = 1.0;
   ctx.lineWidth = 2.8;
   for (let k = 0; k < 4; k++) {
     const ang = k * (Math.PI / 2);
@@ -117,7 +120,7 @@ export function createSunShaderMesh(meshRadius) {
         float n = 0.55 * noise3(p) + 0.30 * noise3(p * 2.4) + 0.15 * noise3(p * 5.3);
         float mu = clamp(dot(normalize(vNormalPos), normalize(vViewDir)), 0.0, 1.0);
         float rim = pow(1.0 - mu, 2.2);
-        vec3 col = mix(vec3(1.0, 0.45, 0.08), vec3(1.0, 0.92, 0.55), n) * (0.28 + 0.95 * rim);
+        vec3 col = mix(vec3(1.0, 0.60, 0.22), vec3(1.0, 0.91, 0.73), n) * (0.28 + 0.95 * rim);
         gl_FragColor = vec4(col, 0.42 + 0.55 * rim);
       }
     `
@@ -129,7 +132,7 @@ export function createSunShaderMesh(meshRadius) {
   const glowTex = getGlowSpriteTexture();
   const innerCorona = new THREE.Sprite(new THREE.SpriteMaterial({
     map: glowTex,
-    color: 0xffbe42,
+    color: new THREE.Color(SUN_COLOR),
     blending: THREE.AdditiveBlending,
     transparent: true,
     depthWrite: false,
@@ -140,7 +143,7 @@ export function createSunShaderMesh(meshRadius) {
 
   const outerCorona = new THREE.Sprite(new THREE.SpriteMaterial({
     map: glowTex,
-    color: 0xff7a1a,
+    color: new THREE.Color(temperatureToHex(4000)),
     blending: THREE.AdditiveBlending,
     transparent: true,
     depthWrite: false,
@@ -333,7 +336,7 @@ function createVolumetricCometSystem(obj, meshRadius, vt) {
   const comaMat = new THREE.ShaderMaterial({
     uniforms: {
       uTime: timeUniform,
-      uColor: { value: new THREE.Color(isInterstellar ? 0x5ce8ff : 0x6ef7d8) },
+      uColor: { value: new THREE.Color(isInterstellar ? 0x7fcfe0 : 0x6fd6cc) },
       uStrength: { value: isChiron ? 0.18 : 0.38 }
     },
     transparent: true,
@@ -410,14 +413,14 @@ function createVolumetricCometSystem(obj, meshRadius, vt) {
     // 2. Multi-Shell High-Resolution 3D Type-I Anti-Solar Ion/Plasma Tail (dense core spine + wide filamentary sheath)
     addTailShell(
       58.0, 0.88, 2.85, 0.0, 64, 64,
-      isInterstellar ? 0x9ef8ff : 0x7ef0ff,
-      0x257bf4,
+      isInterstellar ? 0xa6e4f0 : 0x8fdcf0,
+      0x3f7fd6,
       0.58, 8.2, 0.46
     );
     addTailShell(
       72.0, 1.65, 5.80, 0.0, 64, 64,
-      isInterstellar ? 0x5eead4 : 0x38bdf8,
-      0x1d4ed8,
+      isInterstellar ? 0x62cdc4 : 0x54b6de,
+      0x2f5fc4,
       0.42, 4.8, 0.34
     );
 
@@ -425,13 +428,13 @@ function createVolumetricCometSystem(obj, meshRadius, vt) {
     addTailShell(
       46.0, 1.25, 6.20, 8.2, 60, 64,
       0xfff3d1,
-      isInterstellar ? 0xe9d5ff : 0xe5c89e,
+      isInterstellar ? 0xf0d9c8 : 0xe5c89e,
       0.46, 3.8, 0.18
     );
     addTailShell(
       56.0, 2.05, 10.40, 12.6, 60, 64,
-      0xfde68a,
-      isInterstellar ? 0xc084fc : 0xd6b388,
+      0xf3d9a0,
+      isInterstellar ? 0xe0a08f : 0xd6b388,
       0.32, 2.6, 0.13
     );
 
@@ -458,7 +461,7 @@ function createVolumetricCometSystem(obj, meshRadius, vt) {
         uTime: timeUniform,
         uRadius: { value: meshRadius },
         uTex: { value: getGlowSpriteTexture() },
-        uColor: { value: new THREE.Color(isInterstellar ? 0xa5f3fc : 0xfef3c7) },
+        uColor: { value: new THREE.Color(isInterstellar ? 0xbfe6ee : 0xfef3c7) },
         uDpr: { value: Math.min(window.devicePixelRatio || 1, 2) }
       },
       transparent: true,
@@ -545,6 +548,22 @@ function getSharedPlaceholderGeometry() {
 // Strict lazy GLB policy: only SUN loads eagerly; planets/moons/spacecraft/discoveries stream on demand
 const EAGER_PRELOAD_IDS = new Set(["SUN"]);
 
+// Apparent size of the Sun's screen-space glare, as a fraction of the viewport height.
+export const SUN_GLARE_SCREEN_SIZE = 0.078;
+
+// Apparent beacon size (fraction of viewport height) by kind of body: the eight planets are the
+// landmarks of a system-wide view, so they are drawn larger than dwarf planets, and those larger
+// than the many asteroids, comets and distant small bodies.
+function beaconScreenSize(obj, isChildMoon) {
+  if (obj.is_new_discovery) return 0.018;
+  if (isChildMoon) return 0.0085;
+  if (obj.category === "planets") {
+    return obj.id === "JUPITER" || obj.id === "SATURN" ? 0.030 : (obj.id === "URANUS" || obj.id === "NEPTUNE" ? 0.026 : 0.023);
+  }
+  if (obj.category === "dwarf_planets" || obj.category === "interstellar") return 0.012;
+  return 0.0082;
+}
+
 export function createProceduralBodyNode(obj) {
   const root = new THREE.Group();
   root.name = `body_${obj.id}`;
@@ -561,6 +580,23 @@ export function createProceduralBodyNode(obj) {
     root.userData.tiltGroup = tiltGroup;
     root.userData.rotatable = sunGroup;
     root.userData.sunUniforms = sunGroup.userData.sunUniforms;
+    // Screen-space glare, so the Sun reads as the system's star from any distance. The corona
+    // sprites above are sized in scene units and shrink to a few pixels in system-wide views; this
+    // one keeps a constant apparent size and is faded out by the application on close approach.
+    const sunGlare = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: getGlowSpriteTexture(),
+      color: new THREE.Color("#ffe6ae"),
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      depthWrite: false,
+      sizeAttenuation: false,
+      opacity: 0.0
+    }));
+    sunGlare.scale.set(SUN_GLARE_SCREEN_SIZE, SUN_GLARE_SCREEN_SIZE, 1);
+    sunGlare.renderOrder = 9;
+    root.add(sunGlare);
+    root.userData.beaconSprite = sunGlare;
+    root.userData.baseBeaconScale = SUN_GLARE_SCREEN_SIZE;
     return root;
   }
 
@@ -584,7 +620,7 @@ export function createProceduralBodyNode(obj) {
     placeholder = new THREE.Mesh(
       getSharedPlaceholderGeometry(),
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color(obj.color || "#8a99ad"),
+        color: new THREE.Color(obj.color || CATEGORY_COLORS[obj.category] || CATEGORY_COLORS.all),
         roughness: 0.85,
         metalness: 0.05
       })
@@ -754,7 +790,7 @@ export function createProceduralBodyNode(obj) {
     const isChildMoon = Boolean(obj.parent_id);
     const beaconMat = new THREE.SpriteMaterial({
       map: getGlowSpriteTexture(),
-      color: new THREE.Color(obj.color || "#8ecae6"),
+      color: new THREE.Color(obj.color || CATEGORY_COLORS[obj.category] || CATEGORY_COLORS.all),
       blending: isChildMoon ? THREE.NormalBlending : THREE.AdditiveBlending,
       transparent: true,
       depthWrite: false,
@@ -762,7 +798,7 @@ export function createProceduralBodyNode(obj) {
       opacity: obj.is_new_discovery ? 0.96 : (isChildMoon ? 0.45 : 0.78)
     });
     const beaconSprite = new THREE.Sprite(beaconMat);
-    const basePx = obj.is_new_discovery ? 0.020 : (obj.category === "planets" ? 0.019 : (isChildMoon ? 0.0085 : 0.0115));
+    const basePx = beaconScreenSize(obj, isChildMoon);
     beaconSprite.scale.set(basePx, basePx, 1);
     root.add(beaconSprite);
     root.userData.beaconSprite = beaconSprite;
@@ -771,7 +807,7 @@ export function createProceduralBodyNode(obj) {
     // Subtle non-additive 4px telemetry pip shown ONLY when user filters to "spacecraft" or selects this spacecraft!
     const scPipMat = new THREE.SpriteMaterial({
       map: getGlowSpriteTexture(),
-      color: new THREE.Color(obj.color || "#38bdf8"),
+      color: new THREE.Color(obj.color || CATEGORY_COLORS.spacecraft),
       blending: THREE.NormalBlending,
       transparent: true,
       depthWrite: false,

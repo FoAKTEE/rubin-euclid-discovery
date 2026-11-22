@@ -1,4 +1,5 @@
 import * as THREE from "../vendor/three.module.js";
+import { bpRpToPlanckRGB } from "./colorSystem.js";
 
 export const GALAXY_SCENE_PER_PC = 200.0;
 export const GALAXY_SCENE_PER_KPC = 200000.0;
@@ -43,38 +44,10 @@ export function helioGalacticKpcToScene(xg, yg, zg, outArr, offset = 0) {
   outArr[offset + 2] = (G0[2] * xg + G1[2] * yg + G2[2] * zg) * s;
 }
 
+// Gaia BP-RP -> display colour on the shared Planckian scale (colorSystem.js): M/K giants and the old
+// bulge ember-amber, solar G2V warm cream, F/A white, O/B spiral-arm tracers azure-white.
 function bpRpToRGB(bpRp, outArr, offset = 0) {
-  const c = Number.isFinite(bpRp) ? Math.max(-0.6, Math.min(3.2, bpRp)) : 0.82;
-  let r, g, b;
-  if (c < 0.0) {
-    const u = (c + 0.6) / 0.6;
-    r = 0.58 + 0.22 * u;
-    g = 0.72 + 0.18 * u;
-    b = 1.00;
-  } else if (c < 0.55) {
-    const u = c / 0.55;
-    r = 0.80 + 0.19 * u;
-    g = 0.90 + 0.08 * u;
-    b = 1.00 - 0.06 * u;
-  } else if (c < 1.15) {
-    const u = (c - 0.55) / 0.60;
-    r = 0.99 + 0.01 * u;
-    g = 0.98 - 0.12 * u;
-    b = 0.94 - 0.28 * u;
-  } else if (c < 1.85) {
-    const u = (c - 1.15) / 0.70;
-    r = 1.00;
-    g = 0.86 - 0.22 * u;
-    b = 0.66 - 0.28 * u;
-  } else {
-    const u = Math.min(1.0, (c - 1.85) / 1.35);
-    r = 1.00;
-    g = 0.64 - 0.18 * u;
-    b = 0.38 - 0.16 * u;
-  }
-  outArr[offset] = r;
-  outArr[offset + 1] = g;
-  outArr[offset + 2] = b;
+  bpRpToPlanckRGB(bpRp, outArr, offset);
 }
 
 const STAR_VERTEX_SHADER = `
@@ -110,11 +83,20 @@ const STAR_VERTEX_SHADER = `
     float ptSize = mix(skySize, max(skySize * 0.82, galSize), uGalacticFactor);
     gl_PointSize = clamp(ptSize * uPixelRatio, 1.0, 8.5);
 
-    float skyAlpha = (1.0 - isFarCompletion) * clamp(0.18 + 0.82 * pow(flux, 0.38), 0.06, 0.95);
+    // From inside the Solar System only the all-sky bright sample (apparent G < 7.5) is uniform.
+    // The deeper populations come from catalogue cones and boxes, which would show as rectangular
+    // patches of faint stars, so the sky view fades them out between G = 7.6 and 9.0.
+    float skyComplete = 1.0 - smoothstep(7.6, 9.0, appMag);
+    float skyAlpha = (1.0 - isFarCompletion) * skyComplete * clamp(0.18 + 0.82 * pow(flux, 0.38), 0.06, 0.95);
     float edgeCrowdDamp = mix(1.0, 0.68, smoothstep(22000.0, 75000.0, dPc));
     float galAlpha = clamp((0.18 + 0.50 * galBright * farAtten) * edgeCrowdDamp * min(1.0, selWeight), 0.001, 0.85);
     float farGate = mix(1.0, smoothstep(0.15, 0.75, uGalacticFactor), isFarCompletion);
     vAlpha = mix(skyAlpha * 0.72, galAlpha, uGalacticFactor) * farGate * uOpacity;
+    // The bulge sample was observed through one narrow window, so seen from nearby it is a pencil
+    // of stars pointing back at the Sun. In the galactic view those stars fade out within a few
+    // kiloparsecs of the camera; from farther away they blend into the bulge as before.
+    float pencilStar = 1.0 - step(0.0005, abs(boostMag - 0.018));
+    vAlpha *= mix(1.0, smoothstep(700.0, 3500.0, dPc), pencilStar * uGalacticFactor);
 
     gl_Position = projectionMatrix * mvPosition;
     #include <logdepthbuf_vertex>
@@ -160,6 +142,7 @@ const DISK_SLAB_FRAGMENT_SHADER = `
   uniform float uOpacity;
   uniform float uDiskRadiusKpc;
   uniform float uDiskHalfHeightKpc;
+  uniform float uSteps;
   varying vec3 vLocalKpc;
 
   float hash31(vec3 p) {
@@ -263,11 +246,13 @@ const DISK_SLAB_FRAGMENT_SHADER = `
     float spiralGas = armSum * zGas * (0.42 + 0.90 * turb) * dustShield;
     float hiiKnots = armSum * zDust * smoothstep(0.62, 0.88, fineClump) * smoothstep(0.42, 0.75, turb) * dustShield;
 
-    vec3 colBulge = vec3(1.00, 0.76, 0.40) * (barGlow * 0.62 * mix(0.35, 1.0, dustShield));
-    vec3 colDisk  = vec3(0.58, 0.70, 0.96) * (diskBase * dustShield);
-    vec3 colArm   = mix(vec3(0.34, 0.66, 0.99), vec3(0.76, 0.88, 1.00), turb) * (spiralGas * 0.36);
-    vec3 colHII   = mix(vec3(0.96, 0.34, 0.58), vec3(0.30, 0.88, 0.96), fract(fineClump * 3.7)) * (hiiKnots * 0.62);
-    vec3 colDustRim = vec3(0.48, 0.24, 0.09) * (dustExt * (1.0 - zDust * 0.55) * 0.22);
+    // Shared outreach palette (colorSystem.js): old bar/bulge population ~3800-4800 K amber-gold,
+    // young OB arms cool blue-white, restrained dusty-rose H-alpha knots, sepia-umber dust silhouettes.
+    vec3 colBulge = mix(vec3(0.95, 0.70, 0.44), vec3(1.00, 0.84, 0.60), clamp(peanutCore * 1.6, 0.0, 1.0)) * (barGlow * 0.62 * mix(0.35, 1.0, dustShield));
+    vec3 colDisk  = vec3(0.70, 0.79, 0.98) * (diskBase * dustShield * 1.2);
+    vec3 colArm   = mix(vec3(0.44, 0.66, 1.00), vec3(0.78, 0.88, 1.00), turb) * (spiralGas * 0.52);
+    vec3 colHII   = mix(vec3(0.83, 0.48, 0.48), vec3(0.90, 0.62, 0.58), fract(fineClump * 3.7)) * (hiiKnots * 0.78);
+    vec3 colDustRim = vec3(0.34, 0.22, 0.13) * (dustExt * (1.0 - zDust * 0.55) * 0.14);
 
     emitRGB = (colBulge + colDisk + colArm + colHII + colDustRim) * sunClear;
   }
@@ -309,13 +294,15 @@ const DISK_SLAB_FRAGMENT_SHADER = `
     // 44 uniform jittered steps eliminate edge-on Mach banding across the thin 95 pc dust plane
     float span = min(tMax - tMin, 39.0);
     const int STEPS = 44;
-    float ds = span / float(STEPS);
+    float stepCount = clamp(uSteps, 6.0, float(STEPS));
+    float ds = span / stepCount;
     float jitter = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
 
     vec3 accumLight = vec3(0.0);
     float transmittance = 1.0;
 
     for (int i = 0; i < STEPS; i++) {
+      if (float(i) >= stepCount) break;
       float t = tMin + (float(i) + jitter) * ds;
       vec3 p = ro + rd * t;
       vec3 emitRGB;
@@ -330,6 +317,9 @@ const DISK_SLAB_FRAGMENT_SHADER = `
     // Pure dust-extinction alpha attenuates background stars behind dark midplane lanes while keeping dust-free bulge emission purely additive
     float dustAlpha = clamp((1.0 - transmittance) * 0.88, 0.0, 0.88);
     if (dustAlpha < 0.002 && dot(accumLight, accumLight) < 1e-6) discard;
+
+    // Soft shoulder: long sight lines through the bulge approach white instead of clipping to it.
+    accumLight = vec3(1.0) - exp(-accumLight * 1.15);
 
     #include <logdepthbuf_fragment>
     gl_FragColor = vec4(accumLight * uOpacity, dustAlpha * uOpacity);
@@ -405,11 +395,91 @@ const FERMI_FRAGMENT_SHADER = `
     float ndv = abs(dot(normalize(vNormalView), normalize(vViewDir)));
     float shell = pow(1.0 - ndv, 1.65) * 0.65 + 0.18 * ndv;
     float baseTaper = smoothstep(0.0, 1.2, abs(vLocalY));
-    float intensity = shell * baseTaper * 0.16 * uOpacity;
+    float intensity = shell * baseTaper * 0.13 * uOpacity;
     if (intensity < 0.002) discard;
-    vec3 col = mix(vec3(0.68, 0.36, 0.92), vec3(0.42, 0.72, 1.0), clamp(abs(vLocalY) / 9.0, 0.0, 1.0));
+    vec3 col = mix(vec3(0.30, 0.34, 0.78), vec3(0.36, 0.56, 0.92), clamp(abs(vLocalY) / 9.0, 0.0, 1.0));
     #include <logdepthbuf_fragment>
     gl_FragColor = vec4(col * intensity, intensity * 0.35);
+  }
+`;
+
+// The Milky Way as a band on the sky, for views from inside the Solar System (where the 3D gas
+// model is switched off). Brightness follows galactic latitude and longitude: a wide warm bulge
+// toward l = 0, a narrower cooler band elsewhere, mottled by star clouds and cut by the dust rift.
+const SKY_BAND_VERTEX_SHADER = `
+  #include <common>
+  #include <logdepthbuf_pars_vertex>
+  varying vec3 vDir;
+  void main() {
+    vDir = position;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    #include <logdepthbuf_vertex>
+  }
+`;
+
+const SKY_BAND_FRAGMENT_SHADER = `
+  #include <common>
+  #include <logdepthbuf_pars_fragment>
+  uniform float uOpacity;
+  uniform vec3 uGalX;
+  uniform vec3 uGalY;
+  uniform vec3 uGalZ;
+  varying vec3 vDir;
+
+  float skyHash(vec3 p) {
+    p = fract(p * vec3(0.1031, 0.1030, 0.0973));
+    p += dot(p, p.yxz + 33.33);
+    return fract((p.x + p.y) * p.z);
+  }
+
+  float skyNoise(vec3 p) {
+    vec3 i = floor(p);
+    vec3 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(
+      mix(mix(skyHash(i), skyHash(i + vec3(1.0, 0.0, 0.0)), f.x),
+          mix(skyHash(i + vec3(0.0, 1.0, 0.0)), skyHash(i + vec3(1.0, 1.0, 0.0)), f.x), f.y),
+      mix(mix(skyHash(i + vec3(0.0, 0.0, 1.0)), skyHash(i + vec3(1.0, 0.0, 1.0)), f.x),
+          mix(skyHash(i + vec3(0.0, 1.0, 1.0)), skyHash(i + vec3(1.0, 1.0, 1.0)), f.x), f.y),
+      f.z
+    );
+  }
+
+  float skyFbm(vec3 p) {
+    float v = 0.0;
+    float a = 0.5;
+    for (int i = 0; i < 3; i++) {
+      v += a * skyNoise(p);
+      p = p * 2.03 + vec3(11.7, 5.3, 8.1);
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  void main() {
+    #include <logdepthbuf_fragment>
+    vec3 d = normalize(vDir);
+    float gx = dot(d, uGalX);
+    float gy = dot(d, uGalY);
+    float gz = dot(d, uGalZ);
+    float b = asin(clamp(gz, -1.0, 1.0));
+    float cosB = max(1e-4, sqrt(max(0.0, 1.0 - gz * gz)));
+    float towardCentre = 0.5 + 0.5 * (gx / cosB);
+    float width = mix(0.075, 0.16, towardCentre * towardCentre);
+    float band = exp(-(b * b) / (2.0 * width * width));
+    float cosToCentre = clamp(gx, -1.0, 1.0);
+    float angCentre = acos(cosToCentre);
+    float bulge = exp(-(angCentre * angCentre) / (2.0 * 0.21 * 0.21)) * exp(-(b * b) / (2.0 * 0.15 * 0.15));
+    float clouds = skyFbm(d * 7.0);
+    float riftMask = smoothstep(0.38, 0.72, skyFbm(d * 13.0 + vec3(3.1, 0.0, 7.7)));
+    float rift = 1.0 - 0.6 * exp(-(b * b) / (2.0 * 0.024 * 0.024)) * riftMask * (0.3 + 0.7 * towardCentre);
+    float lum = (band * (0.10 + 0.34 * towardCentre) * (0.5 + 1.0 * clouds) + 0.62 * bulge) * rift;
+    vec3 warm = vec3(1.00, 0.86, 0.66);
+    vec3 cool = vec3(0.68, 0.79, 1.00);
+    vec3 col = mix(cool, warm, clamp(0.7 * towardCentre * towardCentre + 1.2 * bulge, 0.0, 1.0));
+    float a = clamp(lum * uOpacity, 0.0, 1.0);
+    if (a < 0.003) discard;
+    gl_FragColor = vec4(col, a);
   }
 `;
 
@@ -533,11 +603,13 @@ function buildVolumetricCloudPuffs() {
 
       const isHII = rng() < 0.34;
       if (isHII) {
-        r = 0.95; g = 0.32 + 0.18 * rng(); b = 0.62 + 0.25 * rng();
+        // H-alpha star-forming knots: dusty rose-crimson (#d47a7a family)
+        r = 0.86; g = 0.44 + 0.10 * rng(); b = 0.45 + 0.09 * rng();
         sKpc = 0.28 + 0.42 * rng();
-        alpha = 0.22 + 0.18 * rng();
+        alpha = 0.18 + 0.14 * rng();
       } else {
-        r = 0.28 + 0.22 * rng(); g = 0.58 + 0.22 * rng(); b = 0.98;
+        // Young OB-association reflection glow: cool azure-white (#9bc4ff -> #7ab0ff)
+        r = 0.46 + 0.16 * rng(); g = 0.67 + 0.11 * rng(); b = 1.00;
         sKpc = 0.55 + 0.85 * rng();
         alpha = 0.11 + 0.10 * rng();
       }
@@ -551,7 +623,8 @@ function buildVolumetricCloudPuffs() {
       xg = R0_KPC - xb * cB + yb * sB;
       yg = xb * sB + yb * cB;
       zg = -Z_SUN_KPC + (rng() + rng() - 1.0) * 0.38;
-      r = 1.00; g = 0.72 + 0.14 * rng(); b = 0.40 + 0.15 * rng();
+      // Old bar population (~3800-4800 K): ember-amber #e59364 -> #f3bd7d
+      r = 0.94; g = 0.62 + 0.13 * rng(); b = 0.40 + 0.10 * rng();
       sKpc = 0.60 + 0.95 * rng();
       alpha = 0.12 + 0.10 * rng();
     } else {
@@ -566,11 +639,12 @@ function buildVolumetricCloudPuffs() {
       zg = d * Math.sin(bLat) + (rng() + rng() - 1.0) * (spread * 0.55);
       const isTarantula = isLMC && rng() < 0.22;
       if (isTarantula) {
-        r = 0.98; g = 0.36; b = 0.68;
+        r = 0.85; g = 0.50; b = 0.50;
         sKpc = 0.85 + 0.75 * rng();
-        alpha = 0.28;
+        alpha = 0.24;
       } else {
-        r = 0.48 + 0.25 * rng(); g = 0.70 + 0.18 * rng(); b = 1.00;
+        // Magellanic Clouds: young metal-poor populations, soft periwinkle (#9eb8de)
+        r = 0.56 + 0.12 * rng(); g = 0.68 + 0.10 * rng(); b = 0.94;
         sKpc = 1.2 + 1.6 * rng();
         alpha = 0.16 + 0.10 * rng();
       }
@@ -848,7 +922,8 @@ export function createGalaxyLayer(options = {}) {
     uTime: { value: 0.0 },
     uOpacity: { value: 0.0 },
     uDiskRadiusKpc: { value: diskRadiusKpc },
-    uDiskHalfHeightKpc: { value: diskHalfHeightKpc }
+    uDiskHalfHeightKpc: { value: diskHalfHeightKpc },
+    uSteps: { value: 44.0 }
   };
 
   const slabMat = new THREE.ShaderMaterial({
@@ -898,6 +973,31 @@ export function createGalaxyLayer(options = {}) {
   fermiSouth.frustumCulled = false;
   mwCenterNode.add(fermiNorth, fermiSouth);
 
+  // Milky Way band on the sky (a camera-centred shell; fades out as the camera leaves the Solar
+  // System and the 3D model above takes over).
+  const skyBandUniforms = {
+    uOpacity: { value: 0.0 },
+    uGalX: { value: new THREE.Vector3(G0[0], G0[1], G0[2]) },
+    uGalY: { value: new THREE.Vector3(G1[0], G1[1], G1[2]) },
+    uGalZ: { value: new THREE.Vector3(G2[0], G2[1], G2[2]) }
+  };
+  const skyBandGeom = new THREE.SphereGeometry(1.0, 48, 24);
+  const skyBandMat = new THREE.ShaderMaterial({
+    uniforms: skyBandUniforms,
+    vertexShader: SKY_BAND_VERTEX_SHADER,
+    fragmentShader: SKY_BAND_FRAGMENT_SHADER,
+    side: THREE.BackSide,
+    transparent: true,
+    depthTest: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  const skyBand = new THREE.Mesh(skyBandGeom, skyBandMat);
+  skyBand.scale.setScalar(3.0e7);
+  skyBand.frustumCulled = false;
+  skyBand.renderOrder = -1;
+  group.add(skyBand);
+
   // 3D HII Star-Forming Cloud Knots + LMC/SMC Nebulae
   const cloudLayer = buildVolumetricCloudPuffs();
   gasGroup.add(cloudLayer.points);
@@ -909,12 +1009,15 @@ export function createGalaxyLayer(options = {}) {
     slabMat,
     fermiGeom,
     fermiMat,
+    skyBandGeom,
+    skyBandMat,
     cloudLayer.geom,
     cloudLayer.mat
   ];
 
   const _camKpc = new THREE.Vector3();
   let masterOpacity = 1.0;
+  let bhDimSmooth = 1.0;
   let gasEnabled = options.showGas !== false;
   let simTime = 0.0;
   let catalogMetadata = null;
@@ -987,12 +1090,22 @@ export function createGalaxyLayer(options = {}) {
       scaleInfo?.cameraDistAU !== undefined &&
       Number(scaleInfo.cameraDistAU) < 110000.0;
     const gasRamp = insideTrueScaleSolar ? 0.0 : Math.max(0.0, Math.min(1.0, (camDistScene - 320.0) / 2400.0));
-    const effectiveGasOpacity = gasEnabled ? Math.max(galFactor * 0.92, gasRamp) * masterOpacity : 0.0;
+    // Close to a black hole the camera sits inside the stellar disc or bulge, whose glow would
+    // wash out the accretion disc and the lensed ring, so the gas model is dimmed there.
+    const bhFocusDim = scaleInfo?.blackHoleCloseUp ? 0.30 : 1.0;
+    bhDimSmooth += (bhFocusDim - bhDimSmooth) * Math.min(1.0, 4.0 * Math.min(0.1, Math.max(0.0, Number(dt) || 0.016)) + 0.05);
+    const effectiveGasOpacity = gasEnabled ? Math.max(galFactor * 0.92, gasRamp) * masterOpacity * bhDimSmooth : 0.0;
 
     slabUniforms.uOpacity.value = effectiveGasOpacity;
     fermiUniforms.uOpacity.value = effectiveGasOpacity * Math.max(0.0, Math.min(1.0, (camDistScene - 18000.0) / 160000.0));
     cloudLayer.uniforms.uOpacity.value = effectiveGasOpacity;
     gasGroup.visible = effectiveGasOpacity > 0.003;
+
+    // Sky band: full strength inside the Solar System, gone once the galactic view takes over.
+    const skyBandOpacity = masterOpacity * 0.30 * (1.0 - Math.max(0.0, Math.min(1.0, galFactor / 0.35)));
+    skyBandUniforms.uOpacity.value = skyBandOpacity;
+    skyBand.visible = skyBandOpacity > 0.004;
+    if (camera && skyBand.visible) skyBand.position.copy(camera.position);
 
     if (camera && gasGroup.visible) {
       slabMesh.updateWorldMatrix(true, false);
@@ -1004,6 +1117,11 @@ export function createGalaxyLayer(options = {}) {
 
   function setVisible(visible) {
     group.visible = Boolean(visible);
+  }
+
+  // Ray-march steps of the volumetric disc (44 at full quality; fewer on slow renderers).
+  function setRaymarchSteps(n) {
+    slabUniforms.uSteps.value = Math.max(6.0, Math.min(44.0, Number(n) || 44.0));
   }
 
   function setGasVisible(visible) {
@@ -1034,6 +1152,7 @@ export function createGalaxyLayer(options = {}) {
     update,
     setVisible,
     setGasVisible,
+    setRaymarchSteps,
     setOpacity,
     getCatalog,
     dispose

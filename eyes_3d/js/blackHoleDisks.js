@@ -1,4 +1,5 @@
 import * as THREE from "../vendor/three.module.js";
+import { temperatureToRGB, temperatureToHex, GALACTIC_COLORS } from "./colorSystem.js";
 
 const DEG2RAD = Math.PI / 180.0;
 const TWO_PI = Math.PI * 2.0;
@@ -16,10 +17,10 @@ export const BLACK_HOLE_PRESETS = {
     disk_temp_scale: 0.92,
     jet_power: 0.26,
     s_stars: [
-      { name: "S2", a_rel: 1.48, e: 0.88465, i_deg: 133.92, Omega_deg: 228.07, omega_deg: 66.25, period_yr: 16.052, M0_deg: 25.0, color: "#7dd3fc" },
-      { name: "S38", a_rel: 1.66, e: 0.8201, i_deg: 171.10, Omega_deg: 101.10, omega_deg: 17.99, period_yr: 19.20, M0_deg: 140.0, color: "#fde68a" },
-      { name: "S55", a_rel: 1.28, e: 0.7209, i_deg: 150.10, Omega_deg: 325.50, omega_deg: 331.50, period_yr: 12.80, M0_deg: 235.0, color: "#93c5fd" },
-      { name: "S62", a_rel: 1.08, e: 0.9760, i_deg: 72.76, Omega_deg: 122.60, omega_deg: 42.60, period_yr: 9.90, M0_deg: 82.0, color: "#fbbf24" }
+      { name: "S2", a_rel: 1.48, e: 0.88465, i_deg: 133.92, Omega_deg: 228.07, omega_deg: 66.25, period_yr: 16.052, M0_deg: 25.0, teff: 25000 },
+      { name: "S38", a_rel: 1.66, e: 0.8201, i_deg: 171.10, Omega_deg: 101.10, omega_deg: 17.99, period_yr: 19.20, M0_deg: 140.0, teff: 15000 },
+      { name: "S55", a_rel: 1.28, e: 0.7209, i_deg: 150.10, Omega_deg: 325.50, omega_deg: 331.50, period_yr: 12.80, M0_deg: 235.0, teff: 19000 },
+      { name: "S62", a_rel: 1.08, e: 0.9760, i_deg: 72.76, Omega_deg: 122.60, omega_deg: 42.60, period_yr: 9.90, M0_deg: 82.0, teff: 11000 }
     ]
   },
   CYGNUS_X1: {
@@ -270,13 +271,11 @@ function resolveSpec(rawSpec = {}) {
   return merged;
 }
 
+// Companion and S-star colours come from the shared Planckian scale (colorSystem.js).
+const _teffRGB = [0, 0, 0];
 function teffToColor(teff = 5800) {
-  if (teff >= 25000) return new THREE.Color(0x93c5fd);
-  if (teff >= 10000) return new THREE.Color(0xdbeafe);
-  if (teff >= 6500) return new THREE.Color(0xfef9c3);
-  if (teff >= 5200) return new THREE.Color(0xfde68a);
-  if (teff >= 4200) return new THREE.Color(0xfdba74);
-  return new THREE.Color(0xfca5a5);
+  temperatureToRGB(Number(teff) || 5800, _teffRGB, 0);
+  return new THREE.Color().setRGB(_teffRGB[0], _teffRGB[1], _teffRGB[2], THREE.SRGBColorSpace);
 }
 
 function solveKeplerElliptic(M, e) {
@@ -351,20 +350,20 @@ const LENSING_FRAGMENT_SHADER = `
     float tShift = clamp(tempNorm * pow(max(doppler, 0.15), 0.85), 0.0, 2.4);
     vec3 cOuter, cMid, cInner, cHot;
     if (mode > 1.5 && mode < 2.5) {
-      cOuter = vec3(0.75, 0.18, 0.06);
-      cMid   = vec3(1.00, 0.58, 0.20);
+      cOuter = vec3(0.72, 0.30, 0.14);
+      cMid   = vec3(0.95, 0.74, 0.49);
       cInner = vec3(0.96, 0.97, 1.00);
-      cHot   = vec3(0.55, 0.84, 1.00);
+      cHot   = vec3(0.48, 0.72, 0.96);
     } else if (mode > 0.5 && mode < 1.5) {
-      cOuter = vec3(0.52, 0.09, 0.02);
-      cMid   = vec3(0.98, 0.44, 0.08);
-      cInner = vec3(1.00, 0.84, 0.42);
-      cHot   = vec3(1.00, 0.96, 0.86);
+      cOuter = vec3(0.50, 0.17, 0.05);
+      cMid   = vec3(0.91, 0.54, 0.20);
+      cInner = vec3(0.96, 0.74, 0.44);
+      cHot   = vec3(1.00, 0.91, 0.73);
     } else {
-      cOuter = vec3(0.62, 0.12, 0.04);
-      cMid   = vec3(0.99, 0.48, 0.12);
-      cInner = vec3(1.00, 0.90, 0.66);
-      cHot   = vec3(0.78, 0.91, 1.00);
+      cOuter = vec3(0.62, 0.22, 0.09);
+      cMid   = vec3(0.95, 0.62, 0.34);
+      cInner = vec3(1.00, 0.91, 0.73);
+      cHot   = vec3(0.80, 0.90, 1.00);
     }
     vec3 col = mix(cOuter, cMid, smoothstep(0.05, 0.42, tShift));
     col = mix(col, cInner, smoothstep(0.42, 0.92, tShift));
@@ -415,7 +414,7 @@ const LENSING_FRAGMENT_SHADER = `
     float stepAlpha = clamp(density * (0.86 - 0.38 * uRad), 0.0, 0.94);
 
     if (uDormantMode > 0.5) {
-      col = mix(vec3(0.38, 0.64, 1.0), vec3(0.85, 0.92, 1.0), mri);
+      col = mix(vec3(0.46, 0.56, 0.86), vec3(0.80, 0.86, 0.98), mri);
       emitStrength *= 0.09;
       stepAlpha *= 0.12;
     }
@@ -472,7 +471,7 @@ const LENSING_FRAGMENT_SHADER = `
       if (uPaletteMode > 0.5 && uPaletteMode < 1.5 && r < uROut * 0.62 && r > uRs * 1.35) {
         float hFrac = abs(pos.y) / max(1e-4, r);
         float torus = exp(-hFrac * hFrac * 6.5) * exp(-pow((r - uRIn * 1.35) / (uROut * 0.28), 2.0));
-        vec3 riafCol = vec3(1.0, 0.56, 0.16) * torus * dtStep * 1.35;
+        vec3 riafCol = vec3(0.96, 0.62, 0.24) * torus * dtStep * 1.35;
         accumCol += (1.0 - accumAlpha) * riafCol;
       }
 
@@ -488,7 +487,7 @@ const LENSING_FRAGMENT_SHADER = `
       float ringAsym = clamp(1.0 + 0.52 * sideSign, 0.42, 1.68);
       float photonRing = exp(-pow(ringDelta / 0.052, 2.0)) * ringAsym;
       vec3 ringCol = uDormantMode > 0.5
-        ? vec3(0.66, 0.84, 1.0) * (0.88 * photonRing)
+        ? vec3(0.64, 0.74, 0.96) * (0.88 * photonRing)
         : mix(vec3(1.0, 0.78, 0.42), vec3(0.84, 0.94, 1.0), clamp(0.5 + 0.5 * sideSign, 0.0, 1.0)) * (1.25 * photonRing * float(uDiskEnabled > 0.5 ? 1.0 : 0.35));
       accumCol += (1.0 - accumAlpha * 0.65) * ringCol;
       accumAlpha = max(accumAlpha, clamp(photonRing * 0.55, 0.0, 0.85));
@@ -498,12 +497,15 @@ const LENSING_FRAGMENT_SHADER = `
       float deflect = 1.0 - clamp(dot(vel, rd), -1.0, 1.0);
       float einstein = smoothstep(0.04, 0.85, deflect) * exp(-max(0.0, bImpact - bCrit) * 4.5);
       float shimmer = 0.72 + 0.28 * sin(atan(vel.z, vel.x) * 7.0 + uTime * 1.3);
-      accumCol += (1.0 - accumAlpha) * vec3(0.58, 0.80, 1.0) * einstein * shimmer * 0.75;
+      accumCol += (1.0 - accumAlpha) * vec3(0.55, 0.66, 0.90) * einstein * shimmer * 0.75;
       accumAlpha = max(accumAlpha, einstein * 0.42);
     }
 
     float finalAlpha = hitHorizon ? 1.0 : clamp(accumAlpha, 0.0, 0.95);
     if (finalAlpha < 0.003 && dot(accumCol, accumCol) < 1e-6) discard;
+    // Soft shoulder for the Doppler-boosted side of the disc: it approaches white, keeping its
+    // warm-to-hot gradient, instead of clipping to a flat white patch.
+    accumCol = vec3(1.0) - exp(-accumCol * 0.9);
 
     #include <logdepthbuf_fragment>
     gl_FragColor = vec4(accumCol * uOpacity, finalAlpha * uOpacity);
@@ -545,7 +547,7 @@ const JET_FRAGMENT_SHADER = `
     float knots = 0.55 + 0.45 * sin(axial * 26.0 - uTime * 8.5);
     float intensity = baseFade * tipFade * fresnel * (0.48 + 0.52 * helix1 * helix2) * knots * uPower;
     if (intensity < 0.004) discard;
-    vec3 col = mix(vec3(0.32, 0.66, 1.0), vec3(0.90, 0.96, 1.0), (1.0 - axial) * 0.75 + 0.25 * knots);
+    vec3 col = mix(vec3(0.42, 0.72, 0.94), vec3(0.90, 0.95, 1.0), (1.0 - axial) * 0.75 + 0.25 * knots);
     #include <logdepthbuf_fragment>
     gl_FragColor = vec4(col * intensity * 1.45 * uOpacity, clamp(intensity * uOpacity, 0.0, 0.85));
   }
@@ -757,7 +759,7 @@ export function createBlackHoleSystem(rawSpec = {}, options = {}) {
         uniforms: {
           uTime: { value: 0.0 },
           uColorA: { value: starColor.clone() },
-          uColorB: { value: new THREE.Color(0xfdba74) },
+          uColorB: { value: teffToColor(4200) },
           uOpacity: { value: 1.0 }
         },
         vertexShader: `
@@ -818,8 +820,9 @@ export function createBlackHoleSystem(rawSpec = {}, options = {}) {
       const inc = Number(st.i_deg ?? st.inc_deg ?? 130) * DEG2RAD;
       const Om = Number(st.Omega_deg ?? 200) * DEG2RAD;
       const om = Number(st.omega_deg ?? 60) * DEG2RAD;
-      const sPalette = ["#7dd3fc", "#fde68a", "#93c5fd", "#fbbf24"];
-      const stColor = st.color || sPalette[sIdx % sPalette.length];
+      // S-stars are early B dwarfs: hot azure-white on the Planckian scale, spread by temperature.
+      const sTeffs = [25000, 15000, 19000, 11000];
+      const stColor = st.color || temperatureToHex(Number(st.teff) || sTeffs[sIdx % sTeffs.length]);
       const cO = Math.cos(Om), sO = Math.sin(Om);
       const co = Math.cos(om), so = Math.sin(om);
       const ci = Math.cos(inc), si = Math.sin(inc);
@@ -893,7 +896,7 @@ export function createBlackHoleSystem(rawSpec = {}, options = {}) {
     if (!_sharedBeaconTex) _sharedBeaconTex = createBeaconTexture();
     const bMat = new THREE.SpriteMaterial({
       map: _sharedBeaconTex,
-      color: isDormant ? 0x7dd3fc : (isSMBH ? 0xfbbf24 : 0x38bdf8),
+      color: new THREE.Color(isDormant ? GALACTIC_COLORS.dormant : (isSMBH ? GALACTIC_COLORS.smbh : GALACTIC_COLORS.xray_binary)),
       transparent: true,
       opacity: 0.0,
       blending: THREE.AdditiveBlending,

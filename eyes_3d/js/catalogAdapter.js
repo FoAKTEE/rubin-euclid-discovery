@@ -2,6 +2,7 @@
 // Reads window.SOLAR_CATALOG seamlessly; never writes or modifies data/solar_catalog.js on disk.
 
 import { BUILTIN_REFERENCE_OBJECTS } from "./fallbackCatalog.js";
+import { resolveObjectColor, GALACTIC_COLORS, CATEGORY_COLORS } from "./colorSystem.js";
 
 export const CATEGORY_ORDER = [
   "all",
@@ -626,7 +627,7 @@ function normalizeSingleObject(raw) {
   if (sciMetrics?.merged_alias_id) aliases.add(String(sciMetrics.merged_alias_id));
   if (sciMetrics?.ades_trkSub) aliases.add(String(sciMetrics.ades_trkSub));
 
-  return {
+  const norm = {
     id,
     model_id,
     l1_phase_deg: raw.l1_phase_deg ?? null,
@@ -676,7 +677,8 @@ function normalizeSingleObject(raw) {
     albedo,
     rotation_period_hr: numOr(raw.rotation_period_hr ?? phys.rotation_period_hr, 10.0),
     obliquity_deg: numOr(raw.obliquity_deg ?? phys.axial_tilt_deg ?? phys.obliquity_deg, defaultObliquity),
-    color: raw.color || phys.color_hex || (is_new_discovery ? "#fbbf24" : "#60a5fa"),
+    source_color: raw.color || phys.color_hex || null,
+    color: CATEGORY_COLORS.all,
     science: {
       telescopes,
       headline: withAudit(sci.headline || raw.headline || "", "en"),
@@ -690,6 +692,10 @@ function normalizeSingleObject(raw) {
       blog_url: sci.blog_url || raw.blog_url || null
     }
   };
+  // One colour system for every dot, beacon and orbit line (colorSystem.js); observatory gold is
+  // reserved for audited survey discoveries.
+  norm.color = resolveObjectColor(norm);
+  return norm;
 }
 
 function extractRawList(externalCatalog) {
@@ -810,7 +816,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "SGR_A_STAR", name: "Sagittarius A* (Galactic Center SMBH)", name_zh: "人马座 A* (银河系中心超大质量黑洞)",
       bh_type: "smbh", ra_deg: 266.4168, dec_deg: -29.0078, dist_kpc: 8.277, gal_xyz_kpc: [8.277, 0.0, -0.020],
-      mass_msun: 4.297e6, spin: 0.90, inc_deg: 32.0, color: "#f59e0b",
+      mass_msun: 4.297e6, spin: 0.90, inc_deg: 32.0, color: "#e8a248",
       headline: "4.30 Million M☉ Supermassive Black Hole at the Dynamical Center of the Milky Way",
       headline_zh: "位于银河系动力学中心、质量 430 万倍太阳质量的超大质量黑洞",
       summary: "Anchored 8.277 kpc (26,996 ly) away in Sagittarius, Sgr A* drives relativistic S-star orbits (S2 reaches 7,650 km/s at pericenter) and was directly imaged by the Event Horizon Telescope.",
@@ -819,7 +825,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "GAIA_BH1", name: "Gaia BH1 (Nearest Dormant Black Hole)", name_zh: "盖亚 BH1 (最近休眠黑洞)",
       bh_type: "dormant", ra_deg: 262.1712, dec_deg: -0.5811, dist_kpc: 0.478, gal_xyz_kpc: [0.431, 0.193, 0.149],
-      mass_msun: 9.62, companion_mass_msun: 0.93, companion_type: "G-type Main-Sequence", period_days: 185.59, ecc: 0.451, inc_deg: 126.6, color: "#38bdf8",
+      mass_msun: 9.62, companion_mass_msun: 0.93, companion_type: "G-type Main-Sequence", period_days: 185.59, ecc: 0.451, inc_deg: 126.6, color: "#8ca4d8",
       headline: "9.62 M☉ Dormant Black Hole + Sun-like Star at 478 pc (El-Badry et al. 2023)",
       headline_zh: "距太阳仅 478 秒差距的 9.62 倍太阳质量休眠黑洞与类太阳伴星",
       summary: "Discovered via Gaia DR3 astrometric wobble (El-Badry et al. 2023), Gaia BH1 is a quiescent stellar-mass black hole orbited by a 0.93 M☉ G-dwarf every 185.6 days.",
@@ -828,7 +834,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "GAIA_BH2", name: "Gaia BH2 (Red-Giant Astrometric BH)", name_zh: "盖亚 BH2 (红巨星伴星休眠黑洞)",
       bh_type: "dormant", ra_deg: 207.5697, dec_deg: -59.2390, dist_kpc: 1.16, gal_xyz_kpc: [0.742, -0.890, 0.056],
-      mass_msun: 8.94, companion_mass_msun: 1.07, companion_type: "Red Giant", period_days: 1276.7, ecc: 0.518, inc_deg: 34.9, color: "#60a5fa",
+      mass_msun: 8.94, companion_mass_msun: 1.07, companion_type: "Red Giant", period_days: 1276.7, ecc: 0.518, inc_deg: 34.9, color: "#8ca4d8",
       headline: "8.94 M☉ Wide-Orbit Dormant Black Hole at 1.16 kpc (El-Badry et al. 2023)",
       headline_zh: "1.16 kpc 处 8.94 倍太阳质量宽距休眠黑洞与红巨星系统",
       summary: "Wide 1,277-day astrometric binary discovered in Gaia DR3 pairing a 8.94 M☉ quiescent black hole with an alpha-enhanced red giant.",
@@ -837,7 +843,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "GAIA_BH3", name: "Gaia BH3 (33 M☉ Halo Metal-Poor BH)", name_zh: "盖亚 BH3 (33倍太阳质量银晕黑洞)",
       bh_type: "dormant", ra_deg: 294.8279, dec_deg: 14.9309, dist_kpc: 0.591, gal_xyz_kpc: [0.351, 0.474, -0.036],
-      mass_msun: 32.70, companion_mass_msun: 0.76, companion_type: "Metal-Poor Giant ([Fe/H]=-2.56)", period_days: 4253.1, ecc: 0.729, inc_deg: 110.6, color: "#818cf8",
+      mass_msun: 32.70, companion_mass_msun: 0.76, companion_type: "Metal-Poor Giant ([Fe/H]=-2.56)", period_days: 4253.1, ecc: 0.729, inc_deg: 110.6, color: "#8ca4d8",
       headline: "32.7 M☉ Most Massive Known Stellar-Origin Milky Way Black Hole (591 pc)",
       headline_zh: "已知银河系质量最大的恒星级黑洞（32.7 倍太阳质量，591 pc）",
       summary: "Orbiting inside the ED-2 halo stream just 591 pc from the Sun, Gaia BH3 bridges Galactic stellar black holes to LIGO/Virgo gravitational-wave merger masses.",
@@ -846,7 +852,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "CYGNUS_X1", name: "Cygnus X-1 (High-Mass X-Ray Binary BH)", name_zh: "天鹅座 X-1 (高能吸积黑洞)",
       bh_type: "xray_binary", ra_deg: 299.5903, dec_deg: 35.2016, dist_kpc: 2.22, gal_xyz_kpc: [0.713, 2.099, 0.119],
-      mass_msun: 21.2, companion_mass_msun: 40.6, companion_type: "O9.7Iab Supergiant (HDE 226868)", period_days: 5.5998, ecc: 0.019, spin: 0.998, inc_deg: 27.5, color: "#38bdf8",
+      mass_msun: 21.2, companion_mass_msun: 40.6, companion_type: "O9.7Iab Supergiant (HDE 226868)", period_days: 5.5998, ecc: 0.019, spin: 0.998, inc_deg: 27.5, color: "#6bb8f0",
       headline: "21.2 M☉ Rapidly Spinning Accreting Black Hole + 40.6 M☉ Blue Supergiant",
       headline_zh: "21.2 倍太阳质量极速自旋吸积黑洞与 40.6 倍太阳质量蓝超巨星",
       summary: "Archetypal wind-fed X-ray binary at 2.22 kpc with near-extremal Kerr spin (a* > 0.998), hot Shakura-Sunyaev disk, and persistent relativistic radio jets.",
@@ -855,7 +861,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "V404_CYG", name: "V404 Cygni (Microquasar BH Binary)", name_zh: "天鹅座 V404 (微类星体黑洞)",
       bh_type: "xray_binary", ra_deg: 306.0159, dec_deg: 33.8672, dist_kpc: 2.39, gal_xyz_kpc: [0.692, 2.283, -0.087],
-      mass_msun: 9.0, companion_mass_msun: 0.7, companion_type: "K3 III Subgiant", period_days: 6.471, ecc: 0.0, spin: 0.92, inc_deg: 67.0, color: "#fb923c",
+      mass_msun: 9.0, companion_mass_msun: 0.7, companion_type: "K3 III Subgiant", period_days: 6.471, ecc: 0.0, spin: 0.92, inc_deg: 67.0, color: "#6bb8f0",
       headline: "9.0 M☉ Microquasar with Precessing Relativistic Jets (VLBI Parallax 2.39 kpc)",
       headline_zh: "2.39 kpc 处具有进动相对论喷流的 9.0 倍太阳质量微类星体",
       summary: "Low-mass X-ray binary with an exact VLBI parallax distance of 2.39 kpc, famous for violent Eddington-limit outbursts and rapidly precessing relativistic jets.",
@@ -864,7 +870,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "GRS_1915_105", name: "GRS 1915+105 (Superluminal Microquasar)", name_zh: "GRS 1915+105 (超光速喷流微类星体)",
       bh_type: "xray_binary", ra_deg: 288.7981, dec_deg: 10.9458, dist_kpc: 8.6, gal_xyz_kpc: [6.03, 6.13, -0.03],
-      mass_msun: 12.4, companion_mass_msun: 0.8, companion_type: "K-M III Giant", period_days: 33.85, ecc: 0.0, spin: 0.98, inc_deg: 60.0, color: "#a855f7",
+      mass_msun: 12.4, companion_mass_msun: 0.8, companion_type: "K-M III Giant", period_days: 33.85, ecc: 0.0, spin: 0.98, inc_deg: 60.0, color: "#6bb8f0",
       headline: "12.4 M☉ Rapid-Spin Microquasar with 0.92c Relativistic Radio Jets",
       headline_zh: "12.4 倍太阳质量高自旋微类星体，喷流速度达 0.92 倍光速",
       summary: "First Galactic source observed with apparent superluminal radio ejecta, powered by a massive inner accretion disk around a 12.4 M☉ spinning black hole.",
@@ -873,7 +879,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "GRO_J1655_40", name: "GRO J1655-40 (Runaway Microquasar BH)", name_zh: "GRO J1655-40 (逃逸微类星体黑洞)",
       bh_type: "xray_binary", ra_deg: 253.5006, dec_deg: -39.8458, dist_kpc: 3.2, gal_xyz_kpc: [3.08, -0.83, 0.14],
-      mass_msun: 6.3, companion_mass_msun: 2.3, companion_type: "F4 IV Subgiant", period_days: 2.621, ecc: 0.0, spin: 0.70, inc_deg: 70.2, color: "#f472b6",
+      mass_msun: 6.3, companion_mass_msun: 2.3, companion_type: "F4 IV Subgiant", period_days: 2.621, ecc: 0.0, spin: 0.70, inc_deg: 70.2, color: "#6bb8f0",
       headline: "6.3 M☉ High-Velocity Kick Microquasar with Disk Winds & Twin Jets",
       headline_zh: "具有反冲高速与吸积盘风的 6.3 倍太阳质量微类星体",
       summary: "High-inclination Galactic microquasar showing magnetically driven accretion-disk winds and twin 0.92c collimated jets.",
@@ -882,7 +888,7 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     {
       id: "MAXI_J1820_070", name: "MAXI J1820+070 (Brightest Optical/X-Ray BH)", name_zh: "MAXI J1820+070 (近邻明亮吸积黑洞)",
       bh_type: "xray_binary", ra_deg: 275.0914, dec_deg: 7.1854, dist_kpc: 2.96, gal_xyz_kpc: [2.42, 1.61, 0.52],
-      mass_msun: 8.5, companion_mass_msun: 0.6, companion_type: "K4 V Dwarf", period_days: 0.6855, ecc: 0.0, spin: 0.2, inc_deg: 63.0, color: "#2dd4bf",
+      mass_msun: 8.5, companion_mass_msun: 0.6, companion_type: "K4 V Dwarf", period_days: 0.6855, ecc: 0.0, spin: 0.2, inc_deg: 63.0, color: "#6bb8f0",
       headline: "8.5 M☉ Nearby Accreting Black Hole at 2.96 kpc (VLBI Parallax)",
       headline_zh: "距太阳 2.96 kpc 的高亮度近邻吸积黑洞系统",
       summary: "Nearby X-ray binary whose 2018 outburst revealed real-time corona contraction and superluminal bipolar jet knots.",
@@ -890,12 +896,12 @@ export const BUILTIN_GALACTIC_FALLBACK = {
     }
   ],
   landmarks: [
-    { id: "OMEGA_CEN", name: "Omega Centauri (NGC 5139)", name_zh: "半人马座 ω 球状星团", category: "galactic", subtype: "globular_cluster", dist_kpc: 5.43, gal_xyz_kpc: [3.26, -4.12, 1.40], color: "#fde68a", summary: "Most massive Milky Way globular cluster (~4 million stars), likely the stripped nuclear core of an accreted dwarf galaxy." },
-    { id: "M13_HERCULES", name: "M13 (Hercules Globular Cluster)", name_zh: "武仙座球状星团 M13", category: "galactic", subtype: "globular_cluster", dist_kpc: 7.42, gal_xyz_kpc: [2.98, 4.78, 4.86], color: "#fef08a", summary: "Iconic halo globular cluster containing ~300,000 ancient metal-poor stars 7.42 kpc from the Sun." },
-    { id: "TUC_47", name: "47 Tucanae (NGC 104)", name_zh: "杜鹃座 47 球状星团", category: "galactic", subtype: "globular_cluster", dist_kpc: 4.52, gal_xyz_kpc: [1.91, -2.62, -3.17], color: "#fde68a", summary: "Dense southern globular cluster rich in millisecond pulsars and X-ray binaries at 4.52 kpc." },
-    { id: "ORION_NEBULA", name: "Orion Nebula (M42 / Trapezium)", name_zh: "猎户座大星云 (M42)", category: "galactic", subtype: "open_cluster", dist_kpc: 0.412, gal_xyz_kpc: [-0.347, -0.172, -0.137], color: "#f472b6", summary: "Nearest massive star-forming HII region at 412 pc inside the Local Orion Spur." },
-    { id: "LMC", name: "Large Magellanic Cloud (LMC)", name_zh: "大麦哲伦星系 (LMC)", category: "galactic", subtype: "satellite_galaxy", dist_kpc: 49.97, gal_xyz_kpc: [-1.06, -41.05, -27.83], color: "#93c5fd", summary: "Largest Milky Way satellite dwarf galaxy at 50 kpc (163,000 ly), hosting the Tarantula Nebula and LMC X-1/X-3 black holes." },
-    { id: "SMC", name: "Small Magellanic Cloud (SMC)", name_zh: "小麦哲伦星系 (SMC)", category: "galactic", subtype: "satellite_galaxy", dist_kpc: 61.9, gal_xyz_kpc: [15.4, -37.2, -46.8], color: "#a5b4fc", summary: "Irregular dwarf satellite galaxy at 62 kpc (202,000 ly) connected to the LMC by the Magellanic Bridge." }
+    { id: "OMEGA_CEN", name: "Omega Centauri (NGC 5139)", name_zh: "半人马座 ω 球状星团", category: "galactic", subtype: "globular_cluster", dist_kpc: 5.43, gal_xyz_kpc: [3.26, -4.12, 1.40], color: "#e6cf98", summary: "Most massive Milky Way globular cluster (~4 million stars), likely the stripped nuclear core of an accreted dwarf galaxy." },
+    { id: "M13_HERCULES", name: "M13 (Hercules Globular Cluster)", name_zh: "武仙座球状星团 M13", category: "galactic", subtype: "globular_cluster", dist_kpc: 7.42, gal_xyz_kpc: [2.98, 4.78, 4.86], color: "#e6cf98", summary: "Iconic halo globular cluster containing ~300,000 ancient metal-poor stars 7.42 kpc from the Sun." },
+    { id: "TUC_47", name: "47 Tucanae (NGC 104)", name_zh: "杜鹃座 47 球状星团", category: "galactic", subtype: "globular_cluster", dist_kpc: 4.52, gal_xyz_kpc: [1.91, -2.62, -3.17], color: "#e6cf98", summary: "Dense southern globular cluster rich in millisecond pulsars and X-ray binaries at 4.52 kpc." },
+    { id: "ORION_NEBULA", name: "Orion Nebula (M42 / Trapezium)", name_zh: "猎户座大星云 (M42)", category: "galactic", subtype: "open_cluster", dist_kpc: 0.412, gal_xyz_kpc: [-0.347, -0.172, -0.137], color: "#d88484", summary: "Nearest massive star-forming HII region at 412 pc inside the Local Orion Spur." },
+    { id: "LMC", name: "Large Magellanic Cloud (LMC)", name_zh: "大麦哲伦星系 (LMC)", category: "galactic", subtype: "satellite_galaxy", dist_kpc: 49.97, gal_xyz_kpc: [-1.06, -41.05, -27.83], color: "#9eb8de", summary: "Largest Milky Way satellite dwarf galaxy at 50 kpc (163,000 ly), hosting the Tarantula Nebula and LMC X-1/X-3 black holes." },
+    { id: "SMC", name: "Small Magellanic Cloud (SMC)", name_zh: "小麦哲伦星系 (SMC)", category: "galactic", subtype: "satellite_galaxy", dist_kpc: 61.9, gal_xyz_kpc: [15.4, -37.2, -46.8], color: "#9eb8de", summary: "Irregular dwarf satellite galaxy at 62 kpc (202,000 ly) connected to the LMC by the Magellanic Bridge." }
   ]
 };
 
@@ -955,7 +961,7 @@ export function normalizeGalacticCatalog(rawGalactic) {
       ecc: numOr(bh.ecc ?? bh.eccentricity ?? bh.e, 0.0),
       spin: numOr(bh.spin ?? bh.spin_a_star, null),
       inc_deg: numOr(bh.inc_deg ?? bh.inclination_deg, 45.0),
-      color: bh.color || bh.disk_color_hex || (bhType === "smbh" ? "#f59e0b" : bhType === "dormant" ? "#60a5fa" : "#38bdf8"),
+      color: GALACTIC_COLORS[bhType] || GALACTIC_COLORS.xray_binary,
       aliases: Array.isArray(bh.aliases) ? bh.aliases : [bh.name || id],
       science: {
         telescopes: Array.isArray(bh.telescopes) ? bh.telescopes : ["ESA Gaia DR3", "EHT / VLBI", "Chandra / XMM-Newton"],
@@ -976,6 +982,7 @@ export function normalizeGalacticCatalog(rawGalactic) {
       ? lm.helio_xyz_kpc
       : (Array.isArray(lm.gal_xyz_kpc) ? lm.gal_xyz_kpc : (Array.isArray(lm.xyz_kpc) ? lm.xyz_kpc : null));
     const distKpc = numOr(lm.dist_kpc ?? lm.distance_kpc, xyz ? Math.hypot(xyz[0], xyz[1], xyz[2]) : 5.0);
+    const lmSubtype = lm.subtype || lm.kind || "cluster";
     items.push({
       id,
       name: lm.name || id,
@@ -985,13 +992,13 @@ export function normalizeGalacticCatalog(rawGalactic) {
       secondary_categories: ["galactic"],
       is_galactic: true,
       is_black_hole: false,
-      subtype: lm.subtype || lm.kind || "cluster",
+      subtype: lmSubtype,
       ra_deg: numOr(lm.ra_deg ?? lm.ra, null),
       dec_deg: numOr(lm.dec_deg ?? lm.dec, null),
       dist_kpc: distKpc,
       dist_ly: distKpc * 3261.563777,
       gal_xyz_kpc: xyz,
-      color: lm.color || "#fde68a",
+      color: GALACTIC_COLORS[lmSubtype] || GALACTIC_COLORS.globular_cluster,
       aliases: Array.isArray(lm.aliases) ? lm.aliases : [lm.name || id],
       science: {
         telescopes: Array.isArray(lm.telescopes) ? lm.telescopes : ["ESA Gaia DR3", "Euclid / HST"],

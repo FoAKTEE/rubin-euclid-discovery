@@ -1,10 +1,27 @@
 // GPU-Accelerated Particle Belts (Main Belt, Trojans, Kuiper Disk, Inner Hills Torus, 85,000 AU Outer Oort Shell)
-// + Reference Distance Rings (incl. Neptune 12:1 MMR at 157.62 AU) + Galactic Plane Blind-Spot Band!
+// + Reference Distance Rings (the Neptune 12:1 MMR ring at 157.62 AU belongs to the opt-in survey
+// layer) + Galactic Plane Blind-Spot Band. Main Belt, Trojans and Kuiper Belt move on Keplerian orbits.
 
 import * as THREE from "../vendor/three.module.js";
 import { CSS2DObject } from "../vendor/CSS2DRenderer.js";
-import { DEG2RAD, TWO_PI, LOG_R0, LOG_S0, GALACTIC_TO_SCENE_MAT3, mapRadiusAU, solveEllipticalKepler } from "./orbitalMechanics.js";
+import {
+  DEG2RAD,
+  TWO_PI,
+  GAUSS_K,
+  LOG_R0,
+  LOG_S0,
+  DISCOVERY_EPOCH_JD,
+  GALACTIC_TO_SCENE_MAT3,
+  mapRadiusAU,
+  solveEllipticalKepler,
+  getPlanetMeanLongitudeRad,
+  getNBodyIndex,
+  evaluateNBodyHeliocentricEclipticAU,
+  evaluateNBodyHeliocentricAtFrameJD,
+  FRAME_CLOCK
+} from "./orbitalMechanics.js";
 import { tr } from "./i18n.js";
+import { BELT_PALETTES, RING_COLORS, CATEGORY_COLORS, temperatureToRGB } from "./colorSystem.js";
 
 function mulberry32(seed) {
   let a = seed >>> 0;
@@ -101,6 +118,98 @@ function createGPUBeltPoints(positionsAU, colorsRGB, sizes, baseOpacity = 0.65) 
   return pts;
 }
 
+// Belt whose particles move on their own Keplerian ellipses in the vertex shader. Each particle
+// carries (a, e, i, Omega) and (omega, M0, n, trojan flag). Ordinary particles advance their mean
+// anomaly by n * uDeltaDays; Trojans advance by the change of Jupiter's heliocentric longitude
+// instead, so both swarms keep their 60-degree lead and lag for any date.
+function createKeplerBeltPoints(orbA, orbB, colorsRGB, sizes, baseOpacity = 0.65) {
+  const count = sizes.length;
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(count * 3), 3));
+  geom.setAttribute("aOrbA", new THREE.Float32BufferAttribute(orbA, 4));
+  geom.setAttribute("aOrbB", new THREE.Float32BufferAttribute(orbB, 4));
+  geom.setAttribute("aColor", new THREE.Float32BufferAttribute(colorsRGB, 3));
+  geom.setAttribute("aSize", new THREE.Float32BufferAttribute(sizes, 1));
+  geom.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 200000);
+
+  const uniforms = {
+    uLogBlend: { value: 1.0 },
+    uOpacity: { value: baseOpacity },
+    uPixelRatio: { value: Math.min(window.devicePixelRatio || 1, 2) },
+    uDeltaDays: { value: 0.0 },
+    uJupiterDeltaLonRad: { value: 0.0 }
+  };
+
+  const mat = new THREE.ShaderMaterial({
+    uniforms,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexShader: `
+      #include <common>
+      #include <logdepthbuf_pars_vertex>
+      attribute vec4 aOrbA;
+      attribute vec4 aOrbB;
+      attribute vec3 aColor;
+      attribute float aSize;
+      uniform float uLogBlend;
+      uniform float uPixelRatio;
+      uniform float uDeltaDays;
+      uniform float uJupiterDeltaLonRad;
+      varying vec3 vColor;
+      void main() {
+        vColor = aColor;
+        float a = aOrbA.x;
+        float e = aOrbA.y;
+        float M = aOrbB.y + mix(aOrbB.z * uDeltaDays, uJupiterDeltaLonRad, aOrbB.w);
+        M = mod(M, 6.28318530718);
+        if (M > 3.14159265359) M -= 6.28318530718;
+        float E = M + e * sin(M) * (1.0 + e * cos(M));
+        for (int it = 0; it < 6; it++) {
+          E -= (E - e * sin(E) - M) / max(0.05, 1.0 - e * cos(E));
+        }
+        float xo = a * (cos(E) - e);
+        float yo = a * sqrt(max(0.0, 1.0 - e * e)) * sin(E);
+        float cO = cos(aOrbA.w), sO = sin(aOrbA.w);
+        float co = cos(aOrbB.x), so = sin(aOrbB.x);
+        float ci = cos(aOrbA.z), si = sin(aOrbA.z);
+        float xE = (cO * co - sO * so * ci) * xo + (-cO * so - sO * co * ci) * yo;
+        float yE = (sO * co + cO * so * ci) * xo + (-sO * so + cO * co * ci) * yo;
+        float zE = (so * si) * xo + (co * si) * yo;
+        vec3 posAU = vec3(xE, zE, -yE);
+        float r = length(posAU);
+        vec3 dir = r > 1e-8 ? posAU / r : vec3(0.0);
+        float rLog = ${LOG_S0.toFixed(1)} * log(1.0 + r / ${LOG_R0.toFixed(1)});
+        vec4 mvPosition = modelViewMatrix * vec4(dir * mix(r, rLog, uLogBlend), 1.0);
+        gl_Position = projectionMatrix * mvPosition;
+        gl_PointSize = clamp(aSize * uPixelRatio, 1.1, 6.5);
+        #include <logdepthbuf_vertex>
+      }
+    `,
+    fragmentShader: `
+      #include <common>
+      #include <logdepthbuf_pars_fragment>
+      uniform float uOpacity;
+      varying vec3 vColor;
+      void main() {
+        vec2 uv = gl_PointCoord - vec2(0.5);
+        float d2 = dot(uv, uv);
+        if (d2 > 0.25) discard;
+        #include <logdepthbuf_fragment>
+        float alpha = exp(-d2 * 13.5) * uOpacity;
+        gl_FragColor = vec4(vColor, alpha);
+      }
+    `
+  });
+
+  const pts = new THREE.Points(geom, mat);
+  pts.frustumCulled = false;
+  pts.userData.uniforms = uniforms;
+  pts.userData.baseOpacity = baseOpacity;
+  pts.userData.isKeplerian = true;
+  return pts;
+}
+
 export function buildAllParticleBelts(catalogBelts) {
   const rng = mulberry32(20250818);
   const group = new THREE.Group();
@@ -121,7 +230,7 @@ export function buildAllParticleBelts(catalogBelts) {
       pos[i * 3 + 1] = R * Math.cos(v);
       pos[i * 3 + 2] = R * Math.sin(v) * Math.sin(u);
       const temp = rng();
-      const c = temp < 0.2 ? [0.68, 0.80, 1.0] : temp < 0.75 ? [0.95, 0.96, 1.0] : [1.0, 0.85, 0.68];
+      const c = temperatureToRGB(temp < 0.2 ? 14000.0 : temp < 0.75 ? 7600.0 : 4300.0, [0, 0, 0]);
       const br = 0.25 + 0.55 * Math.pow(rng(), 2.2);
       col[i * 3] = c[0] * br;
       col[i * 3 + 1] = c[1] * br;
@@ -178,44 +287,94 @@ export function buildAllParticleBelts(catalogBelts) {
     return createGPUBeltPoints(pos, col, siz, baseOpacity);
   };
 
-  // 2. Main Asteroid Belt (2.06 - 3.28 AU) + Jupiter Trojans (L4/L5 around 5.2 AU)
-  const mainAndTrojans = makeBelt(
-    [...(catalogBelts?.main_belt || []), ...(catalogBelts?.jupiter_trojans || [])],
+  const pick = (pal, t) => {
+    const c = t < 0.5 ? pal[0] : pal[1];
+    const k = 0.86 + 0.28 * ((t * 7.31) % 1.0);
+    return [Math.min(1.0, c[0] * k), Math.min(1.0, c[1] * k), Math.min(1.0, c[2] * k)];
+  };
+
+  // Helper for belts in Keplerian motion: catalogue tuples [a, e, i, Omega, omega, M0] (degrees)
+  // plus generated tuples of the same form. tuple[6] = 1 marks a Jupiter Trojan.
+  const makeKeplerBelt = (tuples, extraCount, tupleFn, paletteFn, baseSize, baseOpacity) => {
+    const list = Array.isArray(tuples) ? tuples : [];
+    const total = list.length + extraCount;
+    const orbA = new Float32Array(total * 4);
+    const orbB = new Float32Array(total * 4);
+    const col = new Float32Array(total * 3);
+    const siz = new Float32Array(total);
+    for (let idx = 0; idx < total; idx++) {
+      const isCat = idx < list.length;
+      const t6 = isCat ? list[idx] : tupleFn(rng);
+      const a = Math.max(0.05, t6[0]);
+      orbA[idx * 4] = a;
+      orbA[idx * 4 + 1] = Math.min(0.97, Math.max(0.0, t6[1]));
+      orbA[idx * 4 + 2] = t6[2] * DEG2RAD;
+      orbA[idx * 4 + 3] = t6[3] * DEG2RAD;
+      orbB[idx * 4] = t6[4] * DEG2RAD;
+      orbB[idx * 4 + 1] = t6[5] * DEG2RAD;
+      orbB[idx * 4 + 2] = GAUSS_K / (a * Math.sqrt(a));
+      orbB[idx * 4 + 3] = t6[6] ? 1.0 : 0.0;
+      const c = paletteFn(rng(), Boolean(t6[6]));
+      col[idx * 3] = c[0];
+      col[idx * 3 + 1] = c[1];
+      col[idx * 3 + 2] = c[2];
+      siz[idx] = baseSize * (isCat ? 0.85 + rng() * 0.75 : 0.65 + rng() * 0.7);
+    }
+    return createKeplerBeltPoints(orbA, orbB, col, siz, baseOpacity);
+  };
+  const tri = (r) => Math.abs(r() + r() + r() - 1.5);
+
+  // 2. Main Asteroid Belt (2.1 - 3.3 AU) + Jupiter Trojans. The L4/L5 points lead and trail the
+  // planet itself by 60 degrees, so the camps are centred on Jupiter's true heliocentric longitude
+  // from the N-body solution and are carried along with it in the shader. The catalogue tuples
+  // were drawn around Jupiter's mean longitude; they are shifted by the difference (the equation
+  // of the centre at the epoch).
+  const jupXYZ = new Float64Array(3);
+  const JUPITER_NBODY_INDEX = getNBodyIndex("JUPITER");
+  const jupiterTrueLonRad = (jd) => {
+    evaluateNBodyHeliocentricEclipticAU("JUPITER", jd, jupXYZ);
+    return Math.atan2(jupXYZ[1], jupXYZ[0]);
+  };
+  const jupLonRad0 = jupiterTrueLonRad(DISCOVERY_EPOCH_JD);
+  const jupLonDeg0 = jupLonRad0 / DEG2RAD;
+  const meanToTrueDeg = jupLonDeg0 - getPlanetMeanLongitudeRad("JUPITER", DISCOVERY_EPOCH_JD) / DEG2RAD;
+  const catTrojans = (catalogBelts?.jupiter_trojans || []).map((t) => [t[0], t[1], t[2], t[3], t[4], t[5] + meanToTrueDeg, 1]);
+  const mainAndTrojans = makeKeplerBelt(
+    [...(catalogBelts?.main_belt || []), ...catTrojans],
     5500,
     (r) => {
+      const Om = r() * 360.0;
+      const om = r() * 360.0;
       if (r() < 0.82) {
-        const rad = 2.12 + Math.pow(r(), 0.92) * 1.16;
-        const ang = r() * TWO_PI;
-        const z = (r() - 0.5) * (r() + r() - 1.0) * rad * 0.22;
-        return [rad * Math.cos(ang), z, -rad * Math.sin(ang)];
+        const a = 2.12 + Math.pow(r(), 0.92) * 1.16;
+        return [a, 0.02 + 0.2 * r() * r(), tri(r) * 13.0, Om, om, r() * 360.0, 0];
       }
-      // Jupiter L4/L5 Trojan clouds centered +/- 60 deg from Jupiter's mean longitude (~120 deg at Aug 2025)
-      const camp = r() < 0.5 ? 1.05 : -1.05;
-      const ang = 2.09 + camp + (r() - 0.5) * 0.55;
-      const rad = 5.20 + (r() - 0.5) * 0.46;
-      const z = (r() - 0.5) * 1.4;
-      return [rad * Math.cos(ang), z, -rad * Math.sin(ang)];
+      const lam = jupLonDeg0 + (r() < 0.5 ? 60.0 : -60.0) + (r() - 0.5) * 31.5;
+      return [5.2 + (r() - 0.5) * 0.4, 0.01 + 0.11 * r(), tri(r) * 26.0, Om, om, lam - Om - om, 1];
     },
-    (t) => (t < 0.5 ? [0.68, 0.86, 0.62] : [0.85, 0.76, 0.58]),
-    2.1,
-    0.50
+    (t, isTrojan) => pick(isTrojan ? BELT_PALETTES.trojans : BELT_PALETTES.mainBelt, t),
+    2.3,
+    0.62
   );
 
   // 3. Classical Cold + Hot/Scattered Kuiper Belt (30 - 125 AU)
-  const kuiperCloud = makeBelt(
+  const kuiperCloud = makeKeplerBelt(
     catalogBelts?.kuiper_disk,
     8500,
     (r) => {
-      const isScattered = r() < 0.32;
-      const rad = isScattered ? 34.0 + Math.pow(r(), 1.7) * 92.0 : 38.5 + r() * 9.8;
-      const ang = r() * TWO_PI;
-      const incSpread = isScattered ? 0.42 : 0.085;
-      const z = (r() - 0.5) * (r() - 0.5) * (r() < 0.5 ? -2.2 : 2.2) * rad * incSpread * 2.2;
-      return [rad * Math.cos(ang), z, -rad * Math.sin(ang)];
+      const Om = r() * 360.0;
+      const om = r() * 360.0;
+      const M0 = r() * 360.0;
+      if (r() < 0.32) {
+        const a = 40.0 + Math.pow(r(), 1.7) * 82.0;
+        const q = 31.5 + r() * (Math.min(46.0, a * 0.94) - 31.5);
+        return [a, Math.max(0.0, 1.0 - q / a), tri(r) * 34.0, Om, om, M0, 0];
+      }
+      return [38.5 + r() * 9.8, 0.01 + 0.1 * r(), tri(r) * 8.0, Om, om, M0, 0];
     },
-    (t) => (t < 0.55 ? [0.38, 0.72, 1.0] : [0.62, 0.85, 1.0]),
-    2.25,
-    0.56
+    (t) => pick(BELT_PALETTES.kuiper, t),
+    2.4,
+    0.68
   );
 
   // 4. Hills Inner Oort Torus (2,000 - 20,000 AU flared pancake torus!)
@@ -232,7 +391,7 @@ export function buildAllParticleBelts(catalogBelts) {
       const cosLat = Math.sqrt(Math.max(0.01, 1.0 - sinLat * sinLat));
       return [rad * cosLat * Math.cos(ang), rad * sinLat, -rad * cosLat * Math.sin(ang)];
     },
-    (t) => (t < 0.5 ? [0.46, 0.78, 0.98] : [0.68, 0.74, 0.96]),
+    (t) => pick(BELT_PALETTES.hillsOort, t),
     2.1,
     0.44
   );
@@ -249,7 +408,7 @@ export function buildAllParticleBelts(catalogBelts) {
       const sinTheta = Math.sqrt(Math.max(0.0, 1.0 - cosTheta * cosTheta));
       return [rad * sinTheta * Math.cos(phi), rad * cosTheta, -rad * sinTheta * Math.sin(phi)];
     },
-    (t) => (t < 0.6 ? [0.64, 0.86, 1.0] : [0.85, 0.92, 1.0]),
+    (t) => pick(BELT_PALETTES.outerOort, t),
     2.15,
     0.46
   );
@@ -263,7 +422,20 @@ export function buildAllParticleBelts(catalogBelts) {
     outerOort: outerOortShell
   };
 
-  return { group, beltNodes, skyBackdrop };
+  // Per-frame clock of the Keplerian belts for the date in FRAME_CLOCK[0]: days since the catalogue
+  // epoch and the change of Jupiter's heliocentric longitude since then. Two uniform writes per
+  // belt, no allocation.
+  function updateBeltDynamics() {
+    const dDays = FRAME_CLOCK[0] - DISCOVERY_EPOCH_JD;
+    evaluateNBodyHeliocentricAtFrameJD(JUPITER_NBODY_INDEX, false, jupXYZ);
+    const dLon = Math.atan2(jupXYZ[1], jupXYZ[0]) - jupLonRad0;
+    mainAndTrojans.userData.uniforms.uDeltaDays.value = dDays;
+    mainAndTrojans.userData.uniforms.uJupiterDeltaLonRad.value = dLon;
+    kuiperCloud.userData.uniforms.uDeltaDays.value = dDays;
+    kuiperCloud.userData.uniforms.uJupiterDeltaLonRad.value = dLon;
+  }
+
+  return { group, beltNodes, skyBackdrop, updateBeltDynamics };
 }
 
 export function buildReferenceOverlays(initialLang) {
@@ -273,15 +445,19 @@ export function buildReferenceOverlays(initialLang) {
   // 1. Ecliptic Distance Rings + Highlighted Neptune 12:1 MMR Ring at 157.62 AU!
   const ringsGroup = new THREE.Group();
   const ringDefs = [
-    { rAU: 1.0, key: "ringLabel1AU", color: 0x38bdf8, dashed: false, opacity: 0.24 },
-    { rAU: 5.2, key: "ringLabel5AU", color: 0x64748b, dashed: false, opacity: 0.20 },
-    { rAU: 30.1, key: "ringLabel30AU", color: 0x3b82f6, dashed: false, opacity: 0.28 },
-    { rAU: 50.0, key: "ringLabel50AU", color: 0x38bdf8, dashed: true, opacity: 0.28 },
-    { rAU: 157.62, key: "ringLabelMMR", color: 0xfbbf24, dashed: true, opacity: 0.78, isMMR: true },
-    { rAU: 1000.0, key: "ringLabel1000AU", color: 0xf472b6, dashed: true, opacity: 0.24 },
-    { rAU: 10000.0, key: "ringLabel10000AU", color: 0x60a5fa, dashed: true, opacity: 0.26 },
-    { rAU: 50000.0, key: "ringLabel50000AU", color: 0x93c5fd, dashed: true, opacity: 0.30 }
+    // labelAngle (rad, counter-clockwise from +X in the ecliptic) staggers the labels around the
+    // rings: in the log scale the 30 and 50 AU rings are close together, and labels at one common
+    // angle would sit on top of each other.
+    { rAU: 1.0, key: "ringLabel1AU", color: RING_COLORS.au1, dashed: false, opacity: 0.40, labelAngle: 0.42 },
+    { rAU: 5.2, key: "ringLabel5AU", color: RING_COLORS.jupiter, dashed: false, opacity: 0.36, labelAngle: 1.35 },
+    { rAU: 30.1, key: "ringLabel30AU", color: RING_COLORS.neptune, dashed: false, opacity: 0.42, labelAngle: 2.45 },
+    { rAU: 50.0, key: "ringLabel50AU", color: RING_COLORS.kuiperCliff, dashed: true, opacity: 0.42, labelAngle: 3.75 },
+    { rAU: 157.62, key: "ringLabelMMR", color: RING_COLORS.mmr, dashed: true, opacity: 0.78, isMMR: true, labelAngle: 5.2 },
+    { rAU: 1000.0, key: "ringLabel1000AU", color: RING_COLORS.sednoid, dashed: true, opacity: 0.36, labelAngle: 0.95 },
+    { rAU: 10000.0, key: "ringLabel10000AU", color: RING_COLORS.hills, dashed: true, opacity: 0.38, labelAngle: 2.2 },
+    { rAU: 50000.0, key: "ringLabel50000AU", color: RING_COLORS.outerOort, dashed: true, opacity: 0.40, labelAngle: 3.5 }
   ];
+
 
   const ringEntries = [];
   const unitCirclePts = [];
@@ -317,12 +493,23 @@ export function buildReferenceOverlays(initialLang) {
     el.className = def.isMMR ? "ring-label ring-label-mmr" : "ring-label";
     el.textContent = tr(initialLang, def.key);
     const labelObj = new CSS2DObject(el);
-    const angle = def.isMMR ? -0.58 : 0.42;
-    labelObj.userData = { angle };
+    labelObj.userData = { angle: def.labelAngle, isRingLabel: true };
     ringsGroup.add(labelObj);
 
     ringEntries.push({ def, line, el, labelObj });
   }
+  // The 12:1 resonance ring annotates a survey candidate, so it is shown only with that layer.
+  let discoveriesVisible = false;
+  function setDiscoveriesVisible(flag) {
+    discoveriesVisible = Boolean(flag);
+    for (const entry of ringEntries) {
+      if (entry.def.isMMR) {
+        entry.line.visible = discoveriesVisible;
+        if (!discoveriesVisible) entry.labelObj.visible = false;
+      }
+    }
+  }
+  setDiscoveriesVisible(false);
   overlayGroup.add(ringsGroup);
 
   // 2. Galactic Plane Blind-Spot Band (|b| <= 15 deg inclined 60.19 deg to J2000 Ecliptic, node = 266.84 deg)
@@ -330,7 +517,7 @@ export function buildReferenceOverlays(initialLang) {
   {
     const cylGeom = new THREE.CylinderGeometry(1.0, 1.0, 0.535, 96, 1, true); // 2 * tan(15 deg) ~ 0.535
     const bandMat = new THREE.MeshBasicMaterial({
-      color: 0xc084fc,
+      color: new THREE.Color(CATEGORY_COLORS.galactic),
       transparent: true,
       opacity: 0.085,
       side: THREE.DoubleSide,
@@ -344,7 +531,7 @@ export function buildReferenceOverlays(initialLang) {
     const galEqLine = new THREE.Line(
       galEqGeom,
       new THREE.LineDashedMaterial({
-        color: 0xe879f9,
+        color: new THREE.Color(CATEGORY_COLORS.galactic),
         transparent: true,
         opacity: 0.42,
         dashSize: 0.05,
@@ -396,7 +583,7 @@ export function buildReferenceOverlays(initialLang) {
 
   function setOverlayLabelsVisible(flag) {
     for (const entry of ringEntries) {
-      entry.labelObj.visible = Boolean(flag) && ringsGroup.visible;
+      entry.labelObj.visible = Boolean(flag) && ringsGroup.visible && (!entry.def.isMMR || discoveriesVisible);
     }
     galacticGroup.userData.galLabel.visible = Boolean(flag) && galacticGroup.visible;
   }
@@ -406,6 +593,7 @@ export function buildReferenceOverlays(initialLang) {
     ringsGroup,
     galacticGroup,
     updateOverlaysScaleAndLang,
-    setOverlayLabelsVisible
+    setOverlayLabelsVisible,
+    setDiscoveriesVisible
   };
 }

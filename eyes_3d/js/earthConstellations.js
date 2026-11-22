@@ -7,6 +7,7 @@ import * as THREE from "../vendor/three.module.js";
 import { instantiateEnhanced3DBody, prioritizeModelLoad, ASSET_VERSION } from "./model3dLibrary.js";
 import { getGlowSpriteTexture } from "./proceduralBodies.js";
 import { OBLIQUITY_J2000_RAD } from "./orbitalMechanics.js";
+import { SAT_FAMILY_COLORS_RGB, SAT_FAMILY_COLORS_HEX, CATEGORY_COLORS } from "./colorSystem.js";
 
 const DEG2RAD = Math.PI / 180.0;
 const EARTH_RADIUS_KM = 6371.0;
@@ -18,21 +19,9 @@ const _tmpProjV = new THREE.Vector3();
 const _tmpMvp = new THREE.Matrix4();
 const _tmpVp = new THREE.Matrix4();
 
-// Family palette (matches scripts/build_spacecraft_and_constellations.py FAMILY_DEFS 0..11)
-const FAMILY_COLORS_RGB = [
-  [0.22, 0.74, 0.97], // 0: SpaceX Starlink (#38bdf8)
-  [0.13, 0.83, 0.93], // 1: SpaceX Starshield / Swarm / Dragon (#22d3ee)
-  [0.65, 0.55, 0.98], // 2: Eutelsat OneWeb (#a78bfa)
-  [0.20, 0.83, 0.60], // 3: Amazon Kuiper (#34d399)
-  [0.98, 0.75, 0.14], // 4: CN Commercial: Qianfan/Guowang/Geely/Tianqi (#fbbf24)
-  [0.06, 0.73, 0.51], // 5: Commercial D2D/Voice/IoT: AST/Iridium/Globalstar/Spire (#10b981)
-  [0.38, 0.65, 0.98], // 6: Commercial EO/SAR: Planet/Jilin-1/ICEYE/Capella (#60a5fa)
-  [0.96, 0.45, 0.71], // 7: Commercial GEO/MEO Comms: Intelsat/SES/Viasat/Chinasat (#f472b6)
-  [0.98, 0.57, 0.24], // 8: GNSS BeiDou/GPS/Galileo/GLONASS (#fb923c)
-  [0.99, 0.88, 0.28], // 9: Space Stations (#fde047)
-  [0.18, 0.83, 0.75], // 10: Space Telescopes (#2dd4bf)
-  [0.58, 0.64, 0.72]  // 11: Civil / Weather / Academic (#94a3b8)
-];
+// Operator-family palette (index order matches scripts/build_spacecraft_and_constellations.py
+// FAMILY_DEFS 0..11): restrained observatory blues, teals, steel-ambers and slates from colorSystem.js.
+const FAMILY_COLORS_RGB = SAT_FAMILY_COLORS_RGB;
 
 export function mapGeocentricKmToSceneRadius(rKm, earthMeshR) {
   const u = Math.max(1.015, rKm / EARTH_RADIUS_KM);
@@ -512,7 +501,7 @@ export class EarthConstellationManager {
     const famDef = this.families[famId] || {
       name_en: "Active Earth Satellite",
       name_zh: "地球在轨人造卫星",
-      color: "#38bdf8",
+      color: CATEGORY_COLORS.spacecraft,
       model_id: "sc_starlink"
     };
 
@@ -627,7 +616,7 @@ export class EarthConstellationManager {
       diameter_label_en: `${perigeeKm.toLocaleString()} × ${apogeeKm.toLocaleString()} km alt (${periodMin.toFixed(1)} min)`,
       diameter_label_zh: `近地点 ${perigeeKm.toLocaleString()} × 远地点 ${apogeeKm.toLocaleString()} km (周期 ${periodMin.toFixed(1)} 分钟)`,
       H_mag: null,
-      color: famDef.color,
+      color: SAT_FAMILY_COLORS_HEX[famId] || CATEGORY_COLORS.spacecraft,
       science: {
         telescopes: [operatorName, catBadgeStr, cospar || "LEO/GEO", "CelesTrak + McDowell GCAT"],
         headline_en: `${operatorName} · ${famDef.name_en} · ${perigeeKm}×${apogeeKm} km · i = ${incDeg}°`,
@@ -689,7 +678,7 @@ export class EarthConstellationManager {
     }
     const orbGeo = new THREE.BufferGeometry().setFromPoints(pts);
     const orbMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color(satObj.color || "#38bdf8"),
+      color: new THREE.Color(satObj.color || CATEGORY_COLORS.spacecraft),
       transparent: true,
       opacity: 0.92,
       depthWrite: false

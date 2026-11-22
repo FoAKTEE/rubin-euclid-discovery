@@ -160,11 +160,12 @@ export function createADAMOverlayManager(scene, runtimeMap, initialLogBlend = 1.
   const uLogBlend = { value: initialLogBlend };
   const uGlobalFade = { value: 1.0 };
 
+  // Every ADAM layer is opt-in from the ADAM Platform menu; nothing is drawn on a bare start.
   const layerState = {
-    transfers: true,
-    impactors: true,
-    corridors: true,
-    precovery: true
+    transfers: false,
+    impactors: false,
+    corridors: false,
+    precovery: false
   };
 
   const groups = {

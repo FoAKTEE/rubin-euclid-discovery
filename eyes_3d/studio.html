@@ -10,9 +10,10 @@
       --panel: rgba(7, 13, 26, 0.88);
       --panel-strong: rgba(6, 11, 22, 0.96);
       --border: rgba(148, 184, 240, 0.24);
-      --accent: #38bdf8;
-      --gold: #fbbf24;
-      --violet: #a78bfa;
+      /* Mirrors js/colorSystem.js: telemetry sky accent, reserved discovery gold, slate-lavender. */
+      --accent: #54b6de;
+      --gold: #f4b942;
+      --violet: #93a8d8;
       --text: #f8fafc;
       --muted: #94a3b8;
       --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
@@ -75,12 +76,12 @@
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #fff7d6 0%, #fbbf24 44%, #a855f7 88%, transparent 100%);
-      box-shadow: 0 0 16px rgba(168, 85, 247, 0.72);
+      background: radial-gradient(circle at 35% 35%, #fff4d6 0%, #ffd97d 44%, #e59364 88%, transparent 100%);
+      box-shadow: 0 0 16px rgba(255, 217, 125, 0.6);
     }
 
     .brand-title {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 800;
       letter-spacing: 0.05em;
       white-space: nowrap;
@@ -99,20 +100,24 @@
       color: var(--text);
       border: 1px solid rgba(148, 163, 184, 0.34);
       border-radius: 10px;
-      padding: 9px 13px;
-      font-size: 17px;
+      padding: 8px 11px;
+      font-size: 15px;
       font-weight: 600;
       outline: none;
       cursor: pointer;
       max-width: 100%;
+      min-width: 0;
+      text-overflow: ellipsis;
     }
 
     .pg-select:focus {
       border-color: var(--accent);
     }
 
-    #category-select { min-width: 210px; max-width: 280px; }
-    #object-select { flex: 1 1 260px; max-width: 420px; }
+    /* Both selectors may shrink, so the buttons and links to their right are never overlapped. */
+    #category-select { flex: 0 1 230px; min-width: 130px; max-width: 260px; }
+    #object-select { flex: 1 1 240px; min-width: 140px; max-width: 440px; }
+    .selector-group .nav-btn, .controls-wrap, #top-bar > .cta-link { flex-shrink: 0; }
 
     .nav-btn {
       padding: 9px 14px;
@@ -120,7 +125,7 @@
       border: 1px solid rgba(148, 163, 184, 0.3);
       background: rgba(15, 23, 42, 0.8);
       color: var(--text);
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
@@ -129,16 +134,16 @@
 
     .nav-btn:hover, .nav-btn.active {
       border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.24);
+      background: rgba(84, 182, 222, 0.24);
       color: #ffffff;
     }
 
     .cta-link {
       padding: 9px 14px;
       border-radius: 10px;
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.24), rgba(56, 189, 248, 0.24));
-      border: 1px solid rgba(251, 191, 36, 0.6);
-      color: #fef08a;
+      background: linear-gradient(135deg, rgba(84, 182, 222, 0.24), rgba(147, 168, 216, 0.24));
+      border: 1px solid rgba(84, 182, 222, 0.52);
+      color: #dff1fa;
       font-size: 16px;
       font-weight: 700;
       text-decoration: none;
@@ -147,7 +152,7 @@
     }
 
     .cta-link:hover {
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.38), rgba(56, 189, 248, 0.38));
+      background: linear-gradient(135deg, rgba(84, 182, 222, 0.38), rgba(147, 168, 216, 0.38));
       color: #ffffff;
     }
 
@@ -180,7 +185,7 @@
       padding: 18px;
       background: var(--panel-strong);
       backdrop-filter: blur(18px);
-      border: 1px solid rgba(56, 189, 248, 0.52);
+      border: 1px solid rgba(84, 182, 222, 0.52);
       border-radius: 14px;
       box-shadow: 0 22px 54px rgba(0, 0, 0, 0.82);
       display: none;
@@ -223,7 +228,7 @@
     .ctrl-val {
       font-family: var(--font-mono);
       font-size: 15px;
-      color: #7dd3fc;
+      color: #8fd0ec;
       font-weight: 700;
     }
 
@@ -246,9 +251,9 @@
     }
 
     .toggle-btn.active {
-      background: rgba(45, 212, 191, 0.22);
-      border-color: rgba(45, 212, 191, 0.65);
-      color: #ccfbf1;
+      background: rgba(78, 196, 189, 0.22);
+      border-color: rgba(78, 196, 189, 0.65);
+      color: #cdeeeb;
     }
 
     /* Compact Floating Object Info Box (bottom-left, collapsible) */
@@ -281,18 +286,18 @@
       letter-spacing: 0.06em;
       padding: 3px 9px;
       border-radius: 6px;
-      background: rgba(56, 189, 248, 0.2);
-      color: #7dd3fc;
+      background: rgba(84, 182, 222, 0.2);
+      color: #8fd0ec;
     }
 
     .info-badge.bh {
-      background: rgba(167, 139, 250, 0.25);
-      color: #ddd6fe;
+      background: rgba(147, 168, 216, 0.25);
+      color: #dfe6f5;
     }
 
     .info-badge.disc {
-      background: rgba(251, 191, 36, 0.24);
-      color: #fde047;
+      background: rgba(244, 185, 66, 0.24);
+      color: #f6c95a;
     }
 
     #info-name {
@@ -402,7 +407,7 @@
 
     <a class="cta-link subtle" href="../index.html" title="Portal hub: audited counts, manuscript and atlases">Hub</a>
     <a class="cta-link subtle" href="../movie_gallery/index.html" title="96 real-pixel archival movie targets">Movie Gallery</a>
-    <a class="cta-link" href="./index.html">3D Cosmos Explorer ↗</a>
+    <a class="cta-link" href="./index.html">3D Explorer ↗</a>
   </header>
 
   <div id="loading-pill">Loading 3D Model...</div>
@@ -420,9 +425,9 @@
   <script type="module">
     import * as THREE from "./vendor/three.module.js";
     import { OrbitControls } from "./vendor/OrbitControls.js";
-    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261119_v9";
-    import { createSunShaderMesh } from "./js/proceduralBodies.js?v=20261119_v9";
-    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261119_v9";
+    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261122_v12";
+    import { createSunShaderMesh } from "./js/proceduralBodies.js?v=20261122_v12";
+    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261122_v12";
 
     const PLAYGROUND_CATALOG = [
       {
@@ -459,15 +464,12 @@
       },
       {
         key: "discoveries",
-        label: "New Survey Discoveries",
+        label: "Audited Survey Candidates",
         items: [
-          { id: "delta_003", name: "★ LSST-DP2-D03 (DELTA_003 — eTNO)", kind: "glb", modelId: "delta_003", badge: "NEW DISCOVERY", isDisc: true, camDist: 3.3, desc: "Flagship extreme TNO (a = 156.6 AU, near Neptune 12:1 MMR) modeled with cosmic-ray-irradiated crimson tholins and ethane frost." },
-          { id: "eps_002", name: "★ R25-E02 (EPS_002 — Dwarf Candidate)", kind: "glb", modelId: "eps_002", badge: "NEW DISCOVERY", isDisc: true, camDist: 3.3, desc: "Galactic-plane dwarf planet candidate (~449 km) discovered inside the |b| < 15° blind spot." },
-          { id: "nw189_primary", name: "★ 2025 NW189 Primary (Cold-Classical KBO)", kind: "glb", modelId: "nw189_primary", badge: "NEW BINARY", isDisc: true, camDist: 3.3, desc: "Ultra-red Cold-Classical Kuiper Belt binary primary resolved with Euclid VIS." },
-          { id: "nw189_secondary", name: "★ S/(2025 NW189) 1 (Binary Companion)", kind: "glb", modelId: "nw189_secondary", badge: "NEW COMPANION", isDisc: true, camDist: 3.2, desc: "Wide 15,630 km binary companion detected at +14.8σ in multi-epoch Euclid VIS imaging." },
-          { id: "iota_004", name: "★ CENTAUR_343 (IOTA_004 — 45 km Centaur)", kind: "glb", modelId: "iota_004", badge: "NEW DISCOVERY", isDisc: true, camDist: 3.2, desc: "Ultra-red 45 km Centaur (a = 16.67 AU) verified across 30 SPHEREx spectral cutouts." },
-          { id: "euc0005", name: "★ EUC0005 (L2 Stereoscopic KBO)", kind: "glb", modelId: "euc0005", badge: "NEW DISCOVERY", isDisc: true, camDist: 3.2, desc: "Trans-Neptunian object pinned via 1.685M-km Earth–Euclid L2 stereoscopic parallax (+11.1σ)." },
-          { id: "gold_18", name: "★ EES149-G18 (111 m Amor NEO)", kind: "glb", modelId: "gold_18", badge: "NEW NEO", isDisc: true, camDist: 3.2, desc: "111-meter Amor near-Earth asteroid jointly detected in Euclid VIS + NISP." }
+          { id: "delta_003", name: "★ LSST-DP2-D03 (DELTA_003) — eTNO candidate", kind: "glb", modelId: "delta_003", badge: "AUDITED CANDIDATE", isDisc: true, camDist: 3.3, desc: "Extreme trans-Neptunian candidate (fitted a ≈ 156.6 AU, q ≈ 35.8 AU). Independent audit: plausible, awaiting designation and follow-up; the resonance reading is disputed. The surface is an artist's model." },
+          { id: "eps_002", name: "★ EPS_002 — TNO candidate near the Galactic plane", kind: "glb", modelId: "eps_002", badge: "AUDITED CANDIDATE", isDisc: true, camDist: 3.3, desc: "Trans-Neptunian candidate found 7° from the Galactic midplane. Independent audit: plausible, needs follow-up; the dwarf-planet size once proposed is disputed. The surface is an artist's model." },
+          { id: "iota_004", name: "★ R25-I04 (IOTA_004) — Centaur candidate", kind: "glb", modelId: "iota_004", badge: "AUDITED CANDIDATE", isDisc: true, camDist: 3.2, desc: "Centaur candidate (fitted a ≈ 16.7 AU). Independent audit: plausible, awaiting designation and follow-up. The surface is an artist's model." },
+          { id: "euc0005", name: "★ EUC0005 — stereoscopic TNO candidate", kind: "glb", modelId: "euc0005", badge: "AUDITED CANDIDATE", isDisc: true, camDist: 3.2, desc: "Euclid VIS detection with a single-night DECam counterpart along the L2–Earth baseline. Independent audit: plausible, needs follow-up; the distance holds only if the match is real. The surface is an artist's model." }
         ]
       },
       {
@@ -504,6 +506,8 @@
           { id: "bennu", name: "(101955) Bennu", kind: "glb", modelId: "bennu", badge: "bennu.glb", camDist: 2.9, desc: "OSIRIS-REx rubble-pile spinning-top carbonaceous NEA." },
           { id: "ryugu", name: "(162173) Ryugu", kind: "glb", modelId: "ryugu", badge: "ryugu.glb", camDist: 2.9, desc: "JAXA Hayabusa2 boulder-strewn C-type diamond asteroid." },
           { id: "eros", name: "(433) Eros", kind: "glb", modelId: "eros", badge: "eros.glb", camDist: 2.9, desc: "NEAR Shoemaker elongated peanut-shaped S-type near-Earth asteroid." },
+          { id: "gold_18", name: "(2019 UM31) — Euclid VIS Recovery Control", kind: "glb", modelId: "gold_18", badge: "RECOVERY CONTROL", camDist: 3.2, desc: "Catalogued main-belt asteroid 2019 UM31, recovered in Euclid VIS + NISP imaging and kept as the Euclid recovery control. It is a known object, not a new discovery." },
+          { id: "nw189_primary", name: "2025 NW189 (Cold-Classical KBO)", kind: "glb", modelId: "nw189_primary", badge: "KNOWN KBO", camDist: 3.3, desc: "Catalogued cold-classical Kuiper Belt object. A wide-binary companion was claimed from Euclid VIS imaging; the independent audit disputes that claim, so no companion is shown. The surface is an artist's model." },
           { id: "arrokoth", name: "(486958) Arrokoth", kind: "glb", modelId: "arrokoth", badge: "arrokoth.glb", camDist: 2.9, desc: "New Horizons contact-binary Cold-Classical Kuiper Belt planetesimal." },
           { id: "67p", name: "67P/Churyumov–Gerasimenko", kind: "glb", modelId: "67p", badge: "67p.glb", camDist: 2.9, desc: "Official ESA Rosetta bilobed 3D comet nucleus." },
           { id: "oumuamua", name: "1I/ʻOumuamua (Interstellar)", kind: "glb", modelId: "oumuamua", badge: "oumuamua.glb", camDist: 2.8, desc: "First confirmed interstellar visitor — elongated reddish extrasolar fragment." }
