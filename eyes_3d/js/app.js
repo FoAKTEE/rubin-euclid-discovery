@@ -78,9 +78,10 @@ import {
   formatSiderealPeriod,
   computeEarthSubsolarLatLon
 } from "./planetaryRotation.js";
-import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261122_v13";
-import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261122_v13";
-import { createADAMOverlayManager } from "./adamOverlay.js?v=20261122_v13";
+import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261122_v14";
+import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261122_v14";
+import { createADAMOverlayManager } from "./adamOverlay.js?v=20261122_v14";
+import { createBoxZoomController } from "./boxZoom.js?v=20261122_v14";
 
 const SPEED_TIERS = [
   { daysPerSec: 1.0 / 86400.0, i18nKey: "timeReal" },
@@ -141,6 +142,7 @@ const MAX_LABEL_BOXES = MAX_VISIBLE_LABELS + 12; // body labels plus the referen
 const _acceptedLabelBoxes = new Float32Array(MAX_LABEL_BOXES * 4);
 // Screen rectangle of the open colour key (labels are not placed underneath it).
 const legendBox = { open: false, right: 0.0, top: 0.0 };
+const boxZoomBarRect = { active: false, right: 0.0, bottom: 0.0 };
 const _pointerDownXY = new THREE.Vector2();
 const _oscShape3 = new Float64Array(3);
 const _scaleInfo = {
@@ -965,14 +967,20 @@ function easeOutCubic(t) {
   return 1.0 - Math.pow(1.0 - t, 3);
 }
 
-function startCameraTween(destTarget, destCamPos, durationSec = 0.95) {
+controls.addEventListener("start", () => {
+  flyTween = null;
+});
+
+function startCameraTween(destTarget, destCamPos, durationSec = 0.95, opts = {}) {
   flyTween = {
     startTime: performance.now(),
     durationMs: durationSec * 1000,
     fromTarget: controls.target.clone(),
     toTarget: destTarget.clone(),
     fromPos: camera.position.clone(),
-    toPos: destCamPos.clone()
+    toPos: destCamPos.clone(),
+    followLockedCenter: opts.followLockedCenter !== false,
+    trackLockedDelta: Boolean(opts.trackLockedDelta)
   };
 }
 
@@ -1568,9 +1576,15 @@ function updateSimulationPositions(dtSec) {
     const u = Math.min(1.0, elapsed / flyTween.durationMs);
     const e = easeOutCubic(u);
     if (hasCurLocked) {
-      _tmpVec.copy(_curLockedPos).sub(flyTween.toTarget);
-      flyTween.toTarget.add(_tmpVec);
-      flyTween.toPos.add(_tmpVec);
+      if (flyTween.followLockedCenter) {
+        _tmpVec.copy(_curLockedPos).sub(flyTween.toTarget);
+        flyTween.toTarget.add(_tmpVec);
+        flyTween.toPos.add(_tmpVec);
+      } else if (flyTween.trackLockedDelta && hadPrevLocked) {
+        _tmpVec.copy(_curLockedPos).sub(_prevLockedPos);
+        flyTween.toTarget.add(_tmpVec);
+        flyTween.toPos.add(_tmpVec);
+      }
     }
     controls.target.lerpVectors(flyTween.fromTarget, flyTween.toTarget, e);
     camera.position.lerpVectors(flyTween.fromPos, flyTween.toPos, e);
@@ -1798,6 +1812,7 @@ function updateSimulationPositions(dtSec) {
       if (bMinX < 10.0 || bMaxX > viewW - 10.0 || bMinY < 80.0 || bMaxY > viewH - 68.0) continue;
       if (inspOpenDesktop && bMaxX > viewW - 446.0 && bMaxY > 82.0 && bMinY < viewH - 80.0) continue;
       if (legendBox.open && bMinX < legendBox.right && bMaxY > legendBox.top) continue;
+      if (boxZoomBarRect.active && bMinX < boxZoomBarRect.right && bMinY < boxZoomBarRect.bottom) continue;
     }
 
     let overlaps = false;
@@ -1843,7 +1858,8 @@ function updateSimulationPositions(dtSec) {
       let blocked =
         rMinX < 10.0 || rMaxX > viewW - 10.0 || rMinY < 84.0 || rMaxY > viewH - 84.0 ||
         (inspOpenDesktop && rMaxX > viewW - 446.0) ||
-        (legendBox.open && rMinX < legendBox.right && rMaxY > legendBox.top);
+        (legendBox.open && rMinX < legendBox.right && rMaxY > legendBox.top) ||
+        (boxZoomBarRect.active && rMinX < boxZoomBarRect.right && rMinY < boxZoomBarRect.bottom);
       for (let j = 0; j < acceptedLabels && !blocked; j++) {
         const base = j * 4;
         blocked =
@@ -1904,6 +1920,7 @@ canvas.addEventListener("pointerdown", (e) => {
 });
 
 canvas.addEventListener("pointerup", async (e) => {
+  if ((appReady && boxZoom?.getMode?.() !== "off") || e.shiftKey || e.altKey) return;
   if (Math.hypot(e.clientX - _pointerDownXY.x, e.clientY - _pointerDownXY.y) > 5.0) return;
   let hit = pickBodyAtClientXY(e.clientX, e.clientY);
   if (!hit || hit.id === "EARTH") {
@@ -1919,6 +1936,10 @@ canvas.addEventListener("pointerup", async (e) => {
 // Throttled pointermove hover (never runs 22,022-sat loop!)
 let lastHoverCheckMs = 0;
 canvas.addEventListener("pointermove", (e) => {
+  if (appReady && (boxZoom?.getMode?.() !== "off" || boxZoom?.isDragging?.() || e.shiftKey || e.altKey)) {
+    canvas.style.cursor = "crosshair";
+    return;
+  }
   const now = performance.now();
   if (now - lastHoverCheckMs < 40) return;
   lastHoverCheckMs = now;
@@ -2434,6 +2455,22 @@ function applyLanguageToStaticDOM() {
 
   document.getElementById("auto-tour-btn").textContent = tr(L, state.autoTourTimer ? "autoTourStop" : "autoTourStart");
   document.getElementById("inspector-reopen-btn").textContent = `${tr(L, "inspectorOpen")} ◂`;
+  const bzInBtn = document.getElementById("btn-box-zoom-in");
+  if (bzInBtn) {
+    bzInBtn.textContent = `⊞ ${tr(L, "boxZoomIn")}`;
+    bzInBtn.title = tr(L, "boxZoomInTitle");
+  }
+  const bzOutBtn = document.getElementById("btn-box-zoom-out");
+  if (bzOutBtn) {
+    bzOutBtn.textContent = `⊟ ${tr(L, "boxZoomOut")}`;
+    bzOutBtn.title = tr(L, "boxZoomOutTitle");
+  }
+  const bzUndoBtn = document.getElementById("btn-zoom-back");
+  if (bzUndoBtn) {
+    bzUndoBtn.title = tr(L, "boxZoomUndoTitle");
+  }
+  if (appReady) boxZoom?.refreshLabels?.();
+  measureLegendBox();
   document.getElementById("btn-zoom-surface").textContent = tr(L, "zoomSurfaceBtn");
   document.getElementById("btn-frame-orbit").textContent = tr(L, "frameOrbitBtn");
 
@@ -2527,6 +2564,15 @@ function measureLegendBox() {
     const rc = panel.getBoundingClientRect();
     legendBox.right = rc.right + 8.0;
     legendBox.top = rc.top - 8.0;
+  }
+  const bzBar = document.getElementById("box-zoom-bar");
+  const bzRc = bzBar?.getBoundingClientRect?.();
+  if (bzRc && bzRc.width > 0 && bzRc.height > 0) {
+    boxZoomBarRect.active = true;
+    boxZoomBarRect.right = bzRc.right + 8.0;
+    boxZoomBarRect.bottom = bzRc.bottom + 8.0;
+  } else {
+    boxZoomBarRect.active = false;
   }
 }
 
@@ -2964,10 +3010,295 @@ window.addEventListener("hashchange", () => {
   }
 });
 
+const _bzProj = new THREE.Vector3();
+const _bzFwd = new THREE.Vector3();
+const _bzViewDir = new THREE.Vector3();
+const _bzHit = new THREE.Vector3();
+const _bzDelta = new THREE.Vector3();
+const _bzTarget = new THREE.Vector3();
+
+function findVisibleBodyInBox(rect, lockedRt) {
+  _bzFwd.set(0, 0, -1).applyQuaternion(camera.quaternion).normalize();
+  const tanHalfFov = Math.tan(THREE.MathUtils.degToRad((camera.fov || 45) * 0.5));
+  const prominentHits = [];
+  const minorHits = [];
+  let bestSun = null;
+
+  for (const rt of runtimeList) {
+    if (!rt.node?.visible || !rt.worldPos) continue;
+    const obj = rt.obj;
+    if (!obj?.is_galactic && state.galacticFactor > 0.7 && obj?.category !== "star") continue;
+    if (obj?.is_galactic && state.galacticFactor < 0.15) continue;
+    if (obj?.parent_id && state.activeCategory !== "spacecraft" && state.activeCategory !== "moons_l2") {
+      const pRt = runtimeMap.get(obj.parent_id);
+      if (pRt && camera.position.distanceTo(pRt.worldPos) > pRt.node.userData.meshRadius * 38.0) continue;
+    }
+
+    _bzDelta.copy(rt.worldPos).sub(camera.position);
+    const depth = _bzDelta.dot(_bzFwd);
+    if (depth <= 1e-6) continue;
+
+    _bzProj.copy(rt.worldPos).project(camera);
+    if (!Number.isFinite(_bzProj.x) || !Number.isFinite(_bzProj.y) || _bzProj.z < -1.0 || _bzProj.z > 1.0) continue;
+
+    const sx = (_bzProj.x * 0.5 + 0.5) * rect.viewW;
+    const sy = (-_bzProj.y * 0.5 + 0.5) * rect.viewH;
+    const bodyR = Math.max(1e-4, rt.node.userData?.meshRadius || 0.02);
+    const camDist = Math.max(1e-5, camera.position.distanceTo(rt.worldPos));
+    const pxRadius = (bodyR / Math.max(1e-6, camDist * tanHalfFov)) * (rect.viewH * 0.5);
+
+    if (pxRadius >= rect.side * 0.58 && (rt === lockedRt || camDist < bodyR * 12.0)) continue;
+
+    const isSpacecraft =
+      obj?.category === "spacecraft" ||
+      Boolean(obj?.visual_type?.startsWith("spacecraft")) ||
+      Boolean(obj?.is_constellation_sat) ||
+      Boolean(rt.node.userData?.isSpacecraft);
+    if (isSpacecraft && rect.side > 90 && camDist > bodyR * 120.0 && state.activeCategory !== "spacecraft") {
+      continue;
+    }
+
+    const pad = Math.min(rect.side * 0.25, Math.max(8.0, pxRadius));
+    if (
+      sx < rect.left - pad ||
+      sx > rect.left + rect.side + pad ||
+      sy < rect.top - pad ||
+      sy > rect.top + rect.side + pad
+    ) {
+      continue;
+    }
+
+    const normDistSq =
+      ((sx - rect.cx) / Math.max(12.0, rect.side)) ** 2 +
+      ((sy - rect.cy) / Math.max(12.0, rect.side)) ** 2;
+    const score = normDistSq + Math.log10(Math.max(1.0, camDist)) * 0.03;
+    const cand = { rt, bodyR, camDist, score };
+
+    const cat = obj?.category;
+    const isProminent =
+      !isSpacecraft &&
+      (cat === "planets" ||
+        cat === "planet" ||
+        cat === "dwarfs" ||
+        cat === "dwarf" ||
+        cat === "dwarf_planets" ||
+        cat === "star" ||
+        Boolean(obj?.is_black_hole) ||
+        Boolean(obj?.is_new_discovery) ||
+        Boolean(obj?.is_signature_highlight));
+
+    if (isProminent) {
+      prominentHits.push(cand);
+      if (obj?.id === "SUN" && (!bestSun || score < bestSun.score)) bestSun = cand;
+    } else {
+      minorHits.push(cand);
+    }
+  }
+
+  if (rect.side > 110 && prominentHits.length >= 2) return null;
+
+  prominentHits.sort((a, b) => a.score - b.score);
+  const nonSunProminent = prominentHits.find((c) => c.rt.obj?.id !== "SUN");
+  if (nonSunProminent) return nonSunProminent;
+
+  if (minorHits.length > 0) {
+    minorHits.sort((a, b) => a.score - b.score);
+    return minorHits[0];
+  }
+  return bestSun;
+}
+
+const boxZoom = createBoxZoomController({
+  canvas,
+  camera,
+  controls,
+  inBtn: document.getElementById("btn-box-zoom-in"),
+  outBtn: document.getElementById("btn-box-zoom-out"),
+  undoBtn: document.getElementById("btn-zoom-back"),
+  hintEl: document.getElementById("box-zoom-hint"),
+  overlayEl: document.getElementById("box-zoom-overlay"),
+  rectEl: document.getElementById("box-zoom-rect"),
+  tagEl: document.getElementById("box-zoom-tag"),
+  getLabel: (key, fallback, vars) => {
+    const raw = tr(state.lang, key) || fallback || "";
+    return raw.replace(/\{(\w+)\}/g, (_, k) => String(vars?.[k] ?? ""));
+  },
+  isBlocked: () => !appReady,
+  beforeStart: () => {
+    stopAutoTour();
+  },
+  getSnapshotMeta: () => ({
+    lockedId: state.lockedObj?.id || null,
+    selectedId: state.selectedObj?.id || null
+  }),
+  resolveZoomMove: ({ mode, f, rayOrigin, rayDir, rect, dOld, currentTarget, currentCamPos }) => {
+    const lockedRt = state.lockedObj ? runtimeMap.get(state.lockedObj.id) : null;
+    _bzFwd.copy(currentTarget).sub(rayOrigin);
+    if (_bzFwd.lengthSq() > 1e-12) _bzFwd.normalize();
+    else _bzFwd.set(0, 0, -1);
+
+    if (mode === "in") {
+      const hitBody = findVisibleBodyInBox(rect, lockedRt);
+      if (hitBody) {
+        const { rt, bodyR, camDist } = hitBody;
+        const safeMin = Math.max(0.0001, bodyR * 1.25);
+        const dNew = Math.max(safeMin, Math.min(dOld * f, camDist * f));
+        _bzViewDir.copy(currentCamPos).sub(rt.worldPos);
+        if (_bzViewDir.lengthSq() < 1e-14) _bzViewDir.copy(rayDir).negate();
+        _bzViewDir.normalize();
+        const lockChanged = state.lockedObj?.id !== rt.obj.id || state.selectedObj?.id !== rt.obj.id;
+        return {
+          target: rt.worldPos.clone(),
+          camPos: rt.worldPos.clone().addScaledVector(_bzViewDir, dNew),
+          minDist: safeMin,
+          lockObj: rt.obj,
+          selectObj: rt.obj,
+          lockChanged,
+          followLockedCenter: true,
+          trackLockedDelta: true,
+          durationSec: 0.58
+        };
+      }
+
+      if (Math.abs(rayDir.y) > 0.06) {
+        const tEcl = -rayOrigin.y / rayDir.y;
+        if (tEcl > 1e-3 && tEcl <= dOld * 3.2) {
+          _bzHit.copy(rayOrigin).addScaledVector(rayDir, tEcl);
+          if (_bzHit.distanceTo(currentTarget) <= dOld * 2.5) {
+            const dNew = Math.max(0.0001, tEcl * f);
+            let nextLockObj = state.lockedObj;
+            if (nextLockObj?.id === "SUN" && _bzHit.lengthSq() > 1e-4) nextLockObj = null;
+            const newCam = _bzHit.clone().addScaledVector(rayDir, -dNew);
+            if (nextLockObj && nextLockObj.id !== "SUN") {
+              const lRt = runtimeMap.get(nextLockObj.id);
+              const lR = lRt?.node?.userData?.meshRadius || 0;
+              if (lR > 0 && newCam.distanceTo(lRt.worldPos) < lR * 1.18) {
+                _bzDelta.copy(newCam).sub(lRt.worldPos);
+                if (_bzDelta.lengthSq() < 1e-12) _bzDelta.set(0, 0.3, 1);
+                _bzDelta.normalize();
+                newCam.copy(lRt.worldPos).addScaledVector(_bzDelta, lR * 1.18);
+              }
+            }
+            return {
+              target: _bzHit.clone(),
+              camPos: newCam,
+              minDist: Math.max(0.0001, Math.min(controls.minDistance || 0.0001, dNew * 0.5)),
+              lockObj: nextLockObj,
+              lockChanged: state.lockedObj?.id !== nextLockObj?.id,
+              followLockedCenter: false,
+              trackLockedDelta: Boolean(nextLockObj),
+              durationSec: 0.52
+            };
+          }
+        }
+      }
+
+      const denom = rayDir.dot(_bzFwd);
+      const tFocal = denom > 1e-3 ? dOld / denom : dOld;
+      _bzHit.copy(rayOrigin).addScaledVector(rayDir, tFocal);
+      const dNew = Math.max(0.0001, Math.min(1e9, dOld * f));
+      _bzViewDir.copy(currentCamPos).sub(currentTarget);
+      if (_bzViewDir.lengthSq() < 1e-14) _bzViewDir.copy(rayDir).negate();
+      _bzViewDir.normalize();
+      const newCam = _bzHit.clone().addScaledVector(_bzViewDir, dNew);
+      let nextLockObj = state.lockedObj;
+      if (nextLockObj?.id === "SUN" && _bzHit.distanceTo(currentTarget) > 1e-4) nextLockObj = null;
+      if (nextLockObj && nextLockObj.id !== "SUN") {
+        const lRt = runtimeMap.get(nextLockObj.id);
+        const lR = lRt?.node?.userData?.meshRadius || 0;
+        if (lR > 0 && newCam.distanceTo(lRt.worldPos) < lR * 1.18) {
+          _bzDelta.copy(newCam).sub(lRt.worldPos);
+          if (_bzDelta.lengthSq() < 1e-12) _bzDelta.set(0, 0.3, 1);
+          _bzDelta.normalize();
+          newCam.copy(lRt.worldPos).addScaledVector(_bzDelta, lR * 1.18);
+        }
+      }
+      return {
+        target: _bzHit.clone(),
+        camPos: newCam,
+        minDist: Math.max(0.0001, Math.min(controls.minDistance || 0.0001, dNew * 0.5)),
+        lockObj: nextLockObj,
+        lockChanged: state.lockedObj?.id !== nextLockObj?.id,
+        followLockedCenter: false,
+        trackLockedDelta: Boolean(nextLockObj),
+        durationSec: 0.52
+      };
+    }
+
+    // Zoom Out
+    const denom = rayDir.dot(_bzFwd);
+    const tFocal = denom > 1e-3 ? dOld / denom : dOld;
+    _bzViewDir.copy(currentCamPos).sub(currentTarget);
+    if (_bzViewDir.lengthSq() < 1e-14) _bzViewDir.copy(rayDir).negate();
+    _bzViewDir.normalize();
+
+    const offsetPx = Math.hypot(rect.cx - rect.viewW * 0.5, rect.cy - rect.viewH * 0.5);
+    _bzTarget.copy(currentTarget);
+    let nextLockObj = state.lockedObj;
+    if (offsetPx > 18.0) {
+      _bzHit.copy(rayOrigin).addScaledVector(rayDir, tFocal).sub(currentTarget);
+      _bzTarget.addScaledVector(_bzHit, -(1.0 - f));
+      if (nextLockObj?.id === "SUN") nextLockObj = null;
+    }
+    const dNew = Math.min(2e9, Math.max(dOld * 1.02, dOld / f));
+    const keepCenteredLock = Boolean(nextLockObj) && offsetPx <= 18.0;
+    return {
+      target: _bzTarget.clone(),
+      camPos: _bzTarget.clone().addScaledVector(_bzViewDir, dNew),
+      minDist: Math.max(0.0001, Math.min(controls.minDistance || 0.0001, dNew * 0.5)),
+      lockObj: nextLockObj,
+      lockChanged: state.lockedObj?.id !== nextLockObj?.id,
+      followLockedCenter: keepCenteredLock,
+      trackLockedDelta: Boolean(nextLockObj),
+      durationSec: 0.52
+    };
+  },
+  applyCameraMove: (move) => {
+    constellationMgr.clearFocusedSatellite();
+    if (move.selectObj) state.selectedObj = move.selectObj;
+    if ("lockObj" in move) state.lockedObj = move.lockObj;
+    if (move.minDist !== undefined) {
+      controls.minDistance = move.followLockedCenter
+        ? move.minDist
+        : Math.min(controls.minDistance || 0.0001, move.minDist);
+    }
+    startCameraTween(move.target, move.camPos, move.durationSec || 0.52, {
+      followLockedCenter: Boolean(move.followLockedCenter),
+      trackLockedDelta: Boolean(move.trackLockedDelta)
+    });
+    if (move.selectObj || move.lockChanged) {
+      updateTrackingBarUI();
+      updateInspectorUI();
+      highlightSelectedInLists();
+      updateVisibilityAndOrbits();
+    }
+  },
+  restoreSnapshot: (snap) => {
+    constellationMgr.clearFocusedSatellite();
+    const prevLock = snap.meta?.lockedId ? (catalog.byId.get(snap.meta.lockedId) || null) : null;
+    const prevSel = snap.meta?.selectedId ? (catalog.byId.get(snap.meta.selectedId) || null) : null;
+    const changed = state.lockedObj?.id !== prevLock?.id || state.selectedObj?.id !== prevSel?.id;
+    state.lockedObj = prevLock;
+    if (prevSel) state.selectedObj = prevSel;
+    controls.minDistance = snap.minDist ?? 0.0001;
+    startCameraTween(snap.target, snap.camPos, 0.45, {
+      followLockedCenter: false,
+      trackLockedDelta: Boolean(prevLock)
+    });
+    if (changed) {
+      updateTrackingBarUI();
+      updateInspectorUI();
+      highlightSelectedInLists();
+      updateVisibilityAndOrbits();
+    }
+  }
+});
+
 updateVisibilityAndOrbits();
 updateTrackingBarUI();
 updateInspectorUI();
 highlightSelectedInLists();
+measureLegendBox();
 appReady = true;
 
 // ==================== MAIN 60-FPS RENDER LOOP ====================
@@ -3064,7 +3395,9 @@ window.__EYES3D__ = {
   flyToScenePreset,
   updateEarthConfig,
   updateSimulationPositions,
-  updateInspectorUI
+  updateInspectorUI,
+  boxZoom,
+  isTweening: () => Boolean(flyTween)
 };
 
 requestAnimationFrame(animate);

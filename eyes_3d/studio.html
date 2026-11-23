@@ -337,6 +337,136 @@
       display: none;
     }
 
+    #box-zoom-bar {
+      position: fixed;
+      top: 76px;
+      left: 14px;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.58);
+    }
+
+    .box-zoom-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: rgba(15, 23, 42, 0.72);
+      color: #cbd5e1;
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.1;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.14s, background 0.14s, color 0.14s;
+    }
+
+    .box-zoom-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: #ffffff;
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    .box-zoom-btn.active {
+      border-color: var(--accent);
+      background: rgba(84, 182, 222, 0.26);
+      color: #f0f9ff;
+      box-shadow: inset 0 0 0 1px rgba(84, 182, 222, 0.35);
+    }
+
+    .box-zoom-btn.out.active {
+      border-color: var(--gold);
+      background: rgba(244, 185, 66, 0.22);
+      color: #fff6dd;
+      box-shadow: inset 0 0 0 1px rgba(244, 185, 66, 0.35);
+    }
+
+    .box-zoom-btn:disabled { opacity: 0.42; cursor: default; }
+
+    #box-zoom-hint {
+      display: none;
+      align-items: center;
+      padding: 0 6px 0 4px;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      white-space: nowrap;
+    }
+
+    #box-zoom-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 25;
+      pointer-events: none;
+      display: none;
+    }
+
+    #box-zoom-rect {
+      position: absolute;
+      border: 2px solid #54b6de;
+      background: rgba(84, 182, 222, 0.12);
+      box-shadow: 0 0 0 9999px rgba(2, 5, 12, 0.24), 0 0 18px rgba(84, 182, 222, 0.35);
+    }
+
+    #box-zoom-rect.mode-out {
+      border-color: #f4b942;
+      background: rgba(244, 185, 66, 0.12);
+      box-shadow: 0 0 0 9999px rgba(2, 5, 12, 0.24), 0 0 18px rgba(244, 185, 66, 0.35);
+    }
+
+    .bz-corner {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-color: #ffffff;
+      border-style: solid;
+      border-width: 0;
+    }
+    .bz-corner.tl { top: -2px; left: -2px; border-top-width: 2.5px; border-left-width: 2.5px; }
+    .bz-corner.tr { top: -2px; right: -2px; border-top-width: 2.5px; border-right-width: 2.5px; }
+    .bz-corner.bl { bottom: -2px; left: -2px; border-bottom-width: 2.5px; border-left-width: 2.5px; }
+    .bz-corner.br { bottom: -2px; right: -2px; border-bottom-width: 2.5px; border-right-width: 2.5px; }
+
+    .bz-cross {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      transform: translate(-50%, -50%);
+    }
+    .bz-cross::before, .bz-cross::after {
+      content: "";
+      position: absolute;
+      background: rgba(248, 250, 252, 0.85);
+    }
+    .bz-cross::before { left: 0; right: 0; top: 4.5px; height: 1px; }
+    .bz-cross::after { top: 0; bottom: 0; left: 4.5px; width: 1px; }
+
+    #box-zoom-tag {
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 6px);
+      transform: translateX(-50%);
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(6, 11, 22, 0.92);
+      border: 1px solid rgba(148, 184, 240, 0.4);
+      color: #f8fafc;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
     @media (max-width: 1120px) {
       .brand-title { display: none; }
       #top-bar { height: auto; flex-wrap: wrap; padding: 10px 12px; }
@@ -345,6 +475,22 @@
 </head>
 <body>
   <canvas id="playground-canvas"></canvas>
+  <div id="box-zoom-overlay" aria-hidden="true">
+    <div id="box-zoom-rect">
+      <span class="bz-corner tl"></span>
+      <span class="bz-corner tr"></span>
+      <span class="bz-corner bl"></span>
+      <span class="bz-corner br"></span>
+      <span class="bz-cross"></span>
+      <span id="box-zoom-tag"></span>
+    </div>
+  </div>
+  <div id="box-zoom-bar" role="toolbar" aria-label="Square box zoom controls">
+    <button id="btn-box-zoom-in" class="box-zoom-btn" type="button" aria-pressed="false" title="Draw square to zoom in (Z or Shift+Drag)">⊞ Zoom In</button>
+    <button id="btn-box-zoom-out" class="box-zoom-btn out" type="button" aria-pressed="false" title="Draw square to zoom out (X or Alt+Drag)">⊟ Zoom Out</button>
+    <button id="btn-zoom-back" class="box-zoom-btn" type="button" disabled aria-disabled="true" title="Undo last square zoom (Backspace)">↺</button>
+    <span id="box-zoom-hint"></span>
+  </div>
 
   <header id="top-bar">
     <div class="brand">
@@ -419,15 +565,16 @@
     </div>
     <h1 id="info-name">Sagittarius A* (Sgr A*)</h1>
     <p id="info-desc">Interactive 360° rotatable relativistic black hole &amp; solar system 3D viewer.</p>
-    <div class="info-hint">Drag: 360° Rotate · Scroll: Zoom In/Out · Double-Click: Reset</div>
+    <div class="info-hint">Drag: 360° Rotate · Scroll: Zoom In/Out · Shift/Alt+Drag: Box Zoom · Double-Click: Reset</div>
   </section>
 
   <script type="module">
     import * as THREE from "./vendor/three.module.js";
     import { OrbitControls } from "./vendor/OrbitControls.js";
-    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, getStudioEnvironmentTexture, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261122_v13";
-    import { createSunShaderMesh } from "./js/proceduralBodies.js?v=20261122_v13";
-    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261122_v13";
+    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, getStudioEnvironmentTexture, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261122_v14";
+    import { createSunShaderMesh } from "./js/proceduralBodies.js?v=20261122_v14";
+    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261122_v14";
+    import { createBoxZoomController } from "./js/boxZoom.js?v=20261122_v14";
 
     const PLAYGROUND_CATALOG = [
       {
@@ -697,7 +844,12 @@
       activeSunUniforms = null;
     }
 
+    let studioTween = null;
+    let boxZoom = null;
+    let lastBoxZoomItemId = null;
+
     function resetCameraForItem(item) {
+      studioTween = null;
       const d = item?.camDist || 3.6;
       const yElev = item?.kind === "bh" ? d * 0.24 : d * 0.16;
       camera.position.set(d * 0.22, yElev, d);
@@ -705,6 +857,10 @@
       controls.minDistance = item?.kind === "bh" ? 1.35 : 1.32;
       controls.maxDistance = item?.kind === "bh" ? 22.0 : 22.0;
       controls.update();
+      if (item?.id && item.id !== lastBoxZoomItemId) {
+        lastBoxZoomItemId = item.id;
+        boxZoom?.clearHistory();
+      }
     }
 
     function loadPlaygroundItem(catIdx, objIdx) {
@@ -952,11 +1108,148 @@
         activeBhSys.update(dt, camera, _bhScaleInfo);
       }
 
+      if (studioTween) {
+        const uRaw = Math.min(1.0, Math.max(0.0, (nowMs - studioTween.startMs) / studioTween.durationMs));
+        const u = uRaw * uRaw * (3.0 - 2.0 * uRaw);
+        controls.target.lerpVectors(studioTween.fromTarget, studioTween.toTarget, u);
+        camera.position.lerpVectors(studioTween.fromPos, studioTween.toPos, u);
+        if (uRaw >= 1.0) studioTween = null;
+      }
       controls.update();
       renderer.render(scene, camera);
     }
 
-    window.__PLAYGROUND__ = { camera, controls, scene, loadPlaygroundItem, PLAYGROUND_CATALOG };
+    const _bzRaycaster = new THREE.Raycaster();
+    const _bzTarget = new THREE.Vector3();
+    const _bzFwd = new THREE.Vector3();
+    const _bzViewDir = new THREE.Vector3();
+    const _bzDelta = new THREE.Vector3();
+
+    function isAncestorHidden(obj, stopAt) {
+      let cur = obj;
+      while (cur && cur !== stopAt) {
+        if (cur.visible === false) return true;
+        cur = cur.parent;
+      }
+      return false;
+    }
+
+    controls.addEventListener("start", () => {
+      studioTween = null;
+    });
+
+    boxZoom = createBoxZoomController({
+      canvas,
+      camera,
+      controls,
+      inBtn: document.getElementById("btn-box-zoom-in"),
+      outBtn: document.getElementById("btn-box-zoom-out"),
+      undoBtn: document.getElementById("btn-zoom-back"),
+      hintEl: document.getElementById("box-zoom-hint"),
+      overlayEl: document.getElementById("box-zoom-overlay"),
+      rectEl: document.getElementById("box-zoom-rect"),
+      tagEl: document.getElementById("box-zoom-tag"),
+      getLabel: (_key, fallback, vars) =>
+        (fallback || "").replace(/\{(\w+)\}/g, (_, k) => String(vars?.[k] ?? "")),
+      resolveZoomMove: ({ mode, f, rayOrigin, rayDir, rect, dOld, currentTarget, currentCamPos }) => {
+        _bzViewDir.copy(currentCamPos).sub(currentTarget);
+        const viewLen = _bzViewDir.length();
+        if (viewLen > 1e-8) _bzViewDir.multiplyScalar(1.0 / viewLen);
+        else _bzViewDir.set(0, 0, 1);
+
+        _bzFwd.copy(currentTarget).sub(rayOrigin);
+        if (_bzFwd.lengthSq() > 1e-12) _bzFwd.normalize();
+        else _bzFwd.set(0, 0, -1);
+
+        const denom = rayDir.dot(_bzFwd);
+        const tFocal = denom > 1e-3 ? dOld / denom : dOld;
+
+        if (mode === "in") {
+          let chosenHit = null;
+          if (activeHolder) {
+            _bzRaycaster.ray.origin.copy(rayOrigin);
+            _bzRaycaster.ray.direction.copy(rayDir);
+            const rawHits = _bzRaycaster.intersectObject(activeHolder, true);
+            const visHits = rawHits.filter((h) => !isAncestorHidden(h.object, activeHolder));
+            chosenHit =
+              visHits.find(
+                (h) =>
+                  !h.object?.isPoints &&
+                  h.object?.material?.side !== THREE.BackSide &&
+                  h.object?.material?.blending !== THREE.AdditiveBlending
+              ) ||
+              visHits.find((h) => !h.object?.isPoints) ||
+              visHits[0] ||
+              null;
+          }
+
+          if (chosenHit) {
+            _bzTarget.copy(chosenHit.point);
+            if (_bzTarget.length() > 1.2) _bzTarget.setLength(1.2);
+            const dHit = Math.max(0.45, chosenHit.distance);
+            const dNew = Math.max(0.45, Math.min(22.0, dHit * f));
+            return {
+              target: _bzTarget.clone(),
+              camPos: _bzTarget.clone().addScaledVector(_bzViewDir, dNew),
+              minDist: 0.45,
+              durationSec: 0.48
+            };
+          }
+
+          _bzTarget.copy(rayOrigin).addScaledVector(rayDir, tFocal);
+          if (_bzTarget.length() > 1.2) _bzTarget.setLength(1.2);
+          const dNew = Math.max(0.45, Math.min(22.0, dOld * f));
+          return {
+            target: _bzTarget.clone(),
+            camPos: _bzTarget.clone().addScaledVector(_bzViewDir, dNew),
+            minDist: 0.45,
+            durationSec: 0.48
+          };
+        }
+
+        // Zoom Out
+        const offsetPx = Math.hypot(rect.cx - rect.viewW * 0.5, rect.cy - rect.viewH * 0.5);
+        _bzTarget.copy(currentTarget);
+        if (offsetPx > 18.0) {
+          _bzDelta.copy(rayOrigin).addScaledVector(rayDir, tFocal).sub(currentTarget);
+          _bzTarget.addScaledVector(_bzDelta, -(1.0 - f));
+          if (_bzTarget.length() > 1.2) _bzTarget.setLength(1.2);
+        }
+        const dNew = Math.min(22.0, Math.max(dOld * 1.02, dOld / f));
+        return {
+          target: _bzTarget.clone(),
+          camPos: _bzTarget.clone().addScaledVector(_bzViewDir, dNew),
+          minDist: 0.45,
+          durationSec: 0.48
+        };
+      },
+      applyCameraMove: (move) => {
+        controls.minDistance = Math.min(controls.minDistance || 0.45, move.minDist ?? 0.45);
+        controls.maxDistance = 22.0;
+        studioTween = {
+          fromTarget: controls.target.clone(),
+          toTarget: move.target.clone(),
+          fromPos: camera.position.clone(),
+          toPos: move.camPos.clone(),
+          startMs: performance.now(),
+          durationMs: (move.durationSec || 0.48) * 1000.0
+        };
+      },
+      restoreSnapshot: (snap) => {
+        controls.minDistance = snap.minDist ?? (activeItem?.kind === "bh" ? 1.35 : 1.32);
+        controls.maxDistance = 22.0;
+        studioTween = {
+          fromTarget: controls.target.clone(),
+          toTarget: snap.target.clone(),
+          fromPos: camera.position.clone(),
+          toPos: snap.camPos.clone(),
+          startMs: performance.now(),
+          durationMs: 420.0
+        };
+      }
+    });
+
+    window.__PLAYGROUND__ = { camera, controls, scene, loadPlaygroundItem, PLAYGROUND_CATALOG, boxZoom, isTweening: () => Boolean(studioTween) };
     requestAnimationFrame(tick);
   </script>
 </body>

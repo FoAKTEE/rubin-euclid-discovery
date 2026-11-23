@@ -5,12 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eyes on the Cosmos — 3D Solar System, Oort Cloud &amp; Milky Way Explorer</title>
   <meta name="description" content="Interactive 3D explorer of the Solar System and the Milky Way: planets on an N-body integration started from JPL ephemeris states, a perturbed lunar orbit, Keplerian asteroid and Kuiper belts, 82,199 Gaia stars and black holes. Audited survey candidates are an optional layer." />
-  <link rel="stylesheet" href="css/styles.css?v=20261122_v13" />
+  <link rel="stylesheet" href="css/styles.css?v=20261122_v14" />
 </head>
 <body>
   <!-- Full-Bleed 3D WebGL + CSS2D Viewport -->
   <div id="viewport-container">
     <canvas id="webgl-canvas"></canvas>
+    <div id="box-zoom-overlay" aria-hidden="true">
+      <div id="box-zoom-rect">
+        <span class="bz-corner tl"></span>
+        <span class="bz-corner tr"></span>
+        <span class="bz-corner bl"></span>
+        <span class="bz-corner br"></span>
+        <span class="bz-cross"></span>
+        <span id="box-zoom-tag"></span>
+      </div>
+    </div>
     <div id="css2d-layer"></div>
   </div>
 
@@ -173,6 +183,14 @@
     </div>
   </header>
 
+  <!-- Compact Floating Square-Box Zoom Toolbar (top-left under top bar) -->
+  <div id="box-zoom-bar" class="glass-bar" role="toolbar" aria-label="Square box zoom controls">
+    <button id="btn-box-zoom-in" class="box-zoom-btn" type="button" aria-pressed="false" title="Draw square to zoom in (Z or Shift+Drag)">⊞ Zoom In</button>
+    <button id="btn-box-zoom-out" class="box-zoom-btn out" type="button" aria-pressed="false" title="Draw square to zoom out (X or Alt+Drag)">⊟ Zoom Out</button>
+    <button id="btn-zoom-back" class="box-zoom-btn" type="button" disabled aria-disabled="true" title="Undo last square zoom (Backspace)">↺</button>
+    <span id="box-zoom-hint"></span>
+  </div>
+
   <!-- Reopen Compact Right Inspector Button -->
   <button id="inspector-reopen-btn" class="glass-bar" type="button" style="display:block;">Inspector ◂</button>
 
@@ -300,9 +318,9 @@
   </footer>
 
   <!-- Catalog Data + Application Engine -->
-  <script src="data/solar_catalog.js?v=20261122_v13" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
-  <script src="data/spacecraft_extra_catalog.js?v=20261122_v13"></script>
-  <script src="data/adam_overlay.js?v=20261122_v13" onerror="window.__ADAM_OVERLAY__=null"></script>
-  <script type="module" src="js/app.js?v=20261122_v13"></script>
+  <script src="data/solar_catalog.js?v=20261122_v14" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
+  <script src="data/spacecraft_extra_catalog.js?v=20261122_v14"></script>
+  <script src="data/adam_overlay.js?v=20261122_v14" onerror="window.__ADAM_OVERLAY__=null"></script>
+  <script type="module" src="js/app.js?v=20261122_v14"></script>
 </body>
 </html>
