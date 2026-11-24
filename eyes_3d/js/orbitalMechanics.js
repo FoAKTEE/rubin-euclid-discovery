@@ -666,75 +666,337 @@ function lagrangeHaloCore(earthEcl3, outArr3, isL1) {
   outArr3[2] = uz * (radialCenter + haloAmpR) + haloAmpZ;
 }
 
-// Sample raw scene-oriented AU coordinates [xE, zE, -yE, ...] into a Float32Array (zero Vector3 churn)
-export function sampleHeliocentricOrbitRawAU(obj) {
+// Camera view-field state for view-anchored orbit polygon tessellation:
+// [0..2] = camPosScene (x, y, z), [3] = dFloorScene, [4] = logBlend (0..1), [5] = initialized (0|1)
+export const ORBIT_VIEW_STATE = new Float64Array([0.0, 26.0, 56.0, 2.0, 1.0, 0.0]);
+// Index of the vertex pinned to the object's live position in the most recent sample*OrbitRawAU call
+export const LAST_ORBIT_OBJ_VERT_IDX = new Int32Array([160]);
+
+const CDF_STEPS = 384;
+const _cdfParam = new Float64Array(CDF_STEPS + 1);
+const _cdfW = new Float64Array(CDF_STEPS + 1);
+
+function mapRawAUToSceneXYZ(xE, zE, negYE, logBlend, out3) {
+  const r = Math.hypot(xE, zE, negYE);
+  if (r < 1e-12) {
+    out3[0] = 0.0; out3[1] = 0.0; out3[2] = 0.0;
+    return;
+  }
+  const rLog = LOG_S0 * Math.log(1.0 + r / LOG_R0);
+  const sc = (r + (rLog - r) * logBlend) / r;
+  out3[0] = xE * sc;
+  out3[1] = zE * sc;
+  out3[2] = negYE * sc;
+}
+
+const _cdfSceneCur = new Float64Array(3);
+const _cdfScenePrev = new Float64Array(3);
+
+function resampleClosedEllipseViewAnchored(a, e, Px, Py, Pz, Qx, Qy, Qz, dx0, dy0, dz0, Enow, arr) {
+  const steps = (arr.length / 3) | 0;
+  const bFac = Math.sqrt(Math.max(1e-12, 1.0 - e * e));
+  const halfRatioPow = Math.pow(Math.max(1e-7, (1.0 - e) / (1.0 + e)), 0.25);
+  const camX = ORBIT_VIEW_STATE[0], camY = ORBIT_VIEW_STATE[1], camZ = ORBIT_VIEW_STATE[2];
+  const dFloor = Math.max(1e-5, ORBIT_VIEW_STATE[3] || 1.0);
+  const logBlend = ORBIT_VIEW_STATE[4];
+
+  let prevE = -Math.PI;
+  let prevV = -Math.PI;
+  _cdfParam[0] = -Math.PI;
+  _cdfW[0] = 0.0;
+
+  for (let m = 0; m <= CDF_STEPS; m++) {
+    let E;
+    if (m === 0) E = -Math.PI;
+    else if (m === CDF_STEPS) E = Math.PI;
+    else {
+      const theta = -Math.PI + (TWO_PI * m) / CDF_STEPS;
+      E = 2.0 * Math.atan(halfRatioPow * Math.tan(theta * 0.5));
+    }
+    const cosE = Math.cos(E), sinE = Math.sin(E);
+    const xOrb = a * (cosE - e);
+    const yOrb = a * bFac * sinE;
+    const v = Math.atan2(bFac * sinE, cosE - e);
+    const xE = Px * xOrb + Qx * yOrb + dx0;
+    const yE = Py * xOrb + Qy * yOrb + dy0;
+    const zE = Pz * xOrb + Qz * yOrb + dz0;
+    mapRawAUToSceneXYZ(xE, zE, -yE, logBlend, _cdfSceneCur);
+
+    if (m > 0) {
+      const dE = Math.abs(E - prevE);
+      let dV = Math.abs(v - prevV);
+      if (dV > Math.PI) dV = TWO_PI - dV;
+      const ds = Math.hypot(
+        _cdfSceneCur[0] - _cdfScenePrev[0],
+        _cdfSceneCur[1] - _cdfScenePrev[1],
+        _cdfSceneCur[2] - _cdfScenePrev[2]
+      );
+      const mx = 0.5 * (_cdfSceneCur[0] + _cdfScenePrev[0]);
+      const my = 0.5 * (_cdfSceneCur[1] + _cdfScenePrev[1]);
+      const mz = 0.5 * (_cdfSceneCur[2] + _cdfScenePrev[2]);
+      const dCam = Math.max(dFloor, Math.hypot(mx - camX, my - camY, mz - camZ));
+      const dThetaCam = ds / dCam;
+      _cdfParam[m] = E;
+      _cdfW[m] = _cdfW[m - 1] + 0.30 * dE + 0.55 * dV + 2.40 * dThetaCam;
+    }
+    prevE = E;
+    prevV = v;
+    _cdfScenePrev[0] = _cdfSceneCur[0];
+    _cdfScenePrev[1] = _cdfSceneCur[1];
+    _cdfScenePrev[2] = _cdfSceneCur[2];
+  }
+
+  let eNorm = ((Enow + Math.PI) % TWO_PI);
+  if (eNorm < 0.0) eNorm += TWO_PI;
+  const eTarget = eNorm - Math.PI;
+
+  const totalW = Math.max(1e-12, _cdfW[CDF_STEPS]);
+  let mPtr = 1;
+  let bestK = 0;
+  let bestEDiff = 1e9;
+
+  for (let k = 0; k < steps; k++) {
+    const wTarget = (k / steps) * totalW;
+    while (mPtr < CDF_STEPS && _cdfW[mPtr] < wTarget) mPtr++;
+    const w0 = _cdfW[mPtr - 1], w1 = _cdfW[mPtr];
+    const frac = w1 > w0 ? (wTarget - w0) / (w1 - w0) : 0.0;
+    const E = _cdfParam[mPtr - 1] + frac * (_cdfParam[mPtr] - _cdfParam[mPtr - 1]);
+    let diff = Math.abs(E - eTarget);
+    if (diff > Math.PI) diff = TWO_PI - diff;
+    if (diff < bestEDiff) {
+      bestEDiff = diff;
+      bestK = k;
+    }
+    const xOrb = a * (Math.cos(E) - e);
+    const yOrb = a * bFac * Math.sin(E);
+    arr[k * 3 + 0] = Px * xOrb + Qx * yOrb + dx0;
+    arr[k * 3 + 1] = Pz * xOrb + Qz * yOrb + dz0;
+    arr[k * 3 + 2] = -(Py * xOrb + Qy * yOrb + dy0);
+  }
+
+  // Pin vertex bestK to the exact live anomaly Enow so the orbit passes directly through the object
+  const xNow = a * (Math.cos(eTarget) - e);
+  const yNow = a * bFac * Math.sin(eTarget);
+  arr[bestK * 3 + 0] = Px * xNow + Qx * yNow + dx0;
+  arr[bestK * 3 + 1] = Pz * xNow + Qz * yNow + dz0;
+  arr[bestK * 3 + 2] = -(Py * xNow + Qy * yNow + dy0);
+  LAST_ORBIT_OBJ_VERT_IDX[0] = bestK;
+  return arr;
+}
+
+// Sample raw scene-oriented AU coordinates [xE, zE, -yE, ...] into a Float32Array (zero Vector3 churn).
+// Anchors polygon vertex density on the current camera view field + true anomaly around the Sun while
+// pinning the nearest vertex to the object's exact live position at `jd`.
+export function sampleHeliocentricOrbitRawAU(obj, jd = null, outPositions = null) {
   if (obj.category === "star" || obj.parent_id) return { positions: new Float32Array(0), closed: false };
+  const evalJD = jd === null ? (FRAME_CLOCK[0] || DISCOVERY_EPOCH_JD) : jd;
   const e = Math.max(0.0, obj.e || 0.0);
   const basis = getOrbitalBasisVectors(obj);
+  const epoch = obj.epoch_jd ?? DISCOVERY_EPOCH_JD;
+  const hasExplicitM0 = obj.has_M0 !== undefined ? obj.has_M0 : (obj.M0_deg !== null && obj.M0_deg !== undefined);
+  const camX = ORBIT_VIEW_STATE[0], camY = ORBIT_VIEW_STATE[1], camZ = ORBIT_VIEW_STATE[2];
+  const dFloor = Math.max(1e-5, ORBIT_VIEW_STATE[3] || 1.0);
+  const logBlend = ORBIT_VIEW_STATE[4];
 
   if (Math.abs(1.0 - e) < NEAR_PARABOLIC_EPS) {
     const q = Math.max(1e-6, obj.q_au > 0 ? obj.q_au : Math.abs(obj.a_au) * Math.abs(1.0 - e));
+    if (obj._gmCache === undefined) getEffectiveGM(obj);
+    const gm = obj._gmCache;
+    let dtFromTp;
+    if (obj.tp_jd !== null && obj.tp_jd !== undefined) {
+      dtFromTp = evalJD - obj.tp_jd;
+    } else {
+      if (obj._nRadDayCache === undefined) getMeanMotionRadPerDay(obj);
+      const nEst = obj._nRadDayCache;
+      let m0 = (obj.M0_deg || 0.0) * DEG2RAD;
+      if (e < 1.0 && m0 > Math.PI) m0 -= TWO_PI;
+      dtFromTp = (evalJD - epoch) + m0 / Math.max(nEst, 1e-15);
+    }
+    _uniIn[0] = dtFromTp;
+    _uniIn[1] = Math.max(1e-9, q);
+    _uniIn[2] = e;
+    _uniIn[3] = gm;
+    solveUniversalPeriapsisScratch(_uni2);
+    const Dnow = _uni2[1] / Math.max(1e-9, 2.0 * q);
+
     const rMaxAU = Math.max(120.0, q * 40.0);
-    const dMax = Math.sqrt(Math.max(0.5, rMaxAU / q - 1.0));
-    const steps = 256;
-    const arr = new Float32Array((steps + 1) * 3);
-    for (let k = 0; k <= steps; k++) {
-      const u = (2.0 * k) / steps - 1.0;
-      const D = dMax * (0.4 * u + 0.6 * u * u * u);
+    const dMax = Math.max(Math.abs(Dnow) + 0.5, Math.sqrt(Math.max(0.5, rMaxAU / q - 1.0)));
+    let prevD = -dMax;
+    let prevV = 2.0 * Math.atan(-dMax);
+    _cdfParam[0] = -dMax;
+    _cdfW[0] = 0.0;
+
+    for (let m = 0; m <= CDF_STEPS; m++) {
+      const u = (2.0 * m) / CDF_STEPS - 1.0;
+      const D = dMax * (0.20 * u + 0.80 * u * u * u);
       const xOrb = q * (1.0 - D * D);
       const yOrb = 2.0 * q * D;
+      const v = 2.0 * Math.atan(D);
       const xE = basis.Px * xOrb + basis.Qx * yOrb;
       const yE = basis.Py * xOrb + basis.Qy * yOrb;
       const zE = basis.Pz * xOrb + basis.Qz * yOrb;
-      arr[k * 3] = xE;
-      arr[k * 3 + 1] = zE;
-      arr[k * 3 + 2] = -yE;
+      mapRawAUToSceneXYZ(xE, zE, -yE, logBlend, _cdfSceneCur);
+      if (m > 0) {
+        const dV = Math.abs(v - prevV);
+        const ds = Math.hypot(
+          _cdfSceneCur[0] - _cdfScenePrev[0],
+          _cdfSceneCur[1] - _cdfScenePrev[1],
+          _cdfSceneCur[2] - _cdfScenePrev[2]
+        );
+        const dCam = Math.max(dFloor, Math.hypot(_cdfSceneCur[0] - camX, _cdfSceneCur[1] - camY, _cdfSceneCur[2] - camZ));
+        _cdfParam[m] = D;
+        _cdfW[m] = _cdfW[m - 1] + 0.25 * (Math.abs(D - prevD) / dMax) + 0.65 * dV + 2.40 * (ds / dCam);
+      }
+      prevD = D;
+      prevV = v;
+      _cdfScenePrev[0] = _cdfSceneCur[0];
+      _cdfScenePrev[1] = _cdfSceneCur[1];
+      _cdfScenePrev[2] = _cdfSceneCur[2];
     }
+
+    const steps = 256;
+    const arr = outPositions && outPositions.length === (steps + 1) * 3 ? outPositions : new Float32Array((steps + 1) * 3);
+    const totalW = Math.max(1e-12, _cdfW[CDF_STEPS]);
+    let mPtr = 1, bestK = 0, bestDiff = 1e9;
+    for (let k = 0; k <= steps; k++) {
+      const wTarget = (k / steps) * totalW;
+      while (mPtr < CDF_STEPS && _cdfW[mPtr] < wTarget) mPtr++;
+      const w0 = _cdfW[mPtr - 1], w1 = _cdfW[mPtr];
+      const frac = w1 > w0 ? (wTarget - w0) / (w1 - w0) : 0.0;
+      const D = _cdfParam[mPtr - 1] + frac * (_cdfParam[mPtr] - _cdfParam[mPtr - 1]);
+      const diff = Math.abs(D - Dnow);
+      if (diff < bestDiff) { bestDiff = diff; bestK = k; }
+      const xOrb = q * (1.0 - D * D);
+      const yOrb = 2.0 * q * D;
+      arr[k * 3 + 0] = basis.Px * xOrb + basis.Qx * yOrb;
+      arr[k * 3 + 1] = basis.Pz * xOrb + basis.Qz * yOrb;
+      arr[k * 3 + 2] = -(basis.Py * xOrb + basis.Qy * yOrb);
+    }
+    const xNow = q * (1.0 - Dnow * Dnow);
+    const yNow = 2.0 * q * Dnow;
+    arr[bestK * 3 + 0] = basis.Px * xNow + basis.Qx * yNow;
+    arr[bestK * 3 + 1] = basis.Pz * xNow + basis.Qz * yNow;
+    arr[bestK * 3 + 2] = -(basis.Py * xNow + basis.Qy * yNow);
+    LAST_ORBIT_OBJ_VERT_IDX[0] = bestK;
     return { positions: arr, closed: false };
   }
 
   if (e >= 1.0 + NEAR_PARABOLIC_EPS) {
     const aAbs = obj.q_au > 0 ? obj.q_au / (e - 1.0) : Math.abs(obj.a_au);
+    if (obj._gmCache === undefined) getEffectiveGM(obj);
+    const gm = obj._gmCache;
+    const n = Math.sqrt(gm / (aAbs * aAbs * aAbs));
+    let M;
+    if (obj.tp_jd !== null && obj.tp_jd !== undefined && !hasExplicitM0) {
+      M = n * (evalJD - obj.tp_jd);
+    } else if (hasExplicitM0) {
+      M = obj.M0_deg * DEG2RAD + n * (evalJD - epoch);
+    } else {
+      M = n * (evalJD - (obj.tp_jd ?? epoch));
+    }
+    _kepIn[0] = M;
+    _kepIn[1] = e;
+    solveHyperbolicKeplerScratch();
+    const Hnow = _kep1[0];
+
     const isOutboundProbe = obj.category === "spacecraft" || obj.visual_type?.startsWith("spacecraft");
     const rMaxAU = isOutboundProbe ? 195.0 : 135.0;
     const coshMax = Math.max(1.05, (rMaxAU / aAbs + 1.0) / e);
-    const hMax = Math.acosh(Math.min(coshMax, 1200.0));
-    const steps = 240;
-    const arr = new Float32Array((steps + 1) * 3);
+    const hMax = Math.max(Math.abs(Hnow) + 0.25, Math.acosh(Math.min(coshMax, 1200.0)));
+    const hMin = isOutboundProbe ? Math.min(0.0, Hnow) : -hMax;
     const sqrtE2m1 = Math.sqrt(e * e - 1.0);
-    for (let k = 0; k <= steps; k++) {
-      const u = isOutboundProbe ? k / steps : (2.0 * k) / steps - 1.0;
-      const uWarped = isOutboundProbe ? 0.45 * u + 0.55 * u * u : 0.42 * u + 0.58 * u * u * u;
-      const H = hMax * uWarped;
+
+    let prevH = hMin;
+    let prevV = Math.atan2(sqrtE2m1 * Math.sinh(hMin), e - Math.cosh(hMin));
+    _cdfParam[0] = hMin;
+    _cdfW[0] = 0.0;
+
+    for (let m = 0; m <= CDF_STEPS; m++) {
+      let H;
+      if (isOutboundProbe) {
+        const u = m / CDF_STEPS;
+        H = hMin + (hMax - hMin) * (0.20 * u + 0.80 * u * u);
+      } else {
+        const u = (2.0 * m) / CDF_STEPS - 1.0;
+        H = hMax * (0.18 * u + 0.82 * u * u * u);
+      }
       const xOrb = aAbs * (e - Math.cosh(H));
       const yOrb = aAbs * sqrtE2m1 * Math.sinh(H);
+      const v = Math.atan2(yOrb, xOrb);
       const xE = basis.Px * xOrb + basis.Qx * yOrb;
       const yE = basis.Py * xOrb + basis.Qy * yOrb;
       const zE = basis.Pz * xOrb + basis.Qz * yOrb;
-      arr[k * 3] = xE;
-      arr[k * 3 + 1] = zE;
-      arr[k * 3 + 2] = -yE;
+      mapRawAUToSceneXYZ(xE, zE, -yE, logBlend, _cdfSceneCur);
+      if (m > 0) {
+        const dV = Math.abs(v - prevV);
+        const ds = Math.hypot(
+          _cdfSceneCur[0] - _cdfScenePrev[0],
+          _cdfSceneCur[1] - _cdfScenePrev[1],
+          _cdfSceneCur[2] - _cdfScenePrev[2]
+        );
+        const dCam = Math.max(dFloor, Math.hypot(_cdfSceneCur[0] - camX, _cdfSceneCur[1] - camY, _cdfSceneCur[2] - camZ));
+        _cdfParam[m] = H;
+        _cdfW[m] = _cdfW[m - 1] + 0.25 * (Math.abs(H - prevH) / Math.max(1e-4, hMax - hMin)) + 0.65 * dV + 2.40 * (ds / dCam);
+      }
+      prevH = H;
+      prevV = v;
+      _cdfScenePrev[0] = _cdfSceneCur[0];
+      _cdfScenePrev[1] = _cdfSceneCur[1];
+      _cdfScenePrev[2] = _cdfSceneCur[2];
     }
+
+    const steps = 256;
+    const arr = outPositions && outPositions.length === (steps + 1) * 3 ? outPositions : new Float32Array((steps + 1) * 3);
+    const totalW = Math.max(1e-12, _cdfW[CDF_STEPS]);
+    let mPtr = 1, bestK = 0, bestDiff = 1e9;
+    for (let k = 0; k <= steps; k++) {
+      const wTarget = (k / steps) * totalW;
+      while (mPtr < CDF_STEPS && _cdfW[mPtr] < wTarget) mPtr++;
+      const w0 = _cdfW[mPtr - 1], w1 = _cdfW[mPtr];
+      const frac = w1 > w0 ? (wTarget - w0) / (w1 - w0) : 0.0;
+      const H = _cdfParam[mPtr - 1] + frac * (_cdfParam[mPtr] - _cdfParam[mPtr - 1]);
+      const diff = Math.abs(H - Hnow);
+      if (diff < bestDiff) { bestDiff = diff; bestK = k; }
+      const xOrb = aAbs * (e - Math.cosh(H));
+      const yOrb = aAbs * sqrtE2m1 * Math.sinh(H);
+      arr[k * 3 + 0] = basis.Px * xOrb + basis.Qx * yOrb;
+      arr[k * 3 + 1] = basis.Pz * xOrb + basis.Qz * yOrb;
+      arr[k * 3 + 2] = -(basis.Py * xOrb + basis.Qy * yOrb);
+    }
+    const xNow = aAbs * (e - Math.cosh(Hnow));
+    const yNow = aAbs * sqrtE2m1 * Math.sinh(Hnow);
+    arr[bestK * 3 + 0] = basis.Px * xNow + basis.Qx * yNow;
+    arr[bestK * 3 + 1] = basis.Pz * xNow + basis.Qz * yNow;
+    arr[bestK * 3 + 2] = -(basis.Py * xNow + basis.Qy * yNow);
+    LAST_ORBIT_OBJ_VERT_IDX[0] = bestK;
     return { positions: arr, closed: false };
   }
 
   const a = Math.max(1e-6, Math.abs(obj.a_au));
-  const steps = e > 0.72 ? 320 : 200;
-  const bFac = Math.sqrt(Math.max(0.0, 1.0 - e * e));
-  const warpAmp = 0.30 * Math.min(0.95, e);
-  const arr = new Float32Array(steps * 3);
-  for (let k = 0; k < steps; k++) {
-    const theta = (TWO_PI * k) / steps;
-    const E = theta - warpAmp * Math.sin(theta);
-    const xOrb = a * (Math.cos(E) - e);
-    const yOrb = a * bFac * Math.sin(E);
-    const xE = basis.Px * xOrb + basis.Qx * yOrb;
-    const yE = basis.Py * xOrb + basis.Qy * yOrb;
-    const zE = basis.Pz * xOrb + basis.Qz * yOrb;
-    arr[k * 3] = xE;
-    arr[k * 3 + 1] = zE;
-    arr[k * 3 + 2] = -yE;
+  if (obj._nRadDayCache === undefined) getMeanMotionRadPerDay(obj);
+  const n = obj._nRadDayCache;
+  let M;
+  if (hasExplicitM0) {
+    M = obj.M0_deg * DEG2RAD + n * (evalJD - epoch);
+  } else if (obj.tp_jd !== null && obj.tp_jd !== undefined) {
+    M = n * (evalJD - obj.tp_jd);
+  } else {
+    M = n * (evalJD - epoch);
   }
+  _kepIn[0] = M;
+  _kepIn[1] = e;
+  solveEllipticalKeplerScratch();
+  const Enow = _kep1[0];
+
+  const steps = 320;
+  const arr = outPositions && outPositions.length === steps * 3 ? outPositions : new Float32Array(steps * 3);
+  resampleClosedEllipseViewAnchored(
+    a, e,
+    basis.Px, basis.Py, basis.Pz,
+    basis.Qx, basis.Qy, basis.Qz,
+    0.0, 0.0, 0.0,
+    Enow, arr
+  );
   return { positions: arr, closed: true };
 }
 
@@ -1347,7 +1609,7 @@ let _sharedNBody = null;
 const _nbR = new Float64Array(3);
 const _nbV = new Float64Array(3);
 const _nbMoon = new Float64Array(3);
-const _oscEl = new Float64Array(9); // a, e, Px, Py, Pz, Qx, Qy, Qz, M
+const _oscEl = new Float64Array(10); // a, e, Px, Py, Pz, Qx, Qy, Qz, M, Ecc
 
 export function getSolarSystemNBody() {
   if (!_sharedNBody) {
@@ -1534,6 +1796,7 @@ function osculatingEllipseAtSlot(idx) {
   _oscEl[2] = ex; _oscEl[3] = ey; _oscEl[4] = ez;
   _oscEl[5] = qx; _oscEl[6] = qy; _oscEl[7] = qz;
   _oscEl[8] = Ecc - e * Math.sin(Ecc);
+  _oscEl[9] = Ecc;
   return _oscEl;
 }
 
@@ -1565,23 +1828,26 @@ export function getNBodyOsculatingShapeInto(id, jd, out3) {
 export function sampleNBodyOsculatingOrbitRawAU(id, jd, outPositions = null) {
   const idx = NBODY_INDEX[id];
   if (idx === undefined || idx === 0) return null;
-  getSolarSystemNBody()._jd[0] = jd === null ? FRAME_CLOCK[0] : jd;
+  const evalJD = jd === null ? FRAME_CLOCK[0] : jd;
+  getSolarSystemNBody()._jd[0] = evalJD;
   const el = osculatingEllipseAtSlot(idx);
-  const a = el[0], e = el[1];
-  const arr = outPositions || new Float32Array((e > 0.72 ? 320 : 200) * 3);
-  const steps = (arr.length / 3) | 0;
-  const bFac = Math.sqrt(Math.max(0.0, 1.0 - e * e));
-  const warpAmp = 0.30 * Math.min(0.95, e);
-  for (let k = 0; k < steps; k++) {
-    const theta = (TWO_PI * k) / steps;
-    const E = theta - warpAmp * Math.sin(theta);
-    const xOrb = a * (Math.cos(E) - e);
-    const yOrb = a * bFac * Math.sin(E);
-    arr[k * 3] = el[2] * xOrb + el[5] * yOrb;
-    arr[k * 3 + 1] = el[4] * xOrb + el[7] * yOrb;
-    arr[k * 3 + 2] = -(el[3] * xOrb + el[6] * yOrb);
+  const a = el[0], e = el[1], Enow = el[9];
+  const arr = outPositions || new Float32Array(320 * 3);
+  let dxEarth = 0.0, dyEarth = 0.0, dzEarth = 0.0;
+  if (id === "EARTH") {
+    _moonJD[0] = evalJD;
+    moonGeocentricCore(_nbMoon);
+    dxEarth = -MOON_EMB_MASS_FRACTION * _nbMoon[0];
+    dyEarth = -MOON_EMB_MASS_FRACTION * _nbMoon[1];
+    dzEarth = -MOON_EMB_MASS_FRACTION * _nbMoon[2];
   }
-  return arr;
+  return resampleClosedEllipseViewAnchored(
+    a, e,
+    el[2], el[3], el[4],
+    el[5], el[6], el[7],
+    dxEarth, dyEarth, dzEarth,
+    Enow, arr
+  );
 }
 
 export function jdToUTCString(jd) {

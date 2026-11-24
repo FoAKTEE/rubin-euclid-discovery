@@ -134,21 +134,21 @@ const EXPLICIT_ID_ALIASES = {
   OORT_OUTER_REP_2: ["OORT_SHELL_NODE_BETA"],
   UN271_BERNARDINELLI: ["BERNARDINELLI_BERNSTEIN", "C/2014 UN271"],
   STARLINK_REP_01: ["STARLINK", "STARLINK_V2", "SPACEX_STARLINK"],
-  STARMAN_ROADSTER: ["ROADSTER", "STARMAN", "TESLA", "TESLA_ROADSTER", "2018-017A", "跑车"],
-  TESLA_CYBERTRUCK: ["CYBERTRUCK", "赛博皮卡", "皮卡"],
-  SPACEX_STARSHIP: ["STARSHIP", "星舰"],
-  SPACEX_CREW_DRAGON: ["DRAGON", "CREW_DRAGON", "POLARIS_DAWN", "龙飞船"],
-  SPACEX_STARSHIELD_REP: ["STARSHIELD", "星盾"],
+  STARMAN_ROADSTER: ["ROADSTER", "STARMAN", "TESLA", "TESLA_ROADSTER", "2018-017A"],
+  TESLA_CYBERTRUCK: ["CYBERTRUCK"],
+  SPACEX_STARSHIP: ["STARSHIP"],
+  SPACEX_CREW_DRAGON: ["DRAGON", "CREW_DRAGON", "POLARIS_DAWN"],
+  SPACEX_STARSHIELD_REP: ["STARSHIELD"],
   AST_BLUEWALKER3: ["BLUEWALKER", "BLUEBIRD", "AST"],
-  TIANGONG_CSS: ["TIANGONG", "CSS", "TIANHE", "天宫"],
-  ISS_LEO: ["ISS", "ZARYA", "国际空间站"],
-  HUBBLE_HST: ["HUBBLE", "HST", "哈勃"],
-  CSST_XUNTIAN: ["CSST", "XUNTIAN", "巡天"],
-  GAIA_L2: ["GAIA", "盖亚"],
+  TIANGONG_CSS: ["TIANGONG", "CSS", "TIANHE"],
+  ISS_LEO: ["ISS", "ZARYA"],
+  HUBBLE_HST: ["HUBBLE", "HST"],
+  CSST_XUNTIAN: ["CSST", "XUNTIAN"],
+  GAIA_L2: ["GAIA"],
   CHANDRA_CXO: ["CHANDRA", "CXO"],
-  JWST_L2: ["JWST", "WEBB", "韦布"],
-  VOYAGER_1: ["VOYAGER1", "VOYAGER 1", "旅行者1号"],
-  VOYAGER_2: ["VOYAGER2", "VOYAGER 2", "旅行者2号"],
+  JWST_L2: ["JWST", "WEBB"],
+  VOYAGER_1: ["VOYAGER1", "VOYAGER 1"],
+  VOYAGER_2: ["VOYAGER2", "VOYAGER 2"],
   PARKER_SOLAR_PROBE: ["PSP", "PARKER"]
 };
 
@@ -211,8 +211,7 @@ const AUDITED_KNOWN_OBJECT_ELEMENTS = {
     },
     H_mag: 19.3,
     diameter_km: 0.6,
-    diameter_label_en: "0.4–0.8 km (H = 19.3)",
-    diameter_label_zh: "0.4–0.8 千米（H = 19.3）"
+    diameter_label_en: "0.4–0.8 km (H = 19.3)"
   }
 };
 
@@ -220,10 +219,10 @@ const AUDITED_KNOWN_OBJECT_ELEMENTS = {
 // badge and headline; the viewer puts the audit grade in front of them so a candidate is never
 // presented as a confirmed discovery.
 const AUDIT_VERDICT_TEXT = {
-  VERIFIED: ["verified", "已核实"],
-  PLAUSIBLE_NEEDS_FOLLOWUP: ["plausible, needs follow-up", "可信，尚待后续观测"],
-  DISPUTED_OR_OVERCLAIMED: ["disputed or overclaimed", "存疑或表述过度"],
-  INVALID_OR_UNSUPPORTED: ["claim invalid or unsupported", "宣称不成立或无依据"]
+  VERIFIED: "verified",
+  PLAUSIBLE_NEEDS_FOLLOWUP: "plausible, needs follow-up",
+  DISPUTED_OR_OVERCLAIMED: "disputed or overclaimed",
+  INVALID_OR_UNSUPPORTED: "claim invalid or unsupported"
 };
 
 function auditPresentation(raw) {
@@ -233,29 +232,22 @@ function auditPresentation(raw) {
     const desig = String(raw.known_designation);
     return {
       badge_en: `RECOVERY CONTROL · KNOWN ${desig}`,
-      badge_zh: `回收对照 · ${desig}`,
-      replace_en: `Catalogued object ${desig}, recovered in this search and kept as a recovery control. It is not a new discovery.`,
-      replace_zh: `已编目天体 ${desig} 的回收观测，作为回收对照保留，并非新发现。`
+      replace_en: `Catalogued object ${desig}, recovered in this search and kept as a recovery control. It is not a new discovery.`
     };
   }
   const verdict = AUDIT_VERDICT_TEXT[raw.audit_verdict];
   if (!verdict) return null;
   const idEn = raw.audit_id ? ` (${raw.audit_id})` : "";
-  const idZh = raw.audit_id ? `（${raw.audit_id}）` : "";
   if (raw.audit_status === "AUDITED_SURVIVOR") {
     return {
-      badge_en: `AUDITED CANDIDATE · ${verdict[0].toUpperCase()}`,
-      badge_zh: `审核保留候选体 · ${verdict[1]}`,
-      prefix_en: `Independent audit${idEn}: ${verdict[0]}; a candidate awaiting designation and independent recovery. Search-stage description, not confirmed in every detail by the audit: `,
-      prefix_zh: `独立审核${idZh}：${verdict[1]}；候选体，尚待编号与独立回收。以下为搜索阶段描述，其细节未全部经审核确认：`
+      badge_en: `AUDITED CANDIDATE · ${verdict.toUpperCase()}`,
+      prefix_en: `Independent audit${idEn}: ${verdict}; a candidate awaiting designation and independent recovery. Search-stage description, not confirmed in every detail by the audit: `
     };
   }
   if (raw.audit_status === "DISPUTED_CLAIM") {
     return {
       badge_en: null,
-      badge_zh: null,
-      prefix_en: `Independent audit${idEn}: ${verdict[0]}; not counted as a discovery. Search-stage description: `,
-      prefix_zh: `独立审核${idZh}：${verdict[1]}；不计入新发现。以下为搜索阶段描述：`
+      prefix_en: `Independent audit${idEn}: ${verdict}; not counted as a discovery. Search-stage description: `
     };
   }
   return null;
@@ -465,8 +457,7 @@ function normalizeSingleObject(raw) {
         ...(raw.physical || {}),
         H_mag: auditedKnown.H_mag,
         radius_km: auditedKnown.diameter_km / 2.0,
-        diameter_label: auditedKnown.diameter_label_en,
-        diameter_label_zh: auditedKnown.diameter_label_zh
+        diameter_label: auditedKnown.diameter_label_en
       }
     };
     for (const key of ["a_au", "a", "e", "ecc", "q_au", "q", "i_deg", "inc_deg", "Omega_deg", "omega_deg", "M0_deg", "M_deg", "r_au", "r_helio_au", "epoch_jd", "epoch_mjd", "tp_jd", "tp_mjd", "period_yr", "period_days", "H_mag", "H", "diameter_km"]) {
@@ -580,24 +571,19 @@ function normalizeSingleObject(raw) {
 
   // Fix upstream meter-vs-kilometer unit typo on L2/LEO space observatories
   let diameterLabelEn = phys.diameter_label || null;
-  let diameterLabelZh = phys.diameter_label_zh || null;
   if (uidUpper === "EUCLID_L2") {
     diameter_km = 0.0047;
     diameterLabelEn = "4.7 × 3.7 m";
-    diameterLabelZh = "4.7 × 3.7 米";
   } else if (uidUpper === "JWST_L2") {
     diameter_km = 0.0212;
     diameterLabelEn = "21.2 × 14.2 m (Sunshield)";
-    diameterLabelZh = "21.2 × 14.2 米 (遮阳罩)";
   } else if (uidUpper === "SPHEREX_LEO") {
     diameter_km = 0.0026;
     diameterLabelEn = "2.6 × 3.2 m";
-    diameterLabelZh = "2.6 × 3.2 米";
   }
 
   // Standardize professional designation-first nomenclature so catalog rows never truncate identically
   let cleanNameEn = raw.name_en || raw.name || id;
-  let cleanNameZh = raw.name_zh || null;
   // A row the independent audit matched to a catalogued body (for example EUC-G18 = 2019 UM31, the
   // Euclid recovery control) keeps the audited name written by the catalogue builder.
   const isKnownObjectRow = Boolean(raw.known_designation || raw.is_recovery_control);
@@ -606,18 +592,16 @@ function normalizeSingleObject(raw) {
     const specMatch = cleanNameEn.match(/\(([^)]+)\)/);
     const specStr = specMatch ? specMatch[1] : "";
     cleanNameEn = specStr ? `EES149-G${gNum} (${specStr})` : `EES149-G${gNum}`;
-    cleanNameZh = `EES149-G${gNum} · 小行星候选体（短弧，轨道未定）`;
   } else if (uidUpper.startsWith("EUCLID_VIS_TNO_")) {
     const tNum = uidUpper.replace("EUCLID_VIS_TNO_", "");
     cleanNameEn = `EVIS-TNO-${tNum} (${r_au.toFixed(1)} AU KBO)`;
-    cleanNameZh = `EVIS-TNO-${tNum} · 柯伊伯带天体 (${r_au.toFixed(1)} AU)`;
   }
 
   const audit = auditPresentation(raw);
-  const withAudit = (text, lang) => {
+  const withAudit = (text) => {
     const clean = sanitizeText(text || "");
-    if (audit && audit.replace_en) return lang === "zh" ? audit.replace_zh : audit.replace_en;
-    return audit && clean ? `${lang === "zh" ? audit.prefix_zh : audit.prefix_en}${clean}` : clean;
+    if (audit && audit.replace_en) return audit.replace_en;
+    return audit && clean ? `${audit.prefix_en}${clean}` : clean;
   };
   const has_coma = Boolean(raw.is_active ?? raw.has_coma ?? phys.has_coma ?? (renderStyle === "active_comet"));
   const has_rings = Boolean(raw.has_rings ?? raw.rings ?? phys.has_rings ?? RINGED_BODY_IDS.has(uidUpper));
@@ -636,9 +620,7 @@ function normalizeSingleObject(raw) {
     parent_id: raw.parent_id || raw.parentId || raw.parent || null,
     name: cleanNameEn,
     name_en: cleanNameEn,
-    name_zh: cleanNameZh,
     discovery_badge_en: (audit && audit.badge_en) || raw.discovery_badge || null,
-    discovery_badge_zh: (audit && audit.badge_zh) || raw.discovery_badge_zh || null,
     category,
     secondary_categories: Array.from(secondary),
     visual_type,
@@ -671,7 +653,6 @@ function normalizeSingleObject(raw) {
     period_yr,
     diameter_km,
     diameter_label_en: diameterLabelEn,
-    diameter_label_zh: diameterLabelZh,
     H_mag,
     apparent_mag,
     albedo,
@@ -681,12 +662,10 @@ function normalizeSingleObject(raw) {
     color: CATEGORY_COLORS.all,
     science: {
       telescopes,
-      headline: withAudit(sci.headline || raw.headline || "", "en"),
-      headline_en: withAudit(sci.headline_en || sci.headline || raw.headline_en || raw.headline || "", "en"),
-      headline_zh: withAudit(sci.headline_zh || raw.headline_zh || "", "zh"),
+      headline: withAudit(sci.headline || raw.headline || ""),
+      headline_en: withAudit(sci.headline_en || sci.headline || raw.headline_en || raw.headline || ""),
       summary: sanitizeText(sci.summary || sci.arc_summary || raw.summary || ""),
       summary_en: sanitizeText(sci.summary_en || sci.summary || sci.arc_summary || raw.summary_en || ""),
-      summary_zh: sanitizeText(sci.summary_zh || sci.arc_summary_zh || raw.summary_zh || ""),
       metrics: sciMetrics,
       gif_url: sci.gif_url || sci.blink_gif || raw.gif_url || null,
       blog_url: sci.blog_url || raw.blog_url || null
@@ -736,16 +715,10 @@ export function loadUnifiedSolarCatalog() {
         norm.aliases.map((a) => builtinByKey.get(canonKey(a))).find(Boolean);
 
       if (match) {
-        if (!norm.name_zh && match.name_zh) norm.name_zh = match.name_zh;
         if ((!norm.science.summary_en || norm.science.summary_en.length < 30) && match.science.summary_en) {
           norm.science.summary_en = norm.science.summary_en
             ? `${norm.science.summary_en} — ${match.science.summary_en}`
             : match.science.summary_en;
-        }
-        if ((!norm.science.summary_zh || norm.science.summary_zh.length < 18) && match.science.summary_zh) {
-          norm.science.summary_zh = norm.science.summary_zh
-            ? `${norm.science.summary_zh} —— ${match.science.summary_zh}`
-            : match.science.summary_zh;
         }
         if (match.rotation_period_hr && norm.rotation_period_hr === 10.0) {
           norm.rotation_period_hr = match.rotation_period_hr;
@@ -770,7 +743,6 @@ export function loadUnifiedSolarCatalog() {
     byId.set(o.id, o);
     aliasIndex.set(canonKey(o.id), o);
     aliasIndex.set(canonKey(o.name_en), o);
-    if (o.name_zh) aliasIndex.set(canonKey(o.name_zh), o);
     for (const al of o.aliases) {
       aliasIndex.set(canonKey(al), o);
     }
@@ -814,94 +786,76 @@ export function objectMatchesCategory(obj, catKey) {
 export const BUILTIN_GALACTIC_FALLBACK = {
   black_holes: [
     {
-      id: "SGR_A_STAR", name: "Sagittarius A* (Galactic Center SMBH)", name_zh: "人马座 A* (银河系中心超大质量黑洞)",
+      id: "SGR_A_STAR", name: "Sagittarius A* (Galactic Center SMBH)",
       bh_type: "smbh", ra_deg: 266.4168, dec_deg: -29.0078, dist_kpc: 8.277, gal_xyz_kpc: [8.277, 0.0, -0.020],
       mass_msun: 4.297e6, spin: 0.90, inc_deg: 32.0, color: "#e8a248",
       headline: "4.30 Million M☉ Supermassive Black Hole at the Dynamical Center of the Milky Way",
-      headline_zh: "位于银河系动力学中心、质量 430 万倍太阳质量的超大质量黑洞",
-      summary: "Anchored 8.277 kpc (26,996 ly) away in Sagittarius, Sgr A* drives relativistic S-star orbits (S2 reaches 7,650 km/s at pericenter) and was directly imaged by the Event Horizon Telescope.",
-      summary_zh: "距太阳系 8.277 kpc（约 2.7 万光年），驱动 S2 等近核恒星高速公转，并由事件视界望远镜直接成像。"
+      summary: "Anchored 8.277 kpc (26,996 ly) away in Sagittarius, Sgr A* drives relativistic S-star orbits (S2 reaches 7,650 km/s at pericenter) and was directly imaged by the Event Horizon Telescope."
     },
     {
-      id: "GAIA_BH1", name: "Gaia BH1 (Nearest Dormant Black Hole)", name_zh: "盖亚 BH1 (最近休眠黑洞)",
+      id: "GAIA_BH1", name: "Gaia BH1 (Nearest Dormant Black Hole)",
       bh_type: "dormant", ra_deg: 262.1712, dec_deg: -0.5811, dist_kpc: 0.478, gal_xyz_kpc: [0.431, 0.193, 0.149],
       mass_msun: 9.62, companion_mass_msun: 0.93, companion_type: "G-type Main-Sequence", period_days: 185.59, ecc: 0.451, inc_deg: 126.6, color: "#8ca4d8",
       headline: "9.62 M☉ Dormant Black Hole + Sun-like Star at 478 pc (El-Badry et al. 2023)",
-      headline_zh: "距太阳仅 478 秒差距的 9.62 倍太阳质量休眠黑洞与类太阳伴星",
-      summary: "Discovered via Gaia DR3 astrometric wobble (El-Badry et al. 2023), Gaia BH1 is a quiescent stellar-mass black hole orbited by a 0.93 M☉ G-dwarf every 185.6 days.",
-      summary_zh: "由 El-Badry 等利用 Gaia DR3 天体测量摆动发现的近邻休眠恒星级黑洞，伴星公转周期 185.6 天。"
+      summary: "Discovered via Gaia DR3 astrometric wobble (El-Badry et al. 2023), Gaia BH1 is a quiescent stellar-mass black hole orbited by a 0.93 M☉ G-dwarf every 185.6 days."
     },
     {
-      id: "GAIA_BH2", name: "Gaia BH2 (Red-Giant Astrometric BH)", name_zh: "盖亚 BH2 (红巨星伴星休眠黑洞)",
+      id: "GAIA_BH2", name: "Gaia BH2 (Red-Giant Astrometric BH)",
       bh_type: "dormant", ra_deg: 207.5697, dec_deg: -59.2390, dist_kpc: 1.16, gal_xyz_kpc: [0.742, -0.890, 0.056],
       mass_msun: 8.94, companion_mass_msun: 1.07, companion_type: "Red Giant", period_days: 1276.7, ecc: 0.518, inc_deg: 34.9, color: "#8ca4d8",
       headline: "8.94 M☉ Wide-Orbit Dormant Black Hole at 1.16 kpc (El-Badry et al. 2023)",
-      headline_zh: "1.16 kpc 处 8.94 倍太阳质量宽距休眠黑洞与红巨星系统",
-      summary: "Wide 1,277-day astrometric binary discovered in Gaia DR3 pairing a 8.94 M☉ quiescent black hole with an alpha-enhanced red giant.",
-      summary_zh: "周期 1,277 天的宽距天体测量双星，包含一颗 8.94 倍太阳质量黑洞与富 α 元素红巨星。"
+      summary: "Wide 1,277-day astrometric binary discovered in Gaia DR3 pairing a 8.94 M☉ quiescent black hole with an alpha-enhanced red giant."
     },
     {
-      id: "GAIA_BH3", name: "Gaia BH3 (33 M☉ Halo Metal-Poor BH)", name_zh: "盖亚 BH3 (33倍太阳质量银晕黑洞)",
+      id: "GAIA_BH3", name: "Gaia BH3 (33 M☉ Halo Metal-Poor BH)",
       bh_type: "dormant", ra_deg: 294.8279, dec_deg: 14.9309, dist_kpc: 0.591, gal_xyz_kpc: [0.351, 0.474, -0.036],
       mass_msun: 32.70, companion_mass_msun: 0.76, companion_type: "Metal-Poor Giant ([Fe/H]=-2.56)", period_days: 4253.1, ecc: 0.729, inc_deg: 110.6, color: "#8ca4d8",
       headline: "32.7 M☉ Most Massive Known Stellar-Origin Milky Way Black Hole (591 pc)",
-      headline_zh: "已知银河系质量最大的恒星级黑洞（32.7 倍太阳质量，591 pc）",
-      summary: "Orbiting inside the ED-2 halo stream just 591 pc from the Sun, Gaia BH3 bridges Galactic stellar black holes to LIGO/Virgo gravitational-wave merger masses.",
-      summary_zh: "位于仅 591 pc 的 ED-2 银晕星流中，直接连接银河系恒星级黑洞与引力波双黑洞质量区间。"
+      summary: "Orbiting inside the ED-2 halo stream just 591 pc from the Sun, Gaia BH3 bridges Galactic stellar black holes to LIGO/Virgo gravitational-wave merger masses."
     },
     {
-      id: "CYGNUS_X1", name: "Cygnus X-1 (High-Mass X-Ray Binary BH)", name_zh: "天鹅座 X-1 (高能吸积黑洞)",
+      id: "CYGNUS_X1", name: "Cygnus X-1 (High-Mass X-Ray Binary BH)",
       bh_type: "xray_binary", ra_deg: 299.5903, dec_deg: 35.2016, dist_kpc: 2.22, gal_xyz_kpc: [0.713, 2.099, 0.119],
       mass_msun: 21.2, companion_mass_msun: 40.6, companion_type: "O9.7Iab Supergiant (HDE 226868)", period_days: 5.5998, ecc: 0.019, spin: 0.998, inc_deg: 27.5, color: "#6bb8f0",
       headline: "21.2 M☉ Rapidly Spinning Accreting Black Hole + 40.6 M☉ Blue Supergiant",
-      headline_zh: "21.2 倍太阳质量极速自旋吸积黑洞与 40.6 倍太阳质量蓝超巨星",
-      summary: "Archetypal wind-fed X-ray binary at 2.22 kpc with near-extremal Kerr spin (a* > 0.998), hot Shakura-Sunyaev disk, and persistent relativistic radio jets.",
-      summary_zh: "距太阳 2.22 kpc 的经典高能 X 射线双星，具有近极限克尔自旋（a* > 0.998）、炽热吸积盘与相对论喷流。"
+      summary: "Archetypal wind-fed X-ray binary at 2.22 kpc with near-extremal Kerr spin (a* > 0.998), hot Shakura-Sunyaev disk, and persistent relativistic radio jets."
     },
     {
-      id: "V404_CYG", name: "V404 Cygni (Microquasar BH Binary)", name_zh: "天鹅座 V404 (微类星体黑洞)",
+      id: "V404_CYG", name: "V404 Cygni (Microquasar BH Binary)",
       bh_type: "xray_binary", ra_deg: 306.0159, dec_deg: 33.8672, dist_kpc: 2.39, gal_xyz_kpc: [0.692, 2.283, -0.087],
       mass_msun: 9.0, companion_mass_msun: 0.7, companion_type: "K3 III Subgiant", period_days: 6.471, ecc: 0.0, spin: 0.92, inc_deg: 67.0, color: "#6bb8f0",
       headline: "9.0 M☉ Microquasar with Precessing Relativistic Jets (VLBI Parallax 2.39 kpc)",
-      headline_zh: "2.39 kpc 处具有进动相对论喷流的 9.0 倍太阳质量微类星体",
-      summary: "Low-mass X-ray binary with an exact VLBI parallax distance of 2.39 kpc, famous for violent Eddington-limit outbursts and rapidly precessing relativistic jets.",
-      summary_zh: "拥有精确 VLBI 视差测距的低质量 X 射线双星，以剧烈爱丁顿爆发与高速进动相对论喷流著称。"
+      summary: "Low-mass X-ray binary with an exact VLBI parallax distance of 2.39 kpc, famous for violent Eddington-limit outbursts and rapidly precessing relativistic jets."
     },
     {
-      id: "GRS_1915_105", name: "GRS 1915+105 (Superluminal Microquasar)", name_zh: "GRS 1915+105 (超光速喷流微类星体)",
+      id: "GRS_1915_105", name: "GRS 1915+105 (Superluminal Microquasar)",
       bh_type: "xray_binary", ra_deg: 288.7981, dec_deg: 10.9458, dist_kpc: 8.6, gal_xyz_kpc: [6.03, 6.13, -0.03],
       mass_msun: 12.4, companion_mass_msun: 0.8, companion_type: "K-M III Giant", period_days: 33.85, ecc: 0.0, spin: 0.98, inc_deg: 60.0, color: "#6bb8f0",
       headline: "12.4 M☉ Rapid-Spin Microquasar with 0.92c Relativistic Radio Jets",
-      headline_zh: "12.4 倍太阳质量高自旋微类星体，喷流速度达 0.92 倍光速",
-      summary: "First Galactic source observed with apparent superluminal radio ejecta, powered by a massive inner accretion disk around a 12.4 M☉ spinning black hole.",
-      summary_zh: "银河系首个观测到视超光速射电喷射的微类星体，由高速自旋黑洞内区吸积盘驱动。"
+      summary: "First Galactic source observed with apparent superluminal radio ejecta, powered by a massive inner accretion disk around a 12.4 M☉ spinning black hole."
     },
     {
-      id: "GRO_J1655_40", name: "GRO J1655-40 (Runaway Microquasar BH)", name_zh: "GRO J1655-40 (逃逸微类星体黑洞)",
+      id: "GRO_J1655_40", name: "GRO J1655-40 (Runaway Microquasar BH)",
       bh_type: "xray_binary", ra_deg: 253.5006, dec_deg: -39.8458, dist_kpc: 3.2, gal_xyz_kpc: [3.08, -0.83, 0.14],
       mass_msun: 6.3, companion_mass_msun: 2.3, companion_type: "F4 IV Subgiant", period_days: 2.621, ecc: 0.0, spin: 0.70, inc_deg: 70.2, color: "#6bb8f0",
       headline: "6.3 M☉ High-Velocity Kick Microquasar with Disk Winds & Twin Jets",
-      headline_zh: "具有反冲高速与吸积盘风的 6.3 倍太阳质量微类星体",
-      summary: "High-inclination Galactic microquasar showing magnetically driven accretion-disk winds and twin 0.92c collimated jets.",
-      summary_zh: "高倾角银河系微类星体，展现磁场驱动吸积盘风与准直相对论双喷流。"
+      summary: "High-inclination Galactic microquasar showing magnetically driven accretion-disk winds and twin 0.92c collimated jets."
     },
     {
-      id: "MAXI_J1820_070", name: "MAXI J1820+070 (Brightest Optical/X-Ray BH)", name_zh: "MAXI J1820+070 (近邻明亮吸积黑洞)",
+      id: "MAXI_J1820_070", name: "MAXI J1820+070 (Brightest Optical/X-Ray BH)",
       bh_type: "xray_binary", ra_deg: 275.0914, dec_deg: 7.1854, dist_kpc: 2.96, gal_xyz_kpc: [2.42, 1.61, 0.52],
       mass_msun: 8.5, companion_mass_msun: 0.6, companion_type: "K4 V Dwarf", period_days: 0.6855, ecc: 0.0, spin: 0.2, inc_deg: 63.0, color: "#6bb8f0",
       headline: "8.5 M☉ Nearby Accreting Black Hole at 2.96 kpc (VLBI Parallax)",
-      headline_zh: "距太阳 2.96 kpc 的高亮度近邻吸积黑洞系统",
-      summary: "Nearby X-ray binary whose 2018 outburst revealed real-time corona contraction and superluminal bipolar jet knots.",
-      summary_zh: "2018 年爆发中直接揭示了黑洞日冕收缩与双极超光速喷流节结构。"
+      summary: "Nearby X-ray binary whose 2018 outburst revealed real-time corona contraction and superluminal bipolar jet knots."
     }
   ],
   landmarks: [
-    { id: "OMEGA_CEN", name: "Omega Centauri (NGC 5139)", name_zh: "半人马座 ω 球状星团", category: "galactic", subtype: "globular_cluster", dist_kpc: 5.43, gal_xyz_kpc: [3.26, -4.12, 1.40], color: "#e6cf98", summary: "Most massive Milky Way globular cluster (~4 million stars), likely the stripped nuclear core of an accreted dwarf galaxy." },
-    { id: "M13_HERCULES", name: "M13 (Hercules Globular Cluster)", name_zh: "武仙座球状星团 M13", category: "galactic", subtype: "globular_cluster", dist_kpc: 7.42, gal_xyz_kpc: [2.98, 4.78, 4.86], color: "#e6cf98", summary: "Iconic halo globular cluster containing ~300,000 ancient metal-poor stars 7.42 kpc from the Sun." },
-    { id: "TUC_47", name: "47 Tucanae (NGC 104)", name_zh: "杜鹃座 47 球状星团", category: "galactic", subtype: "globular_cluster", dist_kpc: 4.52, gal_xyz_kpc: [1.91, -2.62, -3.17], color: "#e6cf98", summary: "Dense southern globular cluster rich in millisecond pulsars and X-ray binaries at 4.52 kpc." },
-    { id: "ORION_NEBULA", name: "Orion Nebula (M42 / Trapezium)", name_zh: "猎户座大星云 (M42)", category: "galactic", subtype: "open_cluster", dist_kpc: 0.412, gal_xyz_kpc: [-0.347, -0.172, -0.137], color: "#d88484", summary: "Nearest massive star-forming HII region at 412 pc inside the Local Orion Spur." },
-    { id: "LMC", name: "Large Magellanic Cloud (LMC)", name_zh: "大麦哲伦星系 (LMC)", category: "galactic", subtype: "satellite_galaxy", dist_kpc: 49.97, gal_xyz_kpc: [-1.06, -41.05, -27.83], color: "#9eb8de", summary: "Largest Milky Way satellite dwarf galaxy at 50 kpc (163,000 ly), hosting the Tarantula Nebula and LMC X-1/X-3 black holes." },
-    { id: "SMC", name: "Small Magellanic Cloud (SMC)", name_zh: "小麦哲伦星系 (SMC)", category: "galactic", subtype: "satellite_galaxy", dist_kpc: 61.9, gal_xyz_kpc: [15.4, -37.2, -46.8], color: "#9eb8de", summary: "Irregular dwarf satellite galaxy at 62 kpc (202,000 ly) connected to the LMC by the Magellanic Bridge." }
+    { id: "OMEGA_CEN", name: "Omega Centauri (NGC 5139)", category: "galactic", subtype: "globular_cluster", dist_kpc: 5.43, gal_xyz_kpc: [3.26, -4.12, 1.40], color: "#e6cf98", summary: "Most massive Milky Way globular cluster (~4 million stars), likely the stripped nuclear core of an accreted dwarf galaxy." },
+    { id: "M13_HERCULES", name: "M13 (Hercules Globular Cluster)", category: "galactic", subtype: "globular_cluster", dist_kpc: 7.42, gal_xyz_kpc: [2.98, 4.78, 4.86], color: "#e6cf98", summary: "Iconic halo globular cluster containing ~300,000 ancient metal-poor stars 7.42 kpc from the Sun." },
+    { id: "TUC_47", name: "47 Tucanae (NGC 104)", category: "galactic", subtype: "globular_cluster", dist_kpc: 4.52, gal_xyz_kpc: [1.91, -2.62, -3.17], color: "#e6cf98", summary: "Dense southern globular cluster rich in millisecond pulsars and X-ray binaries at 4.52 kpc." },
+    { id: "ORION_NEBULA", name: "Orion Nebula (M42 / Trapezium)", category: "galactic", subtype: "open_cluster", dist_kpc: 0.412, gal_xyz_kpc: [-0.347, -0.172, -0.137], color: "#d88484", summary: "Nearest massive star-forming HII region at 412 pc inside the Local Orion Spur." },
+    { id: "LMC", name: "Large Magellanic Cloud (LMC)", category: "galactic", subtype: "satellite_galaxy", dist_kpc: 49.97, gal_xyz_kpc: [-1.06, -41.05, -27.83], color: "#9eb8de", summary: "Largest Milky Way satellite dwarf galaxy at 50 kpc (163,000 ly), hosting the Tarantula Nebula and LMC X-1/X-3 black holes." },
+    { id: "SMC", name: "Small Magellanic Cloud (SMC)", category: "galactic", subtype: "satellite_galaxy", dist_kpc: 61.9, gal_xyz_kpc: [15.4, -37.2, -46.8], color: "#9eb8de", summary: "Irregular dwarf satellite galaxy at 62 kpc (202,000 ly) connected to the LMC by the Magellanic Bridge." }
   ]
 };
 
@@ -934,7 +888,6 @@ export function normalizeGalacticCatalog(rawGalactic) {
       id,
       name: bh.name || id,
       name_en: bh.name_en || bh.name || id,
-      name_zh: bh.name_zh || bh.name || id,
       category: "galactic",
       secondary_categories: ["galactic"],
       is_galactic: true,
@@ -966,9 +919,7 @@ export function normalizeGalacticCatalog(rawGalactic) {
       science: {
         telescopes: Array.isArray(bh.telescopes) ? bh.telescopes : ["ESA Gaia DR3", "EHT / VLBI", "Chandra / XMM-Newton"],
         headline_en: bh.headline_en || bh.headline || `${massMsun >= 1e4 ? `${(massMsun / 1e6).toFixed(2)}M` : massMsun} M☉ Galactic Black Hole (${distKpc.toFixed(2)} kpc)`,
-        headline_zh: bh.headline_zh || bh.headline || `${massMsun >= 1e4 ? `${(massMsun / 1e6).toFixed(2)}百万` : massMsun} M☉ 银河系黑洞 (${distKpc.toFixed(2)} kpc)`,
         summary_en: bh.summary_en || bh.summary || "",
-        summary_zh: bh.summary_zh || bh.summary || "",
         metrics: bh.metrics || {}
       }
     });
@@ -987,7 +938,6 @@ export function normalizeGalacticCatalog(rawGalactic) {
       id,
       name: lm.name || id,
       name_en: lm.name_en || lm.name || id,
-      name_zh: lm.name_zh || lm.name || id,
       category: "galactic",
       secondary_categories: ["galactic"],
       is_galactic: true,
@@ -1003,9 +953,7 @@ export function normalizeGalacticCatalog(rawGalactic) {
       science: {
         telescopes: Array.isArray(lm.telescopes) ? lm.telescopes : ["ESA Gaia DR3", "Euclid / HST"],
         headline_en: lm.headline_en || lm.headline || `${lm.name} · ${distKpc.toFixed(2)} kpc (${(distKpc * 3.2616).toFixed(1)} kly)`,
-        headline_zh: lm.headline_zh || lm.headline || `${lm.name_zh || lm.name} · ${distKpc.toFixed(2)} kpc`,
         summary_en: lm.summary_en || lm.summary || "",
-        summary_zh: lm.summary_zh || lm.summary || "",
         metrics: lm.metrics || {}
       }
     });

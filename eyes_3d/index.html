@@ -5,19 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eyes on the Cosmos — 3D Solar System, Oort Cloud &amp; Milky Way Explorer</title>
   <meta name="description" content="Interactive 3D explorer of the Solar System and the Milky Way: planets on an N-body integration started from JPL ephemeris states, a perturbed lunar orbit, Keplerian asteroid and Kuiper belts, 82,199 Gaia stars and black holes. Audited survey candidates are an optional layer." />
-  <link rel="stylesheet" href="css/styles.css?v=20261122_v14" />
+  <link rel="stylesheet" href="css/styles.css?v=20261124_v25" />
 </head>
 <body>
   <!-- Full-Bleed 3D WebGL + CSS2D Viewport -->
   <div id="viewport-container">
     <canvas id="webgl-canvas"></canvas>
     <div id="box-zoom-overlay" aria-hidden="true">
+      <div id="box-zoom-pad"></div>
       <div id="box-zoom-rect">
         <span class="bz-corner tl"></span>
         <span class="bz-corner tr"></span>
         <span class="bz-corner bl"></span>
         <span class="bz-corner br"></span>
         <span class="bz-cross"></span>
+        <span class="bz-spoke"></span>
         <span id="box-zoom-tag"></span>
       </div>
     </div>
@@ -65,16 +67,16 @@
         <div class="menu-panel" id="panel-view">
           <div id="lbl-scale-hdr" class="menu-section-hdr">Spatial Scale</div>
           <div class="seg-group full-width" role="group" aria-label="Scale mode">
-            <button id="scale-log-btn" class="seg-btn active" type="button">Deep-Space Log</button>
-            <button id="scale-true-btn" class="seg-btn" type="button">True 1:1 AU</button>
+            <button id="scale-true-btn" class="seg-btn active" type="button">True 1:1 AU</button>
+            <button id="scale-log-btn" class="seg-btn" type="button">Deep-Space Log</button>
           </div>
 
           <div id="lbl-orbits" class="menu-section-hdr" style="margin-top:14px;">Orbits</div>
           <select id="orbit-mode-select" class="hud-select full-width">
+            <option id="opt-orbits-off" value="off">None</option>
+            <option id="opt-orbits-selected" value="selected" selected>Selected Only</option>
             <option id="opt-orbits-major" value="major">Major Orbits</option>
             <option id="opt-orbits-all" value="all">All Orbits</option>
-            <option id="opt-orbits-selected" value="selected">Selected Only</option>
-            <option id="opt-orbits-off" value="off" selected>Hidden</option>
           </select>
 
           <div id="lbl-overlays-hdr" class="menu-section-hdr" style="margin-top:14px;">Overlays</div>
@@ -83,7 +85,7 @@
             <button id="toggle-rings-btn" class="toggle-chip" type="button">Distance Rings</button>
             <button id="toggle-galactic-btn" class="toggle-chip" type="button">Galactic Plane Zone</button>
             <button id="toggle-labels-btn" class="toggle-chip" type="button">3D Labels</button>
-            <button id="toggle-discoveries-btn" class="toggle-chip discoveries-chip" type="button" title="Optional layer: the audited survey candidates and the 12:1 resonance ring">Survey Discoveries (93)</button>
+            <button id="toggle-discoveries-btn" class="toggle-chip discoveries-chip active" type="button" title="Optional layer: the audited survey candidates and the 12:1 resonance ring">Survey Discoveries (93)</button>
             <button id="toggle-legend-btn" class="toggle-chip" type="button">Color Key</button>
           </div>
         </div>
@@ -156,7 +158,7 @@
             <button id="preset-adam-transfers-btn" class="preset-btn" type="button">Frame Interplanetary Transfers</button>
             <button id="preset-adam-corridor-btn" class="preset-btn" type="button">Inspect Earth Impact Corridor</button>
           </div>
-          <div id="adam-overlay-summary" style="margin-top:10px;font-size:11px;color:#94a3b8;line-height:1.4;"></div>
+          <div id="adam-overlay-summary" style="margin-top:10px;font-size:11px;color:#a1a1aa;line-height:1.4;"></div>
         </div>
       </div>
 
@@ -172,39 +174,68 @@
             <a id="gallery-nav-link" class="menu-link" href="../movie_gallery/index.html" title="96 real-pixel archival movie targets">Real-Pixel Movie Gallery (96)</a>
             <a id="studio-nav-link" class="menu-link" href="studio.html" target="_blank" rel="noopener">3D Playground ↗</a>
             <a id="adam-console-link" class="menu-link" href="../adam_console/index.html" target="_blank" rel="noopener">ADAM Console ↗</a>
-            <a id="blog-nav-link" class="menu-link" href="../discovery_blog/index.html?lang=en" target="_blank" rel="noopener">Research Blog ↗</a>
+            <a id="blog-nav-link" class="menu-link" href="../discovery_blog/index.html" target="_blank" rel="noopener">Research Blog ↗</a>
           </div>
         </div>
       </div>
     </nav>
-
-    <div class="top-right-links">
-      <button id="lang-toggle-btn" class="lang-btn" type="button" aria-label="Switch language">中文</button>
-    </div>
   </header>
 
-  <!-- Compact Floating Square-Box Zoom Toolbar (top-left under top bar) -->
-  <div id="box-zoom-bar" class="glass-bar" role="toolbar" aria-label="Square box zoom controls">
-    <button id="btn-box-zoom-in" class="box-zoom-btn" type="button" aria-pressed="false" title="Draw square to zoom in (Z or Shift+Drag)">⊞ Zoom In</button>
-    <button id="btn-box-zoom-out" class="box-zoom-btn out" type="button" aria-pressed="false" title="Draw square to zoom out (X or Alt+Drag)">⊟ Zoom Out</button>
-    <button id="btn-zoom-back" class="box-zoom-btn" type="button" disabled aria-disabled="true" title="Undo last square zoom (Backspace)">↺</button>
+  <!-- Compact Floating Box Zoom Toolbar (top-left under top bar) -->
+  <div id="box-zoom-bar" class="glass-bar" role="toolbar" aria-label="Box zoom controls">
+    <button id="btn-box-zoom-in" class="box-zoom-btn" type="button" aria-pressed="false" title="Drag selection box to zoom in (Z or Shift+Drag)">⊞ Zoom In</button>
+    <button id="btn-box-zoom-out" class="box-zoom-btn" type="button" aria-pressed="false" title="Drag radial circle from divergence point to zoom out (X or Alt+Drag)">⊙ Zoom Out</button>
+    <button id="btn-zoom-back" class="box-zoom-btn" type="button" disabled aria-disabled="true" title="Undo last zoom or focus (Backspace)">↺</button>
+    <button id="btn-reset-view" class="box-zoom-btn" type="button" title="Reset camera view to default">⌂ Reset View</button>
     <span id="box-zoom-hint"></span>
   </div>
 
-  <!-- Reopen Compact Right Inspector Button -->
-  <button id="inspector-reopen-btn" class="glass-bar" type="button" style="display:block;">Inspector ◂</button>
+  <!-- Upper-Right Hovered Object Name Readout (Left of Details Window, Aligned to Top) -->
+  <div id="hover-object-readout" class="glass-bar" aria-live="polite" hidden>
+    <span id="hover-object-dot" class="hover-obj-dot"></span>
+    <span id="hover-object-name" class="hover-obj-name"></span>
+    <span id="hover-object-cat" class="hover-obj-cat"></span>
+  </div>
 
-  <!-- Outreach Color Key (closed until "Color Key" is switched on in View & Scale) -->
-  <aside id="color-legend-panel" class="glass-bar" aria-label="Color key">
-    <div class="legend-title">
-      <span id="color-legend-title">Color Key</span>
-      <button id="color-legend-close" class="icon-close-btn" type="button" aria-label="Close color key">✕</button>
+  <!-- Reopen Compact Right Inspector Button -->
+  <button id="inspector-reopen-btn" class="glass-bar" type="button" style="display:none;">Inspector ◂</button>
+
+  <!-- Reopen Left-Bottom Quick View Panel Button -->
+  <button id="quick-view-reopen-btn" class="glass-bar" type="button" style="display:none;">View &amp; Overlays ▴</button>
+
+  <!-- Default Left-Bottom Collapsible Quick View Panel (with Flowing Color Key) -->
+  <aside id="quick-view-dock" class="glass-bar" aria-label="Quick view controls">
+    <div id="color-legend-panel" aria-label="Color key">
+      <div class="legend-title">
+        <span id="color-legend-title">Color Key</span>
+        <button id="color-legend-close" class="icon-close-btn" type="button" aria-label="Close color key">✕</button>
+      </div>
+      <div id="color-legend-body"></div>
     </div>
-    <div id="color-legend-body"></div>
+
+    <div class="quick-view-hdr">
+      <span class="quick-view-title">View &amp; Overlays</span>
+      <button id="quick-view-collapse-btn" class="icon-close-btn" type="button" aria-label="Collapse quick view panel" title="Collapse">▾</button>
+    </div>
+
+    <div class="quick-view-grid">
+      <button id="quick-toggle-log-btn" class="toggle-chip" type="button" title="Toggle between True 1:1 AU (default) and Deep-Space Log scale">Deep-Space Log</button>
+      <select id="quick-orbit-select" class="hud-select" aria-label="Orbits display">
+        <option value="off">Orbits: None</option>
+        <option value="selected" selected>Orbits: Selected</option>
+        <option value="major">Orbits: Major</option>
+        <option value="all">Orbits: All</option>
+      </select>
+      <button id="quick-toggle-discoveries-btn" class="toggle-chip discoveries-chip active" type="button" title="Toggle the 93 audited survey discovery candidates">Survey Discoveries (93)</button>
+      <button id="quick-toggle-legend-btn" class="toggle-chip" type="button" title="Show or hide the color key">Color Key</button>
+    </div>
   </aside>
 
   <!-- Compact Floating Expandable Right Inspector Box (Accordion / Active-Tab Sections) -->
-  <aside id="inspector-drawer" class="glass-bar collapsed">
+  <aside id="inspector-drawer" class="glass-bar">
+    <div id="insp-zoom-to-bar" class="insp-zoom-to-bar" hidden>
+      <button id="btn-zoom-to-focus" class="zoom-to-top-btn" type="button">Zoom to</button>
+    </div>
     <div class="inspector-top">
       <div class="inspector-title-wrap">
         <div id="insp-badges" class="inspector-badge-row"></div>
@@ -238,7 +269,7 @@
           <div id="insp-telescopes-list" class="facility-badges"></div>
         </div>
         <div class="insp-footer-links">
-          <a id="insp-blog-btn" class="insp-link-btn" href="../discovery_blog/index.html?lang=en" target="_blank" rel="noopener">Research Blog ↗</a>
+          <a id="insp-blog-btn" class="insp-link-btn" href="../discovery_blog/index.html" target="_blank" rel="noopener">Research Blog ↗</a>
           <button id="insp-copy-link-btn" class="insp-link-btn secondary" type="button">Copy Deep-Link</button>
         </div>
       </section>
@@ -298,9 +329,9 @@
   <!-- Compact Bottom Time & Scale Readout Bar -->
   <footer id="bottom-time-bar" class="glass-bar">
     <div class="tracking-readout">
-      <span id="tracking-pill" class="lock-pill">LOCKED</span>
+      <span id="tracking-pill" class="lock-pill">FOCUS</span>
       <span id="tracking-name" class="lock-target-name">Sun</span>
-      <button id="release-lock-btn" class="icon-close-btn" type="button" aria-label="Release lock">✕</button>
+      <button id="release-lock-btn" class="icon-close-btn" type="button" aria-label="Release focus">✕</button>
     </div>
 
     <div class="time-controls-center">
@@ -318,9 +349,9 @@
   </footer>
 
   <!-- Catalog Data + Application Engine -->
-  <script src="data/solar_catalog.js?v=20261122_v14" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
-  <script src="data/spacecraft_extra_catalog.js?v=20261122_v14"></script>
-  <script src="data/adam_overlay.js?v=20261122_v14" onerror="window.__ADAM_OVERLAY__=null"></script>
-  <script type="module" src="js/app.js?v=20261122_v14"></script>
+  <script src="data/solar_catalog.js?v=20261124_v17" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
+  <script src="data/spacecraft_extra_catalog.js?v=20261124_v17"></script>
+  <script src="data/adam_overlay.js?v=20261124_v17" onerror="window.__ADAM_OVERLAY__=null"></script>
+  <script type="module" src="js/app.js?v=20261124_v31"></script>
 </body>
 </html>

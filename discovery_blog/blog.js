@@ -328,332 +328,17 @@ const I18N = {
     cv_observer: "Active Observer",
     cv_decam_note: "DECam 960 s r+i counterpart (plausible candidate)",
     cv_if_matched: "if the match is real"
-  },
-
-  zh: {
-    doc_title: "多望远镜太阳系自动发现研究专论 — 盲视差搜索、日地 L2 立体三角测量与空间挥发物光谱",
-    nav_journal: "研究专论",
-    nav_title: "多望远镜智能体太阳系自动发现系统",
-    nav_cta_3d: "进入 3D 太阳系探索器 ↗",
-    theme_dark: "深色",
-    theme_light: "浅色",
-
-    hero_kicker: "多望远镜自动发现研究专论 · 太阳系至银河系全尺度",
-    hero_title: "跨越太阳系的质心盲视差搜索、天地同步立体视差测量与瞬变保留空间光谱学",
-    hero_authors: "多望远镜自动发现合作组",
-    hero_affil: "{{claims}} 项审核前宣称中 {{survivors}} 项经独立审核保留 · {{movie_targets}} 个真实像素档案影像目标 · 模块化 GPU+CPU 搜索架构",
-
-    abstract_heading: "摘要",
-    abstract_body:
-      "大视场光学与红外巡天记录了成千上万颗未编目的太阳系星子，其视运动特征往往超出单一望远镜管线的配对阈值。在柯伊伯悬崖以外，天体夜内角位移低于大气视宁度尺度，导致遥远天体退化为孤立的单次曝光源，且短弧冲日观测使视线方向的径向速度处于简并状态。在内太阳系中，高速运动的小行星在空间探测器上拉出细长条纹并触发宇宙线掩模；银道面密集恒星场掩盖了明亮的远距天体；静态天空异常值剔除算法则会抹去运动彗星的气体发射带。本研究通过结构化方法数据库拆解巡天失效机制，将鲁宾天文台差分与单次曝光星表的质心双锥视差连接、欧几里得空间望远镜与智利托洛洛山暗能量相机的日地拉格朗日二点同步立体测量、结合实时人造卫星轨道传播否决的空间条纹天体测量，以及美国宇航局全天红外光谱巡天的瞬变保留测光有机结合，在十余个公开档案中提出{{claims_words}}项太阳系新天体宣称。随后的独立审核重新执行档案查询、轨道拟合与像素测量，保留其中{{survivors_words}}项作为待后续观测确认的候选体：{{tnos_words}}颗海王星外天体、{{centaurs_words}}颗半人马天体、{{moons_words}}颗木星不规则卫星候选体与{{asteroids_words}}颗短弧小行星候选体；另有{{catalogued_words}}项被证认为已编目天体，{{eliminated_words}}项被剔除，{{disputed_words}}项存疑，均不计入新发现。本专论同步发布{{movie_targets_words}}个目标的真实档案像素影像，其中不含任何合成帧；同一审核确认了活跃半人马天体中的一氧化碳辐射以及星际彗星中的一氧化碳与二氧化碳辐射。进一步将该模块化 GPU 与 CPU 天体测量-测光联合框架拓展至 Gaia、Euclid 与 Rubin 交叉巡天，使搜索从外太阳系动力学延伸至银河系暗弱高自行恒星与致密双星候选体。",
-
-    hero_cta_primary: "进入 3D 太阳系与银河系探索器 ↗",
-    hero_cta_playground: "互动 3D 模型与黑洞实验室 ↗",
-    hero_cta_discoveries: "在 3D 中检视 {{survivors}} 条经审核轨道 ↗",
-    hero_cta_oort: "缩放至内奥尔特云全景 ↗",
-    hero_quick_fly: "一键 3D 飞抵天体：",
-
-    toc_title: "目录",
-    toc_s1: "I. 天球视运动与闪烁盲搜发现",
-    toc_s2: "II. 东大距轨道坍缩与倾角下限",
-    toc_s3: "III. 日地 L2 × 地球同步立体视差",
-    toc_s4: "IV. 银道面盲区、硅像素条纹与挥发物",
-    toc_s5: "V. 能力拆解与多望远镜合成超图",
-    toc_s5b: "V-B. 多档案扩展与独立审核结论",
-    toc_s6_gal: "VI. GPU+CPU 架构与银河系致密双星",
-    toc_s6: "VII. 经审核的发现数据总表",
-
-    stat_lbl_new: "审核保留候选体",
-    stat_lbl_tnos: "保留的海王星外天体",
-    stat_lbl_gold: "短弧小行星候选体",
-    stat_lbl_baseline: "L2×CTIO 同步基线",
-    stat_lbl_papers: "方法属性图节点",
-
-    click_zoom: "点击放大检视",
-    lightbox_close: "关闭 [Esc] ✕",
-
-    s1_kicker: "第 I 节 · 探测物理机制",
-    s1_title: "跨越四个数量级角速度的天球视运动与源恢复",
-    s1_p1:
-      "地球公转速度使冲日附近的遥远太阳系天体产生与距离成反比的反冲漂移，而内太阳系星子则在单次曝光内横扫空间焦平面。标准短弧算法依赖夜内多次曝光配对。越过柯伊伯悬崖后，天体视角速度降至每小时三角秒以下，夜内位移缩减至地面视宁度宽度附近，导致海王星外天体在差分目录中滞留为孤立点源。在银道面密集星场中，背景恒星密度超出运动星子五个数量级；而在日地 <math><msub><mi mathvariant=\"normal\">L</mi><mn>2</mn></msub></math> 点 ESA Euclid 望远镜的 0.1 角秒硅像素阵列上，快速运动的小行星拉出数十像素的细长条纹，极易被误判为掠射宇宙线。",
-    s1_p2:
-      "跨尺度捕获运动天体需要令搜索算子严格匹配物理角速度尺度。在 Vera C. Rubin 天文台试运行曝光中，将未关联差分源与孤立单次曝光点扩散函数源取并集，可直接找回蓝端与远红端因差分核噪声而漏检的过境信号：",
-    eq_union_name: "混合源并集算子",
-    s1_p3:
-      "给定试探质心逆距离与径向速度后，混合源并集算子从每次曝光中精确扣除观测站视差反冲，无需夜内配对即可将跨月过境点折叠为切平面直线轨迹。图 1 以示意动画展示多历元闪烁对比的物理过程；读者可在下方互动比较器中直接检验 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"DELTA_003\">DELTA_003 ↗</a>、<a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"EPS_002\">EPS_002 ↗</a> 与 Euclid 回收对照 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge emerald js-3d-link\" data-fly-focus=\"EUCLID_EES149_GOLD_18\">2019 UM31 ↗</a> 的实测天体测量坐标。",
-
-    gif1_fb_title: "多历元星空闪烁序列 (anim1_blink_where_is_it.gif)",
-    gif1_fb_sub: "背景恒星在多历元间保持静止，太阳系天体沿视差回路逐帧步进。请使用下方示意比较器按实测历元逐帧切换。",
-    fig1_cap:
-      "<strong>图 1（示意动画）。</strong>静止背景星场与运动海王星外天体的多历元闪烁对比序列。恒星在各次曝光间保持固定赤经与赤纬，而太阳系天体在冲日附近向西漂移，随后弯曲进入东大距折返点。",
-
-    w1_kicker: "互动示意图 · 实测天体测量坐标，星场为示意",
-    w1_title: "闪烁比较器：按实测历元坐标定位运动天体",
-    w1_t_d003: "DELTA_003（51.15 AU 极端 TNO 候选体）",
-    w1_t_eps002: "EPS_002（银道面 TNO 候选体）",
-    w1_t_gold18: "2019 UM31（Euclid 回收对照）",
-    w1_auto_on: "自动闪烁：开启",
-    w1_auto_off: "自动闪烁：暂停",
-    w1_reticle: "目标准星与轨迹",
-    w1_diff: "差分减除模式",
-    w1_scrubber: "历元滑块：",
-    w1_interval: "闪烁间隔：",
-    tel_target: "目标：",
-    tel_epoch: "观测时刻 (UTC)：",
-    tel_phot: "测光：",
-    tel_regime: "动力学区间：",
-
-    s2_kicker: "第 II 节 · 极端轨道力学",
-    s2_title: "东大距视线旋转与四巨行星倾角下限",
-    s2_p1:
-      '为何短弧冲日观测无法约束遥远天体的半长轴，而全季追踪又如何锁定 <a href="#" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">DELTA_003 (LSST-DP2-D03) ↗</a> 的真实轨道？在冲日附近，地球引力加速度使视轨迹产生与质心距离 <math><mi>r</mi></math> 成反比的弯曲，从而分离距离 <math><mi>r</mi></math> 与切向速度 <math><msub><mi>v</mi><mo>⊥</mo></msub></math>，但径向速度 <math><mover><mi>r</mi><mo>˙</mo></mover></math> 沿视线方向投影。以当地圆轨道速度 <math><mrow><msub><mi>v</mi><mi>circ</mi></msub><mo>≡</mo><msqrt><mrow><mi>μ</mi><mo>/</mo><mi>r</mi></mrow></msqrt></mrow></math>（其中 <math><mi>μ</mi></math> 为太阳系质心引力常数）归一化，可定义切向动能参数 <math><mrow><mi>κ</mi><mo>≡</mo><msup><mrow><mo>(</mo><msub><mi>v</mi><mo>⊥</mo></msub><mo>/</mo><msub><mi>v</mi><mi>circ</mi></msub><mo>)</mo></mrow><mn>2</mn></msup></mrow></math> 与无量纲径向速度 <math><mrow><mi>η</mi><mo>≡</mo><mover><mi>r</mi><mo>˙</mo></mover><mo>/</mo><msub><mi>v</mi><mi>circ</mi></msub></mrow></math>。活力积分与比角动量给出半长轴 <math><mi>a</mi></math> 和偏心率 <math><mi>e</mi></math> 的两条精确运动学关系：',
-    eq_locus_name: "折返点轨迹与偏心率超额关系",
-    s2_p2:
-      "超圆切向速度（<math><mrow><mn>1</mn><mo>&lt;</mo><mi>κ</mi><mo>&lt;</mo><mn>2</mn></mrow></math>）严格排除了所有处于远日点的主柯伊伯带混入天体（<math><mrow><mi>a</mi><mo>≤</mo><mi>r</mi></mrow></math>）。在短暂的冲日窗口内，<math><mi>η</mi></math> 仅以二阶透视项进入天球坐标，使轨道后验解从径向折返点 <math><mrow><mi>η</mi><mo>=</mo><mn>0</mn></mrow></math> 一直延伸至高偏心率区域（图 2）。穿过东大距补获四次单次曝光与差分过境点后，地球视线相对于天体径向矢量发生显著旋转，外向径向位移直接投影至赤经方向，以高显著性锁定 <math><mrow><mi>η</mi><mo>&gt;</mo><mn>0</mn></mrow></math>，使 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"DELTA_003\">DELTA_003 ↗</a> 坍缩至拟合半长轴邻近海王星 12:1 平运动共振的外向极端海王星外轨道（图 3 与图 4）。",
-    s2_p3:
-      '纵观整个多冲日太阳系星表，一旦近日点距离 <math><mi>q</mi></math> 脱离海王星半长轴 <math><msub><mi>a</mi><mi mathvariant="normal">N</mi></msub></math>，极端海王星外天体便在黄道面附近彻底绝迹。圆轨道海王星的近距离散射将蒂塞朗不变量限制在 <math><mrow><msub><mi>T</mi><mi mathvariant="normal">N</mi></msub><mo>≤</mo><mn>3</mn></mrow></math>；此后在轴对称外共振内的古在-利多夫近日点抬升过程严格守恒归一化垂直角动量 <math><mrow><msub><mi>J</mi><mi>z</mi></msub><mo>≡</mo><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>e</mi><mn>2</mn></msup></mrow></msqrt><mi>cos</mi><mo>⁡</mo><mi>i</mi></mrow></math>。联立两项守恒律即导出轨道倾角余弦的解析上限：',
-    eq_floor_name: "蒂塞朗–古在倾角下限",
-    s2_p4:
-      "按其拟合轨道，<a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"DELTA_003\">DELTA_003 ↗</a> 位于蒂塞朗–古在倾角下限以下逾十一度。独立审核将该天体及其拟合轨道根数评为“可信、尚待后续观测”，否定了此前“已知极端轨道中倾角最低”的说法，并将蒂塞朗参数与共振粘滞的动力学解释评为存疑，因此图 5 的动力学解读仅为初步结果。同批在摩羯-宝瓶黄道带盲搜得到的候选体 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"DELTA_004\">DELTA_004 ↗</a>、<a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"DELTA_009\">DELTA_009 ↗</a> 与 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"DELTA_014\">DELTA_014 ↗</a> 进一步扩展了远距黄道星子样本；其中 DELTA_009 的 2022 年 DECam 预发现图像与拟合半长轴已获审核核实。",
-
-    gif2_fb_title: "双锥距离-径向速度盲搜与东大距轨道坍缩 (anim2_double_cone_quadrature_collapse.gif)",
-    gif2_fb_sub: "东大距视线旋转将冲日一维折返点轨迹直接坍缩至海王星 12:1 共振旁的外向极端轨道。",
-    fig2_cap:
-      "<strong>图 2（示意动画）。</strong>质心轨道后验分布从短弧冲日视差向全季东大距锁定的演化过程。视线旋转将外向径向速度投影至黄经方向，使一维折返点曲线坍缩为极端海王星外椭圆轨道。",
-    fig3_cap:
-      "<strong>图 3.</strong> LSST-DP2-D03 跨越四个光学波段的天球视差回路、非过境历元强迫差分通量检验，以及包含 ALMA 亚毫米热辐射预言的宽波段流量限制（详见第 VII 节数据总表）。",
-    fig4_cap:
-      "<strong>图 4.</strong> 半长轴-近日点平面内冲日折返点轨迹向海王星 12:1 共振的坍缩，以及全体多冲日极端海王星外天体所受的蒂塞朗–古在倾角下限。",
-    fig5_cap:
-      "<strong>图 5.</strong> 东大距后验克隆系综的前向辛轨道演化，展示半长轴相对扩散度、近日点绝热守恒以及外平运动共振粘滞台阶。",
-
-    s3_kicker: "第 III 节 · 瞬时天地立体三角测量",
-    s3_title: "跨越日地拉格朗日基线的天地同步立体视差",
-    s3_p1:
-      '单站巡天需要等待数周地球公转才能积累视差基线，暗弱外太阳系新目标极易因月相中断与晨昏蒙影而丢失。利用环绕日地 <math><msub><mi mathvariant="normal">L</mi><mn>2</mn></msub></math> 点运行的 ESA Euclid 空间望远镜（台站码 <code>273</code>）与智利托洛洛山四米 Blanco 望远镜暗能量相机（台站码 <code>W84</code>）对同一天区实施同步观测，可构建超过地月距离四倍的刚性空间-地面瞬时基线 <math><msub><mi mathvariant="bold">B</mi><mrow><mi mathvariant="normal">L2</mi><mo>−</mo><mi mathvariant="normal">W84</mi></mrow></msub></math>。将该基线垂直投影至目标视线 <math><mover><mi mathvariant="bold">n</mi><mo>^</mo></mover></math>，即可由单一同步历元直接测定几何距离：',
-    eq_stereo_name: "立体视差三角测量关系",
-    s3_p2:
-      "将 Euclid 黄道巡天曝光与智利托洛洛山同步叠加图像交叉匹配后，两颗未编目海王星外天体候选体 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"EUC0005\">EUC0005 ↗</a> 与 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"EUC0002\">EUC0002 ↗</a> 在 <math><mrow><mi mathvariant=\"normal\">L</mi><mn>2</mn><mo>→</mo><mi mathvariant=\"normal\">W84</mi></mrow></math> 核线方向上出现 DECam 对应体（图 6 与图 7）。独立审核在 VIS 像素上核实了两处 Euclid 探测并复现了 DECam 信号；这些信号并非静态源，单个目标的经验偶然概率约为百分之一至二。审核将二者评为“可信、尚待后续观测”的候选体，不支持此前引用的显著性、由模型生成的地面天体测量位置以及拟合轨道；若匹配成立，立体视差距离即成立。拖动下方基线滑块，即可从智利台站平滑移动至日地 <math><msub><mi mathvariant=\"normal\">L</mi><mn>2</mn></msub></math> 点并查看视差位移。",
-
-    gif3_fb_title: "168.5 万公里 L2 × 智利同步立体视差 (anim3_l2_stereoscopic_parallax.gif)",
-    gif3_fb_sub: "智利 CTIO (W84) 与日地 L2 点 Euclid (273) 的同步视线使 EUC0005 沿核线方向产生 64.19 角秒瞬时视差位移。",
-    fig6_cap:
-      "<strong>图 6（示意动画）。</strong>智利托洛洛山地面站与日地 L2 点 ESA Euclid 之间的同步几何三角测量。遥远背景恒星保持不动，海王星外目标则沿基线矢量位移约一角分。",
-    fig7_cap:
-      "<strong>图 7.</strong> 远距候选体与三个小行星场目标位置处的十四组档案切片（每组上图）与同一天区的对照图（下图），取自暗能量相机与 Euclid VIS 单次曝光，并标注日期、波段与孔径信噪比。最后一组为已编目小行星 2019 UM31（回收对照）的拖尾图像。上北左东。取自经审核的论文稿。",
-
-    w2_kicker: "168.5 万公里基线互动三角测量仪",
-    w2_title: "立体视差滑块：智利 CTIO (地球) ↔ ESA Euclid (日地 L2)",
-    w2_t_euc5: "EUC0005（视差 64.19″ · 若匹配成立则 35.60 AU）",
-    w2_t_euc2: "EUC0002（视差 66.47″ · 若匹配成立则 34.40 AU）",
-    w2_btn_earth: "智利 CTIO (0 km)",
-    w2_btn_l2: "Euclid L2 (168.5万 km)",
-    w2_sweep_on: "自动往返扫描：开启",
-    w2_sweep_off: "自动往返扫描：暂停",
-    w2_slider_lbl: "观测者在天地立体基线上的位置：",
-    tel_baseline: "基线位置：",
-    tel_shift: "视差角位移：",
-    tel_range: "三角测定距离：",
-    tel_bound: "动能下限约束：",
-
-    s4_kicker: "第 IV 节 · 密集星场、短弧条纹与彗发光谱",
-    s4_title: "银道面候选体、Euclid 硅像素条纹与空间彗发光谱",
-    s4_sub1: "A. 穿透银河系远日点巡天盲区",
-    s4_p1:
-      "外太阳系巡天通常避开人马座与蛇夫座恒星云同黄道相交的低银纬区域，而远距天体的远日点走廊恰恰穿越这片银道面背景。在该高密度走廊内联合差分成像与非过境历元强迫测光否决，分离出两颗明亮的未编目海王星外天体候选体：位于银道面北侧七度的 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"EPS_002\">EPS_002 ↗</a> 与银核南侧的 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"EPS_007\">EPS_007 ↗</a>（图 8 与图 9）。独立审核将二者评为“可信、尚待后续观测”，并对此前为 EPS_002 提出的矮行星尺度表示存疑。在 2024 年 4 月 18 日的两帧 DECam 档案图像中，EPS_002 所在位置的孔径信噪比仅为 2.1 与 2.8，且处于密集星场，单凭这些像素不足以确认该天体。",
-    gif4_fb_title: "银道面盲区穿透发现：EPS_002 (anim4_galactic_blindspot_eps002.gif)",
-    gif4_fb_sub: "差分图像减除抵消了 b = +7.1° 处密集的人马-蛇夫座背景恒星，分离出海王星外天体候选体 EPS_002。",
-    fig8_cap:
-      "<strong>图 8（示意动画）。</strong>利用差分成像与非过境历元强迫测光静态星剔除，在低银纬银河系交叉带内捕获海王星外天体候选体 EPS_002。",
-    fig9_cap:
-      "<strong>图 9.</strong> 候选体的拟合轨道与双星形状检验。(a) 各搜索的近日点-半长轴分布，附海王星近日点线与共振位置；空心方块为短弧无法确定轨道的 Euclid 候选体的标称值。(b) 150 au 以外已发表天体与 R25-D03（<math><mi>i</mi><mo>=</mo><mn>3.16</mn><mo>°</mo></math>）的倾角-近日点分布，曲线为蒂塞朗参数等于三。(c) 2025 NW189 逐次曝光与叠加的天球四极矩，并与 2025 NU192、已编目宽距双星及单体对照比较；独立审核将 NW189 的双星判定评为存疑，NU192 的判定未获支持。取自经审核的论文稿。",
-
-    s4_sub2: "B. Euclid 硅像素上的短弧小行星条纹与暗弱海王星外天体候选体",
-    s4_p2:
-      "在 ESA Euclid 可见光相机上，明亮运动小行星条纹会触发星上宇宙线掩模（<code>0x10</code>），同时近一万二千颗近地星座卫星与十六艘 <math><msub><mi mathvariant=\"normal\">L</mi><mn>2</mn></msub></math> 深空探测器频繁穿越巡天视场。通过恢复横向轮廓符合 Korsch 光学点扩散函数的被掩模条纹核、在完整 <math><msub><mi mathvariant=\"normal\">L</mi><mn>2</mn></msub></math> 光行时几何下连接可见光与近红外抖动曝光，并实施实时双行根数卫星轨道否决，得到 {{euclid_tnos}} 颗经独立审核保留的 Euclid 海王星外天体候选体——其中两颗具有单夜 DECam 立体视差对应体（<a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"EUC0005\">EUC0005 ↗</a> 与 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"EUC0002\">EUC0002 ↗</a>），另有两颗位于同一黄道区块的慢速运动源（<a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"EUCLID_VIS_TNO_02\">EUCLID_VIS_TNO_02 ↗</a> 与 <code>EUCLID_VIS_TNO_03</code>），审核认为其距离尚无约束——以及 {{asteroids}} 颗短弧小行星候选体，其中 {{ees_asteroids}} 颗同时出现在 VIS 与 NISP 中（图 10 与图 11）。不足一天的弧段只能给出视运动与亮度，无法确定轨道、尺寸或光谱分类。另一条双仪器轨迹 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge emerald js-3d-link\" data-fly-focus=\"EUCLID_EES149_GOLD_18\">EUCLID_EES149_GOLD_18 ↗</a> 实为已编目主带小行星 2019 UM31：它从来不是近地天体，现作为 Euclid VIS 回收对照保留。",
-    fig10_cap:
-      "<strong>图 10.</strong> 小行星候选体 EUC-G26 至 EUC-G32、COSMOS 候选体 EUC-J01、EUC-J02 与 EUC-M01 至 EUC-M03 以及深场候选体的 Euclid VIS 单次曝光图像，每幅下方为同一天区其他历元的对照图。最后一组为已编目小行星 2019 UM31（回收对照）的拖尾图像。取自经审核的论文稿。",
-    fig11_cap:
-      "<strong>图 11.</strong> 远距候选体位置处的档案像素。首行为 R25-E02、R25-D09、EUC-S05、EUC-S02 与 EUC-CW04 位置处的暗能量相机曝光；其余各行为 {{euclid_tnos}} 颗海王星外天体候选体的 Euclid VIS 单次曝光（最暗至 <math><msub><mi>I</mi><mi mathvariant=\"normal\">E</mi></msub><mo>=</mo><mn>25.4</mn></math>）。每幅切片下方为同一天区其他历元的对照图；实线十字标记所示历元的预期位置，虚线十字标记其他历元的同一位置。上北左东。取自经审核的论文稿。",
-
-    s4_sub3: "C. 瞬变保留红外彗发光谱",
-    s4_p3:
-      "地面光谱观测受地球大气一氧化碳与二氧化碳强烈吸收阻挡，而 NASA SPHEREx 静态天空管线会将运动太阳系目标标记为瞬变异常值（<code>bit 19</code>）。通过字节范围流式切片保留 <code>bit 19</code> 运动通量、剔除静态恒星混叠（<code>bit 21</code>）并引入近地轨道卫星视差，得到星际来客 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"ATLAS_3I\">3I/ATLAS ↗</a> 与活跃半人马天体 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"SW1_29P\">29P/Schwassmann–Wachmann 1 ↗</a> 的彗发光谱（图 12 与图 13）。独立审核确认 3I/ATLAS 的一氧化碳与 <sup>12</sup>CO<sub>2</sub> 辐射以及 29P 的一氧化碳辐射，不支持本页早期版本报告的 <sup>13</sup>CO<sub>2</sub> 与水冰探测。图 14 将从回收对照 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge emerald js-3d-link\" data-fly-focus=\"EUCLID_EES149_GOLD_18\">2019 UM31 ↗</a> 所在的主小行星带直至内奥尔特云（<a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-cat=\"oort_cloud\">3D 奥尔特云视角 ↗</a>）的全部样本置于同一对数日心距离标尺之下。",
-    fig12_cap:
-      "<strong>图 12（审核前图件）。</strong>星际彗星 3I/ATLAS 的 Rubin 双曲线轨迹回收与 SPHEREx 线性渐变滤光片彗发分光测光。独立审核确认其中的一氧化碳与二氧化碳辐射；图中标注的水冰吸收未获支持。",
-    fig13_cap:
-      "<strong>图 13.</strong> 档案联合得到的光谱与能谱分布。(a) 彗星 3I/ATLAS、半人马天体 29P/Schwassmann–Wachmann 1 与小行星 (492) Gismonda 的 SPHEREx 光谱，以及 2015 BP519 的 Euclid 测光（经缩放与偏移）；虚线标记水、二氧化碳与一氧化碳波段。(b) (87) Sylvia 的热辐射流量、热模型曲线与已发表的 ALMA 测点；菱形为 (6493) Cathybennett 的 Euclid 流量。(c) 一颗已发表远红外行星候选体位置处的档案流量与示意曲线、另一候选体的射电流量，以及 R25-D03 的流量上限。取自经审核的论文稿。",
-    gif5_fb_title: "太阳系至奥尔特云对数尺度连续缩放 (anim5_solar_to_oort_zoom.gif)",
-    gif5_fb_sub: "从内太阳系连续跨越主小行星带、半人马天体、柯伊伯带及 DELTA_003（按拟合轨道远日点 277 AU）直抵奥尔特云。",
-    fig14_cap:
-      "<strong>图 14（示意动画）。</strong>跨越五个数量级日心距离的太阳系径向结构：从主带小行星与活跃半人马天体延伸至极端海王星外椭圆轨道与奥尔特云彗星。",
-
-    s5_kicker: "第 V 节 · 方法学拆解与合成",
-    s5_title: "能力拆解与多望远镜合成超图",
-    s5_p1:
-      "单一巡天档案在原生数据处理中往往预设目标静止或具备快速夜内位移，从而系统性丢弃特定动力学区间的运动天体。本发现系统的构建始于将已发表的太阳系轨道连接、移位叠加、立体视差与瞬变掩模文献索引为混合属性-向量图数据库（<code>MethodGraphVectorDB</code>），把十二类巡天失效模式精确映射至不同观测传统中的数学算子。",
-    s5_p2:
-      "四条耦合合成超边将这些拆解后的底层能力组装为统一的跨波段搜索引擎（图 15）。点击下方超图中的任意节点或超边，即可追踪文献失效诊断如何把空间天体测量、地面差分成像、拉格朗日点立体三角测量与红外分光合成为候选体，并交由独立审核评级。",
-
-    hg_col1: "失效模式文献诊断",
-    hg_col2: "拆解后的巡天算子引擎",
-    hg_col3: "多望远镜合成超边",
-    hg_col4: "审核后产出",
-    hg_mg_l1: "30 篇 arXiv 论文 · 79 节点",
-    hg_mg_l2: "384 条有向边 · 12 类失效模式",
-    hg_mg_l3: "• 50 AU 外夜内短弧漏检",
-    hg_mg_l4: "• 0x10 条纹与 bit-19 误裁",
-    hg_mg_l5: "• 冲日径向速度 η 简并",
-    hg_e1_t: "Vera C. Rubin DP2 (X05 台站)",
-    hg_e1_s1: "-O3 C 双锥 BK (γ, γ̇) 盲搜核",
-    hg_e1_s2: "DiaSource ∪ 孤立 Source + 强迫测光",
-    hg_e1_s3: "REBOUND IAS15 / WHFast (DE441)",
-    hg_e2_t: "ESA Euclid DR1 @ 日地 L2",
-    hg_e2_s1: "0.10″/px VIS 条纹 (0x10 核心保护)",
-    hg_e2_s2: "NISP Y_E/J_E/H_E + @-680 SPICE",
-    hg_e2_s3: "CTIO DECam (W84) 同步曝光配对",
-    hg_e3_t: "航天器与静态天空多波段否决",
-    hg_e3_s1: "SGP4 11,899 颗卫星 + 16 艘 L2 探测器",
-    hg_e3_s2: "Gaia DR3 · CatWISE · ASKAP 888 MHz",
-    hg_e3_s3: "2000–2024 DECam / CFHT / PS1 历史库",
-    hg_e4_t: "NASA SPHEREx S3 + ESO ALMA",
-    hg_e4_s1: "0.75–5.00 µm 纯内存 HTTP Range",
-    hg_e4_s2: "保留 bit-19 瞬变 · 剔除 bit-21 混叠",
-    hg_e4_s3: "LEO 视差校正 + ALMA Band 6/7 热辐射",
-    hg_h1_t: "东大距与银道面轨道锁定器",
-    hg_h1_s1: "124.8 天全季弧段延伸 (η > 0)",
-    hg_h1_s2: "其他历元静态天空否决",
-    hg_h2_t: "168.5 万公里 3D 立体三角仪",
-    hg_h2_s1: "L2 (273) × DECam (W84) 核线几何",
-    hg_h2_s2: "单夜立体视差测距",
-    hg_h3_t: "多访次 L2 开普勒轨道连接器",
-    hg_h3_s1: "VIS+NISP 四波段测光",
-    hg_h3_s2: "人造卫星轨道传播否决",
-    hg_h4_t: "挥发物与热辐射综合解算器",
-    hg_h4_s1: "CO / 12CO2 发射带",
-    hg_h4_s2: "NEATM 反照率 + 870 µm 流量约束",
-    hg_y1_s1: "DELTA_003：拟合 a = 156.6 AU",
-    hg_y1_s2: "EPS_002（银道面）",
-    hg_y2_s1: "2 颗立体视差候选体（可信）",
-    hg_y2_s2: "COSMOS 场 3 颗已核实",
-    hg_y3_s1: "回收对照：2019 UM31",
-    hg_y3_s2: "弧段不足一天 · 轨道未定",
-    hg_y4_s1: "CO 与 12CO2 已确认",
-    hg_y4_s2: "13CO2 / 水冰未获支持",
-    hg_fly_all: "在 3D 探索器中检视产出 ↗",
-    fig15_cap:
-      "<strong>图 15.</strong> 多望远镜自动发现系统的能力拆解与合成超图。有向曲线展示了文献失效模式诊断如何通过四条合成超边（虚线框）将拆解后的各档案算子组合为候选体产出。经独立审核后，该产出为 {{claims}} 项宣称中保留的 {{survivors}} 颗候选体，以及已确认的彗发辐射带。",
-
-    s6_kicker: "第 VII 节 · 观测与轨道数据总表",
-    s5b_kicker: "第 V-B 节 · 多档案扩展与独立审核",
-    s5b_title: "从 {{claims}} 项宣称到 {{survivors}} 颗审核保留候选体：孤儿短弧库连接、木星卫星候选体与被剔除的内容",
-    s5b_p1: "将系统扩展至十余个空间与地面档案后——融合面向全球 905 万行 MPC 孤儿短弧库的 GPU 加速四阶开普勒有效时间连接器、深场次阈值移位叠加、天球四极矩形状检验以及行星中心希尔球卫星搜寻算法——太阳系宣称总数增至 {{claims}} 项。独立审核保留其中 {{survivors}} 项：{{group1_tnos}} 颗来自 Rubin 与孤儿短弧库的海王星外天体候选体、{{euclid_tnos}} 颗 Euclid 海王星外天体候选体、{{centaurs}} 颗半人马天体、{{moons}} 颗木星不规则卫星候选体与 {{asteroids}} 颗短弧小行星候选体；另有 {{catalogued}} 项被证认为已编目天体（多为主带小行星），{{eliminated}} 项被剔除，{{disputed}} 项存疑。图 16–18 绘制于审核之前，现附更正后的图注留存备查；原先置于本节开头的切片拼图中，“发现”切片为渲染所得而非实际观测，现已由真实像素影像图库取代。",
-    fig16_cap: "<strong>图 16（审核前图件）。</strong>审核前所宣称的外太阳系轨道的黄道面俯视构型（a）与垂直结构（b），其中包含已被审核剔除的 <code>W3A_ITF_010</code>（a = 224.9 au）。保留候选体的拟合轨道仍为初步结果。",
-    fig17_cap: "<strong>图 17（审核前图件）。</strong>四项木星卫星宣称相对于已知卫星族群的木心轨道根数分布（a）、相对木星的天球视运动轨迹（b）及天体测量残差（c）。独立审核将 <code>W4_JUP_MOON_GOLD_001</code> 至 <code>003</code> 保留为可信候选体，剔除 <code>W4_JUP_MOON_GOLD_004</code>，并对族群归属表示存疑。",
-    fig18_cap: "<strong>图 18（审核前图件）。</strong>依据独立审核之前的完整宣称清单绘制的统计：质心半长轴与近日点分布（a）、推算直径与距离及 Rubin/JWST 探测极限曲线（b）、天球位置分布（c）以及天体测量残差均方根分布（d）。独立审核在 {{claims}} 项宣称中保留 {{survivors}} 项；图 d 的坐标轴标签“Verified objects”早于该审核。",
-    fig19_cap: "<strong>图 19（审核前图件）。</strong>银心旋臂结构与致密天体基准分布（a）、天体测量质量比函数与轨道周期关系及欧几里得南深场候选体 <code>Gaia DR3 4829790543688453504</code>（b），以及宽距双星归一化速度与投影间距和 Rubin 3.6 角秒内邻源检测结果（c）。独立审核将图 b 的暗致密伴星解读与图 c 的速度异常评为存疑。",
-    s6g_kicker: "第 VI 节 · 模块化 GPU+CPU 搜索架构与银河系视野",
-    s6g_title: "从奥尔特云到银河系致密双星：Gaia、Euclid 与 Rubin 跨尺度联合框架",
-    s6g_p1: "用于捕获海王星外慢速星子的多档案融合原理可直接延伸至银河系尺度。在自包含的 <code>astro_search</code> 框架中，辛几何 Wisdom–Holman 太阳系传播（较 CPU 提速 285 倍）、轴对称银河系引力势积分（<code>MWPotential</code>，162 万条蒙特卡洛轨道提速 565 倍）、Thiele–Innes 天体测量轨道反演、近红外发光伴星否决、宽距双星配对（提速 86 倍）与椭球周期图（提速 88 倍）在 GPU 并行阵列与多核 CPU 上保持数值一致，该一致性已获独立审核核实；全部算法由涵盖三十八种太阳系、奥尔特云与银河系搜索算法的规范化数据库统一索引。",
-    s6g_p2: "将该四档案管线应用于 Gaia DR3、ESA Euclid DR1、Rubin DP2 与 SIMBAD 后，系统盲搜重现了基准中子星双星 <code>Gaia NS1</code> 与已知非束缚恒星 <code>UCAC4 656-058031</code>（二者均获独立审核核实），并将 188 颗高 RUWE 恒星与 Rubin <code>dp2</code> 交叉匹配（其中 138 颗为多历元 <code>DiaObject</code> 变源）。独立审核将欧几里得南深场天体测量双星 <code>Gaia DR3 4829790543688453504</code> 的暗致密伴星解释（图 19b）以及九对宽距双星的速度异常（图 19c）评为存疑，并且不支持此前关于一颗新的逃逸边界银晕巨星的说法。读者可在 3D 探索器与 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-playground=\"1\">互动 3D 模型实验室 ↗</a> 中漫游 82,199 颗 Gaia DR3 恒星以及 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"SGR_A_STAR\">人马座 A* ↗</a>、<a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"GAIA_BH1\">Gaia BH1–BH3 ↗</a> 与 <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge js-3d-link\" data-fly-focus=\"CYGNUS_X1\">天鹅座 X-1 ↗</a> 的相对论吸积盘与引力透镜模型。",
-    s6_title: "经审核的数据总表：{{ledger_survivors}} 颗保留候选体、{{ledger_disputed}} 项存疑宣称、{{ledger_known}} 个已知天体与回收对照，以及 {{ledger_volatile}} 个光谱目标",
-    s6_p1:
-      "下表列出审核前提出且仍保留在星表中的每一项宣称及其审核状态，其后为 SPHEREx 光谱目标。只有标注为<strong>审核保留</strong>的条目计入发现候选体；存疑宣称、已编目天体与回收对照仅为透明起见列出，从不计入。天球坐标、观测历元、星等、日心距离与轨道根数（<math><mrow><mi>a</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>e</mi><mo>,</mo><mi>i</mi><mo>,</mo><mi>ϖ</mi><mo>,</mo><msub><mi>T</mi><mi mathvariant=\"normal\">N</mi></msub></mrow></math>）均为搜索所测量或拟合的数值，每行下方的说明引自审核结论。点击任意表头可排序，使用上方按钮按族群或审核状态筛选，或在 3D 探索器中打开该天体的轨道。",
-
-    lf_all: "全部族群",
-    lf_etno: "Rubin 与孤儿短弧库 TNO / 半人马天体",
-    lf_stereo: "Euclid 海王星外天体条目",
-    lf_moon_bin: "木星卫星候选体",
-    lf_gold: "内太阳系条目",
-    lf_vol: "SPHEREx 光谱目标",
-    ledger_search_ph: "搜索编号、已知编号、审核状态或望远镜...",
-    th_obj: "天体编号 · 审核状态",
-    th_fac: "望远镜 / 弧段跨度",
-    th_coord: "ICRS (α, δ)",
-    th_mag: "星等 / H",
-    th_r: "r (AU)",
-    th_size: "尺度 / 谱带 · 审核说明",
-    th_3d: "3D 轨道",
-    fly_row_btn: "3D ↗",
-
-    hero_cta_gallery: "{{movie_targets}} 目标真实像素影像图库 ↗",
-    nav_hub: "门户首页",
-    nav_gallery: "影像图库",
-    toc_audit: "审核状态与真实像素",
-    stat_lbl_claims: "审核前宣称",
-    stat_lbl_disputed: "存疑（不计入）",
-    stat_lbl_catalogued: "证认为已编目天体",
-    stat_lbl_eliminated: "已剔除",
-    stat_lbl_moons: "木星卫星候选体",
-    stat_lbl_movies: "真实像素影像目标",
-    stat_lbl_frames: "真实档案帧",
-    stat_lbl_stars: "Gaia 三维恒星（探索器）",
-    audit_kicker: "独立审核 · 请先阅读",
-    audit_title: "独立审核保留、存疑与剔除的内容",
-    audit_p1: "搜索结束后，另一组智能体基于项目的只读副本，以独立的档案查询、轨道拟合与档案像素测量对每一项宣称重新评级。审核前提出的 <strong>{{claims}}</strong> 项太阳系宣称中，<strong>{{survivors}}</strong> 项作为待后续观测的候选体得以保留（其中 {{per_object}} 项逐目标评级，{{per_claim}} 项通过群组存在性检验评级；{{verified}} 项评为已核实，{{plausible}} 项评为可信）。<strong>{{catalogued}}</strong> 项被证认为已编目天体，<strong>{{eliminated}}</strong> 项被剔除，<strong>{{disputed}}</strong> 项仍然存疑且不计入。所有保留天体均为候选体，尚待小行星中心给予编号并获得独立回收观测。",
-    audit_p2: "<strong>对本页早期版本的更正。</strong><code>EUCLID_EES149_GOLD_18</code>（论文编号 EUC-G18）曾在本页被描述为直径约百米的近地小行星，实为已编目主带小行星 <strong>2019 UM31</strong>（a = 2.60 au，e = 0.31，i = 7.05°，H = 19.3）；其 2019 年小行星中心天体测量数据与 Euclid 探测的联合拟合证实二者为同一天体。它从来不是近地天体，现与 Rubin 回收对照 <strong>2021 QB98</strong> 一同作为 Euclid VIS 回收对照保留。孤儿短弧库连接 <code>W3A_ITF_010</code>（a = 224.9 au）、另一项 Rubin 宣称、四项木星卫星宣称中的一项以及三条 Euclid 深场记录已被剔除。2025 NU192 的宽距双星判定未获支持，2025 NW189 的判定存疑。弧段不足一天的小行星候选体没有确定的轨道、尺寸或光谱分类。对于两颗 Euclid × DECam 立体视差候选体，审核核实了 Euclid 探测并复现了 DECam 信号，但不支持此前引用的显著性与拟合轨道。在 SPHEREx 光谱中，审核确认 3I/ATLAS 的 CO 与 <sup>12</sup>CO<sub>2</sub> 辐射以及 29P 的 CO 辐射，不支持 <sup>13</sup>CO<sub>2</sub> 与水冰探测。",
-    audit_p3: "<strong>真实像素。</strong><a href=\"../movie_gallery/index.html\">影像图库</a>收录 <strong>{{movie_targets}}</strong> 个目标的档案图像序列：{{movie_discovery_targets}} 个发现目标与 {{movie_controls}} 个回收对照，共 <strong>{{movie_frames}}</strong> 帧真实档案图像，其中 {{movie_single}} 帧为单次曝光，合成帧 <strong>{{movie_synthetic}}</strong> 帧，覆盖缺口 {{movie_gaps}} 处。其中 {{movie_no_epoch}} 个目标（十一个第 I 组目标与 2021 QB98 对照）在档案中仅有静态深度叠加图，因此不提供探测历元像素。本页的动画与互动画布均为由实测天体测量坐标驱动的示意图，不含档案像素；图 7、9、10、11 与 13 取自经审核的论文稿。",
-    audit_link_gallery: "{{movie_targets}} 目标影像图库",
-    audit_link_ms: "经审核的论文稿 (PDF)",
-    audit_link_verdicts: "审核结论台账 (JSON)",
-    hg_y1_t: "{{group1_tnos}} 颗 TNO 候选体",
-    hg_y2_t: "{{euclid_tnos}} 颗 Euclid TNO 候选体",
-    hg_y3_t: "{{asteroids}} 颗小行星候选体",
-    hg_y4_t: "3I/ATLAS 与 29P/SW1",
-    realpix_note: "<strong>真实档案像素。</strong>单次曝光、静态参考图以及（在档案提供时的）差分图均收录于影像图库：<a href=\"../movie_gallery/index.html?group=group1\">第 I 组（Rubin 与 DECam）</a>、<a href=\"../movie_gallery/index.html?group=group2\">第 II 组（Euclid 海王星外天体候选体）</a>、<a href=\"../movie_gallery/index.html?group=group5\">第 V 组（Euclid 小行星候选体）</a>、<a href=\"../movie_gallery/index.html?group=galactic\">银河系恒星</a>以及<a href=\"../movie_gallery/index.html?group=controls\">两个回收对照</a>。",
-    s6g_p3: "同一组档案联合还分离出 {{movie_galactic}} 颗低于 Gaia 探测极限的暗弱高自行恒星：一颗白矮星候选体、两颗晚 M 或早 L 型矮星候选体、十七颗超冷矮星候选体与五颗晚 M 型矮星候选体。独立审核核实了上述统计、自行的真实性以及九角秒内不存在 Gaia DR3 对应体；对所引用的自行显著性以及“全部此前未编目”的说法表示存疑。全部 {{movie_galactic}} 颗恒星的 Euclid、Legacy Surveys 与 Rubin 档案切片见<a href=\"../movie_gallery/index.html?group=galactic\">影像图库的银河系部分</a>。",
-    la_all: "全部状态",
-    la_survivor: "审核保留",
-    la_disputed: "存疑 / 不计入",
-    la_known: "已知天体 / 回收对照",
-    la_volatile: "挥发物光谱目标",
-    st_survivor: "审核保留",
-    st_disputed: "存疑 / 不计入",
-    st_control: "已知天体 / 回收对照",
-    st_catalogued: "已知 / 已编目",
-    st_volatile: "挥发物光谱",
-    vd_verified: "已核实",
-    vd_plausible: "可信 · 待后续观测",
-    vd_disputed: "存疑或表述过度",
-    vd_invalid: "宣称不成立或无依据",
-    gl_object: "逐目标评级",
-    gl_claim: "经群组宣称评级",
-    orbit_open_tip: "独立审核不认可该行所列轨道",
-    ledger_summary_fmt: "当前显示 {shown} / {total} 行 · {{ledger_survivors}} 项审核保留 · {{ledger_disputed}} 项存疑（不计入） · {{ledger_known}} 项已知天体或回收对照 · {{ledger_volatile}} 个光谱目标",
-    ledger_legend: "<strong>†</strong> 轨道未确立：独立审核将该行所列轨道根数评为存疑或无依据；对于不足一天的弧段，尺寸同样无法确定。其余条目的尺寸基于假定反照率。另有 {{eliminated}} 项宣称被审核剔除（{{eliminated_list}}），已从星表中移除，故无对应行。",
-    footer_hub: "门户首页",
-    footer_gallery: "{{movie_targets}} 目标影像图库",
-    footer_left:
-      "数据致谢：ESA Euclid DR1-Foundation (MPC 273, NASA/IPAC IRSA)、Vera C. Rubin 天文台 Data Preview 2 (MPC X05)、NASA SPHEREx DR1+QR3、NOIRLab CTIO DECam (MPC W84)、ESO ALMA 及 JPL Horizons DE441。",
-    footer_cta: "打开 3D 太阳系探索器 ↗",
-
-    cv_loupe_title: "10× 像素切片放大镜",
-    cv_diff_on: "差分图像减除已开启（静态背景星场已抵消）",
-    cv_sky_view: "天球切平面星场视图（Gaia DR3 参考系）",
-    cv_helio_view: "日心立体三角测量几何俯视图",
-    cv_epipolar: "精确 L2 → W84 核线方向 (Δ⊥ = 0.00″)",
-    cv_sun: "太阳",
-    cv_earth_w84: "地球 (智利 CTIO W84)",
-    cv_euclid_273: "Euclid @ 日地 L2 (273)",
-    cv_observer: "当前虚拟观测站",
-    cv_decam_note: "DECam 960 秒 r+i 对应体（可信候选）",
-    cv_if_matched: "若匹配成立"
   }
 };
 
 /* ==========================================================================
-   2. Hypergraph Node Inspector Bilingual Metadata
+   2. Hypergraph Node Inspector Metadata
    ========================================================================== */
 const HYPERGRAPH_DETAILS = {
   n_mgdb: {
     en: {
       title: "MethodGraphVectorDB — Literature Failure-Mode Decomposition (30 Papers, 79 Nodes, 384 Edges)",
       desc: "Hybrid SQLite property graph and 48-dimensional SVD dense index mapping twelve survey failure modes—intra-night tracklet drop-out beyond 50 AU, difference-kernel losses in g/z passbands, Euclid 0x10 streak clipping, and SPHEREx bit-19 outlier masking—onto exact cross-archive mathematical remedies.",
-      fly: { category: "discoveries" }
-    },
-    zh: {
-      title: "MethodGraphVectorDB — 文献失效模式拆解图谱（30 篇论文，79 个节点，384 条有向边）",
-      desc: "混合 SQLite 属性图与 48 维稠密奇异值向量索引，将 50 AU 外夜内短弧漏检、g/z 波段差分核损失、Euclid 0x10 亮条纹误裁及 SPHEREx bit-19 运动源屏蔽等十二类失效模式精确映射至跨档案算子。",
       fly: { category: "discoveries" }
     }
   },
@@ -662,22 +347,12 @@ const HYPERGRAPH_DETAILS = {
       title: "Vera C. Rubin Observatory DP2 Engine — C Double-Cone BK Sniper & Hybrid Source Union",
       desc: "GIL-free -O3 C Bernstein–Khushalani range-rate scanner operating on the union of unlinked dp2.DiaSource and orphan dp2.Source detections, coupled to REBOUND IAS15/WHFast barycentric orbit determination with JPL DE441 planetary ephemerides.",
       fly: { focus: "DELTA_003" }
-    },
-    zh: {
-      title: "Vera C. Rubin DP2 引擎 — C 语言双锥盲搜核与混合源并集",
-      desc: "无全局锁 -O3 C 语言 Bernstein–Khushalani 距离-径向速度扫描器，直接作用于未关联 dp2.DiaSource 与孤立 dp2.Source 并集，并耦合基于 JPL DE441 星历的 REBOUND IAS15/WHFast 质心轨道解算。",
-      fly: { focus: "DELTA_003" }
     }
   },
   n_euclid: {
     en: {
       title: "ESA Euclid DR1 @ Sun–Earth L2 — Raw Silicon VIS Streak & Slow-Mover Engine",
       desc: "Streams 0.10 arcsec/pixel VIS quadrants and multi-epoch NISP Y_E/J_E/H_E catalogs in memory, resolves mirrored half-plane WCS headers, and preserves 0x10-flagged asteroid cores while suppressing single-pixel L2 cosmic rays.",
-      fly: { focus: "EUCLID_EES149_GOLD_01" }
-    },
-    zh: {
-      title: "ESA Euclid DR1 @ 日地 L2 — 原始硅像素条纹与慢速天体引擎",
-      desc: "以内存流式方式读取 0.10 角秒/像素 VIS 象限与多历元 NISP 近红外星表，解析镜像焦平面 WCS 投影，保护被标记为 0x10 的明亮小行星光学核心并滤除单像素 L2 宇宙线。",
       fly: { focus: "EUCLID_EES149_GOLD_01" }
     }
   },
@@ -686,22 +361,12 @@ const HYPERGRAPH_DETAILS = {
       title: "Multi-Observatory Artificial-Satellite & Static-Sky Veto Engine",
       desc: "Propagates 11,899 live CelesTrak TLE constellations (Starlink, OneWeb, GEO) plus 16 Sun–Earth L2 probes via SGP4, verifies blank ForcedSourceOnDiaObject baselines, and cross-checks Gaia DR3, CatWISE2020, ASKAP 888 MHz, and 2000–2024 DECam/CFHT/PS1 archives.",
       fly: { category: "discoveries" }
-    },
-    zh: {
-      title: "多波段人造航天器与静态天空否决引擎",
-      desc: "通过 SGP4 实时传播 11,899 颗 CelesTrak 星座卫星（含 Starlink、OneWeb）及 16 艘 L2 深空探测器，检验非过境历元强迫测光零基线，并交叉核验 Gaia DR3、CatWISE2020、ASKAP 888 MHz 与 25 年历史光学档案。",
-      fly: { category: "discoveries" }
     }
   },
   n_spherex: {
     en: {
       title: "NASA SPHEREx Pure-RAM S3 Range Engine & ESO ALMA Submillimeter Radiometry",
       desc: "Extracts 0.75–5.00 µm linear-variable-filter spectrophotometry directly from AWS S3 byte ranges, retaining bit-19 transient cometary/asteroid flux while rejecting bit-21 static blends under exact LEO spacecraft parallax, paired with ALMA Band 6/7 continuum sizing.",
-      fly: { focus: "ATLAS_3I" }
-    },
-    zh: {
-      title: "NASA SPHEREx 纯内存流式引擎与 ESO ALMA 亚毫米波热辐射测量",
-      desc: "通过 AWS S3 字节范围请求直接提取 0.75–5.00 µm 分光测光，在近地轨道卫星视差校正下保留 bit-19 运动目标通量并剔除 bit-21 背景恒星混叠，联合 ALMA Band 6/7 热连续谱定标物理尺寸。",
       fly: { focus: "ATLAS_3I" }
     }
   },
@@ -710,22 +375,12 @@ const HYPERGRAPH_DETAILS = {
       title: "Synthesis Hyperedge 1 — Full-Season Quadrature & Galactic Blind-Spot Locker",
       desc: "Extends DELTA_003 from 54.10 d to 124.83 d across intersecting Rubin detectors and isolates the Galactic-plane candidate EPS_002 inside dense Milky Way crowding at b = +7.1°. The independent audit grades both objects as plausible and in need of follow-up.",
       fly: { focus: "DELTA_003" }
-    },
-    zh: {
-      title: "合成超边 1 — 全季东大距轨道坍缩与银道面盲区锁定器",
-      desc: "将 DELTA_003 的观测弧从 54.10 天延伸至 124.83 天，并在 b = +7.1° 银道面密集星场中分离出候选体 EPS_002。独立审核将二者均评为“可信、尚待后续观测”。",
-      fly: { focus: "DELTA_003" }
     }
   },
   he_stereo: {
     en: {
       title: "Synthesis Hyperedge 2 — Simultaneous 1.685M-km L2 × Chile Triangulator",
       desc: "Pairs simultaneous 2023-12-31 Euclid L2 (MPC 273) and CTIO Blanco 4-m DECam (MPC W84) exposures across a 1,685,391 km baseline. For EUC0005 and EUC0002 the audit verifies the Euclid detections and reproduces the DECam signals; the pair is graded plausible, and the quoted significances and fitted orbits are not supported.",
-      fly: { focus: "EUC0005" }
-    },
-    zh: {
-      title: "合成超边 2 — 168.5 万公里 L2 × 智利同步立体三角仪",
-      desc: "联合 2023-12-31 Euclid L2 (273) 与智利 CTIO 4 米 DECam (W84) 的同步曝光，基线长 1,685,391 km。对于 EUC0005 与 EUC0002，独立审核核实了 Euclid 探测并复现了 DECam 信号；二者被评为可信候选体，此前引用的显著性与拟合轨道未获支持。",
       fly: { focus: "EUC0005" }
     }
   },
@@ -734,22 +389,12 @@ const HYPERGRAPH_DETAILS = {
       title: "Synthesis Hyperedge 3 — Multi-ROS Sun–Earth L2 Streak & Slow-Mover Linker",
       desc: "Links the Euclid Ecliptic Survey fields and the deep fields under L2 light-time geometry. After the audit, {{asteroids}} short-arc asteroid candidates and {{euclid_tnos}} Euclid trans-Neptunian candidates survive; one linked track is the catalogued asteroid 2019 UM31, now the Euclid recovery control.",
       fly: { focus: "EUCLID_EES149_GOLD_18" }
-    },
-    zh: {
-      title: "合成超边 3 — 多访次日地 L2 条纹与慢速运动源连接器",
-      desc: "在 L2 光行时几何下连接 Euclid 黄道巡天视场与深场。经独立审核，保留 {{asteroids}} 颗短弧小行星候选体与 {{euclid_tnos}} 颗 Euclid 海王星外天体候选体；其中一条被连接的轨迹实为已编目小行星 2019 UM31，现作为 Euclid 回收对照。",
-      fly: { focus: "EUCLID_EES149_GOLD_18" }
     }
   },
   he_spherex: {
     en: {
       title: "Synthesis Hyperedge 4 — Transient-Preserving Coma Spectroscopy",
       desc: "Combines clean SPHEREx exposures of moving targets with archival thermal data. The audit confirms CO and 12CO2 emission in interstellar comet 3I/ATLAS and CO emission in Centaur 29P/Schwassmann–Wachmann 1; the 13CO2 and water-ice detections claimed earlier are not supported.",
-      fly: { focus: "SW1_29P" }
-    },
-    zh: {
-      title: "合成超边 4 — 瞬变保留彗发分光",
-      desc: "将运动目标的洁净 SPHEREx 曝光与档案热辐射数据相结合。独立审核确认星际彗星 3I/ATLAS 的 CO 与 12CO2 辐射以及半人马天体 29P/Schwassmann–Wachmann 1 的 CO 辐射；此前宣称的 13CO2 与水冰探测未获支持。",
       fly: { focus: "SW1_29P" }
     }
   },
@@ -758,22 +403,12 @@ const HYPERGRAPH_DETAILS = {
       title: "Audited Yield — {{group1_tnos}} Rubin and Tracklet-Archive TNO Candidates",
       desc: "{{group1_tnos}} trans-Neptunian candidates from Rubin DP2 and the Minor Planet Center tracklet archive survive the audit, led by DELTA_003 (fitted a = 156.6 AU, q = 35.78 AU, i = 3.16°), with DELTA_004, DELTA_009, DELTA_014, EPS_002, and EPS_007. All are candidates that await a Minor Planet Center designation.",
       fly: { focus: "DELTA_003" }
-    },
-    zh: {
-      title: "审核后产出 — {{group1_tnos}} 颗 Rubin 与孤儿短弧库 TNO 候选体",
-      desc: "来自 Rubin DP2 与小行星中心孤儿短弧库的 {{group1_tnos}} 颗海王星外天体候选体通过独立审核，以 DELTA_003（拟合 a = 156.6 AU，q = 35.78 AU，i = 3.16°）为首，另有 DELTA_004、DELTA_009、DELTA_014、EPS_002 与 EPS_007 等。全部为尚待小行星中心编号的候选体。",
-      fly: { focus: "DELTA_003" }
     }
   },
   y_stereo: {
     en: {
       title: "Audited Yield — {{euclid_tnos}} Euclid Trans-Neptunian Candidates",
       desc: "{{euclid_tnos}} Euclid slow movers survive the audit as trans-Neptunian candidates: two with single-night DECam stereo counterparts (EUC0005, EUC0002), six in the COSMOS field (three graded verified), two in the ecliptic survey with unconstrained distances, and three in the deep fields. Fitted semimajor axes and eccentricities are not supported for any of them.",
-      fly: { focus: "EUC0005" }
-    },
-    zh: {
-      title: "审核后产出 — {{euclid_tnos}} 颗 Euclid 海王星外天体候选体",
-      desc: "{{euclid_tnos}} 颗 Euclid 慢速运动源作为海王星外天体候选体通过独立审核：两颗具有单夜 DECam 立体视差对应体（EUC0005、EUC0002），六颗位于 COSMOS 场（其中三颗评为已核实），两颗位于黄道巡天且距离尚无约束，三颗位于深场。所有候选体的拟合半长轴与偏心率均未获支持。",
       fly: { focus: "EUC0005" }
     }
   },
@@ -782,22 +417,12 @@ const HYPERGRAPH_DETAILS = {
       title: "Audited Yield — {{asteroids}} Short-Arc Asteroid Candidates and the 2019 UM31 Control",
       desc: "{{asteroids}} Euclid asteroid candidates survive the audit: {{ees_asteroids}} ecliptic-field tracks seen in both VIS and NISP, two Jupiter-Trojan candidates and three outer-main-belt candidates in COSMOS, and seven deep-field tracks. Arcs shorter than a day give no orbit, size, or taxonomic class. EUCLID_EES149_GOLD_18 is the catalogued main-belt asteroid 2019 UM31 (a = 2.60 au) and serves as the recovery control.",
       fly: { focus: "EUCLID_EES149_GOLD_18" }
-    },
-    zh: {
-      title: "审核后产出 — {{asteroids}} 颗短弧小行星候选体与 2019 UM31 回收对照",
-      desc: "{{asteroids}} 颗 Euclid 小行星候选体通过独立审核：{{ees_asteroids}} 条同时出现在 VIS 与 NISP 中的黄道场轨迹、COSMOS 场中的两颗木星特洛伊候选体与三颗外主带候选体，以及七条深场轨迹。不足一天的弧段无法确定轨道、尺寸或光谱分类。EUCLID_EES149_GOLD_18 实为已编目主带小行星 2019 UM31（a = 2.60 au），现作为回收对照。",
-      fly: { focus: "EUCLID_EES149_GOLD_18" }
     }
   },
   y_vol: {
     en: {
       title: "Audited Yield — Confirmed CO and CO2 Emission in 3I/ATLAS and CO in 29P/SW1",
       desc: "SPHEREx 0.75–5.00 µm coma spectra of interstellar comet 3I/ATLAS and active Centaur 29P/Schwassmann–Wachmann 1. The audit verifies CO (4.67 µm) and 12CO2 (4.26 µm) emission in 3I/ATLAS and CO emission in 29P, and it does not support the 13CO2 and water detections.",
-      fly: { focus: "ATLAS_3I" }
-    },
-    zh: {
-      title: "审核后产出 — 3I/ATLAS 的 CO 与 CO2 辐射及 29P/SW1 的 CO 辐射获确认",
-      desc: "星际彗星 3I/ATLAS 与活跃半人马天体 29P/Schwassmann–Wachmann 1 的 SPHEREx 0.75–5.00 µm 彗发光谱。独立审核核实了 3I/ATLAS 的 CO（4.67 µm）与 12CO2（4.26 µm）辐射以及 29P 的 CO 辐射，不支持 13CO2 与水的探测。",
       fly: { focus: "ATLAS_3I" }
     }
   }
@@ -819,9 +444,7 @@ const BLINK_TARGETS = {
     seed: 303,
     isStreak: false,
     note_en: "51.15 AU eTNO candidate · 12 hits / 124.83 d",
-    note_zh: "51.15 AU 极端 TNO 候选体 · 12 次检出 / 124.83 天弧段",
     fly_en: "Fly to DELTA_003 in 3D ↗",
-    fly_zh: "3D 飞抵 DELTA_003 ↗",
     fullCurve: [
       [349.09021, -7.79358],
       [349.07278, -7.80261],
@@ -852,9 +475,7 @@ const BLINK_TARGETS = {
     seed: 502,
     isStreak: false,
     note_en: "50.86 AU · TNO candidate in the Galactic plane",
-    note_zh: "50.86 AU · 银道面海王星外天体候选体",
     fly_en: "Fly to EPS_002 in 3D ↗",
-    fly_zh: "3D 飞抵 EPS_002 ↗",
     fullCurve: [
       [264.46750, -18.76660],
       [264.32809, -18.76216],
@@ -884,9 +505,7 @@ const BLINK_TARGETS = {
     isStreak: true,
     paDeg: 57.4,
     note_en: "Known main-belt asteroid 2019 UM31 · recovery control · 54.5″/hr trail",
-    note_zh: "已编目主带小行星 2019 UM31 · 回收对照 · 54.5″/h 拖尾",
     fly_en: "Fly to 2019 UM31 in 3D ↗",
-    fly_zh: "3D 飞抵 2019 UM31 ↗",
     fullCurve: [
       [9.7556205, 5.0729656],
       [9.7597357, 5.0755840],
@@ -922,7 +541,6 @@ const STEREO_TARGETS = {
     eMin: 0.164,
     aMin: 42.71,
     fly_en: "Fly to EUC0005 in 3D ↗",
-    fly_zh: "3D 飞抵 EUC0005 ↗",
     seed: 905
   },
   EUC0002: {
@@ -944,7 +562,6 @@ const STEREO_TARGETS = {
     eMin: 0.110,
     aMin: 38.75,
     fly_en: "Fly to EUC0002 in 3D ↗",
-    fly_zh: "3D 飞抵 EUC0002 ↗",
     seed: 902
   }
 };
@@ -6406,12 +6023,11 @@ function buildExplorerUrl(params = {}) {
       query.set(k, String(v));
     }
   });
-  query.set("lang", currentLang);
-  // "http://localhost:8765" takes "/?query"; "../eyes_3d/index.html" takes "?query". Trailing
-  // slashes are stripped first, so neither form can produce a double slash.
   const cleanBase = EYES_3D_BASE_URL.replace(/\/+$/, "");
+  const qStr = query.toString();
+  if (!qStr) return cleanBase.endsWith(".html") ? cleanBase : `${cleanBase}/`;
   const sep = cleanBase.endsWith(".html") ? "?" : "/?";
-  return `${cleanBase}${sep}${query.toString()}`;
+  return `${cleanBase}${sep}${qStr}`;
 }
 
 function buildPlaygroundUrl(modelId = "") {
@@ -6420,8 +6036,8 @@ function buildPlaygroundUrl(modelId = "") {
     : "../eyes_3d/studio.html";
   const query = new URLSearchParams();
   if (modelId && modelId !== "1") query.set("model", modelId);
-  query.set("lang", currentLang);
-  return `${base}?${query.toString()}`;
+  const qStr = query.toString();
+  return qStr ? `${base}?${qStr}` : base;
 }
 
 function syncAllExplorerLinks() {
@@ -6502,34 +6118,30 @@ function registerLocale(code, bundle) {
   I18N[code] = { ...I18N.en, ...bundle };
 }
 
-function setLanguage(langCode, updateHistory = true) {
-  const next = I18N[langCode] ? langCode : "en";
+function setLanguage(_langCode, updateHistory = true) {
+  const next = "en";
   currentLang = next;
-  document.documentElement.lang = next === "zh" ? "zh-CN" : next;
+  document.documentElement.lang = "en";
   document.title = t("doc_title");
-
-  document.querySelectorAll("[data-lang-switch]").forEach((btn) => {
-    btn.classList.toggle("active", btn.getAttribute("data-lang-switch") === next);
-  });
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
-    if (key && I18N[next][key] !== undefined) {
-      el.textContent = fillAuditTokens(I18N[next][key], next);
+    if (key && I18N.en[key] !== undefined) {
+      el.textContent = fillAuditTokens(I18N.en[key], "en");
     }
   });
 
   document.querySelectorAll("[data-i18n-html]").forEach((el) => {
     const key = el.getAttribute("data-i18n-html");
-    if (key && I18N[next][key] !== undefined) {
-      el.innerHTML = fillAuditTokens(I18N[next][key], next);
+    if (key && I18N.en[key] !== undefined) {
+      el.innerHTML = fillAuditTokens(I18N.en[key], "en");
     }
   });
 
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
     const key = el.getAttribute("data-i18n-placeholder");
-    if (key && I18N[next][key] !== undefined) {
-      el.setAttribute("placeholder", fillAuditTokens(I18N[next][key], next));
+    if (key && I18N.en[key] !== undefined) {
+      el.setAttribute("placeholder", fillAuditTokens(I18N.en[key], "en"));
     }
   });
 
@@ -6545,11 +6157,7 @@ function setLanguage(langCode, updateHistory = true) {
 
   if (updateHistory && window.history && window.history.replaceState) {
     const url = new URL(window.location.href);
-    if (next === "en") {
-      url.searchParams.delete("lang");
-    } else {
-      url.searchParams.set("lang", next);
-    }
+    url.searchParams.delete("lang");
     window.history.replaceState({}, "", url.toString());
   }
 }
@@ -6646,12 +6254,12 @@ function updateBlinkButtonLabels() {
   const flyBtn = document.getElementById("blink-fly-link");
   if (flyBtn && cfg) {
     flyBtn.setAttribute("data-fly-focus", cfg.focusId);
-    flyBtn.textContent = currentLang === "zh" ? cfg.fly_zh : cfg.fly_en;
+    flyBtn.textContent = cfg.fly_en;
     flyBtn.href = buildExplorerUrl({ focus: cfg.focusId });
   }
   document.querySelectorAll("[data-blink-epoch]").forEach((btn) => {
     const idx = Number(btn.getAttribute("data-blink-epoch"));
-    btn.textContent = currentLang === "zh" ? `历元 ${idx + 1}` : `Epoch ${idx + 1}`;
+    btn.textContent = `Epoch ${idx + 1}`;
     btn.classList.toggle("active", idx === blinkEpochIdx);
   });
 }
@@ -6915,7 +6523,7 @@ function drawBlinkCanvas() {
   if (elUtc) elUtc.textContent = `${ep.utc} (MJD ${ep.mjd.toFixed(4)})`;
   if (elCoord) elCoord.textContent = `${ep.ra.toFixed(5)}°, ${ep.dec >= 0 ? "+" : ""}${ep.dec.toFixed(5)}°`;
   if (elMag) elMag.textContent = `${ep.mag} · SNR ${ep.snr.toFixed(1)}`;
-  if (elNote) elNote.textContent = currentLang === "zh" ? cfg.note_zh : cfg.note_en;
+  if (elNote) elNote.textContent = cfg.note_en;
 
   const scrubber = document.getElementById("blink-epoch-slider");
   if (scrubber) scrubber.value = String(blinkEpochIdx);
@@ -7027,7 +6635,7 @@ function updateStereoButtonLabels() {
   const flyBtn = document.getElementById("stereo-fly-link");
   if (flyBtn && cfg) {
     flyBtn.setAttribute("data-fly-focus", cfg.focusId);
-    flyBtn.textContent = currentLang === "zh" ? cfg.fly_zh : cfg.fly_en;
+    flyBtn.textContent = cfg.fly_en;
     flyBtn.href = buildExplorerUrl({ focus: cfg.focusId });
   }
 }
@@ -7499,7 +7107,7 @@ function renderLedgerTable() {
 
   const rowsHtml = filtered
     .map((r) => {
-      const note = (currentLang === "zh" ? r.note_zh : r.note_en) || "";
+      const note = r.note_en || "";
       const flyUrl = buildExplorerUrl({ focus: r.focusId });
       const status = AUDIT_STATUS_META[r.audit_status] || AUDIT_STATUS_META.DISPUTED_CLAIM;
       const orbitOpen = r.orbit_audit === "DISPUTED_OR_OVERCLAIMED" || r.orbit_audit === "INVALID_OR_UNSUPPORTED";
@@ -7704,18 +7312,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initLightboxAndGifs();
   initScrollSpy();
 
-  // Language switcher buttons
-  document.querySelectorAll("[data-lang-switch]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      setLanguage(btn.getAttribute("data-lang-switch"), true);
-    });
-  });
-
-  // Default strictly to 100% pure English ("en"), honoring ?lang=zh or ?lang=en
-  const urlParams = new URLSearchParams(window.location.search);
-  const reqLang = (urlParams.get("lang") || "en").toLowerCase();
-  const initialLang = I18N[reqLang] ? reqLang : "en";
-  setLanguage(initialLang, false);
+  setLanguage("en", false);
 
   window.addEventListener("resize", () => {
     drawBlinkCanvas();

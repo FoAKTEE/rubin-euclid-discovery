@@ -129,9 +129,12 @@ export class EarthConstellationManager {
       this.metaItems = meta.items || [];
       this.families = meta.families || [];
       this.operators = meta.operators || [];
+      this.familyCounts = new Int32Array(12);
 
       for (let i = 0; i < this.metaItems.length; i++) {
         this.byNorad.set(String(this.metaItems[i][0]), i);
+        const fId = Math.min(11, Math.max(0, Number(this.metaItems[i][3]) || 0));
+        this.familyCounts[fId]++;
       }
 
       this._buildGPUSwarmPoints();
@@ -384,6 +387,11 @@ export class EarthConstellationManager {
     if (this.focusedSatIdx >= 0 && this.focused3DHolder.visible) {
       this.computeSatLocalPosition(this.focusedSatIdx, simJD, _tmpLocalPos);
       this.focused3DHolder.position.copy(_tmpLocalPos);
+      if (this.focusedOrbitLine) {
+        const posAttr = this.focusedOrbitLine.geometry.attributes.position;
+        this.fillSatOsculatingOrbit(this.focusedSatIdx, simJD, posAttr.array);
+        posAttr.needsUpdate = true;
+      }
       this.hostGroup.updateWorldMatrix(true, false);
       this.focused3DHolder.lookAt(this.earthRt.worldPos);
       this.focused3DHolder.rotateZ(0.65);
@@ -391,6 +399,16 @@ export class EarthConstellationManager {
         this.focused3DHolder.getWorldPosition(_tmpWorldPos);
         this.focusedEnhanced.sunDirWorldUniform.value.copy(_tmpWorldPos).negate().normalize();
       }
+    }
+    if (this.selectedOrbitLine?.visible && this._selectedOrbitSatIdx >= 0) {
+      const posAttr = this.selectedOrbitLine.geometry.attributes.position;
+      this.fillSatOsculatingOrbit(this._selectedOrbitSatIdx, simJD, posAttr.array);
+      posAttr.needsUpdate = true;
+    }
+    if (this.hoveredOrbitLine?.visible && this._hoveredOrbitSatIdx >= 0) {
+      const posAttr = this.hoveredOrbitLine.geometry.attributes.position;
+      this.fillSatOsculatingOrbit(this._hoveredOrbitSatIdx, simJD, posAttr.array);
+      posAttr.needsUpdate = true;
     }
   }
 
@@ -427,16 +445,42 @@ export class EarthConstellationManager {
     });
   }
 
-  pickNearestAtScreenXYAsync(clientX, clientY, camera, simJD) {
-    if (!this.loaded || !this.rootGroup.visible || !this.earthRt) return Promise.resolve(null);
+  getActiveVisibleSatelliteCount() {
+    if (!this.loaded || !this.rootGroup.visible || !this.pointsMesh?.visible || !this.familyCounts) return 0;
+    let total = 0;
+    for (let f = 0; f < 12; f++) {
+      if ((this.familyMask >> f) & 1) total += this.familyCounts[f];
+    }
+    return total;
+  }
+
+  // Returns true when >= 50% of the projected satellite orbital zone around Earth is uncovered by satellite dots
+  isUncoveredAreaAtLeast50Pct(earthBodyPxRadius) {
+    const nVis = this.getActiveVisibleSatelliteCount();
+    if (nVis <= 0) return true;
+    const zoneArea = Math.PI * Math.pow(Math.max(1.0, earthBodyPxRadius * 1.35), 2);
+    const dotArea = Math.PI * 2.2 * 2.2;
+    const coveredExponent = (0.42 * nVis * dotArea) / zoneArea;
+    return coveredExponent <= Math.LN2;
+  }
+
+  pickNearestAtScreenXYAsync(clientX, clientY, camera, simJD, opts = {}) {
+    if (!this.loaded || !this.rootGroup.visible || !this.pointsMesh?.visible || !this.earthRt) {
+      return Promise.resolve(null);
+    }
     const distToEarth = camera.position.distanceTo(this.earthRt.worldPos);
     if (distToEarth > 0.35) return Promise.resolve(null);
     if (!this.worker || !this.workerReady) {
-      return Promise.resolve(this.pickNearestAtScreenXY(clientX, clientY, camera, simJD));
+      return Promise.resolve(this.pickNearestAtScreenXY(clientX, clientY, camera, simJD, opts));
     }
     this.hostGroup.updateWorldMatrix(true, false);
     _tmpVp.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
     _tmpMvp.multiplyMatrices(_tmpVp, this.hostGroup.matrixWorld);
+    _tmpWorldPos.copy(camera.position);
+    this.hostGroup.worldToLocal(_tmpWorldPos);
+    const cursorOnEarthDisk = Boolean(opts.cursorOnEarthDisk);
+    const maxDistPx = opts.maxDistPx || (cursorOnEarthDisk ? 7.5 : 13.0);
+
     return new Promise((resolve) => {
       const reqId = this._reqSeq++;
       this._pendingReqs.set(reqId, (msg) => {
@@ -452,27 +496,41 @@ export class EarthConstellationManager {
         simJD,
         familyMask: this.familyMask,
         mvpElements: Array.from(_tmpMvp.elements),
-        maxDistPx: 14.0
+        maxDistPx,
+        cursorOnEarthDisk,
+        camLocalX: _tmpWorldPos.x,
+        camLocalY: _tmpWorldPos.y,
+        camLocalZ: _tmpWorldPos.z,
+        earthR2: this.earthMeshR * this.earthMeshR
       });
     });
   }
 
-  pickNearestAtScreenXY(clientX, clientY, camera, simJD) {
-    if (!this.loaded || !this.rootGroup.visible || !this.earthRt) return null;
+  pickNearestAtScreenXY(clientX, clientY, camera, simJD, opts = {}) {
+    if (!this.loaded || !this.rootGroup.visible || !this.pointsMesh?.visible || !this.earthRt) return null;
     const distToEarth = camera.position.distanceTo(this.earthRt.worldPos);
     if (distToEarth > 0.35) return null;
 
     this.hostGroup.updateWorldMatrix(true, false);
     const matWorld = this.hostGroup.matrixWorld;
+    _tmpWorldPos.copy(camera.position);
+    this.hostGroup.worldToLocal(_tmpWorldPos);
+    const camLX = _tmpWorldPos.x, camLY = _tmpWorldPos.y, camLZ = _tmpWorldPos.z;
+    const cursorOnEarthDisk = Boolean(opts.cursorOnEarthDisk);
+    const minDot = this.earthMeshR * this.earthMeshR;
     const w = window.innerWidth, h = window.innerHeight;
 
     let bestIdx = -1;
-    let bestPx = 12.0;
+    let bestPx = opts.maxDistPx || (cursorOnEarthDisk ? 7.5 : 12.0);
 
     for (let i = 0; i < this.count; i++) {
       const fam = Math.min(11, Math.max(0, Math.round(this.orbitData[i * 8 + 7])));
       if (((this.familyMask >> fam) & 1) === 0) continue;
       this.computeSatLocalPosition(i, simJD, _tmpLocalPos);
+      if (cursorOnEarthDisk && (_tmpLocalPos.x * camLX + _tmpLocalPos.y * camLY + _tmpLocalPos.z * camLZ < minDot)) {
+        continue;
+      }
+      _tmpProjV.copy(_tmpLocalPos).applyMatrix4(matWorld).project(camera);
       _tmpProjV.copy(_tmpLocalPos).applyMatrix4(matWorld).project(camera);
       if (_tmpProjV.z < -1.0 || _tmpProjV.z > 1.0) continue;
       const sx = (_tmpProjV.x * 0.5 + 0.5) * w;
@@ -500,7 +558,6 @@ export class EarthConstellationManager {
 
     const famDef = this.families[famId] || {
       name_en: "Active Earth Satellite",
-      name_zh: "地球在轨人造卫星",
       color: CATEGORY_COLORS.spacecraft,
       model_id: "sc_starlink"
     };
@@ -594,7 +651,6 @@ export class EarthConstellationManager {
       parent_id: "EARTH",
       name: `${name} (${catBadgeStr})`,
       name_en: `${name} (${catBadgeStr})`,
-      name_zh: `${name} (${catBadgeStr})`,
       category: "starlink_sats",
       secondary_categories: ["spacecraft"],
       visual_type: "spacecraft_constellation",
@@ -614,15 +670,12 @@ export class EarthConstellationManager {
       period_yr: periodMin / 525960.0,
       diameter_km: famId === 9 ? 0.065 : (famId <= 1 ? 0.018 : 0.008),
       diameter_label_en: `${perigeeKm.toLocaleString()} × ${apogeeKm.toLocaleString()} km alt (${periodMin.toFixed(1)} min)`,
-      diameter_label_zh: `近地点 ${perigeeKm.toLocaleString()} × 远地点 ${apogeeKm.toLocaleString()} km (周期 ${periodMin.toFixed(1)} 分钟)`,
       H_mag: null,
       color: SAT_FAMILY_COLORS_HEX[famId] || CATEGORY_COLORS.spacecraft,
       science: {
         telescopes: [operatorName, catBadgeStr, cospar || "LEO/GEO", "CelesTrak + McDowell GCAT"],
         headline_en: `${operatorName} · ${famDef.name_en} · ${perigeeKm}×${apogeeKm} km · i = ${incDeg}°`,
-        headline_zh: `${operatorName} · ${famDef.name_zh} · 轨道高度 ${perigeeKm}×${apogeeKm} km · 倾角 ${incDeg}°`,
         summary_en: `In-orbit spacecraft ${name} (${catBadgeStr}, Operator: ${operatorName}) propagated in 3D with J2 secular nodal regression around oblate Earth.`,
-        summary_zh: `在轨实时跟踪航天器 ${name}（${catBadgeStr}，运营方：${operatorName}），采用带地球扁率 J2 进动的三维轨道实时演化并绑定专属精细三维模型。`,
         metrics: {}
       }
     };
@@ -658,25 +711,13 @@ export class EarthConstellationManager {
       this.focusedOrbitLine.geometry.dispose();
       this.focusedOrbitLine.material.dispose();
     }
-    const pts = [];
     const steps = 384;
-    const pDays = satObj.period_days || 0.066;
-    const eccSat = Math.min(0.95, Math.max(0.0, satObj.e || 0.0));
-    const offSat = satIdx * 8;
-    const m0Sat = this.orbitData ? this.orbitData[offSat + 5] : 0.0;
-    const nSat = this.orbitData ? this.orbitData[offSat + 6] : (Math.PI * 2 / pDays);
-    const mNow = m0Sat + nSat * (simJD - this.refEpochJD);
-    const v = new THREE.Vector3();
-    for (let k = 0; k < steps; k++) {
-      // Periapsis-warped Eccentric Anomaly sampling so high-eccentricity Molniya/HEO perigees never polygonize!
-      const theta = (Math.PI * 2 * k) / steps;
-      const E = theta - 0.30 * eccSat * Math.sin(theta);
-      const Mtarget = E - eccSat * Math.sin(E);
-      const dM = Mtarget - (mNow % (Math.PI * 2));
-      this.computeSatLocalPosition(satIdx, simJD + dM / Math.max(1e-4, nSat), v);
-      pts.push(v.clone());
-    }
-    const orbGeo = new THREE.BufferGeometry().setFromPoints(pts);
+    const orbArr = new Float32Array(steps * 3);
+    this.fillSatOsculatingOrbit(satIdx, simJD, orbArr);
+    const orbGeo = new THREE.BufferGeometry();
+    const orbAttr = new THREE.BufferAttribute(orbArr, 3);
+    orbAttr.setUsage(THREE.DynamicDrawUsage);
+    orbGeo.setAttribute("position", orbAttr);
     const orbMat = new THREE.LineBasicMaterial({
       color: new THREE.Color(satObj.color || CATEGORY_COLORS.spacecraft),
       transparent: true,
@@ -684,6 +725,7 @@ export class EarthConstellationManager {
       depthWrite: false
     });
     this.focusedOrbitLine = new THREE.LineLoop(orbGeo, orbMat);
+    this.focusedOrbitLine.frustumCulled = false;
     this.hostGroup.add(this.focusedOrbitLine);
 
     const localNow = new THREE.Vector3();
@@ -709,5 +751,100 @@ export class EarthConstellationManager {
       this.focusedOrbitLine.material.dispose();
       this.focusedOrbitLine = null;
     }
+  }
+
+  fillSatOsculatingOrbit(satIdx, simJD, outArr) {
+    if (!this.orbitData || satIdx < 0 || satIdx >= this.count) return;
+    const off = satIdx * 8;
+    const aKm = this.orbitData[off + 0];
+    const ecc = this.orbitData[off + 1];
+    const inc = this.orbitData[off + 2];
+    const raan0 = this.orbitData[off + 3];
+    const argp0 = this.orbitData[off + 4];
+    const m0 = this.orbitData[off + 5];
+    const nRadDay = this.orbitData[off + 6];
+
+    const dtDays = simJD - this.refEpochJD;
+    const ratio = 6378.137 / Math.max(6450.0, aKm);
+    const j2Rate = 9.964 * Math.pow(ratio, 3.5) * DEG2RAD;
+    const cosI = Math.cos(inc), sinI = Math.sin(inc);
+    const raan = raan0 - j2Rate * cosI * dtDays;
+    const argp = argp0 + 0.5 * j2Rate * (5.0 * cosI * cosI - 1.0) * dtDays;
+
+    let M = (m0 + nRadDay * dtDays) % (Math.PI * 2);
+    if (M < 0) M += Math.PI * 2;
+    let Enow = ecc < 0.75 ? (M + ecc * Math.sin(M)) : M;
+    for (let it = 0; it < 6; it++) {
+      Enow -= (Enow - ecc * Math.sin(Enow) - M) / Math.max(0.015, 1.0 - ecc * Math.cos(Enow));
+    }
+
+    const bFac = Math.sqrt(Math.max(0, 1.0 - ecc * ecc));
+    const cosO = Math.cos(raan), sinO = Math.sin(raan);
+    const cosW = Math.cos(argp), sinW = Math.sin(argp);
+    const Px = cosO * cosW - sinO * sinW * cosI;
+    const Qx = -cosO * sinW - sinO * cosW * cosI;
+    const Py = sinW * sinI;
+    const Qy = cosW * sinI;
+    const Pz = -(sinO * cosW + cosO * sinW * cosI);
+    const Qz = -(-sinO * sinW + cosO * cosW * cosI);
+
+    const steps = (outArr.length / 3) | 0;
+    for (let k = 0; k < steps; k++) {
+      const phi = (Math.PI * 2 * k) / steps - Math.PI; // phi === 0 at k === steps / 2 -> E === Enow
+      const E = Enow + phi - 0.88 * Math.sin(phi);
+      const xOrb = aKm * (Math.cos(E) - ecc);
+      const yOrb = aKm * bFac * Math.sin(E);
+      const rKm = Math.max(6460.0, Math.hypot(xOrb, yOrb));
+      const px = Px * xOrb + Qx * yOrb;
+      const py = Py * xOrb + Qy * yOrb;
+      const pz = Pz * xOrb + Qz * yOrb;
+      const len = Math.hypot(px, py, pz) || 1.0;
+      const rScene = mapGeocentricKmToSceneRadius(rKm, this.earthMeshR);
+      const scale = rScene / len;
+      outArr[k * 3 + 0] = px * scale;
+      outArr[k * 3 + 1] = py * scale;
+      outArr[k * 3 + 2] = pz * scale;
+    }
+  }
+
+  _updateSingleHighlightLine(lineProp, idxProp, satObj, colorHex, simJD) {
+    if (!satObj || !satObj.is_constellation_sat || !this.orbitData || satObj.sat_index === this.focusedSatIdx) {
+      if (this[lineProp]) {
+        this[lineProp].visible = false;
+      }
+      this[idxProp] = -1;
+      return;
+    }
+    const satIdx = satObj.sat_index;
+    const steps = 384;
+    if (!this[lineProp]) {
+      const geo = new THREE.BufferGeometry();
+      const posAttr = new THREE.BufferAttribute(new Float32Array(steps * 3), 3);
+      posAttr.setUsage(THREE.DynamicDrawUsage);
+      geo.setAttribute("position", posAttr);
+      const mat = new THREE.LineBasicMaterial({
+        color: new THREE.Color(colorHex),
+        transparent: true,
+        opacity: 0.94,
+        depthWrite: false
+      });
+      this[lineProp] = new THREE.LineLoop(geo, mat);
+      this[lineProp].frustumCulled = false;
+      this.hostGroup.add(this[lineProp]);
+      this[idxProp] = -1;
+    }
+    this[lineProp].material.color.set(colorHex);
+    this[lineProp].visible = true;
+    this[idxProp] = satIdx;
+    const posAttr = this[lineProp].geometry.attributes.position;
+    this.fillSatOsculatingOrbit(satIdx, simJD, posAttr.array);
+    posAttr.needsUpdate = true;
+  }
+
+  setHighlightedSatelliteOrbits(selectedSatObj, selectedColorHex, hoveredSatObj, hoveredColorHex, simJD) {
+    this._updateSingleHighlightLine("selectedOrbitLine", "_selectedOrbitSatIdx", selectedSatObj, selectedColorHex, simJD);
+    const distinctHover =
+      hoveredSatObj && hoveredSatObj.sat_index !== selectedSatObj?.sat_index ? hoveredSatObj : null;
+    this._updateSingleHighlightLine("hoveredOrbitLine", "_hoveredOrbitSatIdx", distinctHover, hoveredColorHex, simJD);
   }
 }

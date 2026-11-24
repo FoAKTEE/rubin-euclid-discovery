@@ -621,8 +621,8 @@ export function createBlackHoleSystem(rawSpec = {}, options = {}) {
     blendSrc: THREE.OneFactor,
     blendDst: THREE.OneMinusSrcAlphaFactor,
     blendEquationAlpha: THREE.AddEquation,
-    blendSrcAlpha: THREE.ZeroFactor,
-    blendDstAlpha: THREE.OneFactor
+    blendSrcAlpha: THREE.OneFactor,
+    blendDstAlpha: THREE.OneMinusSrcAlphaFactor
   });
   const coreMesh = new THREE.Mesh(coreGeom, coreMat);
   coreMesh.frustumCulled = false;
@@ -948,15 +948,13 @@ export function createBlackHoleSystem(rawSpec = {}, options = {}) {
       const dPc = scaleInfo.cameraDistPc !== undefined
         ? Number(scaleInfo.cameraDistPc)
         : Number(scaleInfo.cameraDistScene) / 200.0;
-      const insideTrueScaleSolar =
-        scaleInfo.logBlend !== undefined &&
-        Number(scaleInfo.logBlend) < 0.5 &&
-        scaleInfo.cameraDistAU !== undefined &&
-        Number(scaleInfo.cameraDistAU) < 110000.0;
-      if (insideTrueScaleSolar || dPc < 50.0) {
+      const lb = scaleInfo.logBlend !== undefined ? Number(scaleInfo.logBlend) : 1.0;
+      const startPc = 300.0 + (50.0 - 300.0) * lb;
+      const endPc = 800.0 + (100.0 - 800.0) * lb;
+      if (dPc < startPc) {
         distGate = 0.0;
-      } else if (dPc < 100.0) {
-        const u = (dPc - 50.0) / 50.0;
+      } else if (dPc < endPc) {
+        const u = (dPc - startPc) / Math.max(1.0, endPc - startPc);
         distGate = u * u * (3.0 - 2.0 * u);
       }
     }
@@ -1090,6 +1088,14 @@ export function createBlackHoleSystem(rawSpec = {}, options = {}) {
     return effectiveOpacity;
   }
 
+  function setMaskPassActive(active) {
+    if (active) {
+      coreUniforms.uOpacity.value = 1.0;
+    } else {
+      coreUniforms.uOpacity.value = effectiveOpacity;
+    }
+  }
+
   function dispose() {
     for (const d of disposables) {
       if (d && typeof d.dispose === "function") d.dispose();
@@ -1110,6 +1116,7 @@ export function createBlackHoleSystem(rawSpec = {}, options = {}) {
     setAccretionRate,
     setOpacity,
     getOpacity,
+    setMaskPassActive,
     dispose
   };
 }

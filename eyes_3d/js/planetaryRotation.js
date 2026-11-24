@@ -188,14 +188,14 @@ export function updateBodyPhysicalRotation(rt, simJD, parentRt = null) {
   }
 }
 
-export function formatSiderealPeriod(obj, lang = "en") {
+export function formatSiderealPeriod(obj) {
   const el = getIAUPoleElements(obj);
   if (!el || !el.Wdot) return "—";
   const isRetro = el.Wdot < 0;
   const absDays = 360.0 / Math.abs(el.Wdot);
-  const retroTag = isRetro ? (lang === "zh" ? " (逆行)" : " (Retrograde)") : "";
-  if ( SYNCHRONOUS_MOONS.has(obj.id) ) {
-    const syncTag = lang === "zh" ? " · 潮汐锁定" : " · Synchronous";
+  const retroTag = isRetro ? " (Retrograde)" : "";
+  if (SYNCHRONOUS_MOONS.has(obj.id)) {
+    const syncTag = " · Synchronous";
     if (absDays >= 2.0) return `${absDays.toFixed(3)} d${retroTag}${syncTag}`;
     return `${(absDays * 24.0).toFixed(2)} h${retroTag}${syncTag}`;
   }

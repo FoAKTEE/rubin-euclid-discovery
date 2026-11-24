@@ -67,7 +67,22 @@ function computeSatLocalXYZ(satIdx, simJD, out3) {
 const _satTmp = new Float64Array(3);
 
 function handlePick(msg) {
-  const { reqId, clientX, clientY, width, height, simJD, familyMask, mvpElements, maxDistPx } = msg;
+  const {
+    reqId,
+    clientX,
+    clientY,
+    width,
+    height,
+    simJD,
+    familyMask,
+    mvpElements,
+    maxDistPx,
+    cursorOnEarthDisk,
+    camLocalX,
+    camLocalY,
+    camLocalZ,
+    earthR2
+  } = msg;
   if (!orbitData || count === 0) {
     self.postMessage({ type: "pickResult", reqId, satIdx: -1 });
     return;
@@ -76,6 +91,8 @@ function handlePick(msg) {
   const m = mvpElements;
   let bestIdx = -1;
   let bestPx = maxDistPx || 14.0;
+  const checkFront = Boolean(cursorOnEarthDisk && Number.isFinite(camLocalX));
+  const minDot = earthR2 || (earthMeshR * earthMeshR);
 
   for (let i = 0; i < count; i++) {
     const fam = Math.min(11, Math.max(0, Math.round(orbitData[i * 8 + 7])));
@@ -83,6 +100,9 @@ function handlePick(msg) {
 
     computeSatLocalXYZ(i, simJD, _satTmp);
     const x = _satTmp[0], y = _satTmp[1], z = _satTmp[2];
+    // Depth-ordering occlusion test: when cursor is over Earth's globe disk, ignore satellites behind Earth
+    if (checkFront && (x * camLocalX + y * camLocalY + z * camLocalZ < minDot)) continue;
+
     const cw = m[3] * x + m[7] * y + m[11] * z + m[15];
     if (cw <= 1e-9) continue;
     const invW = 1.0 / cw;

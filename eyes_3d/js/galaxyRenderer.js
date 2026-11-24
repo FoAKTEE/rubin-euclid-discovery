@@ -1083,13 +1083,12 @@ export function createGalaxyLayer(options = {}) {
     starUniforms.uGalacticFactor.value = galFactor;
     starUniforms.uOpacity.value = masterOpacity;
 
-    // Keep Solar System & Oort Cloud (< 320 scene units in Log mode) crystal clear; fade in volumetric gas smoothly beyond Oort Cloud
-    const insideTrueScaleSolar =
-      scaleInfo?.logBlend !== undefined &&
-      Number(scaleInfo.logBlend) < 0.5 &&
-      scaleInfo?.cameraDistAU !== undefined &&
-      Number(scaleInfo.cameraDistAU) < 110000.0;
-    const gasRamp = insideTrueScaleSolar ? 0.0 : Math.max(0.0, Math.min(1.0, (camDistScene - 320.0) / 2400.0));
+    // Keep Solar System & inner Oort Cloud crystal clear; fade in volumetric gas smoothly across the outer Oort -> Galactic transition
+    const lb = scaleInfo?.logBlend !== undefined ? Number(scaleInfo.logBlend) : 1.0;
+    const gasStart = 55000.0 + (320.0 - 55000.0) * lb;
+    const gasSpan = 130000.0 + (2400.0 - 130000.0) * lb;
+    const uGas = Math.max(0.0, Math.min(1.0, (camDistScene - gasStart) / Math.max(1.0, gasSpan)));
+    const gasRamp = uGas * uGas * (3.0 - 2.0 * uGas);
     // Close to a black hole the camera sits inside the stellar disc or bulge, whose glow would
     // wash out the accretion disc and the lensed ring, so the gas model is dimmed there.
     const bhFocusDim = scaleInfo?.blackHoleCloseUp ? 0.30 : 1.0;
@@ -1102,7 +1101,7 @@ export function createGalaxyLayer(options = {}) {
     gasGroup.visible = effectiveGasOpacity > 0.003;
 
     // Sky band: full strength inside the Solar System, gone once the galactic view takes over.
-    const skyBandOpacity = masterOpacity * 0.30 * (1.0 - Math.max(0.0, Math.min(1.0, galFactor / 0.35)));
+    const skyBandOpacity = masterOpacity * 0.30 * (1.0 - Math.max(0.0, Math.min(1.0, galFactor / 0.55)));
     skyBandUniforms.uOpacity.value = skyBandOpacity;
     skyBand.visible = skyBandOpacity > 0.004;
     if (camera && skyBand.visible) skyBand.position.copy(camera.position);

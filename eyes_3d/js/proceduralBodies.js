@@ -537,12 +537,183 @@ export function computeBodyMeshRadiusScene(obj) {
 
 const _sunOriginTmp = new THREE.Vector3();
 let sharedUnitPlaceholderGeom = null;
+let sharedMosaicRockGeom = null;
+let sharedMosaicRockTex = null;
+let sharedQuestionMarkTex = null;
 
 function getSharedPlaceholderGeometry() {
   if (!sharedUnitPlaceholderGeom) {
     sharedUnitPlaceholderGeom = createQuadsphereGeometry(1.0, 12);
   }
   return sharedUnitPlaceholderGeom;
+}
+
+function getSharedMosaicRockGeometry() {
+  if (sharedMosaicRockGeom) return sharedMosaicRockGeom;
+  // Faceted, stepped voxel/mosaic polyhedron rock geometry (flat-shaded mosaic facets)
+  const base = new THREE.IcosahedronGeometry(1.0, 2);
+  const geom = base.toNonIndexed();
+  base.dispose();
+  const pos = geom.attributes.position;
+  const vA = new THREE.Vector3();
+  const vB = new THREE.Vector3();
+  const vC = new THREE.Vector3();
+  const centroid = new THREE.Vector3();
+
+  // Quantize each triangle face radially & angularly into discrete mosaic rock blocks
+  for (let i = 0; i < pos.count; i += 3) {
+    vA.fromBufferAttribute(pos, i);
+    vB.fromBufferAttribute(pos, i + 1);
+    vC.fromBufferAttribute(pos, i + 2);
+    centroid.copy(vA).add(vB).add(vC).multiplyScalar(1.0 / 3.0);
+
+    const hash = Math.sin(centroid.x * 12.9898 + centroid.y * 78.233 + centroid.z * 37.719) * 43758.5453;
+    const frac = hash - Math.floor(hash);
+    // Stepped discrete radial levels (mosaic block relief)
+    const stepLevel = Math.round(frac * 5.0) / 5.0;
+    const radialScale = 0.80 + 0.26 * stepLevel;
+    // Slight triaxial asteroid elongation
+    const sx = radialScale * 1.12;
+    const sy = radialScale * 0.88;
+    const sz = radialScale * 0.96;
+
+    pos.setXYZ(i, vA.x * sx, vA.y * sy, vA.z * sz);
+    pos.setXYZ(i + 1, vB.x * sx, vB.y * sy, vB.z * sz);
+    pos.setXYZ(i + 2, vC.x * sx, vC.y * sy, vC.z * sz);
+  }
+  geom.computeVertexNormals();
+  sharedMosaicRockGeom = geom;
+  return sharedMosaicRockGeom;
+}
+
+function getCandidateMosaicRockTexture() {
+  if (sharedMosaicRockTex) return sharedMosaicRockTex;
+  const size = 256;
+  const tile = 16;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (ctx) {
+    const palette = [
+      "#27272a", "#323238", "#3f3f46", "#4b4b54",
+      "#52525b", "#635847", "#78684c", "#8f784d", "#1e1e22"
+    ];
+    let seed = 1337;
+    const rand = () => {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+    for (let y = 0; y < size; y += tile) {
+      for (let x = 0; x < size; x += tile) {
+        ctx.fillStyle = palette[Math.floor(rand() * palette.length)];
+        ctx.fillRect(x, y, tile, tile);
+        ctx.strokeStyle = "rgba(10, 10, 12, 0.55)";
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(x + 0.5, y + 0.5, tile - 1, tile - 1);
+      }
+    }
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.magFilter = THREE.NearestFilter;
+  tex.minFilter = THREE.NearestFilter;
+  tex.generateMipmaps = false;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  sharedMosaicRockTex = tex;
+  return sharedMosaicRockTex;
+}
+
+function getCandidateQuestionMarkTexture() {
+  if (sharedQuestionMarkTex) return sharedQuestionMarkTex;
+  const size = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (ctx) {
+    ctx.clearRect(0, 0, size, size);
+
+    // Subtle dark pixelated backing plate so the '?' pops against the mosaic rock from every angle
+    const cx = size * 0.5;
+    const cy = size * 0.5;
+    const grad = ctx.createRadialGradient(cx, cy, 8, cx, cy, 94);
+    grad.addColorStop(0.0, "rgba(10, 10, 14, 0.86)");
+    grad.addColorStop(0.65, "rgba(10, 10, 14, 0.54)");
+    grad.addColorStop(1.0, "rgba(10, 10, 14, 0.0)");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 94, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Dashed mosaic ring around the question mark
+    ctx.save();
+    ctx.strokeStyle = "rgba(244, 185, 66, 0.88)";
+    ctx.lineWidth = 5;
+    ctx.setLineDash([12, 8]);
+    ctx.beginPath();
+    ctx.arc(cx, cy, 74, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    // High-contrast '?' glyph
+    ctx.font = "900 132px 'JetBrains Mono', 'Inter', monospace, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgba(8, 8, 10, 0.95)";
+    ctx.lineWidth = 14;
+    ctx.strokeText("?", cx, cy + 4);
+    ctx.fillStyle = "#ffd426";
+    ctx.fillText("?", cx, cy + 4);
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.needsUpdate = true;
+  sharedQuestionMarkTex = tex;
+  return sharedQuestionMarkTex;
+}
+
+export function createCandidateMosaicRockMesh(meshRadius) {
+  const holder = new THREE.Group();
+  holder.name = "candidateMosaicRock";
+
+  const rockMat = new THREE.MeshStandardMaterial({
+    map: getCandidateMosaicRockTexture(),
+    color: new THREE.Color("#e4d5b7"),
+    roughness: 0.78,
+    metalness: 0.08,
+    flatShading: true
+  });
+  const rockMesh = new THREE.Mesh(getSharedMosaicRockGeometry(), rockMat);
+  rockMesh.scale.setScalar(meshRadius);
+  holder.add(rockMesh);
+
+  // Subtle dark facet-edge wireframe to accentuate the mosaic tiles
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0x141418,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.36
+  });
+  const wireMesh = new THREE.Mesh(getSharedMosaicRockGeometry(), wireMat);
+  wireMesh.scale.setScalar(meshRadius * 1.003);
+  holder.add(wireMesh);
+
+  // Camera-facing '?' question mark badge rendered on the mosaic rock
+  const qMat = new THREE.SpriteMaterial({
+    map: getCandidateQuestionMarkTexture(),
+    transparent: true,
+    depthTest: false,
+    depthWrite: false,
+    sizeAttenuation: true
+  });
+  const qSprite = new THREE.Sprite(qMat);
+  qSprite.scale.set(meshRadius * 1.75, meshRadius * 1.75, 1);
+  qSprite.renderOrder = 14;
+  qSprite.userData = { excludeFromContour: true };
+  holder.add(qSprite);
+
+  return holder;
 }
 
 // Strict lazy GLB policy: only SUN loads eagerly; planets/moons/spacecraft/discoveries stream on demand
@@ -614,9 +785,16 @@ export function createProceduralBodyNode(obj) {
   root.userData.rotatable = spinGroup;
 
   // Instant shared-geometry procedural placeholder until dedicated .glb streams on demand
+  // For survey discovery candidates (obj.is_new_discovery), permanently render as a 3D mosaic rock with a '?' question mark!
+  const isCandidateDiscovery = Boolean(obj.is_new_discovery);
   let placeholder = null;
   function ensurePlaceholder() {
     if (isSpacecraft || placeholder) return;
+    if (isCandidateDiscovery) {
+      placeholder = createCandidateMosaicRockMesh(meshRadius);
+      spinGroup.add(placeholder);
+      return;
+    }
     placeholder = new THREE.Mesh(
       getSharedPlaceholderGeometry(),
       new THREE.MeshStandardMaterial({
@@ -690,7 +868,7 @@ export function createProceduralBodyNode(obj) {
   }
 
   function ensureModelLoaded() {
-    if (loadStarted) return;
+    if (loadStarted || isCandidateDiscovery) return;
     loadStarted = true;
     enhanced = instantiateEnhanced3DBody(modelId, meshRadius);
     spinGroup.add(enhanced.group);

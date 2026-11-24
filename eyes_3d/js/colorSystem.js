@@ -217,38 +217,38 @@ export function resolveObjectColor(obj) {
 }
 
 // ---------------------------------------------------------------------------
-// Outreach colour key (EN / ZH)
+// Outreach colour key
 // ---------------------------------------------------------------------------
 export const LEGEND_SOLAR_SYSTEM = [
-  { key: "sun", color: SUN_COLOR, label_en: "Sun (G2V star)", label_zh: "太阳（G2V 恒星）" },
-  { key: "rocky", color: PLANET_COLORS.MARS, label_en: "Rocky inner planets", label_zh: "内侧岩质行星" },
-  { key: "asteroids", color: CATEGORY_COLORS.asteroids, label_en: "Asteroids & main belt", label_zh: "小行星与主带" },
-  { key: "gas_giants", color: PLANET_COLORS.JUPITER, label_en: "Gas giants", label_zh: "气态巨行星" },
-  { key: "ice_giants", color: PLANET_COLORS.URANUS, label_en: "Ice giants", label_zh: "冰巨星" },
-  { key: "moons", color: CATEGORY_COLORS.moons_l2, label_en: "Natural moons", label_zh: "天然卫星" },
-  { key: "comets", color: CATEGORY_COLORS.comets_centaurs, label_en: "Comets & Centaurs", label_zh: "彗星与半人马天体" },
-  { key: "dwarfs", color: CATEGORY_COLORS.dwarf_planets, label_en: "Dwarf planets", label_zh: "矮行星" },
-  { key: "kuiper", color: CATEGORY_COLORS.kuiper_etnos, label_en: "Kuiper belt & distant objects", label_zh: "柯伊伯带与远距天体" },
-  { key: "oort", color: CATEGORY_COLORS.oort_cloud, label_en: "Oort cloud", label_zh: "奥尔特云" },
-  { key: "interstellar", color: CATEGORY_COLORS.interstellar, label_en: "Interstellar visitors", label_zh: "星际访客" },
-  { key: "spacecraft", color: CATEGORY_COLORS.spacecraft, label_en: "Spacecraft & satellites", label_zh: "航天器与人造卫星" },
-  { key: "discoveries", color: DISCOVERY_GOLD, label_en: "Survey discoveries (optional layer)", label_zh: "巡天新发现（可选图层）" }
+  { key: "sun", color: SUN_COLOR, label_en: "Sun (G2V star)" },
+  { key: "rocky", color: PLANET_COLORS.MARS, label_en: "Rocky inner planets" },
+  { key: "asteroids", color: CATEGORY_COLORS.asteroids, label_en: "Asteroids & main belt" },
+  { key: "gas_giants", color: PLANET_COLORS.JUPITER, label_en: "Gas giants" },
+  { key: "ice_giants", color: PLANET_COLORS.URANUS, label_en: "Ice giants" },
+  { key: "moons", color: CATEGORY_COLORS.moons_l2, label_en: "Natural moons" },
+  { key: "comets", color: CATEGORY_COLORS.comets_centaurs, label_en: "Comets & Centaurs" },
+  { key: "dwarfs", color: CATEGORY_COLORS.dwarf_planets, label_en: "Dwarf planets" },
+  { key: "kuiper", color: CATEGORY_COLORS.kuiper_etnos, label_en: "Kuiper belt & distant objects" },
+  { key: "oort", color: CATEGORY_COLORS.oort_cloud, label_en: "Oort cloud" },
+  { key: "interstellar", color: CATEGORY_COLORS.interstellar, label_en: "Interstellar visitors" },
+  { key: "spacecraft", color: CATEGORY_COLORS.spacecraft, label_en: "Spacecraft & satellites" },
+  { key: "discoveries", color: DISCOVERY_GOLD, label_en: "Survey discoveries (optional layer)" }
 ];
 
 export const LEGEND_STELLAR = [
-  { key: "m_giants", tempK: 3500, color: temperatureToHex(3500), label_en: "M giants · 3,500 K", label_zh: "M 型巨星 · 3,500 K" },
-  { key: "k_stars", tempK: 4500, color: temperatureToHex(4500), label_en: "K stars · 4,500 K", label_zh: "K 型星 · 4,500 K" },
-  { key: "g2v", tempK: 5772, color: temperatureToHex(5772), label_en: "Sun-like G2V · 5,772 K", label_zh: "类太阳 G2V · 5,772 K" },
-  { key: "fa", tempK: 8000, color: temperatureToHex(8000), label_en: "F / A stars · 8,000 K", label_zh: "F / A 型星 · 8,000 K" },
-  { key: "b_stars", tempK: 15000, color: temperatureToHex(15000), label_en: "B stars · 15,000 K", label_zh: "B 型星 · 15,000 K" },
-  { key: "o_stars", tempK: 30000, color: temperatureToHex(30000), label_en: "O stars · 30,000 K+", label_zh: "O 型星 · 30,000 K 以上" }
+  { key: "m_giants", tempK: 3500, color: temperatureToHex(3500), label_en: "M giants · 3,500 K" },
+  { key: "k_stars", tempK: 4500, color: temperatureToHex(4500), label_en: "K stars · 4,500 K" },
+  { key: "g2v", tempK: 5772, color: temperatureToHex(5772), label_en: "Sun-like G2V · 5,772 K" },
+  { key: "fa", tempK: 8000, color: temperatureToHex(8000), label_en: "F / A stars · 8,000 K" },
+  { key: "b_stars", tempK: 15000, color: temperatureToHex(15000), label_en: "B stars · 15,000 K" },
+  { key: "o_stars", tempK: 30000, color: temperatureToHex(30000), label_en: "O stars · 30,000 K+" }
 ];
 
 export const LEGEND_GALACTIC = [
-  { key: "smbh", color: GALACTIC_COLORS.smbh, label_en: "Sgr A* (central black hole)", label_zh: "人马座 A*（银心黑洞）" },
-  { key: "xray_binary", color: GALACTIC_COLORS.xray_binary, label_en: "Accreting X-ray binaries", label_zh: "吸积 X 射线双星" },
-  { key: "dormant", color: GALACTIC_COLORS.dormant, label_en: "Dormant black holes (Gaia)", label_zh: "休眠黑洞（盖亚）" },
-  { key: "globular_cluster", color: GALACTIC_COLORS.globular_cluster, label_en: "Globular clusters", label_zh: "球状星团" },
-  { key: "open_cluster", color: GALACTIC_COLORS.open_cluster, label_en: "Star-forming HII regions", label_zh: "恒星形成 HII 区" },
-  { key: "satellite_galaxy", color: GALACTIC_COLORS.satellite_galaxy, label_en: "Magellanic Clouds", label_zh: "麦哲伦云" }
+  { key: "smbh", color: GALACTIC_COLORS.smbh, label_en: "Sgr A* (central black hole)" },
+  { key: "xray_binary", color: GALACTIC_COLORS.xray_binary, label_en: "Accreting X-ray binaries" },
+  { key: "dormant", color: GALACTIC_COLORS.dormant, label_en: "Dormant black holes (Gaia)" },
+  { key: "globular_cluster", color: GALACTIC_COLORS.globular_cluster, label_en: "Globular clusters" },
+  { key: "open_cluster", color: GALACTIC_COLORS.open_cluster, label_en: "Star-forming HII regions" },
+  { key: "satellite_galaxy", color: GALACTIC_COLORS.satellite_galaxy, label_en: "Magellanic Clouds" }
 ];

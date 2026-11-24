@@ -1,9 +1,0 @@
-eyes-cjk-regular.woff and eyes-cjk-bold.woff are subsets of Noto Sans SC (Regular and Bold),
-limited to the Chinese characters and full-width punctuation used by this explorer.
-
-Noto Sans SC is Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name
-'Source'. It is licensed under the SIL Open Font License, Version 1.1
-(https://openfontlicense.org). The subsets are distributed under the same licence.
-
-They are loaded only for Chinese text (CSS unicode-range), so that the Chinese interface renders
-on systems that have no CJK font installed.
