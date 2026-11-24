@@ -1,5 +1,5 @@
 import * as THREE from "../vendor/three.module.js";
-import { temperatureToRGB, temperatureToHex, GALACTIC_COLORS } from "./colorSystem.js";
+import { temperatureToRGB, temperatureToHex, GALACTIC_COLORS } from "./colorSystem.js?v=20261124_v32";
 
 const DEG2RAD = Math.PI / 180.0;
 const TWO_PI = Math.PI * 2.0;

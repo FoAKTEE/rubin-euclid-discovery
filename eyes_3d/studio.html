@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,9 +22,14 @@
       --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html, body {
+    html,
+    body {
       width: 100%;
       height: 100%;
       overflow: hidden;
@@ -44,7 +50,9 @@
       cursor: grab;
     }
 
-    #playground-canvas:active { cursor: grabbing; }
+    #playground-canvas:active {
+      cursor: grabbing;
+    }
 
     /* Single Minimalist Top Bar */
     #top-bar {
@@ -116,9 +124,23 @@
     }
 
     /* Both selectors may shrink, so the buttons and links to their right are never overlapped. */
-    #category-select { flex: 0 1 230px; min-width: 130px; max-width: 260px; }
-    #object-select { flex: 1 1 240px; min-width: 140px; max-width: 440px; }
-    .selector-group .nav-btn, .controls-wrap, #top-bar > .cta-link { flex-shrink: 0; }
+    #category-select {
+      flex: 0 1 230px;
+      min-width: 130px;
+      max-width: 260px;
+    }
+
+    #object-select {
+      flex: 1 1 240px;
+      min-width: 140px;
+      max-width: 440px;
+    }
+
+    .selector-group .nav-btn,
+    .controls-wrap,
+    #top-bar>.cta-link {
+      flex-shrink: 0;
+    }
 
     .nav-btn {
       padding: 9px 14px;
@@ -133,7 +155,8 @@
       transition: all 0.14s;
     }
 
-    .nav-btn:hover, .nav-btn.active {
+    .nav-btn:hover,
+    .nav-btn.active {
       border-color: var(--border-accent);
       background: rgba(255, 255, 255, 0.14);
       color: #ffffff;
@@ -184,6 +207,9 @@
       top: calc(100% + 10px);
       right: 0;
       width: 370px;
+      max-width: calc(100vw - 28px);
+      max-height: calc(100vh - var(--top-bar-bottom, 90px) - 16px);
+      overflow-y: auto;
       padding: 18px;
       background: var(--panel-strong);
       backdrop-filter: blur(18px);
@@ -196,7 +222,14 @@
       z-index: 50;
     }
 
-    #controls-panel.open { display: flex; }
+    #controls-panel.align-left {
+      right: auto;
+      left: 0;
+    }
+
+    #controls-panel.open {
+      display: flex;
+    }
 
     .ctrl-hdr {
       font-size: 12.5px;
@@ -343,7 +376,7 @@
 
     #hover-object-readout {
       position: fixed;
-      top: 86px;
+      top: var(--top-bar-bottom, 86px);
       right: 16px;
       z-index: 23;
       display: inline-flex;
@@ -381,7 +414,7 @@
 
     #box-zoom-bar {
       position: fixed;
-      top: 86px;
+      top: var(--top-bar-bottom, 86px);
       left: 14px;
       z-index: 20;
       display: inline-flex;
@@ -424,7 +457,10 @@
       color: #ffffff;
     }
 
-    .box-zoom-btn:disabled { opacity: 0.38; cursor: default; }
+    .box-zoom-btn:disabled {
+      opacity: 0.38;
+      cursor: default;
+    }
 
     #box-zoom-hint {
       display: none;
@@ -489,10 +525,34 @@
       border-style: solid;
       border-width: 0;
     }
-    .bz-corner.tl { top: -2px; left: -2px; border-top-width: 2.5px; border-left-width: 2.5px; }
-    .bz-corner.tr { top: -2px; right: -2px; border-top-width: 2.5px; border-right-width: 2.5px; }
-    .bz-corner.bl { bottom: -2px; left: -2px; border-bottom-width: 2.5px; border-left-width: 2.5px; }
-    .bz-corner.br { bottom: -2px; right: -2px; border-bottom-width: 2.5px; border-right-width: 2.5px; }
+
+    .bz-corner.tl {
+      top: -2px;
+      left: -2px;
+      border-top-width: 2.5px;
+      border-left-width: 2.5px;
+    }
+
+    .bz-corner.tr {
+      top: -2px;
+      right: -2px;
+      border-top-width: 2.5px;
+      border-right-width: 2.5px;
+    }
+
+    .bz-corner.bl {
+      bottom: -2px;
+      left: -2px;
+      border-bottom-width: 2.5px;
+      border-left-width: 2.5px;
+    }
+
+    .bz-corner.br {
+      bottom: -2px;
+      right: -2px;
+      border-bottom-width: 2.5px;
+      border-right-width: 2.5px;
+    }
 
     .bz-cross {
       position: absolute;
@@ -502,13 +562,27 @@
       height: 10px;
       transform: translate(-50%, -50%);
     }
-    .bz-cross::before, .bz-cross::after {
+
+    .bz-cross::before,
+    .bz-cross::after {
       content: "";
       position: absolute;
       background: rgba(244, 244, 245, 0.85);
     }
-    .bz-cross::before { left: 0; right: 0; top: 4.5px; height: 1px; }
-    .bz-cross::after { top: 0; bottom: 0; left: 4.5px; width: 1px; }
+
+    .bz-cross::before {
+      left: 0;
+      right: 0;
+      top: 4.5px;
+      height: 1px;
+    }
+
+    .bz-cross::after {
+      top: 0;
+      bottom: 0;
+      left: 4.5px;
+      width: 1px;
+    }
 
     #box-zoom-tag {
       position: absolute;
@@ -527,11 +601,32 @@
     }
 
     @media (max-width: 1120px) {
-      .brand-title { display: none; }
-      #top-bar { height: auto; flex-wrap: wrap; padding: 10px 12px; }
+      .brand-title {
+        display: none;
+      }
+
+      #top-bar {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 10px 12px;
+      }
+
+      #box-zoom-bar {
+        top: var(--top-bar-bottom, 134px);
+        left: 12px;
+        max-width: calc(100vw - 24px);
+        flex-wrap: wrap;
+      }
+
+      #hover-object-readout {
+        top: var(--top-bar-bottom, 134px);
+        right: 12px;
+        max-width: calc(100vw - 24px);
+      }
     }
   </style>
 </head>
+
 <body>
   <canvas id="playground-canvas"></canvas>
   <div id="box-zoom-overlay" aria-hidden="true">
@@ -547,10 +642,14 @@
     </div>
   </div>
   <div id="box-zoom-bar" role="toolbar" aria-label="Box zoom controls">
-    <button id="btn-box-zoom-in" class="box-zoom-btn" type="button" aria-pressed="false" title="Drag selection box to zoom in (Z or Shift+Drag)">⊞ Zoom In</button>
-    <button id="btn-box-zoom-out" class="box-zoom-btn" type="button" aria-pressed="false" title="Drag radial circle from divergence point to zoom out (X or Alt+Drag)">⊙ Zoom Out</button>
-    <button id="btn-zoom-back" class="box-zoom-btn" type="button" disabled aria-disabled="true" title="Undo last zoom (Backspace)">↺</button>
-    <button id="btn-reset-view" class="box-zoom-btn" type="button" title="Reset camera view to default">⌂ Reset View</button>
+    <button id="btn-box-zoom-in" class="box-zoom-btn" type="button" aria-pressed="false"
+      title="Drag selection box to zoom in (Z or Shift+Drag)">⊞ Zoom In</button>
+    <button id="btn-box-zoom-out" class="box-zoom-btn" type="button" aria-pressed="false"
+      title="Drag radial circle from divergence point to zoom out (X or Alt+Drag)">⊙ Zoom Out</button>
+    <button id="btn-zoom-back" class="box-zoom-btn" type="button" disabled aria-disabled="true"
+      title="Undo last zoom (Backspace)">↺</button>
+    <button id="btn-reset-view" class="box-zoom-btn" type="button" title="Reset camera view to default">⌂ Reset
+      View</button>
     <span id="box-zoom-hint"></span>
   </div>
   <div id="hover-object-readout" aria-live="polite" hidden>
@@ -598,7 +697,8 @@
           <input id="slider-spin" type="range" min="0" max="4" step="0.1" value="1.0" />
         </div>
 
-        <div id="bh-controls-block" style="display:none; flex-direction:column; gap:12px; border-top:1px solid rgba(148,163,184,0.2); padding-top:12px;">
+        <div id="bh-controls-block"
+          style="display:none; flex-direction:column; gap:12px; border-top:1px solid rgba(148,163,184,0.2); padding-top:12px;">
           <div class="ctrl-hdr" style="color:var(--violet);">Relativistic Black Hole Disk</div>
           <div class="toggle-grid">
             <button id="btn-bh-disk" class="toggle-btn active" type="button">Accretion Disk</button>
@@ -618,7 +718,8 @@
     </div>
 
     <a class="cta-link subtle" href="../index.html" title="Portal hub: audited counts, manuscript and atlases">Hub</a>
-    <a class="cta-link subtle" href="../movie_gallery/index.html" title="96 real-pixel archival movie targets">Movie Gallery</a>
+    <a class="cta-link subtle" href="../movie_gallery/index.html" title="96 real-pixel archival movie targets">Movie
+      Gallery</a>
     <a class="cta-link" href="./index.html">3D Explorer ↗</a>
   </header>
 
@@ -631,16 +732,17 @@
     </div>
     <h1 id="info-name">Sagittarius A* (Sgr A*)</h1>
     <p id="info-desc">Interactive 360° rotatable relativistic black hole &amp; solar system 3D viewer.</p>
-    <div class="info-hint">Drag: 360° Rotate · Scroll: Zoom In/Out · Shift+Drag: Box Zoom In · Alt+Drag: Radial Zoom Out · Double-Click: Reset</div>
+    <div class="info-hint">Drag: 360° Rotate · Scroll: Zoom In/Out · Shift+Drag: Box Zoom In · Alt+Drag: Radial Zoom Out
+      · Double-Click: Reset</div>
   </section>
 
   <script type="module">
     import * as THREE from "./vendor/three.module.js";
     import { OrbitControls } from "./vendor/OrbitControls.js";
-    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, getStudioEnvironmentTexture, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261124_v16";
-    import { createSunShaderMesh, createCandidateMosaicRockMesh } from "./js/proceduralBodies.js?v=20261124_v27";
-    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261124_v16";
-    import { createBoxZoomController } from "./js/boxZoom.js?v=20261124_v25";
+    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, getStudioEnvironmentTexture, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261124_v32";
+    import { createSunShaderMesh, createCandidateMosaicRockMesh } from "./js/proceduralBodies.js?v=20261124_v32";
+    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261124_v32";
+    import { createBoxZoomController } from "./js/boxZoom.js?v=20261124_v32";
 
     const PLAYGROUND_CATALOG = [
       {
@@ -657,6 +759,50 @@
           { id: "GAIA_BH1", name: "Gaia BH1 (Nearest Dormant Black Hole)", kind: "bh", presetKey: "GAIA_BH1", badge: "9.62 M☉ Dormant BH", camDist: 4.1, desc: "Quiescent 9.62 M☉ black hole at 478 pc discovered by El-Badry et al. via Gaia DR3 astrometry, showing gravitational Einstein lensing halo and orbiting G-dwarf star." },
           { id: "GAIA_BH2", name: "Gaia BH2 (Wide Red-Giant BH Binary)", kind: "bh", presetKey: "GAIA_BH2", badge: "8.94 M☉ Dormant BH", camDist: 4.1, desc: "1,277-day wide astrometric dormant black hole system at 1.16 kpc paired with an alpha-enhanced red giant." },
           { id: "GAIA_BH3", name: "Gaia BH3 (33 M☉ Metal-Poor Halo BH)", kind: "bh", presetKey: "GAIA_BH3", badge: "32.7 M☉ Halo BH", camDist: 4.2, desc: "Most massive known stellar-origin Milky Way black hole (32.7 M☉) in the ED-2 halo stream at 591 pc." }
+        ]
+      },
+      {
+        key: "star_wars_rebel_republic",
+        label: "Star Wars — Rebel, Republic & Bounty Hunters",
+        items: [
+          { id: "sw_millennium_falcon", name: "Millennium Falcon (YT-1300 Corellian Freighter)", kind: "glb", modelId: "sw_millennium_falcon", badge: "Rebel Freighter", camDist: 3.0, extraFill: 0.56, desc: "Heavily modified Corellian YT-1300f light freighter featuring offset cockpit tube, dorsal and ventral quad laser turrets, circular rectenna dish, and glowing blue sublight drive strip." },
+          { id: "sw_xwing", name: "T-65B X-Wing Starfighter (Red Five)", kind: "glb", modelId: "sw_xwing", badge: "Rebel Starfighter", camDist: 2.9, extraFill: 0.56, desc: "Incom T-65B space superiority fighter with split S-foils locked in attack position, four wingtip KX9 laser cannons, R2 astromech socket, and four Incom 4L4 fusial thrust engines." },
+          { id: "sw_ywing", name: "BTL-A4 Y-Wing Starfighter", kind: "glb", modelId: "sw_ywing", badge: "Rebel Assault Bomber", camDist: 2.9, extraFill: 0.56, desc: "Koensayr BTL-A4 long-range fighter-bomber with forward laser cannons, dorsal ion turret, exposed reactor piping, and twin Koensayr R200 ion-jet nacelles." },
+          { id: "sw_awing", name: "RZ-1 A-Wing Interceptor", kind: "glb", modelId: "sw_awing", badge: "Rebel Interceptor", camDist: 2.9, extraFill: 0.56, desc: "Kuat Systems Engineering RZ-1 high-speed interceptor pairing an arrowhead hull and bubble canopy with swiveling RG-9 laser cannons and twin Novaldex J-77 event-horizon engines." },
+          { id: "sw_bwing", name: "A/SF-01 B-Wing Heavy Starfighter", kind: "glb", modelId: "sw_bwing", badge: "Rebel Assault Fighter", camDist: 3.7, extraFill: 0.56, desc: "Slayn & Korpil A/SF-01 heavy assault starfighter built around a tall cross-shaped S-foil assembly, gyro-stabilized cockpit pod, and capital-ship-grade ion cannons." },
+          { id: "sw_snowspeeder", name: "T-47 Airspeeder (Snowspeeder)", kind: "glb", modelId: "sw_snowspeeder", badge: "Rebel Airspeeder", camDist: 2.9, extraFill: 0.56, desc: "Cold-weather-modified Incom T-47 low-altitude airspeeder with tandem pilot and gunner cockpit, twin forward laser cannons, dorsal heat radiators, and aft harpoon tow-cable launcher." },
+          { id: "sw_tantive_iv", name: "CR90 Corellian Corvette (Tantive IV)", kind: "glb", modelId: "sw_tantive_iv", badge: "Rebel Corvette", camDist: 3.0, extraFill: 0.55, desc: "Alderaanian consular CR90 blockade runner armed with dual dorsal and ventral turbolasers and propelled by an iconic cluster of eleven Girodyne Ter58 sublight ion thrusters." },
+          { id: "sw_nebulon_b", name: "EF76 Nebulon-B Escort Frigate", kind: "glb", modelId: "sw_nebulon_b", badge: "Rebel Escort Frigate", camDist: 3.1, extraFill: 0.56, desc: "Kuat Drive Yards EF76 medical and convoy escort frigate distinguished by its deep forward command blade, slender ventral docking spar, and seven-engine aft drive pod." },
+          { id: "sw_mc80_home_one", name: "MC80 Star Cruiser (Home One)", kind: "glb", modelId: "sw_mc80_home_one", badge: "Rebel Flagship", camDist: 3.0, extraFill: 0.56, desc: "Mon Calamari MC80 heavy command cruiser featuring organic blistered hull plating, redundant deflector shield generators, turbolaser batteries, and Admiral Ackbar's flagship bridge." },
+          { id: "sw_ghost", name: "The Ghost (VCX-100 Light Freighter)", kind: "glb", modelId: "sw_ghost", badge: "Rebel Freighter", camDist: 3.0, extraFill: 0.56, desc: "Modified Corellian VCX-100 light freighter featuring a broad octagonal hull, nose-mounted ventral turret, dorsal gunner dome, and rear docking bay for the Phantom shuttle." },
+          { id: "sw_venator", name: "Venator-class Republic Attack Cruiser", kind: "glb", modelId: "sw_venator", badge: "Republic Capital", camDist: 3.0, extraFill: 0.56, desc: "Kuat Drive Yards Clone Wars carrier-battleship characterized by crimson Republic markings, twin command-bridge towers, heavy turbolaser barbettes, and an axial dorsal hangar deck." },
+          { id: "sw_jedi_starfighter", name: "Eta-2 Actis-class Jedi Starfighter", kind: "glb", modelId: "sw_jedi_starfighter", badge: "Republic Interceptor", camDist: 3.2, extraFill: 0.56, desc: "Compact Kuat Systems Engineering Eta-2 interceptor built for Jedi pilots with hinged folding radiator S-foils, bulbous forward canopy, astromech socket, and twin ion drives." },
+          { id: "sw_naboo_n1", name: "Naboo N-1 Royal Starfighter", kind: "glb", modelId: "sw_naboo_n1", badge: "Naboo Starfighter", camDist: 2.9, extraFill: 0.56, desc: "Hand-crafted Theed Palace N-1 patrol fighter combining yellow Naboo enamel with mirror-polished chromium prow plating, dual J-type engine nacelles, and sleek tail-fin stinger." },
+          { id: "sw_arc170", name: "ARC-170 Starfighter", kind: "glb", modelId: "sw_arc170", badge: "Republic Reconnaissance", camDist: 2.9, extraFill: 0.56, desc: "Incom and Subpro three-crew heavy reconnaissance starfighter equipped with six-wing S-foils, nose sensor arrays, forward heavy laser cannons, and a tail-gunner turret." },
+          { id: "sw_laat_gunship", name: "LAAT/i Republic Gunship", kind: "glb", modelId: "sw_laat_gunship", badge: "Republic Gunship", camDist: 3.2, extraFill: 0.44, desc: "Rothana Heavy Engineering Low Altitude Assault Transport carrying twin dorsal mass-driver missile launchers, composite-beam laser turrets, and broad troop-bay wings." },
+          { id: "sw_slave_1", name: "Slave I (Firespray-31 Patrol Craft)", kind: "glb", modelId: "sw_slave_1", badge: "Bounty Hunter Craft", camDist: 3.6, extraFill: 0.56, desc: "Kuat Systems Engineering Firespray-31 patrol and attack craft flying in upright vertical configuration with rotating stabilizer wings, twin blaster cannons, and seismic-charge bay." },
+          { id: "sw_razor_crest", name: "Razor Crest (ST-70 Assault Ship)", kind: "glb", modelId: "sw_razor_crest", badge: "Mandalorian Gunship", camDist: 3.0, extraFill: 0.56, desc: "Pre-Empire ST-70 heavy gunship finished in brushed gunmetal alloy with twin outrigger turbine nacelles, forward laser cannons, and aft cargo-bay boarding ramp." }
+        ]
+      },
+      {
+        key: "star_wars_imperial",
+        label: "Star Wars — Galactic Empire & First Order",
+        items: [
+          { id: "sw_star_destroyer", name: "Imperial-II Star Destroyer (ISD-II)", kind: "glb", modelId: "sw_star_destroyer", badge: "Imperial Capital", camDist: 3.0, extraFill: 0.58, desc: "Kuat Drive Yards wedge-shaped fleet flagship armored in terraced hull plates with heavy octuple turbolaser barbettes, bridge tower deflector globes, and three Destroyer-I ion engines." },
+          { id: "sw_executor_ssd", name: "Executor-class Super Star Destroyer", kind: "glb", modelId: "sw_executor_ssd", badge: "Imperial Dreadnought", camDist: 3.0, extraFill: 0.60, desc: "19-kilometer Kuat Drive Yards Star Dreadnought and Imperial command flagship featuring a dagger-like armored hull, dense dorsal cityscape superstructure, and thirteen main thrusters." },
+          { id: "sw_death_star", name: "DS-1 Orbital Battle Station (Death Star I)", kind: "glb", modelId: "sw_death_star", badge: "Imperial Battle Station", camDist: 3.9, extraFill: 0.56, desc: "Moon-sized armored battle station defined by its equatorial meridian trench, recessed polar hull paneling, and northern-hemisphere concave superlaser dish." },
+          { id: "sw_death_star_ii", name: "DS-2 Orbital Battle Station (Death Star II)", kind: "glb", modelId: "sw_death_star_ii", badge: "Imperial Battle Station", camDist: 3.9, extraFill: 0.56, desc: "Enlarged second Death Star over Endor revealing vast skeletal interior girderwork alongside completed armored sectors and an operational axial superlaser array." },
+          { id: "sw_tie_fighter", name: "TIE/ln Space Superiority Fighter", kind: "glb", modelId: "sw_tie_fighter", badge: "Imperial Starfighter", camDist: 3.5, extraFill: 0.60, desc: "Sienar Fleet Systems twin-ion-engine interceptor combining a central ball cockpit, octagonal viewport, and dual flat hexagonal solar-collector wing arrays." },
+          { id: "sw_tie_advanced", name: "TIE Advanced x1 (Darth Vader)", kind: "glb", modelId: "sw_tie_advanced", badge: "Imperial Prototype", camDist: 3.0, extraFill: 0.60, desc: "Darth Vader's personal Sienar prototype featuring hyperdrive, deflector shields, elongated aft hull housing, and angled bent-wing solar panels." },
+          { id: "sw_tie_interceptor", name: "TIE/IN Interceptor", kind: "glb", modelId: "sw_tie_interceptor", badge: "Imperial Interceptor", camDist: 3.1, extraFill: 0.60, desc: "High-agility Sienar Fleet Systems elite interceptor armed with four wingtip laser cannons mounted on split dagger-shaped bent solar wings." },
+          { id: "sw_tie_bomber", name: "TIE/sa Bomber", kind: "glb", modelId: "sw_tie_bomber", badge: "Imperial Bomber", camDist: 3.0, extraFill: 0.60, desc: "Heavy Imperial ordnance bomber with twin side-by-side cylindrical pods for cockpit and bomb bay, flanked by angled bent-wing solar arrays." },
+          { id: "sw_tie_defender", name: "TIE/D Defender", kind: "glb", modelId: "sw_tie_defender", badge: "Imperial Elite Fighter", camDist: 3.6, extraFill: 0.60, desc: "Tri-winged heavy superiority fighter integrating deflector shields, hyperdrive, and three radial bent solar wings with six wingtip laser and ion weapons." },
+          { id: "sw_tie_avenger", name: "TIE/ad Avenger", kind: "glb", modelId: "sw_tie_avenger", badge: "Imperial Starfighter", camDist: 3.0, extraFill: 0.60, desc: "Production evolution of the TIE Advanced x1 featuring extended dagger-cut bent wings, upgraded quad laser armament, hyperdrive, and high agility." },
+          { id: "sw_tie_phantom", name: "TIE/ph Phantom", kind: "glb", modelId: "sw_tie_phantom", badge: "Imperial Stealth Fighter", camDist: 3.1, extraFill: 0.60, desc: "Experimental stygium-cloaking Imperial starfighter with triangular three-wing fin geometry, forward V-shaped fuselage, and five laser cannons." },
+          { id: "sw_lambda_shuttle", name: "Lambda-class T-4a Imperial Shuttle", kind: "glb", modelId: "sw_lambda_shuttle", badge: "Imperial Transport", camDist: 3.5, extraFill: 0.56, desc: "Sienar/Cygnus armored VIP and troop transport distinguished by its towering fixed dorsal stabilizer fin and folding tri-wing configuration (shown in its upward-swept landing fold)." },
+          { id: "sw_tie_silencer", name: "TIE/vn Silencer (Kylo Ren)", kind: "glb", modelId: "sw_tie_silencer", badge: "First Order Interceptor", camDist: 2.9, extraFill: 0.62, desc: "Kylo Ren's sleek Sienar-Jaemus angular stealth interceptor featuring crimson forward cockpit slit, twin forward dagger wings, heavy laser cannons, and missile launchers." },
+          { id: "sw_kylo_shuttle", name: "Upsilon-class Command Shuttle (Kylo Ren)", kind: "glb", modelId: "sw_kylo_shuttle", badge: "First Order Shuttle", camDist: 3.2, extraFill: 0.60, desc: "Armored First Order command shuttle clad in obsidian sensor-absorptive plating with sweeping V-angled wings, heavy turbolasers, and forward boarding ramp." },
+          { id: "sw_tie_fo", name: "TIE/fo Space Superiority Fighter", kind: "glb", modelId: "sw_tie_fo", badge: "First Order Fighter", camDist: 3.2, extraFill: 0.58, desc: "Modernized Sienar-Jaemus First Order successor to the TIE/ln pairing upgraded high-output white solar arrays with dark fuselage armor and onboard deflectors." }
         ]
       },
       {
@@ -775,6 +921,20 @@
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.12;
 
+    let isSoftwareWebGL = false;
+    try {
+      const glProbe = renderer.getContext();
+      const dbg = glProbe.getExtension("WEBGL_debug_renderer_info");
+      const glName = String(
+        dbg
+          ? glProbe.getParameter(dbg.UNMASKED_RENDERER_WEBGL)
+          : glProbe.getParameter(glProbe.RENDERER) || ""
+      );
+      isSoftwareWebGL = /swiftshader|llvmpipe|software|softpipe/i.test(glName);
+    } catch (_) {
+      isSoftwareWebGL = false;
+    }
+
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x060607);
 
@@ -871,7 +1031,7 @@
         if (!child.isMesh) return;
         const nm = (child.name || "").toLowerCase();
         const isAtmoOrRing = nm.includes("ring") || nm.includes("atmo") || nm.includes("cloud") || nm.includes("haze");
-        if (isAtmoOrRing && activeItem?.kind === "glb") {
+        if (isAtmoOrRing && activeItem?.kind === "glb" && !activeItem?.id?.startsWith("sw_") && !activeItem?.modelId?.startsWith("sw_")) {
           child.visible = pgState.showAtmoRings;
         }
         if (activeItem?.kind !== "bh" && child.material && "wireframe" in child.material) {
@@ -1004,7 +1164,7 @@
         const u = new URL(window.location.href);
         u.searchParams.set("id", item.id);
         window.history.replaceState({}, "", u.toString());
-      } catch (_) {}
+      } catch (_) { }
     }
 
     // ==================== POPULATE DROPDOWNS & WIRE UI ====================
@@ -1062,12 +1222,43 @@
     document.getElementById("prev-btn").addEventListener("click", () => stepObject(-1));
     document.getElementById("next-btn").addEventListener("click", () => stepObject(1));
 
+    const topBarEl = document.getElementById("top-bar");
     const controlsPanel = document.getElementById("controls-panel");
     const controlsToggleBtn = document.getElementById("controls-toggle-btn");
+
+    function positionControlsPanel() {
+      if (!controlsPanel.classList.contains("open")) return;
+      controlsPanel.classList.remove("align-left");
+      controlsPanel.style.transform = "";
+      const rect = controlsPanel.getBoundingClientRect();
+      if (rect.left < 12) {
+        controlsPanel.classList.add("align-left");
+      }
+      const after = controlsPanel.getBoundingClientRect();
+      if (after.right > window.innerWidth - 12 || after.left < 12) {
+        const clampedLeft = Math.max(12, Math.min(after.left, window.innerWidth - 12 - after.width));
+        const shift = Math.round(clampedLeft - after.left);
+        if (shift !== 0) controlsPanel.style.transform = `translateX(${shift}px)`;
+      }
+    }
+
+    function syncStudioHudLayout() {
+      if (topBarEl) {
+        const bottom = Math.ceil(topBarEl.getBoundingClientRect().bottom);
+        document.documentElement.style.setProperty("--top-bar-bottom", `${bottom + 12}px`);
+      }
+      positionControlsPanel();
+    }
+
+    if (typeof ResizeObserver !== "undefined" && topBarEl) {
+      new ResizeObserver(() => syncStudioHudLayout()).observe(topBarEl);
+    }
+
     controlsToggleBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       const open = controlsPanel.classList.toggle("open");
       controlsToggleBtn.classList.toggle("active", open);
+      if (open) syncStudioHudLayout();
     });
     document.addEventListener("click", (e) => {
       if (!e.target.closest(".controls-wrap")) {
@@ -1145,9 +1336,10 @@
     const hoverNameEl = document.getElementById("hover-object-name");
     let isObjectHovered = false;
 
+    const HOVER_MASK_SCALE = 0.5;
     const hoverMaskTarget = new THREE.WebGLRenderTarget(
-      Math.max(1, window.innerWidth),
-      Math.max(1, window.innerHeight),
+      Math.max(1, Math.floor(window.innerWidth * HOVER_MASK_SCALE)),
+      Math.max(1, Math.floor(window.innerHeight * HOVER_MASK_SCALE)),
       {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
@@ -1215,8 +1407,13 @@
 
     function renderStudioHoverContour() {
       if (!isObjectHovered || !activeHolder) return;
+      if (activeItem?.kind === "bh" && isSoftwareWebGL) return;
+
+      activeBhSys?.setMaskPassActive?.(true);
       activeHolder.traverse((ch) => {
-        ch.layers.enable(HOVER_CONTOUR_LAYER);
+        if (!ch.userData?.excludeFromContour && !ch.isSprite) {
+          ch.layers.enable(HOVER_CONTOUR_LAYER);
+        }
       });
       const prevBg = scene.background;
       scene.background = null;
@@ -1230,6 +1427,10 @@
       renderer.setClearColor(0x060607, 1.0);
       camera.layers.set(0);
       scene.background = prevBg;
+      activeHolder.traverse((ch) => {
+        ch.layers.disable(HOVER_CONTOUR_LAYER);
+      });
+      activeBhSys?.setMaskPassActive?.(false);
 
       const prevAutoClear = renderer.autoClear;
       renderer.autoClear = false;
@@ -1278,8 +1479,12 @@
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      hoverMaskTarget.setSize(Math.max(1, window.innerWidth), Math.max(1, window.innerHeight));
+      hoverMaskTarget.setSize(
+        Math.max(1, Math.floor(window.innerWidth * HOVER_MASK_SCALE)),
+        Math.max(1, Math.floor(window.innerHeight * HOVER_MASK_SCALE))
+      );
       hoverContourUniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+      syncStudioHudLayout();
     });
 
     // ==================== INITIALIZATION (DEEP LINK SUPPORT) ====================
@@ -1302,6 +1507,7 @@
     populateObjects(initCat);
     objSelect.value = String(initObj);
     loadPlaygroundItem(initCat, initObj);
+    syncStudioHudLayout();
 
     // ==================== 60-FPS RENDER LOOP (ZERO ALLOCATIONS) ====================
     let lastMs = performance.now();
@@ -1398,16 +1604,18 @@
         if (activeHolder) {
           _bzRaycaster.ray.origin.copy(rayOrigin);
           _bzRaycaster.ray.direction.copy(rayDir);
+          _bzRaycaster.camera = camera;
           const rawHits = _bzRaycaster.intersectObject(activeHolder, true);
           const visHits = rawHits.filter((h) => !isAncestorHidden(h.object, activeHolder));
           chosenHit =
             visHits.find(
               (h) =>
                 !h.object?.isPoints &&
+                !h.object?.isSprite &&
                 h.object?.material?.side !== THREE.BackSide &&
                 h.object?.material?.blending !== THREE.AdditiveBlending
             ) ||
-            visHits.find((h) => !h.object?.isPoints) ||
+            visHits.find((h) => !h.object?.isPoints && !h.object?.isSprite) ||
             visHits[0] ||
             null;
         }
@@ -1465,4 +1673,5 @@
     requestAnimationFrame(tick);
   </script>
 </body>
+
 </html>

@@ -4,10 +4,10 @@
 // full 3D .glb CAD spacecraft + orbital rings on demand when any satellite is clicked or searched!
 
 import * as THREE from "../vendor/three.module.js";
-import { instantiateEnhanced3DBody, prioritizeModelLoad, ASSET_VERSION } from "./model3dLibrary.js";
-import { getGlowSpriteTexture } from "./proceduralBodies.js";
-import { OBLIQUITY_J2000_RAD } from "./orbitalMechanics.js";
-import { SAT_FAMILY_COLORS_RGB, SAT_FAMILY_COLORS_HEX, CATEGORY_COLORS } from "./colorSystem.js";
+import { instantiateEnhanced3DBody, prioritizeModelLoad, ASSET_VERSION } from "./model3dLibrary.js?v=20261124_v32";
+import { getGlowSpriteTexture } from "./proceduralBodies.js?v=20261124_v32";
+import { OBLIQUITY_J2000_RAD } from "./orbitalMechanics.js?v=20261124_v32";
+import { SAT_FAMILY_COLORS_RGB, SAT_FAMILY_COLORS_HEX, CATEGORY_COLORS } from "./colorSystem.js?v=20261124_v32";
 
 const DEG2RAD = Math.PI / 180.0;
 const EARTH_RADIUS_KM = 6371.0;
@@ -78,7 +78,7 @@ export class EarthConstellationManager {
   _initWorker() {
     if (typeof Worker === "undefined" || !this.orbitData) return;
     try {
-      this.worker = new Worker(new URL("./ephemerisWorker.js", import.meta.url));
+      this.worker = new Worker(new URL("./ephemerisWorker.js?v=20261124_v32", import.meta.url));
       this.worker.onmessage = (ev) => {
         const msg = ev.data;
         if (!msg) return;

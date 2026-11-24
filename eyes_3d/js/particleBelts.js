@@ -19,9 +19,9 @@ import {
   evaluateNBodyHeliocentricEclipticAU,
   evaluateNBodyHeliocentricAtFrameJD,
   FRAME_CLOCK
-} from "./orbitalMechanics.js";
-import { tr } from "./i18n.js";
-import { BELT_PALETTES, RING_COLORS, CATEGORY_COLORS, temperatureToRGB } from "./colorSystem.js";
+} from "./orbitalMechanics.js?v=20261124_v32";
+import { tr } from "./i18n.js?v=20261124_v32";
+import { BELT_PALETTES, RING_COLORS, CATEGORY_COLORS, temperatureToRGB } from "./colorSystem.js?v=20261124_v32";
 
 function mulberry32(seed) {
   let a = seed >>> 0;

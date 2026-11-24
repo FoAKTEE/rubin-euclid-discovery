@@ -4,9 +4,9 @@
 import * as THREE from "../vendor/three.module.js";
 import { GLTFLoader } from "../vendor/GLTFLoader.js";
 import { DRACOLoader } from "../vendor/DRACOLoader.js";
-import { MeshoptDecoder } from "../vendor/meshopt_decoder.module.js?v=20261122_v14";
+import { MeshoptDecoder } from "../vendor/meshopt_decoder.module.js?v=20261124_v32";
 
-export const ASSET_VERSION = "20261122_v14";
+export const ASSET_VERSION = "20261124_v32";
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath(new URL("../vendor/draco/", import.meta.url).href);
@@ -807,12 +807,34 @@ export function instantiateEnhanced3DBody(modelId, meshRadius = 1.0, options = {
         child.renderOrder = 3;
       } else if (child.material) {
         const isRoadsterModel = modelId === ROADSTER_MODEL_ID;
+        const isStarWarsModel = modelId.startsWith("sw_");
         const mat = isRoadsterModel ? buildRoadsterMaterial(child.material) : child.material.clone();
         const isSpacecraftModel =
           modelId.startsWith("sc_") || modelId === "euclid" || modelId === "spherex" || modelId === "jwst";
         if (isRoadsterModel) {
           // Authored automotive PBR is kept as-is (no metalness/roughness/albedo clamp).
           if (typeof mat.emissiveIntensity === "number") mat.emissiveIntensity = Math.min(mat.emissiveIntensity, 1.0);
+          attachLazyStudioEnvironment(child, mat);
+        } else if (isStarWarsModel) {
+          // Preserve authored Star Wars PBR textures, base colors, metalness, and roughness.
+          if (typeof mat.emissiveIntensity === "number") {
+            mat.emissiveIntensity = Math.min(mat.emissiveIntensity, 2.0);
+          }
+          mat.side = mat.transparent || child.material.side === THREE.DoubleSide
+            ? THREE.DoubleSide
+            : child.material.side;
+          if (!mat.userData) mat.userData = {};
+          const hasTextureRoughMetal = Boolean(mat.metalnessMap || mat.roughnessMap);
+          const isChrome =
+            !hasTextureRoughMetal &&
+            typeof mat.metalness === "number" &&
+            mat.metalness >= 0.75 &&
+            typeof mat.roughness === "number" &&
+            mat.roughness <= 0.30;
+          const swEnv = isChrome ? 1.15 : (hasTextureRoughMetal ? 0.78 : (mat.metalness >= 0.45 ? 0.85 : 0.65));
+          mat.envMapIntensity = swEnv;
+          mat.userData.envMapIntensity = swEnv;
+          mat.userData.keepAuthoredPBR = true;
           attachLazyStudioEnvironment(child, mat);
         } else if (isSpacecraftModel) {
           if (typeof mat.metalness === "number") mat.metalness = Math.min(mat.metalness, 0.42);
@@ -836,28 +858,31 @@ export function instantiateEnhanced3DBody(modelId, meshRadius = 1.0, options = {
         }
         const isTrueShapeNormal =
           isSpacecraftModel ||
+          isStarWarsModel ||
           ["earth", "earth_cad_dem", "vesta", "mimas", "proteus", "eros", "bennu", "ryugu", "psyche", "didymos", "dimorphos", "apophis", "67p", "oumuamua", "hyperion", "phoebe"].includes(modelId);
-        if (mat.normalMap && mat.normalScale) {
+        if (!isStarWarsModel && mat.normalMap && mat.normalScale) {
           const nScale = modelId === "earth_cad_dem" ? 1.15 : (isTrueShapeNormal ? 0.80 : 0.26);
           const sx = Math.sign(mat.normalScale.x || 1.0);
           const sy = Math.sign(mat.normalScale.y || 1.0);
           mat.normalScale.set(sx * nScale, sy * nScale);
         }
-        if (nm.includes("cloud")) {
-          mat.opacity = 0.56;
-          mat.transparent = true;
-          cloudMeshRef = child;
-        }
-        if (nm.includes("cloud") || nm.includes("haze") || nm.includes("geyser")) {
-          mat.depthWrite = false;
-          child.renderOrder = 1;
-        }
-        if (ringCfg && (nm.includes("globe") || nm.includes("body") || nm === "haumea")) {
-          injectRingShadowIntoPlanetMaterial(mat, ringCfg, sunDirLocalUniform, baseAssetPrefix);
-        }
-        if ((modelId === "earth" || modelId === "earth_cad_dem") && nm.includes("globe")) {
-          injectEarthDemAndNightShader(mat, sunDirWorldUniform, demScaleUniform, modelId === "earth_cad_dem", baseAssetPrefix);
-          globeMaterialRef = mat;
+        if (!isStarWarsModel) {
+          if (nm.includes("cloud")) {
+            mat.opacity = 0.56;
+            mat.transparent = true;
+            cloudMeshRef = child;
+          }
+          if (nm.includes("cloud") || nm.includes("haze") || nm.includes("geyser")) {
+            mat.depthWrite = false;
+            child.renderOrder = 1;
+          }
+          if (ringCfg && (nm.includes("globe") || nm.includes("body") || nm === "haumea")) {
+            injectRingShadowIntoPlanetMaterial(mat, ringCfg, sunDirLocalUniform, baseAssetPrefix);
+          }
+          if ((modelId === "earth" || modelId === "earth_cad_dem") && nm.includes("globe")) {
+            injectEarthDemAndNightShader(mat, sunDirWorldUniform, demScaleUniform, modelId === "earth_cad_dem", baseAssetPrefix);
+            globeMaterialRef = mat;
+          }
         }
         child.material = mat;
       }

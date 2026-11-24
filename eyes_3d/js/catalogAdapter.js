@@ -1,8 +1,8 @@
 // Dynamic Catalog Adapter for window.SOLAR_CATALOG + non-destructive in-memory fallback.
 // Reads window.SOLAR_CATALOG seamlessly; never writes or modifies data/solar_catalog.js on disk.
 
-import { BUILTIN_REFERENCE_OBJECTS } from "./fallbackCatalog.js";
-import { resolveObjectColor, GALACTIC_COLORS, CATEGORY_COLORS } from "./colorSystem.js";
+import { BUILTIN_REFERENCE_OBJECTS } from "./fallbackCatalog.js?v=20261124_v32";
+import { resolveObjectColor, GALACTIC_COLORS, CATEGORY_COLORS } from "./colorSystem.js?v=20261124_v32";
 
 export const CATEGORY_ORDER = [
   "all",

@@ -16,7 +16,7 @@ import {
   getObjectHeadline,
   getObjectSummary,
   getCategoryLabel
-} from "./i18n.js?v=20261124_v31";
+} from "./i18n.js?v=20261124_v32";
 
 import {
   CATEGORY_ORDER,
@@ -25,7 +25,7 @@ import {
   normalizeGalacticCatalog,
   objectMatchesCategory,
   resolveObjectByQuery
-} from "./catalogAdapter.js";
+} from "./catalogAdapter.js?v=20261124_v32";
 
 import {
   DEG2RAD,
@@ -62,28 +62,28 @@ import {
   NBODY_FRAME_BUDGET_CHECKPOINTS,
   ORBIT_VIEW_STATE,
   LAST_ORBIT_OBJ_VERT_IDX
-} from "./orbitalMechanics.js";
+} from "./orbitalMechanics.js?v=20261124_v32";
 import {
   CATEGORY_COLORS,
   LEGEND_SOLAR_SYSTEM,
   LEGEND_STELLAR,
   LEGEND_GALACTIC
-} from "./colorSystem.js";
+} from "./colorSystem.js?v=20261124_v32";
 
-import { createProceduralBodyNode, getGlowSpriteTexture } from "./proceduralBodies.js";
-import { prioritizeModelLoad, evictLRUModels, ASSET_VERSION } from "./model3dLibrary.js";
-import { buildAllParticleBelts, buildReferenceOverlays } from "./particleBelts.js";
-import { EarthConstellationManager, mapGeocentricKmToSceneRadius } from "./earthConstellations.js";
+import { createProceduralBodyNode, getGlowSpriteTexture } from "./proceduralBodies.js?v=20261124_v32";
+import { prioritizeModelLoad, evictLRUModels, ASSET_VERSION } from "./model3dLibrary.js?v=20261124_v32";
+import { buildAllParticleBelts, buildReferenceOverlays } from "./particleBelts.js?v=20261124_v32";
+import { EarthConstellationManager, mapGeocentricKmToSceneRadius } from "./earthConstellations.js?v=20261124_v32";
 import {
   updateBodyPhysicalRotation,
   getIAUPoleElements,
   formatSiderealPeriod,
   computeEarthSubsolarLatLon
-} from "./planetaryRotation.js";
-import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261124_v30";
-import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261124_v30";
-import { createADAMOverlayManager } from "./adamOverlay.js?v=20261124_v25";
-import { createBoxZoomController } from "./boxZoom.js?v=20261124_v25";
+} from "./planetaryRotation.js?v=20261124_v32";
+import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261124_v32";
+import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261124_v32";
+import { createADAMOverlayManager } from "./adamOverlay.js?v=20261124_v32";
+import { createBoxZoomController } from "./boxZoom.js?v=20261124_v32";
 
 const SPEED_TIERS = [
   { daysPerSec: 1.0 / 86400.0, i18nKey: "timeReal" },

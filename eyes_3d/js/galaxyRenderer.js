@@ -1,5 +1,5 @@
 import * as THREE from "../vendor/three.module.js";
-import { bpRpToPlanckRGB } from "./colorSystem.js";
+import { bpRpToPlanckRGB } from "./colorSystem.js?v=20261124_v32";
 
 export const GALAXY_SCENE_PER_PC = 200.0;
 export const GALAXY_SCENE_PER_KPC = 200000.0;

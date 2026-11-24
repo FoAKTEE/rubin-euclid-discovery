@@ -2,10 +2,10 @@
 // Supports seamless zoom from 100,000 AU down to 0.00003 AU close-up surface, spacecraft & comet inspection at 60 FPS.
 
 import * as THREE from "../vendor/three.module.js";
-import { DEG2RAD } from "./orbitalMechanics.js";
-import { instantiateEnhanced3DBody, createQuadsphereGeometry, prioritizeModelLoad } from "./model3dLibrary.js";
-import { applyIAUPoleOrientationToTiltGroup } from "./planetaryRotation.js";
-import { SUN_COLOR, DISCOVERY_GOLD, CATEGORY_COLORS, temperatureToHex } from "./colorSystem.js";
+import { DEG2RAD } from "./orbitalMechanics.js?v=20261124_v32";
+import { instantiateEnhanced3DBody, createQuadsphereGeometry, prioritizeModelLoad } from "./model3dLibrary.js?v=20261124_v32";
+import { applyIAUPoleOrientationToTiltGroup } from "./planetaryRotation.js?v=20261124_v32";
+import { SUN_COLOR, DISCOVERY_GOLD, CATEGORY_COLORS, temperatureToHex } from "./colorSystem.js?v=20261124_v32";
 
 let sharedGlowTexture = null;
 let sharedReticleTexture = null;
