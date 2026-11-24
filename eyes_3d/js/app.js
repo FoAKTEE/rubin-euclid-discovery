@@ -16,7 +16,7 @@ import {
   getObjectHeadline,
   getObjectSummary,
   getCategoryLabel
-} from "./i18n.js?v=20261124_v32";
+} from "./i18n.js?v=20261124_v33";
 
 import {
   CATEGORY_ORDER,
@@ -25,7 +25,7 @@ import {
   normalizeGalacticCatalog,
   objectMatchesCategory,
   resolveObjectByQuery
-} from "./catalogAdapter.js?v=20261124_v32";
+} from "./catalogAdapter.js?v=20261124_v33";
 
 import {
   DEG2RAD,
@@ -62,28 +62,28 @@ import {
   NBODY_FRAME_BUDGET_CHECKPOINTS,
   ORBIT_VIEW_STATE,
   LAST_ORBIT_OBJ_VERT_IDX
-} from "./orbitalMechanics.js?v=20261124_v32";
+} from "./orbitalMechanics.js?v=20261124_v33";
 import {
   CATEGORY_COLORS,
   LEGEND_SOLAR_SYSTEM,
   LEGEND_STELLAR,
   LEGEND_GALACTIC
-} from "./colorSystem.js?v=20261124_v32";
+} from "./colorSystem.js?v=20261124_v33";
 
-import { createProceduralBodyNode, getGlowSpriteTexture } from "./proceduralBodies.js?v=20261124_v32";
-import { prioritizeModelLoad, evictLRUModels, ASSET_VERSION } from "./model3dLibrary.js?v=20261124_v32";
-import { buildAllParticleBelts, buildReferenceOverlays } from "./particleBelts.js?v=20261124_v32";
-import { EarthConstellationManager, mapGeocentricKmToSceneRadius } from "./earthConstellations.js?v=20261124_v32";
+import { createProceduralBodyNode, getGlowSpriteTexture } from "./proceduralBodies.js?v=20261124_v33";
+import { prioritizeModelLoad, evictLRUModels, ASSET_VERSION } from "./model3dLibrary.js?v=20261124_v33";
+import { buildAllParticleBelts, buildReferenceOverlays } from "./particleBelts.js?v=20261124_v33";
+import { EarthConstellationManager, mapGeocentricKmToSceneRadius } from "./earthConstellations.js?v=20261124_v33";
 import {
   updateBodyPhysicalRotation,
   getIAUPoleElements,
   formatSiderealPeriod,
   computeEarthSubsolarLatLon
-} from "./planetaryRotation.js?v=20261124_v32";
-import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261124_v32";
-import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261124_v32";
-import { createADAMOverlayManager } from "./adamOverlay.js?v=20261124_v32";
-import { createBoxZoomController } from "./boxZoom.js?v=20261124_v32";
+} from "./planetaryRotation.js?v=20261124_v33";
+import { createGalaxyLayer } from "./galaxyRenderer.js?v=20261124_v33";
+import { createBlackHoleSystem } from "./blackHoleDisks.js?v=20261124_v33";
+import { createADAMOverlayManager } from "./adamOverlay.js?v=20261124_v33";
+import { createBoxZoomController } from "./boxZoom.js?v=20261124_v33";
 
 const SPEED_TIERS = [
   { daysPerSec: 1.0 / 86400.0, i18nKey: "timeReal" },
@@ -115,8 +115,8 @@ const MAJOR_ORBIT_IDS = new Set(["PLUTO", "CERES", "ERIS", "HAUMEA", "MAKEMAKE",
 function buildBlogUrl(_lang, suffix = "") {
   const isLocalEyesPort =
     (window.location.hostname === "localhost" ||
-     window.location.hostname === "127.0.0.1" ||
-     window.location.hostname === "0.0.0.0") &&
+      window.location.hostname === "127.0.0.1" ||
+      window.location.hostname === "0.0.0.0") &&
     window.location.port === "8765";
   const base = isLocalEyesPort
     ? `${window.location.protocol}//${window.location.hostname}:8766/index.html`
@@ -2058,7 +2058,7 @@ function updateSimulationPositions(dtSec) {
                 ring.visible &&
                 (isChSelHighlight || isChHovHighlight || isChFocused || ratio < 24.0) &&
                 Math.abs(state.simJD - ring.userData.ringJD) >
-                  ((isChSelHighlight || isChHovHighlight || isChFocused || ratio < 10.0) ? 1e-6 : Math.max(0.01, ring.userData.periodDays * 0.003));
+                ((isChSelHighlight || isChHovHighlight || isChFocused || ratio < 10.0) ? 1e-6 : Math.max(0.01, ring.userData.periodDays * 0.003));
               if (needChildRingRefresh) {
                 const attr = ring.geometry.attributes.position;
                 fillChildOrbitRing(attr.array, rt, ring.userData.childObj, state.simJD, ring.userData.periodDays);
@@ -3048,11 +3048,11 @@ function renderCatalogObjectList() {
     const rank = (x) =>
       x.category === "star" ? 0
         : x.is_black_hole && x.bh_type === "smbh" ? 1
-        : x.is_new_discovery ? 2
-        : x.is_black_hole ? 3
-        : x.category === "planets" ? 4
-        : x.is_galactic ? 5
-        : x.is_signature_highlight ? 6 : 7;
+          : x.is_new_discovery ? 2
+            : x.is_black_hole ? 3
+              : x.category === "planets" ? 4
+                : x.is_galactic ? 5
+                  : x.is_signature_highlight ? 6 : 7;
     const ra = rank(a), rb = rank(b);
     if (ra !== rb) return ra - rb;
     return Math.abs(a.a_au || a.dist_kpc || 0) - Math.abs(b.a_au || b.dist_kpc || 0);
@@ -3588,7 +3588,7 @@ function syncURLState() {
     if (state.showDiscoveries) u.searchParams.set("discoveries", "1");
     else u.searchParams.delete("discoveries");
     window.history.replaceState({}, "", u.toString());
-  } catch (_) {}
+  } catch (_) { }
 }
 
 // ==================== SEARCH AUTOCOMPLETE (WITH ASYNC WORKER SAT SEARCH) ====================
@@ -3909,7 +3909,7 @@ document.getElementById("insp-copy-link-btn").addEventListener("click", async (e
     await navigator.clipboard.writeText(window.location.href);
     btn.textContent = tr(state.lang, "copiedDeepLink");
     setTimeout(() => { btn.textContent = tr(state.lang, "copyDeepLink"); }, 1600);
-  } catch (_) {}
+  } catch (_) { }
 });
 document.getElementById("release-lock-btn").addEventListener("click", dismissLockedOn);
 document.getElementById("time-play-btn").addEventListener("click", () => {

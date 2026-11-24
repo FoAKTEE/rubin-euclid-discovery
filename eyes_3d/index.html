@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eyes on the Cosmos — 3D Solar System, Oort Cloud &amp; Milky Way Explorer</title>
-  <meta name="description" content="Interactive 3D explorer of the Solar System and the Milky Way: planets on an N-body integration started from JPL ephemeris states, a perturbed lunar orbit, Keplerian asteroid and Kuiper belts, 82,199 Gaia stars and black holes. Audited survey candidates are an optional layer." />
-  <link rel="stylesheet" href="css/styles.css?v=20261124_v32" />
+  <meta name="description"
+    content="Interactive 3D explorer of the Solar System and the Milky Way: planets on an N-body integration started from JPL ephemeris states, a perturbed lunar orbit, Keplerian asteroid and Kuiper belts, 82,199 Gaia stars and black holes. Audited survey candidates are an optional layer." />
+  <link rel="stylesheet" href="css/styles.css?v=20261124_v33" />
 </head>
+
 <body>
   <!-- Full-Bleed 3D WebGL + CSS2D Viewport -->
   <div id="viewport-container">
@@ -35,7 +38,8 @@
 
     <div class="search-wrapper">
       <span class="search-icon" aria-hidden="true">⌕</span>
-      <input id="search-input" type="text" autocomplete="off" placeholder="Search objects…" title="Search planets, moons, comets, black holes, Sgr A*, Starlink, NORAD numbers" />
+      <input id="search-input" type="text" autocomplete="off" placeholder="Search objects…"
+        title="Search planets, moons, comets, black holes, Sgr A*, Starlink, NORAD numbers" />
       <button id="search-clear" type="button" aria-label="Clear search">✕</button>
       <div id="search-dropdown"></div>
     </div>
@@ -85,7 +89,9 @@
             <button id="toggle-rings-btn" class="toggle-chip" type="button">Distance Rings</button>
             <button id="toggle-galactic-btn" class="toggle-chip" type="button">Galactic Plane Zone</button>
             <button id="toggle-labels-btn" class="toggle-chip" type="button">3D Labels</button>
-            <button id="toggle-discoveries-btn" class="toggle-chip discoveries-chip active" type="button" title="Optional layer: the audited survey candidates and the 12:1 resonance ring">Survey Discoveries (93)</button>
+            <button id="toggle-discoveries-btn" class="toggle-chip discoveries-chip active" type="button"
+              title="Optional layer: the audited survey candidates and the 12:1 resonance ring">Survey Discoveries
+              (93)</button>
             <button id="toggle-legend-btn" class="toggle-chip" type="button">Color Key</button>
           </div>
         </div>
@@ -98,8 +104,10 @@
         </button>
         <div class="menu-panel" id="panel-layers">
           <div class="menu-section-hdr">Earth Megaconstellations</div>
-          <button id="toggle-sats-btn" class="toggle-chip active full-width" type="button">Earth Satellites (22,022)</button>
-          <select id="sat-family-select" class="hud-select full-width" style="margin-top:10px;" aria-label="Satellite constellation filter">
+          <button id="toggle-sats-btn" class="toggle-chip active full-width" type="button">Earth Satellites
+            (22,022)</button>
+          <select id="sat-family-select" class="hud-select full-width" style="margin-top:10px;"
+            aria-label="Satellite constellation filter">
             <option id="opt-sat-all" value="4095">All Cataloged Satellites (22,022)</option>
             <option id="opt-sat-musk" value="3">SpaceX Constellations — All (11,669)</option>
             <option id="opt-sat-comm-all" value="255">Commercial Constellations — All (17,887)</option>
@@ -148,15 +156,19 @@
         <div class="menu-panel" id="panel-adam">
           <div class="menu-section-hdr">3D Mission &amp; Hazard Layers</div>
           <div class="menu-toggle-stack">
-            <button id="toggle-adam-transfers-btn" class="toggle-chip" type="button">Lambert Transfer Trajectories</button>
+            <button id="toggle-adam-transfers-btn" class="toggle-chip" type="button">Lambert Transfer
+              Trajectories</button>
             <button id="toggle-adam-impactors-btn" class="toggle-chip" type="button">Virtual Impactor Tubes</button>
-            <button id="toggle-adam-corridors-btn" class="toggle-chip" type="button">Earth &amp; Moon Risk Corridors</button>
+            <button id="toggle-adam-corridors-btn" class="toggle-chip" type="button">Earth &amp; Moon Risk
+              Corridors</button>
             <button id="toggle-adam-precovery-btn" class="toggle-chip" type="button">Precovery Sky Arcs</button>
           </div>
           <div class="menu-section-hdr" style="margin-top:12px;">Quick Views</div>
           <div class="menu-preset-stack">
-            <button id="preset-adam-transfers-btn" class="preset-btn" type="button">Frame Interplanetary Transfers</button>
-            <button id="preset-adam-corridor-btn" class="preset-btn" type="button">Inspect Earth Impact Corridor</button>
+            <button id="preset-adam-transfers-btn" class="preset-btn" type="button">Frame Interplanetary
+              Transfers</button>
+            <button id="preset-adam-corridor-btn" class="preset-btn" type="button">Inspect Earth Impact
+              Corridor</button>
           </div>
           <div id="adam-overlay-summary" style="margin-top:10px;font-size:11px;color:#a1a1aa;line-height:1.4;"></div>
         </div>
@@ -170,11 +182,16 @@
         <div class="menu-panel menu-panel-right" id="panel-portals">
           <div id="lbl-portals-hdr" class="menu-section-hdr">Companion Portals</div>
           <div class="menu-link-stack">
-            <a id="hub-nav-link" class="menu-link" href="../index.html" title="Portal hub: audited counts, manuscript and atlases">Portal Hub</a>
-            <a id="gallery-nav-link" class="menu-link" href="../movie_gallery/index.html" title="96 real-pixel archival movie targets">Real-Pixel Movie Gallery (96)</a>
-            <a id="studio-nav-link" class="menu-link" href="studio.html" target="_blank" rel="noopener">3D Playground ↗</a>
-            <a id="adam-console-link" class="menu-link" href="../adam_console/index.html" target="_blank" rel="noopener">ADAM Console ↗</a>
-            <a id="blog-nav-link" class="menu-link" href="../discovery_blog/index.html" target="_blank" rel="noopener">Research Blog ↗</a>
+            <a id="hub-nav-link" class="menu-link" href="../index.html"
+              title="Portal hub: audited counts, manuscript and atlases">Portal Hub</a>
+            <a id="gallery-nav-link" class="menu-link" href="../movie_gallery/index.html"
+              title="96 real-pixel archival movie targets">Real-Pixel Movie Gallery (96)</a>
+            <a id="studio-nav-link" class="menu-link" href="studio.html" target="_blank" rel="noopener">3D Playground
+              ↗</a>
+            <a id="adam-console-link" class="menu-link" href="../adam_console/index.html" target="_blank"
+              rel="noopener">ADAM Console ↗</a>
+            <a id="blog-nav-link" class="menu-link" href="../discovery_blog/index.html" target="_blank"
+              rel="noopener">Research Blog ↗</a>
           </div>
         </div>
       </div>
@@ -183,10 +200,14 @@
 
   <!-- Compact Floating Box Zoom Toolbar (top-left under top bar) -->
   <div id="box-zoom-bar" class="glass-bar" role="toolbar" aria-label="Box zoom controls">
-    <button id="btn-box-zoom-in" class="box-zoom-btn" type="button" aria-pressed="false" title="Drag selection box to zoom in (Z or Shift+Drag)">⊞ Zoom In</button>
-    <button id="btn-box-zoom-out" class="box-zoom-btn" type="button" aria-pressed="false" title="Drag radial circle from divergence point to zoom out (X or Alt+Drag)">⊙ Zoom Out</button>
-    <button id="btn-zoom-back" class="box-zoom-btn" type="button" disabled aria-disabled="true" title="Undo last zoom or focus (Backspace)">↺</button>
-    <button id="btn-reset-view" class="box-zoom-btn" type="button" title="Reset camera view to default">⌂ Reset View</button>
+    <button id="btn-box-zoom-in" class="box-zoom-btn" type="button" aria-pressed="false"
+      title="Drag selection box to zoom in (Z or Shift+Drag)">⊞ Zoom In</button>
+    <button id="btn-box-zoom-out" class="box-zoom-btn" type="button" aria-pressed="false"
+      title="Drag radial circle from divergence point to zoom out (X or Alt+Drag)">⊙ Zoom Out</button>
+    <button id="btn-zoom-back" class="box-zoom-btn" type="button" disabled aria-disabled="true"
+      title="Undo last zoom or focus (Backspace)">↺</button>
+    <button id="btn-reset-view" class="box-zoom-btn" type="button" title="Reset camera view to default">⌂ Reset
+      View</button>
     <span id="box-zoom-hint"></span>
   </div>
 
@@ -201,7 +222,8 @@
   <button id="inspector-reopen-btn" class="glass-bar" type="button" style="display:none;">Inspector ◂</button>
 
   <!-- Reopen Left-Bottom Quick View Panel Button -->
-  <button id="quick-view-reopen-btn" class="glass-bar" type="button" style="display:none;">View &amp; Overlays ▴</button>
+  <button id="quick-view-reopen-btn" class="glass-bar" type="button" style="display:none;">View &amp; Overlays
+    ▴</button>
 
   <!-- Default Left-Bottom Collapsible Quick View Panel (with Flowing Color Key) -->
   <aside id="quick-view-dock" class="glass-bar" aria-label="Quick view controls">
@@ -215,19 +237,23 @@
 
     <div class="quick-view-hdr">
       <span class="quick-view-title">View &amp; Overlays</span>
-      <button id="quick-view-collapse-btn" class="icon-close-btn" type="button" aria-label="Collapse quick view panel" title="Collapse">▾</button>
+      <button id="quick-view-collapse-btn" class="icon-close-btn" type="button" aria-label="Collapse quick view panel"
+        title="Collapse">▾</button>
     </div>
 
     <div class="quick-view-grid">
-      <button id="quick-toggle-log-btn" class="toggle-chip" type="button" title="Toggle between True 1:1 AU (default) and Deep-Space Log scale">Deep-Space Log</button>
+      <button id="quick-toggle-log-btn" class="toggle-chip" type="button"
+        title="Toggle between True 1:1 AU (default) and Deep-Space Log scale">Deep-Space Log</button>
       <select id="quick-orbit-select" class="hud-select" aria-label="Orbits display">
         <option value="off">Orbits: None</option>
         <option value="selected" selected>Orbits: Selected</option>
         <option value="major">Orbits: Major</option>
         <option value="all">Orbits: All</option>
       </select>
-      <button id="quick-toggle-discoveries-btn" class="toggle-chip discoveries-chip active" type="button" title="Toggle the 93 audited survey discovery candidates">Survey Discoveries (93)</button>
-      <button id="quick-toggle-legend-btn" class="toggle-chip" type="button" title="Show or hide the color key">Color Key</button>
+      <button id="quick-toggle-discoveries-btn" class="toggle-chip discoveries-chip active" type="button"
+        title="Toggle the 93 audited survey discovery candidates">Survey Discoveries (93)</button>
+      <button id="quick-toggle-legend-btn" class="toggle-chip" type="button" title="Show or hide the color key">Color
+        Key</button>
     </div>
   </aside>
 
@@ -255,8 +281,10 @@
       <button id="tab-overview" class="insp-tab active" data-sec="overview" type="button" role="tab">Overview</button>
       <button id="tab-orbit" class="insp-tab" data-sec="orbit" type="button" role="tab">Orbit</button>
       <button id="tab-physical" class="insp-tab" data-sec="physical" type="button" role="tab">Physical</button>
-      <button id="tab-media" class="insp-tab" data-sec="media" type="button" role="tab" style="display:none;">Media</button>
-      <button id="tab-system" class="insp-tab" data-sec="system" type="button" role="tab" style="display:none;">System</button>
+      <button id="tab-media" class="insp-tab" data-sec="media" type="button" role="tab"
+        style="display:none;">Media</button>
+      <button id="tab-system" class="insp-tab" data-sec="system" type="button" role="tab"
+        style="display:none;">System</button>
     </div>
 
     <div id="inspector-body" class="inspector-body">
@@ -269,7 +297,8 @@
           <div id="insp-telescopes-list" class="facility-badges"></div>
         </div>
         <div class="insp-footer-links">
-          <a id="insp-blog-btn" class="insp-link-btn" href="../discovery_blog/index.html" target="_blank" rel="noopener">Research Blog ↗</a>
+          <a id="insp-blog-btn" class="insp-link-btn" href="../discovery_blog/index.html" target="_blank"
+            rel="noopener">Research Blog ↗</a>
           <button id="insp-copy-link-btn" class="insp-link-btn secondary" type="button">Copy Deep-Link</button>
         </div>
       </section>
@@ -300,7 +329,8 @@
         </div>
 
         <div id="insp-earth-precision-wrap" class="earth-precision-card" style="display:none;">
-          <div id="sec-earth-precision-hdr" class="insp-section-title">WGS-84 Geodetic Elevation &amp; Stratified Atmosphere</div>
+          <div id="sec-earth-precision-hdr" class="insp-section-title">WGS-84 Geodetic Elevation &amp; Stratified
+            Atmosphere</div>
           <div class="earth-btn-row">
             <button id="btn-earth-8k" class="sat-chip-btn" type="button">8K Remote-Sensing Globe</button>
             <button id="btn-earth-cad" class="sat-chip-btn" type="button">442k-Tri Land+Seafloor CAD</button>
@@ -349,9 +379,10 @@
   </footer>
 
   <!-- Catalog Data + Application Engine -->
-  <script src="data/solar_catalog.js?v=20261124_v32" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
-  <script src="data/spacecraft_extra_catalog.js?v=20261124_v32"></script>
-  <script src="data/adam_overlay.js?v=20261124_v32" onerror="window.__ADAM_OVERLAY__=null"></script>
-  <script type="module" src="js/app.js?v=20261124_v32"></script>
+  <script src="data/solar_catalog.js?v=20261124_v33" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
+  <script src="data/spacecraft_extra_catalog.js?v=20261124_v33"></script>
+  <script src="data/adam_overlay.js?v=20261124_v33" onerror="window.__ADAM_OVERLAY__=null"></script>
+  <script type="module" src="js/app.js?v=20261124_v33"></script>
 </body>
+
 </html>

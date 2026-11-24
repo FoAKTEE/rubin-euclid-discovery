@@ -4,9 +4,9 @@
 import * as THREE from "../vendor/three.module.js";
 import { GLTFLoader } from "../vendor/GLTFLoader.js";
 import { DRACOLoader } from "../vendor/DRACOLoader.js";
-import { MeshoptDecoder } from "../vendor/meshopt_decoder.module.js?v=20261124_v32";
+import { MeshoptDecoder } from "../vendor/meshopt_decoder.module.js?v=20261124_v33";
 
-export const ASSET_VERSION = "20261124_v32";
+export const ASSET_VERSION = "20261124_v33";
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath(new URL("../vendor/draco/", import.meta.url).href);

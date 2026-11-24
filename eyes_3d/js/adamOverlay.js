@@ -3,7 +3,7 @@
 // impact corridors, and archival Precovery sky-arc tracks with zero per-frame allocation.
 
 import * as THREE from "../vendor/three.module.js";
-import { LOG_R0, LOG_S0, DEG2RAD } from "./orbitalMechanics.js?v=20261124_v32";
+import { LOG_R0, LOG_S0, DEG2RAD } from "./orbitalMechanics.js?v=20261124_v33";
 
 function makeHelioShaderMaterial(uLogBlendRef, uGlobalFadeRef, defaultOpacity = 0.9) {
   return new THREE.ShaderMaterial({

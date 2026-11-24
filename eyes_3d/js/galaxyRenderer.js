@@ -1,5 +1,5 @@
 import * as THREE from "../vendor/three.module.js";
-import { bpRpToPlanckRGB } from "./colorSystem.js?v=20261124_v32";
+import { bpRpToPlanckRGB } from "./colorSystem.js?v=20261124_v33";
 
 export const GALAXY_SCENE_PER_PC = 200.0;
 export const GALAXY_SCENE_PER_KPC = 200000.0;
@@ -23,7 +23,7 @@ const REID_ARMS = [
   [0.482, 4.91, Math.tan(13.1 * DEG2RAD), 0.52, 1.12, 1.00], // Scutum-Centaurus
   [0.419, 6.04, Math.tan(12.1 * DEG2RAD), 0.48, 0.96, 0.92], // Sagittarius-Carina
   [0.122, 8.26, Math.tan(11.4 * DEG2RAD), 0.31, 0.68, 0.65], // Local (Orion) Spur
-  [0.698, 8.87, Math.tan(9.4 * DEG2RAD),  0.54, 1.04, 0.88]  // Perseus
+  [0.698, 8.87, Math.tan(9.4 * DEG2RAD), 0.54, 1.04, 0.88]  // Perseus
 ];
 
 function mulberry32(seed) {
@@ -39,7 +39,7 @@ function mulberry32(seed) {
 
 export function helioGalacticKpcToScene(xg, yg, zg, outArr, offset = 0) {
   const s = GALAXY_SCENE_PER_KPC;
-  outArr[offset]     = (G0[0] * xg + G1[0] * yg + G2[0] * zg) * s;
+  outArr[offset] = (G0[0] * xg + G1[0] * yg + G2[0] * zg) * s;
   outArr[offset + 1] = (G0[1] * xg + G1[1] * yg + G2[1] * zg) * s;
   outArr[offset + 2] = (G0[2] * xg + G1[2] * yg + G2[2] * zg) * s;
 }

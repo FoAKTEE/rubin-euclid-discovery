@@ -19,9 +19,9 @@ import {
   evaluateNBodyHeliocentricEclipticAU,
   evaluateNBodyHeliocentricAtFrameJD,
   FRAME_CLOCK
-} from "./orbitalMechanics.js?v=20261124_v32";
-import { tr } from "./i18n.js?v=20261124_v32";
-import { BELT_PALETTES, RING_COLORS, CATEGORY_COLORS, temperatureToRGB } from "./colorSystem.js?v=20261124_v32";
+} from "./orbitalMechanics.js?v=20261124_v33";
+import { tr } from "./i18n.js?v=20261124_v33";
+import { BELT_PALETTES, RING_COLORS, CATEGORY_COLORS, temperatureToRGB } from "./colorSystem.js?v=20261124_v33";
 
 function mulberry32(seed) {
   let a = seed >>> 0;
@@ -471,19 +471,19 @@ export function buildReferenceOverlays(initialLang) {
     const geom = new THREE.BufferGeometry().setFromPoints(unitCirclePts);
     const mat = def.dashed
       ? new THREE.LineDashedMaterial({
-          color: def.color,
-          transparent: true,
-          opacity: def.opacity,
-          dashSize: def.isMMR ? 0.08 : 0.06,
-          gapSize: 0.045,
-          depthWrite: false
-        })
+        color: def.color,
+        transparent: true,
+        opacity: def.opacity,
+        dashSize: def.isMMR ? 0.08 : 0.06,
+        gapSize: 0.045,
+        depthWrite: false
+      })
       : new THREE.LineBasicMaterial({
-          color: def.color,
-          transparent: true,
-          opacity: def.opacity,
-          depthWrite: false
-        });
+        color: def.color,
+        transparent: true,
+        opacity: def.opacity,
+        depthWrite: false
+      });
 
     const line = new THREE.Line(geom, mat);
     if (def.dashed) line.computeLineDistances();

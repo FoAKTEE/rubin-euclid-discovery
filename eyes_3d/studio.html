@@ -351,6 +351,77 @@
       margin-top: 6px;
     }
 
+    #info-credit {
+      font-size: 12.5px;
+      color: #9ca3af;
+      margin-top: 6px;
+      font-family: var(--font-mono);
+      display: none;
+    }
+
+    .quick-jump-block {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    #quick-jump-input {
+      width: 100%;
+      padding: 8px 11px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--surface-control);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      outline: none;
+    }
+
+    #quick-jump-input:focus {
+      border-color: var(--border-accent);
+    }
+
+    #quick-jump-results {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    #quick-jump-results[hidden] {
+      display: none;
+    }
+
+    .qj-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 13px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .qj-item:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--border-accent);
+    }
+
+    .qj-sub {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
     .info-hint {
       font-size: 13.5px;
       color: var(--muted);
@@ -673,6 +744,12 @@
     <div class="controls-wrap">
       <button id="controls-toggle-btn" class="nav-btn" type="button">Controls ▾</button>
       <div id="controls-panel">
+        <div class="quick-jump-block">
+          <div class="ctrl-hdr">Quick Jump (All Objects)</div>
+          <input id="quick-jump-input" type="search" placeholder="Search 100+ ships, planets, BHs..." autocomplete="off" />
+          <div id="quick-jump-results" hidden></div>
+        </div>
+
         <div class="ctrl-hdr">Scene &amp; Material</div>
         <div class="toggle-grid">
           <button id="btn-spin" class="toggle-btn active" type="button">Auto-Spin</button>
@@ -732,6 +809,7 @@
     </div>
     <h1 id="info-name">Sagittarius A* (Sgr A*)</h1>
     <p id="info-desc">Interactive 360° rotatable relativistic black hole &amp; solar system 3D viewer.</p>
+    <div id="info-credit"></div>
     <div class="info-hint">Drag: 360° Rotate · Scroll: Zoom In/Out · Shift+Drag: Box Zoom In · Alt+Drag: Radial Zoom Out
       · Double-Click: Reset</div>
   </section>
@@ -739,10 +817,10 @@
   <script type="module">
     import * as THREE from "./vendor/three.module.js";
     import { OrbitControls } from "./vendor/OrbitControls.js";
-    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, getStudioEnvironmentTexture, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261124_v32";
-    import { createSunShaderMesh, createCandidateMosaicRockMesh } from "./js/proceduralBodies.js?v=20261124_v32";
-    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261124_v32";
-    import { createBoxZoomController } from "./js/boxZoom.js?v=20261124_v32";
+    import { instantiateEnhanced3DBody, prioritizeModelLoad, disposeObject3D, getStudioEnvironmentTexture, ASSET_VERSION } from "./js/model3dLibrary.js?v=20261124_v33";
+    import { createSunShaderMesh, createCandidateMosaicRockMesh } from "./js/proceduralBodies.js?v=20261124_v33";
+    import { createBlackHoleSystem, BLACK_HOLE_PRESETS } from "./js/blackHoleDisks.js?v=20261124_v33";
+    import { createBoxZoomController } from "./js/boxZoom.js?v=20261124_v33";
 
     const PLAYGROUND_CATALOG = [
       {
@@ -762,47 +840,139 @@
         ]
       },
       {
-        key: "star_wars_rebel_republic",
-        label: "Star Wars — Rebel, Republic & Bounty Hunters",
+        key: "star_wars_rebel_new_republic",
+        label: "Star Wars — Rebel Alliance & New Republic",
         items: [
-          { id: "sw_millennium_falcon", name: "Millennium Falcon (YT-1300 Corellian Freighter)", kind: "glb", modelId: "sw_millennium_falcon", badge: "Rebel Freighter", camDist: 3.0, extraFill: 0.56, desc: "Heavily modified Corellian YT-1300f light freighter featuring offset cockpit tube, dorsal and ventral quad laser turrets, circular rectenna dish, and glowing blue sublight drive strip." },
-          { id: "sw_xwing", name: "T-65B X-Wing Starfighter (Red Five)", kind: "glb", modelId: "sw_xwing", badge: "Rebel Starfighter", camDist: 2.9, extraFill: 0.56, desc: "Incom T-65B space superiority fighter with split S-foils locked in attack position, four wingtip KX9 laser cannons, R2 astromech socket, and four Incom 4L4 fusial thrust engines." },
-          { id: "sw_ywing", name: "BTL-A4 Y-Wing Starfighter", kind: "glb", modelId: "sw_ywing", badge: "Rebel Assault Bomber", camDist: 2.9, extraFill: 0.56, desc: "Koensayr BTL-A4 long-range fighter-bomber with forward laser cannons, dorsal ion turret, exposed reactor piping, and twin Koensayr R200 ion-jet nacelles." },
-          { id: "sw_awing", name: "RZ-1 A-Wing Interceptor", kind: "glb", modelId: "sw_awing", badge: "Rebel Interceptor", camDist: 2.9, extraFill: 0.56, desc: "Kuat Systems Engineering RZ-1 high-speed interceptor pairing an arrowhead hull and bubble canopy with swiveling RG-9 laser cannons and twin Novaldex J-77 event-horizon engines." },
-          { id: "sw_bwing", name: "A/SF-01 B-Wing Heavy Starfighter", kind: "glb", modelId: "sw_bwing", badge: "Rebel Assault Fighter", camDist: 3.7, extraFill: 0.56, desc: "Slayn & Korpil A/SF-01 heavy assault starfighter built around a tall cross-shaped S-foil assembly, gyro-stabilized cockpit pod, and capital-ship-grade ion cannons." },
-          { id: "sw_snowspeeder", name: "T-47 Airspeeder (Snowspeeder)", kind: "glb", modelId: "sw_snowspeeder", badge: "Rebel Airspeeder", camDist: 2.9, extraFill: 0.56, desc: "Cold-weather-modified Incom T-47 low-altitude airspeeder with tandem pilot and gunner cockpit, twin forward laser cannons, dorsal heat radiators, and aft harpoon tow-cable launcher." },
-          { id: "sw_tantive_iv", name: "CR90 Corellian Corvette (Tantive IV)", kind: "glb", modelId: "sw_tantive_iv", badge: "Rebel Corvette", camDist: 3.0, extraFill: 0.55, desc: "Alderaanian consular CR90 blockade runner armed with dual dorsal and ventral turbolasers and propelled by an iconic cluster of eleven Girodyne Ter58 sublight ion thrusters." },
-          { id: "sw_nebulon_b", name: "EF76 Nebulon-B Escort Frigate", kind: "glb", modelId: "sw_nebulon_b", badge: "Rebel Escort Frigate", camDist: 3.1, extraFill: 0.56, desc: "Kuat Drive Yards EF76 medical and convoy escort frigate distinguished by its deep forward command blade, slender ventral docking spar, and seven-engine aft drive pod." },
-          { id: "sw_mc80_home_one", name: "MC80 Star Cruiser (Home One)", kind: "glb", modelId: "sw_mc80_home_one", badge: "Rebel Flagship", camDist: 3.0, extraFill: 0.56, desc: "Mon Calamari MC80 heavy command cruiser featuring organic blistered hull plating, redundant deflector shield generators, turbolaser batteries, and Admiral Ackbar's flagship bridge." },
-          { id: "sw_ghost", name: "The Ghost (VCX-100 Light Freighter)", kind: "glb", modelId: "sw_ghost", badge: "Rebel Freighter", camDist: 3.0, extraFill: 0.56, desc: "Modified Corellian VCX-100 light freighter featuring a broad octagonal hull, nose-mounted ventral turret, dorsal gunner dome, and rear docking bay for the Phantom shuttle." },
-          { id: "sw_venator", name: "Venator-class Republic Attack Cruiser", kind: "glb", modelId: "sw_venator", badge: "Republic Capital", camDist: 3.0, extraFill: 0.56, desc: "Kuat Drive Yards Clone Wars carrier-battleship characterized by crimson Republic markings, twin command-bridge towers, heavy turbolaser barbettes, and an axial dorsal hangar deck." },
-          { id: "sw_jedi_starfighter", name: "Eta-2 Actis-class Jedi Starfighter", kind: "glb", modelId: "sw_jedi_starfighter", badge: "Republic Interceptor", camDist: 3.2, extraFill: 0.56, desc: "Compact Kuat Systems Engineering Eta-2 interceptor built for Jedi pilots with hinged folding radiator S-foils, bulbous forward canopy, astromech socket, and twin ion drives." },
-          { id: "sw_naboo_n1", name: "Naboo N-1 Royal Starfighter", kind: "glb", modelId: "sw_naboo_n1", badge: "Naboo Starfighter", camDist: 2.9, extraFill: 0.56, desc: "Hand-crafted Theed Palace N-1 patrol fighter combining yellow Naboo enamel with mirror-polished chromium prow plating, dual J-type engine nacelles, and sleek tail-fin stinger." },
-          { id: "sw_arc170", name: "ARC-170 Starfighter", kind: "glb", modelId: "sw_arc170", badge: "Republic Reconnaissance", camDist: 2.9, extraFill: 0.56, desc: "Incom and Subpro three-crew heavy reconnaissance starfighter equipped with six-wing S-foils, nose sensor arrays, forward heavy laser cannons, and a tail-gunner turret." },
-          { id: "sw_laat_gunship", name: "LAAT/i Republic Gunship", kind: "glb", modelId: "sw_laat_gunship", badge: "Republic Gunship", camDist: 3.2, extraFill: 0.44, desc: "Rothana Heavy Engineering Low Altitude Assault Transport carrying twin dorsal mass-driver missile launchers, composite-beam laser turrets, and broad troop-bay wings." },
-          { id: "sw_slave_1", name: "Slave I (Firespray-31 Patrol Craft)", kind: "glb", modelId: "sw_slave_1", badge: "Bounty Hunter Craft", camDist: 3.6, extraFill: 0.56, desc: "Kuat Systems Engineering Firespray-31 patrol and attack craft flying in upright vertical configuration with rotating stabilizer wings, twin blaster cannons, and seismic-charge bay." },
-          { id: "sw_razor_crest", name: "Razor Crest (ST-70 Assault Ship)", kind: "glb", modelId: "sw_razor_crest", badge: "Mandalorian Gunship", camDist: 3.0, extraFill: 0.56, desc: "Pre-Empire ST-70 heavy gunship finished in brushed gunmetal alloy with twin outrigger turbine nacelles, forward laser cannons, and aft cargo-bay boarding ramp." }
+          {"id": "sw_millennium_falcon", "name": "Millennium Falcon (YT-1300 Corellian Freighter)", "kind": "glb", "modelId": "sw_millennium_falcon", "badge": "Rebel Freighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Heavily modified Corellian YT-1300f light freighter featuring offset cockpit tube, dorsal and ventral quad laser turrets, circular rectenna dish, and glowing blue sublight drive strip."},
+          {"id": "sw_xwing", "name": "T-65B X-Wing Starfighter (Red Five)", "kind": "glb", "modelId": "sw_xwing", "badge": "Rebel Starfighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Incom T-65B space superiority fighter of Red Flight with split S-foils, four wingtip laser cannons, and a dorsal astromech socket.", "credit": "3D Model: charles.woods via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_ywing", "name": "BTL-A4 Y-Wing Starfighter", "kind": "glb", "modelId": "sw_ywing", "badge": "Rebel Assault Bomber", "camDist": 2.9, "extraFill": 0.56, "desc": "Koensayr BTL-A4 long-range fighter-bomber with forward laser cannons, dorsal ion turret, exposed reactor piping, and twin Koensayr R200 ion-jet nacelles."},
+          {"id": "sw_awing", "name": "RZ-1 A-Wing Interceptor", "kind": "glb", "modelId": "sw_awing", "badge": "Rebel Interceptor", "camDist": 2.9, "extraFill": 0.56, "desc": "Kuat Systems Engineering RZ-1 high-speed interceptor pairing an arrowhead hull and bubble canopy with swiveling RG-9 laser cannons and twin Novaldex J-77 event-horizon engines."},
+          {"id": "sw_bwing", "name": "A/SF-01 B-Wing Heavy Starfighter", "kind": "glb", "modelId": "sw_bwing", "badge": "Heavy Assault", "camDist": 3.95, "extraFill": 0.56, "desc": "Slayn & Korpil heavy assault starfighter built around a gyro-stabilized cockpit pod, heavy proton launchers, and cruciform attack foils.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_snowspeeder", "name": "T-47 Airspeeder (Snowspeeder)", "kind": "glb", "modelId": "sw_snowspeeder", "badge": "Rebel Airspeeder", "camDist": 2.9, "extraFill": 0.56, "desc": "Cold-weather-modified Incom T-47 low-altitude airspeeder with tandem pilot and gunner cockpit, twin forward laser cannons, dorsal heat radiators, and aft harpoon tow-cable launcher."},
+          {"id": "sw_tantive_iv", "name": "CR90 Corellian Corvette (Tantive IV)", "kind": "glb", "modelId": "sw_tantive_iv", "badge": "Rebel Corvette", "camDist": 3.0, "extraFill": 0.55, "desc": "Alderaanian consular CR90 blockade runner armed with dual dorsal and ventral turbolasers and propelled by an iconic cluster of eleven Girodyne Ter58 sublight ion thrusters."},
+          {"id": "sw_nebulon_b", "name": "EF76 Nebulon-B Escort Frigate", "kind": "glb", "modelId": "sw_nebulon_b", "badge": "Medical Frigate", "camDist": 3.55, "extraFill": 0.56, "desc": "Kuat Drive Yards Rebel Alliance escort and medical frigate featuring an elongated spine linking its forward command tower to aft sublight engines.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_mc80_home_one", "name": "MC80 Star Cruiser (Home One)", "kind": "glb", "modelId": "sw_mc80_home_one", "badge": "Alliance Flagship", "camDist": 3.0, "extraFill": 0.56, "desc": "Mon Calamari flagship cruiser of Admiral Ackbar featuring organic blistered armor hulls, shielded starfighter hangars, and heavy turbolaser batteries.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_ghost", "name": "The Ghost (VCX-100 Light Freighter)", "kind": "glb", "modelId": "sw_ghost", "badge": "Rebel Freighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Modified Corellian VCX-100 light freighter featuring a broad octagonal hull, nose-mounted ventral turret, dorsal gunner dome, and rear docking bay for the Phantom shuttle."},
+          {"id": "sw_gr75_transport", "name": "GR-75 Medium Transport", "kind": "glb", "modelId": "sw_gr75_transport", "badge": "Rebel Transport", "camDist": 3.0, "extraFill": 0.56, "desc": "Gallofree Yards armored clamshell freighter that evacuated Echo Base on Hoth while shielding modular underside cargo pods.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_mc80_liberty", "name": "MC80 Liberty Type Star Cruiser", "kind": "glb", "modelId": "sw_mc80_liberty", "badge": "Mon Calamari Cruiser", "camDist": 3.0, "extraFill": 0.56, "desc": "Winged Mon Calamari heavy star cruiser deployed across the Rebel fleet at Endor with wide lateral stabilizer wings and overlapping deflector shields.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_assault_frigate", "name": "Assault Frigate Mark I", "kind": "glb", "modelId": "sw_assault_frigate", "badge": "Rebel Frigate", "camDist": 3.2, "extraFill": 0.6, "desc": "Heavily refitted Rebel Alliance warship rebuilt from Dreadnaught hulls with a bulbous forward prow, ventral keel fin, and expanded engine wings.", "credit": "3D Model: flannelandfilm via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_t70_black_one", "name": "T-70 X-Wing (Black One)", "kind": "glb", "modelId": "sw_t70_black_one", "badge": "Resistance Ace", "camDist": 3.0, "extraFill": 0.56, "desc": "Poe Dameron's customized black-and-orange Incom-FreiTek T-70 X-Wing outfitted with split semi-circular engine intakes and a BB-unit socket.", "credit": "3D Model: frankybelis via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_t70_xwing", "name": "T-70 X-Wing (Resistance Blue)", "kind": "glb", "modelId": "sw_t70_xwing", "badge": "Resistance Fighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Modernized New Republic and Resistance space superiority starfighter featuring scissor-split S-foils and streamlined split-turbine nacelles.", "credit": "3D Model: frankybelis via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_partisan_xwing", "name": "Partisan T-65 X-Wing (Stealth)", "kind": "glb", "modelId": "sw_partisan_xwing", "badge": "Rebel Partisan", "camDist": 2.85, "extraFill": 0.64, "desc": "Dark-hulled insurgent T-65 X-Wing coated in matte charcoal and amber markings for low-visibility strike sorties against Imperial patrols.", "credit": "3D Model: risto296 via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_crimson_xwing", "name": "T-65 X-Wing (Crimson Flight)", "kind": "glb", "modelId": "sw_crimson_xwing", "badge": "Rebel Interceptor", "camDist": 3.0, "extraFill": 0.56, "desc": "Custom deep-crimson Rebel Alliance T-65 X-Wing wearing white flight stripes, weathered nose plating, and battle-scarred wing nacelles.", "credit": "3D Model: ost via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_rz3_awing", "name": "RZ-3 A-Wing Interceptor", "kind": "glb", "modelId": "sw_rz3_awing", "badge": "Fleet Interceptor", "camDist": 3.0, "extraFill": 0.56, "desc": "Compact wedge-bodied Kuat Systems Engineering interceptor evolution boasting twin high-output thrusters and swivel-mounted wingtip laser cannons.", "credit": "3D Model: nestor_d via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_wwing", "name": "W-Wing Starfighter", "kind": "glb", "modelId": "sw_wwing", "badge": "Light Interceptor", "camDist": 3.0, "extraFill": 0.56, "desc": "Sleek Rebel delta-wedge starfighter pairing forward-swept radiator bays, twin rear ion thrusters, and wingtip precision laser cannons.", "credit": "3D Model: nestor_d via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_t4b_tank", "name": "T4-B Heavy Tank", "kind": "glb", "modelId": "sw_t4b_tank", "badge": "Rebel Armor", "camDist": 3.2, "extraFill": 0.56, "desc": "Tracked Rebel Alliance main battle tank bearing twin turret-mounted heavy laser cannons, missile pod, and reinforced olive-drab glacis armor.", "credit": "3D Model: henskelion via Sketchfab / Objaverse (CC-BY)"}
         ]
       },
       {
-        key: "star_wars_imperial",
+        key: "star_wars_imperial_fo",
         label: "Star Wars — Galactic Empire & First Order",
         items: [
-          { id: "sw_star_destroyer", name: "Imperial-II Star Destroyer (ISD-II)", kind: "glb", modelId: "sw_star_destroyer", badge: "Imperial Capital", camDist: 3.0, extraFill: 0.58, desc: "Kuat Drive Yards wedge-shaped fleet flagship armored in terraced hull plates with heavy octuple turbolaser barbettes, bridge tower deflector globes, and three Destroyer-I ion engines." },
-          { id: "sw_executor_ssd", name: "Executor-class Super Star Destroyer", kind: "glb", modelId: "sw_executor_ssd", badge: "Imperial Dreadnought", camDist: 3.0, extraFill: 0.60, desc: "19-kilometer Kuat Drive Yards Star Dreadnought and Imperial command flagship featuring a dagger-like armored hull, dense dorsal cityscape superstructure, and thirteen main thrusters." },
-          { id: "sw_death_star", name: "DS-1 Orbital Battle Station (Death Star I)", kind: "glb", modelId: "sw_death_star", badge: "Imperial Battle Station", camDist: 3.9, extraFill: 0.56, desc: "Moon-sized armored battle station defined by its equatorial meridian trench, recessed polar hull paneling, and northern-hemisphere concave superlaser dish." },
-          { id: "sw_death_star_ii", name: "DS-2 Orbital Battle Station (Death Star II)", kind: "glb", modelId: "sw_death_star_ii", badge: "Imperial Battle Station", camDist: 3.9, extraFill: 0.56, desc: "Enlarged second Death Star over Endor revealing vast skeletal interior girderwork alongside completed armored sectors and an operational axial superlaser array." },
-          { id: "sw_tie_fighter", name: "TIE/ln Space Superiority Fighter", kind: "glb", modelId: "sw_tie_fighter", badge: "Imperial Starfighter", camDist: 3.5, extraFill: 0.60, desc: "Sienar Fleet Systems twin-ion-engine interceptor combining a central ball cockpit, octagonal viewport, and dual flat hexagonal solar-collector wing arrays." },
-          { id: "sw_tie_advanced", name: "TIE Advanced x1 (Darth Vader)", kind: "glb", modelId: "sw_tie_advanced", badge: "Imperial Prototype", camDist: 3.0, extraFill: 0.60, desc: "Darth Vader's personal Sienar prototype featuring hyperdrive, deflector shields, elongated aft hull housing, and angled bent-wing solar panels." },
-          { id: "sw_tie_interceptor", name: "TIE/IN Interceptor", kind: "glb", modelId: "sw_tie_interceptor", badge: "Imperial Interceptor", camDist: 3.1, extraFill: 0.60, desc: "High-agility Sienar Fleet Systems elite interceptor armed with four wingtip laser cannons mounted on split dagger-shaped bent solar wings." },
-          { id: "sw_tie_bomber", name: "TIE/sa Bomber", kind: "glb", modelId: "sw_tie_bomber", badge: "Imperial Bomber", camDist: 3.0, extraFill: 0.60, desc: "Heavy Imperial ordnance bomber with twin side-by-side cylindrical pods for cockpit and bomb bay, flanked by angled bent-wing solar arrays." },
-          { id: "sw_tie_defender", name: "TIE/D Defender", kind: "glb", modelId: "sw_tie_defender", badge: "Imperial Elite Fighter", camDist: 3.6, extraFill: 0.60, desc: "Tri-winged heavy superiority fighter integrating deflector shields, hyperdrive, and three radial bent solar wings with six wingtip laser and ion weapons." },
-          { id: "sw_tie_avenger", name: "TIE/ad Avenger", kind: "glb", modelId: "sw_tie_avenger", badge: "Imperial Starfighter", camDist: 3.0, extraFill: 0.60, desc: "Production evolution of the TIE Advanced x1 featuring extended dagger-cut bent wings, upgraded quad laser armament, hyperdrive, and high agility." },
-          { id: "sw_tie_phantom", name: "TIE/ph Phantom", kind: "glb", modelId: "sw_tie_phantom", badge: "Imperial Stealth Fighter", camDist: 3.1, extraFill: 0.60, desc: "Experimental stygium-cloaking Imperial starfighter with triangular three-wing fin geometry, forward V-shaped fuselage, and five laser cannons." },
-          { id: "sw_lambda_shuttle", name: "Lambda-class T-4a Imperial Shuttle", kind: "glb", modelId: "sw_lambda_shuttle", badge: "Imperial Transport", camDist: 3.5, extraFill: 0.56, desc: "Sienar/Cygnus armored VIP and troop transport distinguished by its towering fixed dorsal stabilizer fin and folding tri-wing configuration (shown in its upward-swept landing fold)." },
-          { id: "sw_tie_silencer", name: "TIE/vn Silencer (Kylo Ren)", kind: "glb", modelId: "sw_tie_silencer", badge: "First Order Interceptor", camDist: 2.9, extraFill: 0.62, desc: "Kylo Ren's sleek Sienar-Jaemus angular stealth interceptor featuring crimson forward cockpit slit, twin forward dagger wings, heavy laser cannons, and missile launchers." },
-          { id: "sw_kylo_shuttle", name: "Upsilon-class Command Shuttle (Kylo Ren)", kind: "glb", modelId: "sw_kylo_shuttle", badge: "First Order Shuttle", camDist: 3.2, extraFill: 0.60, desc: "Armored First Order command shuttle clad in obsidian sensor-absorptive plating with sweeping V-angled wings, heavy turbolasers, and forward boarding ramp." },
-          { id: "sw_tie_fo", name: "TIE/fo Space Superiority Fighter", kind: "glb", modelId: "sw_tie_fo", badge: "First Order Fighter", camDist: 3.2, extraFill: 0.58, desc: "Modernized Sienar-Jaemus First Order successor to the TIE/ln pairing upgraded high-output white solar arrays with dark fuselage armor and onboard deflectors." }
+          {"id": "sw_star_destroyer", "name": "Imperial-II Star Destroyer (ISD-II)", "kind": "glb", "modelId": "sw_star_destroyer", "badge": "Imperial Capital", "camDist": 3.0, "extraFill": 0.58, "desc": "Kuat Drive Yards wedge-shaped fleet flagship armored in terraced hull plates with heavy octuple turbolaser barbettes, bridge tower deflector globes, and three Destroyer-I ion engines."},
+          {"id": "sw_executor_ssd", "name": "Executor-class Star Dreadnought (Super Star Destroyer)", "kind": "glb", "modelId": "sw_executor_ssd", "badge": "Imperial Dreadnought", "camDist": 3.0, "extraFill": 0.58, "desc": "Darth Vader's 19-kilometer Kuat Drive Yards flagship featuring a recessed urban superstructure, terraced dagger hull, and thirteen massive sublight thruster banks.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_death_star", "name": "DS-1 Orbital Battle Station (Death Star I)", "kind": "glb", "modelId": "sw_death_star", "badge": "Imperial Battle Station", "camDist": 4.0, "extraFill": 0.56, "desc": "Moon-sized armored battle station defined by its equatorial meridian trench, recessed polar hull paneling, and northern-hemisphere concave superlaser dish."},
+          {"id": "sw_death_star_ii", "name": "DS-2 Orbital Battle Station (Death Star II)", "kind": "glb", "modelId": "sw_death_star_ii", "badge": "Imperial Battle Station", "camDist": 4.0, "extraFill": 0.56, "desc": "Enlarged second Death Star over Endor revealing vast skeletal interior girderwork alongside completed armored sectors and an operational axial superlaser array."},
+          {"id": "sw_tie_fighter", "name": "TIE/ln Space Superiority Fighter", "kind": "glb", "modelId": "sw_tie_fighter", "badge": "Imperial Starfighter", "camDist": 3.5, "extraFill": 0.6, "desc": "Sienar Fleet Systems twin-ion-engine interceptor combining a central ball cockpit, octagonal viewport, and dual flat hexagonal solar-collector wing arrays."},
+          {"id": "sw_tie_advanced", "name": "TIE Advanced x1 (Darth Vader)", "kind": "glb", "modelId": "sw_tie_advanced", "badge": "Imperial Prototype", "camDist": 3.0, "extraFill": 0.6, "desc": "Darth Vader's personal Sienar prototype featuring hyperdrive, deflector shields, elongated aft hull housing, and angled bent-wing solar panels."},
+          {"id": "sw_tie_interceptor", "name": "TIE/IN Interceptor", "kind": "glb", "modelId": "sw_tie_interceptor", "badge": "Imperial Interceptor", "camDist": 3.1, "extraFill": 0.6, "desc": "High-agility Sienar Fleet Systems elite interceptor armed with four wingtip laser cannons mounted on split dagger-shaped bent solar wings."},
+          {"id": "sw_tie_bomber", "name": "TIE/sa Bomber", "kind": "glb", "modelId": "sw_tie_bomber", "badge": "Imperial Bomber", "camDist": 3.0, "extraFill": 0.6, "desc": "Heavy Imperial ordnance bomber with twin side-by-side cylindrical pods for cockpit and bomb bay, flanked by angled bent-wing solar arrays."},
+          {"id": "sw_tie_defender", "name": "TIE/D Defender", "kind": "glb", "modelId": "sw_tie_defender", "badge": "Imperial Elite Fighter", "camDist": 3.6, "extraFill": 0.6, "desc": "Tri-winged heavy superiority fighter integrating deflector shields, hyperdrive, and three radial bent solar wings with six wingtip laser and ion weapons."},
+          {"id": "sw_tie_avenger", "name": "TIE/ad Avenger", "kind": "glb", "modelId": "sw_tie_avenger", "badge": "Imperial Starfighter", "camDist": 3.0, "extraFill": 0.6, "desc": "Production evolution of the TIE Advanced x1 featuring extended dagger-cut bent wings, upgraded quad laser armament, hyperdrive, and high agility."},
+          {"id": "sw_tie_phantom", "name": "TIE/ph Phantom", "kind": "glb", "modelId": "sw_tie_phantom", "badge": "Imperial Stealth Fighter", "camDist": 3.1, "extraFill": 0.6, "desc": "Experimental stygium-cloaking Imperial starfighter with triangular three-wing fin geometry, forward V-shaped fuselage, and five laser cannons."},
+          {"id": "sw_lambda_shuttle", "name": "Lambda-class T-4a Imperial Shuttle", "kind": "glb", "modelId": "sw_lambda_shuttle", "badge": "Imperial Transport", "camDist": 3.5, "extraFill": 0.56, "desc": "Sienar/Cygnus armored VIP and troop transport distinguished by its towering fixed dorsal stabilizer fin and folding tri-wing configuration (shown in its upward-swept landing fold)."},
+          {"id": "sw_tie_silencer", "name": "TIE/vn Silencer (Kylo Ren)", "kind": "glb", "modelId": "sw_tie_silencer", "badge": "First Order Interceptor", "camDist": 2.9, "extraFill": 0.62, "desc": "Kylo Ren's sleek Sienar-Jaemus angular stealth interceptor featuring crimson forward cockpit slit, twin forward dagger wings, heavy laser cannons, and missile launchers."},
+          {"id": "sw_kylo_shuttle", "name": "Upsilon-class Command Shuttle (Kylo Ren)", "kind": "glb", "modelId": "sw_kylo_shuttle", "badge": "First Order Shuttle", "camDist": 3.2, "extraFill": 0.6, "desc": "Armored First Order command shuttle clad in obsidian sensor-absorptive plating with sweeping V-angled wings, heavy turbolasers, and forward boarding ramp."},
+          {"id": "sw_tie_fo", "name": "TIE/fo Space Superiority Fighter", "kind": "glb", "modelId": "sw_tie_fo", "badge": "First Order Fighter", "camDist": 3.2, "extraFill": 0.58, "desc": "Modernized Sienar-Jaemus First Order successor to the TIE/ln pairing upgraded high-output white solar arrays with dark fuselage armor and onboard deflectors."},
+          {"id": "sw_eclipse_ssd", "name": "Eclipse-class Star Dreadnought", "kind": "glb", "modelId": "sw_eclipse_ssd", "badge": "Sith Superweapon", "camDist": 3.0, "extraFill": 0.62, "desc": "Palpatine's black-armored 17.5-kilometer Dark Empire flagship armed with an axial superlaser along its downward-curving prow keel.", "credit": "3D Model: risto296 via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_interdictor_418", "name": "Immobilizer 418 Interdictor Cruiser", "kind": "glb", "modelId": "sw_interdictor_418", "badge": "Imperial Interdictor", "camDist": 3.0, "extraFill": 0.58, "desc": "Sienar Fleet Systems gravity-well cruiser equipped with four large projector globes to pull starships out of hyperspace and block escapes.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_gozanti_cruiser", "name": "Gozanti-class Imperial Assault Cruiser", "kind": "glb", "modelId": "sw_gozanti_cruiser", "badge": "Imperial Carrier", "camDist": 3.0, "extraFill": 0.58, "desc": "Corellian Engineering freighter refitted by the Galactic Empire as an armed patrol transport capable of carrying four ventral-docked TIE fighters.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_arquitens", "name": "Arquitens-class Imperial Light Cruiser", "kind": "glb", "modelId": "sw_arquitens", "badge": "Imperial Escort", "camDist": 3.0, "extraFill": 0.6, "desc": "Kuat Drive Yards forked-prow escort cruiser used across Outer Rim sectors for blockade enforcement, Moff Gideon flag duties, and patrol sweeps.", "credit": "3D Model: KuatEntralla3D via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_onager_sd", "name": "Onager-class Siege Star Destroyer", "kind": "glb", "modelId": "sw_onager_sd", "badge": "Imperial Artillery", "camDist": 3.0, "extraFill": 0.58, "desc": "Specialized Kuat Drive Yards artillery warship built around twin spinal superheavy composite-beam turbolasers for long-range orbital bombardment.", "credit": "3D Model: Admiral_Forever via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_dreadnaught_cruiser", "name": "Dreadnaught-class Heavy Cruiser", "kind": "glb", "modelId": "sw_dreadnaught_cruiser", "badge": "Imperial Heavy Cruiser", "camDist": 3.0, "extraFill": 0.6, "desc": "Rendili StarDrive 600-meter armored workhorse famed from the Katana Fleet and Grand Admiral Thrawn's campaign against the New Republic.", "credit": "3D Model: flannelandfilm via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_quasar_carrier", "name": "Quasar Fire-class Cruiser-Carrier", "kind": "glb", "modelId": "sw_quasar_carrier", "badge": "Imperial Fighter Carrier", "camDist": 3.0, "extraFill": 0.58, "desc": "SoroSuub bulk-hull light carrier converted by Imperial forces to deploy forty-eight starfighters from four cavernous ventral flight bays.", "credit": "3D Model: KuatEntralla3D via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_xg1_star_wing", "name": "Alpha-class Xg-1 Star Wing", "kind": "glb", "modelId": "sw_xg1_star_wing", "badge": "Imperial Gunboat", "camDist": 3.2, "extraFill": 0.58, "desc": "Cygnus Spaceworks hyperdrive-equipped assault gunboat featuring tri-wing folding stabilizers, twin laser cannons, ion cannons, and concussion missile launchers.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_vt49_decimator", "name": "VT-49 Decimator Patrol Gunship", "kind": "glb", "modelId": "sw_vt49_decimator", "badge": "Imperial Gunship", "camDist": 3.0, "extraFill": 0.58, "desc": "Heavily armored Kuat Drive Yards reconnaissance and patrol craft favored by rising Imperial Navy commanders, carrying laser turrets and concussion missiles.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_xq6_platform", "name": "XQ6 Modular Space Platform", "kind": "glb", "modelId": "sw_xq6_platform", "badge": "Imperial Station", "camDist": 3.2, "extraFill": 0.58, "desc": "Three-spoke orbital customs and fleet-staging station armed with turbolaser batteries and starfighter landing pads across Imperial space.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_tie_punisher", "name": "TIE/ca Punisher Heavy Bomber", "kind": "glb", "modelId": "sw_tie_punisher", "badge": "Imperial Ordnance", "camDist": 3.2, "extraFill": 0.6, "desc": "Up-armed Sienar Fleet Systems heavy tactical bomber pairing bent interceptor wings with four side-mounted ordnance pods for anti-capital strikes.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_tie_striker", "name": "TIE/sk x1 Striker", "kind": "glb", "modelId": "sw_tie_striker", "badge": "Imperial Atmospheric Fighter", "camDist": 3.3, "extraFill": 0.6, "desc": "Streamlined Scarif atmospheric air-superiority fighter equipped with flat forward-swept repulsorlift wings for high-speed planetary defense.", "credit": "3D Model: darthkedar via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_harrower_dreadnought", "name": "Harrower-class Sith Dreadnought", "kind": "glb", "modelId": "sw_harrower_dreadnought", "badge": "Sith Dreadnought", "camDist": 3.0, "extraFill": 0.58, "desc": "Ancient Sith Empire 800-meter split-prow warship serving as the armored backbone of Imperial fleets during the Great Galactic War.", "credit": "3D Model: NepsterCZ via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_fo_dreadnought", "name": "Mandator IV-class Siege Dreadnought", "kind": "glb", "modelId": "sw_fo_dreadnought", "badge": "First Order Siege Ship", "camDist": 3.0, "extraFill": 0.6, "desc": "First Order 7.7-kilometer fleet-killer equipped with twin ventral orbital autocannons designed to shatter planetary shields and dreadnought hulls.", "credit": "3D Model: KuatEntralla3D via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_supremacy", "name": "Mega-class Star Dreadnought (Supremacy)", "kind": "glb", "modelId": "sw_supremacy", "badge": "First Order Flagship", "camDist": 3.0, "extraFill": 0.6, "desc": "Supreme Leader Snoke's 60-kilometer flying-wing mobile capital ship capable of docking Resurgent Star Destroyers inside internal repair bays.", "credit": "3D Model: Admiral_Forever via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_atat_walker", "name": "AT-AT All Terrain Armored Transport", "kind": "glb", "modelId": "sw_atat_walker", "badge": "Imperial Heavy Walker", "camDist": 3.5, "extraFill": 0.58, "desc": "Four-legged 22.5-meter Kuat Drive Yards assault walker famous from the Battle of Hoth, armed with chin-mounted heavy laser cannons and cheek blasters.", "credit": "3D Model: quiznos323 via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_atst_walker", "name": "AT-ST All Terrain Scout Transport", "kind": "glb", "modelId": "sw_atst_walker", "badge": "Imperial Scout Walker", "camDist": 3.7, "extraFill": 0.58, "desc": "Bipedal Imperial reconnaissance and infantry-support walker deployed across Endor and Lothal with chin-mounted twin blasters and concussion grenade launcher.", "credit": "3D Model: Stym via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_speeder_bike", "name": "74-Z Imperial Speeder Bike", "kind": "glb", "modelId": "sw_speeder_bike", "badge": "Imperial Recon Bike", "camDist": 3.0, "extraFill": 0.58, "desc": "Aratech Repulsor Company high-speed scout repulsorlift bike piloted by Imperial Scout Troopers through the redwood forests of Endor.", "credit": "3D Model: mindmulchforthemasses via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_xr85_tank_droid", "name": "XR-85 Heavy Tank Droid", "kind": "glb", "modelId": "sw_xr85_tank_droid", "badge": "Dark Empire Armor", "camDist": 3.55, "extraFill": 0.58, "desc": "Massive tracked Imperial automated siege vehicle used during the Dark Empire campaign, mounting a towering armored turret and heavy particle cannon.", "credit": "3D Model: henskelion via Sketchfab / Objaverse (CC-BY)"}
+        ]
+      },
+      {
+        key: "star_wars_republic_jedi",
+        label: "Star Wars — Galactic Republic & Jedi Order",
+        items: [
+          {"id": "sw_venator", "name": "Venator-class Republic Attack Cruiser", "kind": "glb", "modelId": "sw_venator", "badge": "Republic Capital", "camDist": 3.0, "extraFill": 0.56, "desc": "Kuat Drive Yards Clone Wars carrier-battleship characterized by crimson Republic markings, twin command-bridge towers, heavy turbolaser barbettes, and an axial dorsal hangar deck."},
+          {"id": "sw_jedi_starfighter", "name": "Eta-2 Actis-class Jedi Starfighter", "kind": "glb", "modelId": "sw_jedi_starfighter", "badge": "Republic Interceptor", "camDist": 3.2, "extraFill": 0.56, "desc": "Compact Kuat Systems Engineering Eta-2 interceptor built for Jedi pilots with hinged folding radiator S-foils, bulbous forward canopy, astromech socket, and twin ion drives."},
+          {"id": "sw_naboo_n1", "name": "Naboo N-1 Royal Starfighter", "kind": "glb", "modelId": "sw_naboo_n1", "badge": "Naboo Defense", "camDist": 3.0, "extraFill": 0.56, "desc": "Theed Palace Space Vessel Engineering fighter combining a gleaming chromium prow, twin J-type engine nacelles, and a central astromech bay.", "credit": "3D Model: SWU via Sketchfab / Objaverse (CC-BY-NC-SA)"},
+          {"id": "sw_arc170", "name": "ARC-170 Starfighter", "kind": "glb", "modelId": "sw_arc170", "badge": "Clone Heavy Fighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Three-crew Incom-Subpro long-range reconnaissance fighter deployed by the Grand Army of the Republic with six S-foils and rear tail gunner.", "credit": "3D Model: bcfbox via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_laat_gunship", "name": "LAAT/i Republic Gunship", "kind": "glb", "modelId": "sw_laat_gunship", "badge": "Clone Gunship", "camDist": 3.0, "extraFill": 0.56, "desc": "Rothana Heavy Engineering Low Altitude Assault Transport carrying clone troopers into combat with composite-beam wing turrets and chin cannons.", "credit": "3D Model: mindmulchforthemasses via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_acclamator", "name": "Acclamator-Class Assault Ship", "kind": "glb", "modelId": "sw_acclamator", "badge": "Republic Assault Ship", "camDist": 3.0, "extraFill": 0.56, "desc": "Kuat-Rothana wedge-shaped troop carrier that deployed Grand Army of the Republic clone legions across the Clone Wars from Geonosis onward.", "credit": "3D Model: KuatEntralla3D via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_consular_cruiser", "name": "Consular-Class Republic Cruiser", "kind": "glb", "modelId": "sw_consular_cruiser", "badge": "Diplomatic Cruiser", "camDist": 3.0, "extraFill": 0.56, "desc": "Corellian Engineering Corporation diplomatic frigate sporting red ambassadorial livery and triple oversized sublight turbine nacelles.", "credit": "3D Model: iedalton via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_pelta_frigate", "name": "Pelta-Class Medical Frigate", "kind": "glb", "modelId": "sw_pelta_frigate", "badge": "Republic Frigate", "camDist": 3.0, "extraFill": 0.56, "desc": "Kuat Drive Yards Clone Wars medical and supply frigate featuring forward hull plating, dorsal sensor fin, and retractable wing stabilizers.", "credit": "3D Model: sabinoplane via Sketchfab / Objaverse (CC-BY-NC-SA)"},
+          {"id": "sw_v19_torrent", "name": "V-19 Torrent Starfighter", "kind": "glb", "modelId": "sw_v19_torrent", "badge": "Clone Fighter", "camDist": 3.2, "extraFill": 0.6, "desc": "Slayn & Korpil Clone Wars carrier fighter whose three folding airfoils deploy into a dramatic downward tri-wing attack stance in flight.", "credit": "3D Model: archfan via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_vwing", "name": "Alpha-3 Nimbus V-Wing Starfighter", "kind": "glb", "modelId": "sw_vwing", "badge": "Republic Interceptor", "camDist": 3.88, "extraFill": 0.6, "desc": "Late Clone Wars Kuat Systems Engineering interceptor featuring rotating radiator wing panels, twin vertical ion engines, and a bubble canopy.", "credit": "3D Model: jakychan501 via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_z95_headhunter", "name": "Clone Z-95 Headhunter", "kind": "glb", "modelId": "sw_z95_headhunter", "badge": "Republic Fighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Incom-Subpro atmospheric and space multi-role starfighter flown by Republic clone pilots as the direct predecessor to the T-65 X-Wing.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_twilight", "name": "The Twilight (G9 Rigger Freighter)", "kind": "glb", "modelId": "sw_twilight", "badge": "Jedi Freighter", "camDist": 3.55, "extraFill": 0.56, "desc": "Corellian G9 Rigger light freighter commandeered by Anakin Skywalker and Ahsoka Tano during the Clone Wars, with folding outrigger and ventral wings.", "credit": "3D Model: tobard via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_naboo_royal_starship", "name": "J-Type 327 Nubian Royal Starship", "kind": "glb", "modelId": "sw_naboo_royal_starship", "badge": "Naboo Flagship", "camDist": 3.0, "extraFill": 0.56, "desc": "Hand-crafted chromium J-type diplomatic yacht of Queen Amidala equipped with twin needle-tailed sublight engines and deflector shields.", "credit": "3D Model: boyle.kj via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_naboo_cruiser", "name": "J-Type Naboo Royal Cruiser", "kind": "glb", "modelId": "sw_naboo_cruiser", "badge": "Naboo Diplomatic", "camDist": 3.0, "extraFill": 0.56, "desc": "Sleek crescent-winged Naboo diplomatic yacht flown by Senator Padme Amidala featuring sweeping chrome curves and dual wing-mounted engines.", "credit": "3D Model: SWU via Sketchfab / Objaverse (CC-BY-NC-SA)"},
+          {"id": "sw_republic_executive_shuttle", "name": "Republic Executive Shuttle", "kind": "glb", "modelId": "sw_republic_executive_shuttle", "badge": "Senate Shuttle", "camDist": 3.55, "extraFill": 0.56, "desc": "Tri-wing diplomatic transport serving Republic leadership on Coruscant with elevated folding stabilizer foils, spherical cockpit, and boarding ramp.", "credit": "3D Model: eddie.roach via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_atte", "name": "AT-TE (All Terrain Tactical Enforcer)", "kind": "glb", "modelId": "sw_atte", "badge": "Republic Walker", "camDist": 3.2, "extraFill": 0.56, "desc": "Six-legged Rothana Heavy Engineering armored assault walker equipped with a dorsal mass-driver cannon and six ball-turret laser cannons.", "credit": "3D Model: donizaki via Sketchfab / Objaverse (CC-BY-NC)"},
+          {"id": "sw_tx130_saber", "name": "TX-130 Saber-Class Fighter Tank", "kind": "glb", "modelId": "sw_tx130_saber", "badge": "Republic Tank", "camDist": 3.0, "extraFill": 0.56, "desc": "Agile Rothana repulsorlift battle tank deployed by Jedi Generals and clone armor crews with twin heavy laser cannons and a dorsal beam turret.", "credit": "3D Model: dr.lowpol via Sketchfab / Objaverse (CC-BY-SA)"},
+          {"id": "sw_atap", "name": "AT-AP (All Terrain Attack Pod)", "kind": "glb", "modelId": "sw_atap", "badge": "Republic Artillery", "camDist": 3.5, "extraFill": 0.56, "desc": "Three-legged Republic self-propelled artillery walker carrying a long-range hull-mounted mass driver and a rotating dorsal blaster turret.", "credit": "3D Model: ARKON-83 via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_atrt", "name": "AT-RT (All Terrain Recon Transport)", "kind": "glb", "modelId": "sw_atrt", "badge": "Republic Recon", "camDist": 3.5, "extraFill": 0.56, "desc": "Lightweight single-pilot bipedal scout walker operated by 41st Elite Corps clone troopers for rapid planetary reconnaissance.", "credit": "3D Model: dryk4085 via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_juggernaut", "name": "HAVw A6 Juggernaut Turbo Tank", "kind": "glb", "modelId": "sw_juggernaut", "badge": "Clone Turbo Tank", "camDist": 3.3, "extraFill": 0.56, "desc": "Colossal ten-wheeled Kuat Drive Yards armored personnel carrier featuring dual elevated command bridges and heavy point-defense turrets.", "credit": "3D Model: risto296 via Sketchfab / Objaverse (CC-BY-NC)"},
+          {"id": "sw_isp_speeder", "name": "ISP (Infantry Support Platform)", "kind": "glb", "modelId": "sw_isp_speeder", "badge": "Republic Swamp Speeder", "camDist": 3.0, "extraFill": 0.56, "desc": "Twin-crew Aratech repulsorlift swamp speeder propelled by a central aft turbofan and armed with twin dual-barrel laser cannons.", "credit": "3D Model: ARKON-83 via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_republic_transport", "name": "Republic Heavy Troop Transport", "kind": "glb", "modelId": "sw_republic_transport", "badge": "Republic Transport", "camDist": 3.0, "extraFill": 0.56, "desc": "Armored Galactic Republic fleet transport combining a panoramic bow bridge deck, dorsal defense turret, and tiered troop cargo holds.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_republic_shuttle", "name": "Republic Transport Shuttle", "kind": "glb", "modelId": "sw_republic_shuttle", "badge": "Republic Shuttle", "camDist": 3.2, "extraFill": 0.6, "desc": "Rugged Republic military boarding shuttle outfitted with twin outrigger ion nacelles, dorsal astromech bay, and forward assault ramp.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_liberator_starfighter", "name": "Liberator-Class Starfighter", "kind": "glb", "modelId": "sw_liberator_starfighter", "badge": "Republic Starfighter", "camDist": 3.0, "extraFill": 0.6, "desc": "High-agility Republic Navy multi-role starfighter equipped with a split-prong forward hull, sweeping gull wings, and heavy wingtip cannons.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_chela_starfighter", "name": "S-250 Chela-Class Starfighter", "kind": "glb", "modelId": "sw_chela_starfighter", "badge": "Republic Interceptor", "camDist": 3.9, "extraFill": 0.6, "desc": "Vertical-blade Republic Navy interceptor carrying an asymmetrical starboard ion pod, bubble canopy, and ventral twin laser guns.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_heraklon_transport", "name": "Heraklon-Class Transport", "kind": "glb", "modelId": "sw_heraklon_transport", "badge": "Heavy Transport", "camDist": 3.0, "extraFill": 0.6, "desc": "Heavily armored Republic logistics vessel featuring dual bridge towers, armored cargo hull modules, and glowing flank hangar bays.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_herald_shuttle", "name": "Herald-Class Shuttle", "kind": "glb", "modelId": "sw_herald_shuttle", "badge": "Republic Envoy", "camDist": 3.0, "extraFill": 0.6, "desc": "Distinctive high-prow Republic courier shuttle bearing an arched command neck, lower swept wings, and wingtip laser mounts.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_ministry_shuttle", "name": "Ministry-Class Shuttle", "kind": "glb", "modelId": "sw_ministry_shuttle", "badge": "Republic Diplomatic", "camDist": 3.55, "extraFill": 0.6, "desc": "Tri-wing Republic shuttle with steep dorsal stabilizer fin, downward-folding flight foils, and forward diplomatic sensor lights.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_guardian_cruiser", "name": "Guardian-Class Light Cruiser", "kind": "glb", "modelId": "sw_guardian_cruiser", "badge": "Light Cruiser", "camDist": 3.0, "extraFill": 0.56, "desc": "Compact wedge-hulled patrol and customs cruiser built for sector defense with twin forward heavy cannons and recessed flank bays.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_thranta_corvette", "name": "Thranta-Class Republic Corvette", "kind": "glb", "modelId": "sw_thranta_corvette", "badge": "Republic Corvette", "camDist": 3.0, "extraFill": 0.56, "desc": "Hammerhead-prowed Republic patrol corvette decorated in crimson fleet stripes with broadside turbolaser blisters and quad engine banks.", "credit": "3D Model: NepsterCZ via Sketchfab / Objaverse (NONE)"}
+        ]
+      },
+      {
+        key: "star_wars_separatist",
+        label: "Star Wars — Separatist Confederacy (CIS)",
+        items: [
+          {"id": "sw_droid_trifighter", "name": "Droid Tri-Fighter", "kind": "glb", "modelId": "sw_droid_trifighter", "badge": "Separatist Interceptor", "camDist": 3.2, "extraFill": 0.56, "desc": "Colla Designs tri-wing automated starfighter built for the Confederacy of Independent Systems, agile enough to swarm Republic starfighters above Coruscant.", "credit": "3D Model: steventa3d via Sketchfab / Objaverse (CC-BY-NC)"},
+          {"id": "sw_vulture_droid", "name": "Vulture-class Droid Starfighter", "kind": "glb", "modelId": "sw_vulture_droid", "badge": "Separatist Fighter", "camDist": 3.55, "extraFill": 0.6, "desc": "Haor Chall Engineering variable-geometry droid fighter deployed in swarms from Trade Federation Lucrehulk battleships and capable of walking on four legs.", "credit": "3D Model: lazygraph via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_soulless_one", "name": "Soulless One (Belbullab-22 Starfighter)", "kind": "glb", "modelId": "sw_soulless_one", "badge": "Separatist Hero Ship", "camDist": 3.0, "extraFill": 0.6, "desc": "General Grievous's heavily modified Feethan Ottraw starfighter pairing sleek gunmetal hull plating with twin outboard engine pods and rapid-fire triple blasters.", "credit": "3D Model: alexsanrpg via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_aat_tank", "name": "AAT-1 Armored Assault Tank", "kind": "glb", "modelId": "sw_aat_tank", "badge": "Separatist Heavy Tank", "camDist": 3.2, "extraFill": 0.56, "desc": "Baktoid Armor Workshop repulsorlift battle tank deployed by the Trade Federation and CIS, sporting a heavy dorsal laser cannon and lower missile tubes.", "credit": "3D Model: ARKON-83 via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_lucrehulk", "name": "Lucrehulk-class Battleship", "kind": "glb", "modelId": "sw_lucrehulk", "badge": "Separatist Capital Ship", "camDist": 3.0, "extraFill": 0.56, "desc": "Hoersch-Kessel Drive 3.1-kilometer ring-shaped Trade Federation freighter converted into a heavily shielded droid control ship and orbital carrier.", "credit": "3D Model: Neut2000 via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_separatist_core_ship", "name": "Lucrehulk Core Ship", "kind": "glb", "modelId": "sw_separatist_core_ship", "badge": "Separatist Lander", "camDist": 3.55, "extraFill": 0.56, "desc": "Detachable spherical central command and droid-staging module of a Lucrehulk battleship capable of planetary landing on heavy hydraulic legs.", "credit": "3D Model: ThrillDaWill via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_c9979_landing_craft", "name": "C-9979 Trade Federation Landing Craft", "kind": "glb", "modelId": "sw_c9979_landing_craft", "badge": "Separatist Dropship", "camDist": 3.0, "extraFill": 0.56, "desc": "Wide-winged Haor Chall Engineering planetary assault transport designed to deploy battalions of battle droids, MTTs, and AATs onto Naboo.", "credit": "3D Model: KuatEntralla3D via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_malevolence", "name": "The Malevolence (Subjugator-class Heavy Cruiser)", "kind": "glb", "modelId": "sw_malevolence", "badge": "Separatist Dreadnought", "camDist": 3.1, "extraFill": 0.58, "desc": "General Grievous's 4.8-kilometer flagship carrying twin massive ion-pulse superweapons able to strip shields and power from entire Republic fleets.", "credit": "3D Model: Griemikk321 via Sketchfab / Objaverse (NONE)"}
+        ]
+      },
+      {
+        key: "star_wars_scum_vehicles",
+        label: "Star Wars — Bounty Hunters, Scum & Ground Craft",
+        items: [
+          {"id": "sw_slave_1", "name": "Slave I (Firespray-31 Patrol Craft)", "kind": "glb", "modelId": "sw_slave_1", "badge": "Bounty Hunter Craft", "camDist": 3.85, "extraFill": 0.56, "desc": "Kuat Systems Engineering vertical-flight patrol and attack craft modified by Jango and Boba Fett with seismic charges, rotating wings, and concealed weapons.", "credit": "3D Model: SWU via Sketchfab / Objaverse (CC-BY-NC-SA)"},
+          {"id": "sw_razor_crest", "name": "Razor Crest (ST-70 Assault Ship)", "kind": "glb", "modelId": "sw_razor_crest", "badge": "Bounty Gunship", "camDist": 3.0, "extraFill": 0.6, "desc": "Din Djarin's rugged pre-Empire ST-70 gunship featuring twin heavy outrigger turbine pods, carbonite cargo hold, and forward twin laser cannons.", "credit": "3D Model: ElinHohler via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_yt2400_outrider", "name": "YT-2400 Light Freighter (Outrider)", "kind": "glb", "modelId": "sw_yt2400_outrider", "badge": "Smuggler Freighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Dash Rendar's heavily modified Corellian YT-2400 saucer freighter featuring an outrigger starboard cockpit boom, sensor dish, and upgraded concussion missiles.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_yt2000_otana", "name": "YT-2000 Light Freighter (Otana)", "kind": "glb", "modelId": "sw_yt2000_otana", "badge": "Corellian Freighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Symmetrical Corellian Engineering cargo vessel piloted by Ace Azzameen, pairing a centered cockpit pod with heavy hull armor and dual dorsal/ventral turrets.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_ebon_hawk", "name": "Ebon Hawk (Dynamic-class Freighter)", "kind": "glb", "modelId": "sw_ebon_hawk", "badge": "Old Republic Smuggler", "camDist": 3.0, "extraFill": 0.56, "desc": "Legendary Exchange smuggler ship from Knights of the Old Republic, equipped with an asymmetric forward cockpit, dorsal turret, and stealth hyperdrive.", "credit": "3D Model: lemonaden via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_moldy_crow", "name": "HWK-290 Light Freighter (Moldy Crow)", "kind": "glb", "modelId": "sw_moldy_crow", "badge": "Mercenary Freighter", "camDist": 3.0, "extraFill": 0.56, "desc": "Corellian Engineering sleek high-speed courier craft piloted by Kyle Katarn and Jan Ors during Dark Forces missions against the Empire.", "credit": "3D Model: NotARealStudio via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_rogue_shadow", "name": "Rogue Shadow (Experimental Stealth Ship)", "kind": "glb", "modelId": "sw_rogue_shadow", "badge": "Stealth Recon Craft", "camDist": 3.0, "extraFill": 0.6, "desc": "Experimental cloaking courier flown by Galen Marek and Juno Eclipse, combining folding asymmetric wings with high-output stealth sublight drives.", "credit": "3D Model: StrangeUsernames1 via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_mandalorian_gauntlet", "name": "Kom'rk-class Mandalorian Gauntlet Fighter", "kind": "glb", "modelId": "sw_mandalorian_gauntlet", "badge": "Mandalorian Gunship", "camDist": 3.55, "extraFill": 0.6, "desc": "MandalMotors troop transport and heavy starfighter featuring gyroscopically rotating broad delta wings and twin forward wingtip laser cannons.", "credit": "3D Model: caeruleumamy via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_action_iv_transport", "name": "Action IV Bulk Transport", "kind": "glb", "modelId": "sw_action_iv_transport", "badge": "Smuggler Transport", "camDist": 3.0, "extraFill": 0.56, "desc": "Corellian Engineering modular freighter famously converted by Talon Karrde into the heavily armed mobile base Wild Karrde.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_bff1_freighter", "name": "BFF-1 Bulk Freighter", "kind": "glb", "modelId": "sw_bff1_freighter", "badge": "Cargo Hauler", "camDist": 3.0, "extraFill": 0.56, "desc": "Ubrikkian Industries twin-frame container carrier hauling standardized modular cargo pods along contested hyperspace trade lanes.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_carrack_cruiser", "name": "Carrack-class Light Cruiser", "kind": "glb", "modelId": "sw_carrack_cruiser", "badge": "Sector Patrol Cruiser", "camDist": 3.0, "extraFill": 0.56, "desc": "Damorian Manufacturing 350-meter high-speed escort warship with heavy forward hull plating and oversized engines built to outrun starfighters.", "credit": "3D Model: DanielAndersson via Sketchfab / Objaverse (CC-BY)"},
+          {"id": "sw_t16_skyhopper", "name": "T-16 Skyhopper", "kind": "glb", "modelId": "sw_t16_skyhopper", "badge": "Tatooine Airspeeder", "camDist": 3.8, "extraFill": 0.6, "desc": "Incom Corporation tri-wing atmospheric repulsorcraft flown by Luke Skywalker through Beggar's Canyon on Tatooine.", "credit": "3D Model: GRIP420 via Sketchfab / Objaverse (CC-BY-NC)"},
+          {"id": "sw_x34_landspeeder", "name": "SoroSuub X-34 Landspeeder", "kind": "glb", "modelId": "sw_x34_landspeeder", "badge": "Tatooine Repulsorcraft", "camDist": 3.0, "extraFill": 0.56, "desc": "Open-top three-turbine civilian repulsorlift speeder piloted across Tatooine's Dune Sea by Luke Skywalker and Ben Kenobi.", "credit": "3D Model: Don42 via Sketchfab / Objaverse (NONE)"},
+          {"id": "sw_podracer_pagalies", "name": "Teemto Pagalies' IPVR-640 Podracer", "kind": "glb", "modelId": "sw_podracer_pagalies", "badge": "Boonta Eve Podracer", "camDist": 3.0, "extraFill": 0.56, "desc": "High-speed Boonta Eve Classic podracer pairing twin yellow turbine engines with an armored ring-shrouded repulsor cockpit pod.", "credit": "3D Model: rafarelo via Sketchfab / Objaverse (CC-BY)"}
         ]
       },
       {
@@ -1109,6 +1279,11 @@
       badge.className = `info-badge${item.kind === "bh" ? " bh" : (item.isDisc ? " disc" : "")}`;
       document.getElementById("info-name").textContent = item.name;
       document.getElementById("info-desc").textContent = item.desc || "";
+      const creditEl = document.getElementById("info-credit");
+      if (creditEl) {
+        creditEl.textContent = item.credit || "";
+        creditEl.style.display = item.credit ? "block" : "none";
+      }
       document.getElementById("info-card").style.display = "block";
 
       const bhBlock = document.getElementById("bh-controls-block");
@@ -1221,6 +1396,78 @@
 
     document.getElementById("prev-btn").addEventListener("click", () => stepObject(-1));
     document.getElementById("next-btn").addEventListener("click", () => stepObject(1));
+
+    const quickJumpInput = document.getElementById("quick-jump-input");
+    const quickJumpResults = document.getElementById("quick-jump-results");
+    let qjMatches = [];
+
+    function jumpToCatalogEntry(ci, oi) {
+      catSelect.value = String(ci);
+      populateObjects(ci);
+      objSelect.value = String(oi);
+      loadPlaygroundItem(ci, oi);
+      if (quickJumpInput) quickJumpInput.value = "";
+      if (quickJumpResults) {
+        quickJumpResults.innerHTML = "";
+        quickJumpResults.hidden = true;
+      }
+      controlsPanel.classList.remove("open");
+      controlsToggleBtn.classList.remove("active");
+    }
+
+    function renderQuickJumpMatches(query) {
+      const q = (query || "").trim().toLowerCase();
+      quickJumpResults.innerHTML = "";
+      qjMatches = [];
+      if (!q) {
+        quickJumpResults.hidden = true;
+        return;
+      }
+      for (let ci = 0; ci < PLAYGROUND_CATALOG.length; ci++) {
+        const cat = PLAYGROUND_CATALOG[ci];
+        for (let oi = 0; oi < cat.items.length; oi++) {
+          const it = cat.items[oi];
+          const hay = `${it.name} ${it.id} ${it.badge || ""} ${cat.label}`.toLowerCase();
+          if (hay.includes(q)) {
+            qjMatches.push({ ci, oi, it, cat });
+            if (qjMatches.length >= 12) break;
+          }
+        }
+        if (qjMatches.length >= 12) break;
+      }
+      if (!qjMatches.length) {
+        quickJumpResults.hidden = true;
+        return;
+      }
+      qjMatches.forEach((m) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "qj-item";
+        btn.dataset.id = m.it.id;
+        const title = document.createElement("span");
+        title.textContent = m.it.name;
+        const sub = document.createElement("span");
+        sub.className = "qj-sub";
+        sub.textContent = `${m.it.badge || m.cat.label} · ${m.cat.label}`;
+        btn.appendChild(title);
+        btn.appendChild(sub);
+        btn.addEventListener("click", () => jumpToCatalogEntry(m.ci, m.oi));
+        quickJumpResults.appendChild(btn);
+      });
+      quickJumpResults.hidden = false;
+    }
+
+    quickJumpInput?.addEventListener("input", () => renderQuickJumpMatches(quickJumpInput.value));
+    quickJumpInput?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && qjMatches.length > 0) {
+        e.preventDefault();
+        jumpToCatalogEntry(qjMatches[0].ci, qjMatches[0].oi);
+      } else if (e.key === "Escape") {
+        quickJumpInput.value = "";
+        quickJumpResults.innerHTML = "";
+        quickJumpResults.hidden = true;
+      }
+    });
 
     const topBarEl = document.getElementById("top-bar");
     const controlsPanel = document.getElementById("controls-panel");
