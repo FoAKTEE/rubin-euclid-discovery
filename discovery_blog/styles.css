@@ -1481,3 +1481,70 @@ math {
     display: none;
   }
 }
+
+/* ==========================================================================
+   Vibe Discovery Short Main Text + Interactive Companion Layout
+   ========================================================================== */
+.toc-group-label {
+  margin: 10px 0 4px;
+  padding: 6px 10px 2px;
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.toc-group-label:first-of-type {
+  margin-top: 2px;
+  padding-top: 2px;
+  border-top: none;
+}
+
+.toc-sidebar .toc-link {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  line-height: 1.32;
+}
+
+.toc-sidebar .toc-summary-card {
+  margin-top: 14px;
+  padding: 10px 12px;
+  font-size: 0.74rem;
+}
+
+.toc-sidebar .toc-summary-card .stat-row {
+  padding: 2.5px 0;
+}
+
+.toc-sidebar .toc-summary-card .stat-row-sep {
+  margin-top: 4px;
+  padding-top: 5px;
+}
+
+.companion-divider {
+  margin: 18px 0 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.companion-divider::before,
+.companion-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.pub-figure.fig-wide .figure-frame img {
+  max-height: 780px;
+}
