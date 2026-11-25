@@ -5,12 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="doc_title">Vibe Discovery</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20261124cm" />
 </head>
 
 <body>
@@ -43,23 +38,7 @@
       <!-- Principle 2.5: Summary contains strictly zero mathematical symbols, zero Unicode math, and zero equations -->
       <div class="abstract-box">
         <div class="abstract-label" data-i18n="abstract_heading">Summary</div>
-        <p class="abstract-text" data-i18n="abstract_body">Large sky surveys release images and catalogs faster than
-          dedicated teams can cross-link them, and each survey processes its own data with a pipeline tuned to one
-          camera, cadence, and science goal. Objects that need two telescopes at once, or that break one pipeline's
-          assumptions, can stay unrecognized in public archives. Here we test whether AI coding agents can find such
-          objects. The agents decompose existing astronomical codes into reusable algorithmic bricks, place more than a
-          dozen ground and space archives behind one observation interface, and join telescopes, instruments, and
-          methods like LEGO blocks wherever a single survey has a predictable blind spot. A second, independent set of
-          agents verifies every candidate from its own archive queries, orbit fits, and archival pixels. Across more
-          than a dozen public archives, 93 Solar System candidates survive that independent check for follow-up: 46
-          trans-Neptunian objects, a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. They
-          include a distant body whose fitted semimajor axis is about 156.6 astronomical units, a bright trans-Neptunian
-          candidate seen against the Galactic bulge, and two trans-Neptunian candidates with distances measured in a
-          single night between Euclid at the second Lagrange point and the Dark Energy Camera in Chile. On the same
-          interface, joins of Gaia, Euclid, and ground-based surveys recover 25 faint high-proper-motion stars below
-          Gaia's flux limit and measure how often Euclid resolves companions of Gaia stars with excess astrometric
-          noise. Cross-survey joins assembled by coding agents reach objects that single-survey pipelines miss, turning
-          public archives into a modular platform for discovery.</p>
+        <p class="abstract-text" data-i18n="abstract_body">Large sky surveys release images and catalogs faster than dedicated teams can cross-link them, and each survey processes its own data with a pipeline tuned to one camera, cadence, and science goal. Objects that need two telescopes at once, or that break one pipeline's assumptions, can stay unrecognized in public archives. Here we test whether AI coding agents can find such objects. The agents decompose existing astronomical codes into reusable algorithmic bricks, place more than a dozen ground and space archives behind one observation interface, and join telescopes, instruments, and methods like LEGO blocks wherever a single survey has a predictable blind spot. A second, independent set of agents verifies every candidate from its own archive queries, orbit fits, and archival pixels. Across more than a dozen public archives, 93 Solar System candidates survive that independent check for follow-up: 46 trans-Neptunian objects, a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. They include a distant body whose fitted semimajor axis is about 156.6 astronomical units, a bright trans-Neptunian candidate seen against the Galactic bulge, and two trans-Neptunian candidates with distances measured in a single night between Euclid at the second Lagrange point and the Dark Energy Camera in Chile. On the same interface, joins of Gaia, Euclid, and ground-based surveys recover 25 faint high-proper-motion stars below Gaia's flux limit and measure how often Euclid resolves companions of Gaia stars with excess astrometric noise. Cross-survey joins assembled by coding agents reach objects that single-survey pipelines miss, turning public archives into a modular platform for discovery.</p>
       </div>
 
       <!-- Primary Navigation Links -->
@@ -161,46 +140,11 @@
       <!-- Introduction -->
       <section class="paper-section" id="sec-intro">
         <div class="prose">
-          <span class="sec-num" data-i18n="intro_kicker">Introduction</span>
           <h2 data-i18n="intro_title">Introduction</h2>
-          <p data-i18n-html="intro_p1">Modern sky surveys release deep images and catalogs, yet each archive is
-            processed in isolation by a pipeline built around one camera, one cadence, and one science goal. Every
-            design choice in such a pipeline leaves a predictable blind spot. A distant outer-Solar-System body moves
-            too little within a single night to form the tracklets that the linker of Vera C. Rubin Observatory expects.
-            A bright Kuiper-belt object seen against the Galactic bulge falls inside sky that earlier surveys masked. A
-            slow body observed for a few weeks from one ground site has a degenerate distance, and a moon of Jupiter
-            curves around the planet and fails any heliocentric linker. Recovering such objects takes a join of
-            telescopes or methods, a task that has demanded purpose-built pipelines from specialists in each archive.
-          </p>
-          <p data-i18n-html="intro_p2">Machine learning and large language models have entered observational astronomy
-            and automated science along two paths. In astronomy, neural classifiers and anomaly detectors have found
-            exoplanets, asteroid trails in Hubble archives, bright transients, and morphological anomalies across nearly
-            one hundred million Hubble cutouts, and have written textual explanations of transient images. Each of those
-            systems works inside one survey's data format and inherits whatever that survey's pipeline kept or
-            discarded. Outside astronomy, autonomous AI systems have discovered crystal structures, planned robotic
-            chemistry experiments, evolved mathematical programs, and proposed research hypotheses. Those systems rely
-            on closed-world evaluators, physical simulators, or controlled laboratory apparatus. Astronomical archives
-            are open, noisy, and heterogeneous: telescopes observe from the ground, from low Earth orbit, and from the
-            Sun–Earth second Lagrange point (<i>L</i><sub>2</sub>), with mismatched catalogs, rotated detectors, and
-            undocumented processing artifacts.</p>
-          <p data-i18n-html="intro_p3">We test whether AI coding agents can bridge this gap by composing searches from
-            modular parts, an approach we call <strong>vibe discovery</strong> (<a href="#fig-pipeline">Fig. 1</a>). One
-            researcher states the scientific targets, the blind-spot hypotheses, and the acceptance rules in plain
-            language. Agents do the rest of the construction. They read the astronomical literature and open-source
-            codes, decompose each code into tested physical kernels, and wrap every archive behind one standardized
-            observation interface. For each blind spot they load the telescopes, instruments, and algorithmic bricks it
-            requires and join them like LEGO blocks on a shared baseplate. A second set of agents then verifies every
-            candidate independently from a read-only copy of the project.</p>
-          <p data-i18n-html="intro_p4">Running this architecture across more than a dozen public archives and verifying
-            every candidate independently yields 93 Solar System candidates for follow-up: 46 trans-Neptunian objects
-            (TNOs), a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. On the same baseplate, the
-            Galactic searches recover 25 faint high-proper-motion stars absent from Gaia and measure how often Euclid
-            resolves companions of Gaia stars with excess astrometric noise. Every Solar System body reported here is a
-            candidate that awaits a Minor Planet Center designation and independent recovery; provisional labels such as
-            <a href="../eyes_3d/index.html?focus=DELTA_003" target="_blank" rel="noopener"
-              class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> identify them (<a
-              href="../outputs/manuscript_regenerated/ms.pdf">full manuscript</a> and <a href="#sec-ledger">Companion
-              Data</a>).</p>
+          <p data-i18n-html="intro_p1">Modern sky surveys release deep images and catalogs, yet each archive is processed in isolation by a pipeline built around one camera, one cadence, and one science goal. Every design choice in such a pipeline leaves a predictable blind spot. A distant outer-Solar-System body moves too little within a single night to form the tracklets that the linker of Vera C. Rubin Observatory expects. A bright Kuiper-belt object seen against the Galactic bulge falls inside sky that earlier surveys masked. A slow body observed for a few weeks from one ground site has a degenerate distance, and a moon of Jupiter curves around the planet and fails any heliocentric linker. Recovering such objects takes a join of telescopes or methods, a task that has demanded purpose-built pipelines from specialists in each archive.</p>
+          <p data-i18n-html="intro_p2">Machine learning and large language models have entered observational astronomy and automated science along two paths. In astronomy, neural classifiers and anomaly detectors have found exoplanets, asteroid trails in Hubble archives, bright transients, and morphological anomalies across nearly one hundred million Hubble cutouts, and have written textual explanations of transient images. Each of those systems works inside one survey's data format and inherits whatever that survey's pipeline kept or discarded. Outside astronomy, autonomous AI systems have discovered crystal structures, planned robotic chemistry experiments, evolved mathematical programs, and proposed research hypotheses. Those systems rely on closed-world evaluators, physical simulators, or controlled laboratory apparatus. Astronomical archives are open, noisy, and heterogeneous: telescopes observe from the ground, from low Earth orbit, and from the Sun–Earth second Lagrange point (<i>L</i><sub>2</sub>), with mismatched catalogs, rotated detectors, and undocumented processing artifacts.</p>
+          <p data-i18n-html="intro_p3">We test whether AI coding agents can bridge this gap by composing searches from modular parts, an approach we call <strong>vibe discovery</strong> (<a href="#fig-pipeline">Fig. 1</a>). One researcher states the scientific targets, the blind-spot hypotheses, and the acceptance rules in plain language. Agents do the rest of the construction. They read the astronomical literature and open-source codes, decompose each code into tested physical kernels, and wrap every archive behind one standardized observation interface. For each blind spot they load the telescopes, instruments, and algorithmic bricks it requires and join them like LEGO blocks on a shared baseplate. A second set of agents then verifies every candidate independently from a read-only copy of the project.</p>
+          <p data-i18n-html="intro_p4">Running this architecture across more than a dozen public archives and verifying every candidate independently yields 93 Solar System candidates for follow-up: 46 trans-Neptunian objects (TNOs), a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. On the same baseplate, the Galactic searches recover 25 faint high-proper-motion stars absent from Gaia and measure how often Euclid resolves companions of Gaia stars with excess astrometric noise. Every Solar System body reported here is a candidate that awaits a Minor Planet Center designation and independent recovery; provisional labels such as <a href="../eyes_3d/index.html?focus=DELTA_003" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> identify them (<a href="../outputs/manuscript_regenerated/ms.pdf">full manuscript</a> and <a href="#sec-ledger">Companion Data</a>).</p>
         </div>
 
         <figure class="pub-figure fig-wide" id="fig-pipeline">
@@ -224,27 +168,9 @@
         <div class="prose">
           <span class="sec-num" data-i18n="bs_kicker">Section 1 · Design Principles</span>
           <h2 data-i18n="bs_title">Predictable single-survey blind spots</h2>
-          <p data-i18n-html="bs_p1">Three ideas organize the work. A single-survey pipeline loses objects wherever its
-            operating assumptions bind, so the losses follow from the pipeline's design. Adding a second telescope, an
-            archival epoch, or a method from another code addresses each loss. Decomposing codes and archives into
-            interchangeable blocks lets coding agents build such joins at the pace of one researcher, and an independent
-            check verifies which candidates stand.</p>
-          <p data-i18n-html="bs_p2">Early Rubin data show the first idea at work. Standard linking needs intra-night
-            tracklets, pairs of detections separated by measurable motion within one night. Beyond Neptune a body moves
-            too little across a short revisit, and a night with a single visit yields no tracklet at any brightness.
-            Rubin also separates detections into difference-image (<code>DiaSource</code>) and direct-image
-            (<code>Source</code>) catalogs. Where templates are absent or incomplete, a distant body appears only in the
-            direct-image catalog, so a search of either table alone breaks multi-month arcs. Our search of Rubin data
-            yields 10 TNO candidates with fitted orbits and recovers 14 cataloged distant TNOs without their positions
-            as input. None of these appeared in the data preview's table of linked objects when the search queried it.
-            Most of the recovered controls carry 2025 designations based on Rubin astrometry from other dedicated
-            searches: the data reach such bodies, and the standard linking table omits them.</p>
-          <p data-i18n-html="bs_p3">Three further blind spots follow the same logic. Earlier wide-field TNO searches
-            masked low Galactic latitudes to avoid crowding. Short arcs from one site leave distance and radial velocity
-            degenerate, and a single Euclid sequence spans too little motion to separate a distant body from static
-            sources. Fixed reference frames hide two more classes: second moments stored in detector coordinates mix
-            trailing with shape as the camera rotates, and heliocentric linkers reject satellites that curve inside
-            Jupiter's Hill sphere. Each loss points to a specific join.</p>
+          <p data-i18n-html="bs_p1">Three ideas organize the work. A single-survey pipeline loses objects wherever its operating assumptions bind, so the losses follow from the pipeline's design. Adding a second telescope, an archival epoch, or a method from another code addresses each loss. Decomposing codes and archives into interchangeable blocks lets coding agents build such joins at the pace of one researcher, and an independent check verifies which candidates stand.</p>
+          <p data-i18n-html="bs_p2">Early Rubin data show the first idea at work. Standard linking needs intra-night tracklets, pairs of detections separated by measurable motion within one night. Beyond Neptune a body moves too little across a short revisit, and a night with a single visit yields no tracklet at any brightness. Rubin also separates detections into difference-image (<code>DiaSource</code>) and direct-image (<code>Source</code>) catalogs. Where templates are absent or incomplete, a distant body appears only in the direct-image catalog, so a search of either table alone breaks multi-month arcs. Our search of Rubin data yields 10 TNO candidates with fitted orbits and recovers 14 cataloged distant TNOs without their positions as input. None of these appeared in the data preview's table of linked objects when the search queried it. Most of the recovered controls carry 2025 designations based on Rubin astrometry from other dedicated searches: the data reach such bodies, and the standard linking table omits them.</p>
+          <p data-i18n-html="bs_p3">Three further blind spots follow the same logic. Earlier wide-field TNO searches masked low Galactic latitudes to avoid crowding. Short arcs from one site leave distance and radial velocity degenerate, and a single Euclid sequence spans too little motion to separate a distant body from static sources. Fixed reference frames hide two more classes: second moments stored in detector coordinates mix trailing with shape as the camera rotates, and heliocentric linkers reject satellites that curve inside Jupiter's Hill sphere. Each loss points to a specific join.</p>
         </div>
       </section>
 
@@ -253,26 +179,9 @@
         <div class="prose">
           <span class="sec-num" data-i18n="dist_kicker">Section 2 · Cadence &amp; Catalog-Split Join</span>
           <h2 data-i18n="dist_title">Closing cadence and catalog-split blind spots</h2>
-          <p data-i18n-html="dist_p1">Linking detections across nights without tracklets, on the union of Rubin's
-            difference-image and direct-image tables, yields 10 Rubin TNO candidates and 18 further candidates retained
-            through a group-level check. <a href="../eyes_3d/index.html?focus=DELTA_003" target="_blank" rel="noopener"
-              class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> shows what this blind spot
-            hides (<a href="#fig-orbits">Fig. 2</a>; see also <a href="../eyes_3d/index.html?focus=DELTA_004"
-              target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="DELTA_004">R25-D04
-              ↗</a>, <a href="../eyes_3d/index.html?focus=DELTA_014" target="_blank" rel="noopener"
-              class="fly-badge copper js-3d-link" data-fly-focus="DELTA_014">R25-D14 ↗</a>, and the <a
-              href="#blink-widget">interactive blink comparator</a>). Rubin detected it on 8 nights across 124.8 d, and
-            the fit places it on an eccentric orbit with perihelion beyond Neptune and a semimajor axis of 156.6 ± 10.0
-            au. Two direct-image detections in November carry that solution, and a second opposition will pin down the
-            large semimajor axis.</p>
-          <p data-i18n-html="dist_p2">The Tisserand parameter of R25-D03 with respect to Neptune is 3.09, slightly above
-            three (<a href="#fig-orbits">Fig. 2b</a>). At this semimajor axis and inclination, that value corresponds to
-            a perihelion a few astronomical units outside Neptune's orbit. About half of the cataloged bodies with
-            semimajor axes beyond 150 au share the property, and several have lower inclinations. R25-D03 therefore
-            joins the known population of detached distant bodies whose perihelia sit beyond Neptune's reach.</p>
-          <p data-i18n-html="dist_p3">The same tracklet-free linking runs on the Isolated Tracklet File of the Minor
-            Planet Center, where unlinked tracklets from many surveys accumulate. It joins archived tracklets from other
-            observers into 5 outer-Solar-System candidates across single-season arcs.</p>
+          <p data-i18n-html="dist_p1">Linking detections across nights without tracklets, on the union of Rubin's difference-image and direct-image tables, yields 10 Rubin TNO candidates and 18 further candidates retained through a group-level check. <a href="../eyes_3d/index.html?focus=DELTA_003" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> shows what this blind spot hides (<a href="#fig-orbits">Fig. 2</a>; see also <a href="../eyes_3d/index.html?focus=DELTA_004" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="DELTA_004">R25-D04 ↗</a>, <a href="../eyes_3d/index.html?focus=DELTA_014" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="DELTA_014">R25-D14 ↗</a>, and the <a href="#blink-widget">interactive blink comparator</a>). Rubin detected it on 8 nights across 124.8 d, and the fit places it on an eccentric orbit with perihelion beyond Neptune and a semimajor axis of 156.6 ± 10.0 au. Two direct-image detections in November carry that solution, and a second opposition will pin down the large semimajor axis.</p>
+          <p data-i18n-html="dist_p2">The Tisserand parameter of R25-D03 with respect to Neptune is 3.09, slightly above three (<a href="#fig-orbits">Fig. 2b</a>). At this semimajor axis and inclination, that value corresponds to a perihelion a few astronomical units outside Neptune's orbit. About half of the cataloged bodies with semimajor axes beyond 150 au share the property, and several have lower inclinations. R25-D03 therefore joins the known population of detached distant bodies whose perihelia sit beyond Neptune's reach.</p>
+          <p data-i18n-html="dist_p3">The same tracklet-free linking runs on the Isolated Tracklet File of the Minor Planet Center, where unlinked tracklets from many surveys accumulate. It joins archived tracklets from other observers into 5 outer-Solar-System candidates across single-season arcs.</p>
         </div>
 
         <figure class="pub-figure" id="fig-orbits">
@@ -295,37 +204,9 @@
         <div class="prose">
           <span class="sec-num" data-i18n="tri_kicker">Section 3 · Galactic Bulge &amp; Space–Ground Parallax</span>
           <h2 data-i18n="tri_title">Spatial exclusion and space–ground triangulation</h2>
-          <p data-i18n-html="tri_p1">Joining telescopes across time and across space addresses two more blind spots: sky
-            excluded near the Galactic plane, and the distance degeneracy of short arcs from one site.</p>
-          <p data-i18n-html="tri_p2">In the crowded bulge fields where earlier searches stopped, agents combined Rubin
-            detections with archival Dark Energy Camera (DECam) exposures from earlier years and searched along each
-            predicted orbit (<a href="#fig-decam">Fig. 3</a>, top row). The Rubin detections of <a
-              href="../eyes_3d/index.html?focus=EPS_002" target="_blank" rel="noopener"
-              class="fly-badge copper js-3d-link" data-fly-focus="EPS_002">R25-E02 ↗</a> lie at low Galactic latitude,
-            directly against the bulge (alongside <a href="../eyes_3d/index.html?focus=EPS_007" target="_blank"
-              rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="EPS_007">R25-E07 ↗</a> south of the
-            bulge), and its brightness makes it one of the larger bodies in the sample if its surface is dark. Archival
-            DECam exposures from 2024 cover the predicted position at aperture signal-to-noise ratios of 2.1 and 2.8
-            among crowded stars. <a href="../eyes_3d/index.html?focus=DELTA_009" target="_blank" rel="noopener"
-              class="fly-badge copper js-3d-link" data-fly-focus="DELTA_009">R25-D09 ↗</a> is the firm two-opposition
-            link: DECam recorded it in 2022 at a signal-to-noise ratio of 23.0 on one night, with empty sky at the same
-            position the night before, and the 1173.0 d arc fixes its semimajor axis close to Neptune's 2:1 resonance.
-          </p>
-          <p data-i18n-html="tri_p3">Where no archival image exists, a spacecraft and a ground telescope observing at
-            the same time replace months of orbital motion with parallax. Euclid orbits the Sun–Earth
-            <i>L</i><sub>2</sub> point, about 1.5 × 10<sup>6</sup> km from Cerro Tololo in Chile. A distant body imaged
-            from both sites within one night shifts on the sky between the two viewpoints by an angle that gives its
-            distance (<a href="#parallax-widget">interactive triangulation slider</a>). Two Euclid candidates, <a
-              href="../eyes_3d/index.html?focus=EUC0005" target="_blank" rel="noopener" class="fly-badge js-3d-link"
-              data-fly-focus="EUC0005">EUC-S05 ↗</a> and <a href="../eyes_3d/index.html?focus=EUC0002" target="_blank"
-              rel="noopener" class="fly-badge js-3d-link" data-fly-focus="EUC0002">EUC-S02 ↗</a>, have simultaneous
-            DECam counterparts whose two-site geometry places both bodies beyond Neptune. Euclid alone supplies the
-            other distant candidates (<a href="#sec-ledger">Companion Data</a>, including <a
-              href="../eyes_3d/index.html?focus=EUCLID_VIS_TNO_02" target="_blank" rel="noopener"
-              class="fly-badge js-3d-link" data-fly-focus="EUCLID_VIS_TNO_02">EUC-V02 ↗</a>). Linking sequences taken
-            days apart measures the parallax from the spacecraft's own motion around the Sun and places these slow
-            movers at trans-Neptunian distances, with 3 confirmed on pixels across multiple sequences (<a
-              href="#fig-decam">Fig. 3</a>, lower rows).</p>
+          <p data-i18n-html="tri_p1">Joining telescopes across time and across space addresses two more blind spots: sky excluded near the Galactic plane, and the distance degeneracy of short arcs from one site.</p>
+          <p data-i18n-html="tri_p2">In the crowded bulge fields where earlier searches stopped, agents combined Rubin detections with archival Dark Energy Camera (DECam) exposures from earlier years and searched along each predicted orbit (<a href="#fig-decam">Fig. 3</a>, top row). The Rubin detections of <a href="../eyes_3d/index.html?focus=EPS_002" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="EPS_002">R25-E02 ↗</a> lie at low Galactic latitude, directly against the bulge (alongside <a href="../eyes_3d/index.html?focus=EPS_007" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="EPS_007">R25-E07 ↗</a> south of the bulge), and its brightness makes it one of the larger bodies in the sample if its surface is dark. Archival DECam exposures from 2024 cover the predicted position at aperture signal-to-noise ratios of 2.1 and 2.8 among crowded stars. <a href="../eyes_3d/index.html?focus=DELTA_009" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="DELTA_009">R25-D09 ↗</a> is the firm two-opposition link: DECam recorded it in 2022 at a signal-to-noise ratio of 23.0 on one night, with empty sky at the same position the night before, and the 1173.0 d arc fixes its semimajor axis close to Neptune's 2:1 resonance.</p>
+          <p data-i18n-html="tri_p3">Where no archival image exists, a spacecraft and a ground telescope observing at the same time replace months of orbital motion with parallax. Euclid orbits the Sun–Earth <i>L</i><sub>2</sub> point, about $1.5 imes 10^6$ km from Cerro Tololo in Chile. A distant body imaged from both sites within one night shifts on the sky between the two viewpoints by an angle that gives its distance (<a href="#parallax-widget">interactive triangulation slider</a>). Two Euclid candidates, <a href="../eyes_3d/index.html?focus=EUC0005" target="_blank" rel="noopener" class="fly-badge js-3d-link" data-fly-focus="EUC0005">EUC-S05 ↗</a> and <a href="../eyes_3d/index.html?focus=EUC0002" target="_blank" rel="noopener" class="fly-badge js-3d-link" data-fly-focus="EUC0002">EUC-S02 ↗</a>, have simultaneous DECam counterparts whose two-site geometry places both bodies beyond Neptune. Euclid alone supplies the other distant candidates (<a href="#sec-ledger">Companion Data</a>, including <a href="../eyes_3d/index.html?focus=EUCLID_VIS_TNO_02" target="_blank" rel="noopener" class="fly-badge js-3d-link" data-fly-focus="EUCLID_VIS_TNO_02">EUC-V02 ↗</a>). Linking sequences taken days apart measures the parallax from the spacecraft's own motion around the Sun and places these slow movers at trans-Neptunian distances, with 3 confirmed on pixels across multiple sequences (<a href="#fig-decam">Fig. 3</a>, lower rows).</p>
         </div>
 
         <figure class="pub-figure fig-wide" id="fig-decam">
@@ -349,32 +230,9 @@
         <div class="prose">
           <span class="sec-num" data-i18n="moons_kicker">Section 4 · Frame Rotations, Small Bodies &amp; Spectra</span>
           <h2 data-i18n="moons_title">Reference-frame joins, small bodies and physical tests</h2>
-          <p data-i18n-html="moons_p1">Joins between coordinate frames work like joins between telescopes. Rotating
-            Rubin's detector-frame second moments into sky coordinates separates trailing along the motion from
-            elongation that stays fixed on the sky while the camera rotates. Applied to well-observed Kuiper-belt
-            objects, the sky-frame quadrupole cleanly recovers the cataloged wide binaries in the sample. Among objects
-            without a known companion, 2025 NW189 shows a sky-frame quadrupole excess above every single-object control
-            (<a href="#fig-orbits">Fig. 2c</a>), making it a strong target for resolved imaging follow-up.</p>
-          <p data-i18n-html="moons_p2">Subtracting Jupiter's motion and linking archived tracklets in a planet-centered
-            frame yields 3 candidate irregular satellites on bound retrograde orbits (<a href="#ext-fig-moons">Extended
-              Data</a>), each ready for second-opposition recovery. In the inner Solar System, linking Euclid visible
-            and near-infrared detections within single days yields 43 asteroid candidates, 2 of them at the distance of
-            Jupiter's Trojans (<a href="#ext-fig-euclid">Extended Data</a>). Rubin adds the Centaur <a
-              href="../eyes_3d/index.html?focus=CENTAUR_343_IOTA004" target="_blank" rel="noopener"
-              class="fly-badge copper js-3d-link" data-fly-focus="CENTAUR_343_IOTA004">R25-I04 ↗</a>, whose 74.0 d arc
-            fixes an orbit between Saturn and Uranus that matches no cataloged body.</p>
-          <p data-i18n-html="moons_p3">Once an orbit is known, spectral archives along its path become physical tests.
-            SPHEREx spectra extracted along the ephemerides of interstellar comet <a
-              href="../eyes_3d/index.html?focus=ATLAS_3I" target="_blank" rel="noopener" class="fly-badge js-3d-link"
-              data-fly-focus="ATLAS_3I">3I/ATLAS ↗</a> and the active Centaur <a
-              href="../eyes_3d/index.html?focus=SW1_29P" target="_blank" rel="noopener" class="fly-badge js-3d-link"
-              data-fly-focus="SW1_29P">29P/Schwassmann–Wachmann 1 ↗</a> recover the carbon monoxide and carbon dioxide
-            emission of these comets, validating the moving-target extraction (<a href="#ext-fig-spectra">Extended
-              Data</a>). For the fitted orbits of R25-D03 and R25-E02, a volatile-escape model predicts surfaces that
-            have lost methane, nitrogen, and carbon monoxide while retaining ethane and carbon dioxide (<a
-              href="#ext-fig-volatiles">Extended Data</a>). The same multi-wavelength joins also test published
-            far-infrared candidates for a distant planet, identifying a cataloged edge-on star-forming galaxy beside one
-            IRAS source whose far-infrared-to-radio ratio matches a stationary counterpart.</p>
+          <p data-i18n-html="moons_p1">Joins between coordinate frames work like joins between telescopes. Rotating Rubin's detector-frame second moments into sky coordinates separates trailing along the motion from elongation that stays fixed on the sky while the camera rotates. Applied to well-observed Kuiper-belt objects, the sky-frame quadrupole cleanly recovers the cataloged wide binaries in the sample. Among objects without a known companion, 2025 NW189 shows a sky-frame quadrupole excess above every single-object control (<a href="#fig-orbits">Fig. 2c</a>), making it a strong target for resolved imaging follow-up.</p>
+          <p data-i18n-html="moons_p2">Subtracting Jupiter's motion and linking archived tracklets in a planet-centered frame yields 3 candidate irregular satellites on bound retrograde orbits (<a href="#ext-fig-moons">Extended Data</a>), each ready for second-opposition recovery. In the inner Solar System, linking Euclid visible and near-infrared detections within single days yields 43 asteroid candidates, 2 of them at the distance of Jupiter's Trojans (<a href="#ext-fig-euclid">Extended Data</a>). Rubin adds the Centaur <a href="../eyes_3d/index.html?focus=CENTAUR_343_IOTA004" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="CENTAUR_343_IOTA004">R25-I04 ↗</a>, whose 74.0 d arc fixes an orbit between Saturn and Uranus that matches no cataloged body.</p>
+          <p data-i18n-html="moons_p3">Once an orbit is known, spectral archives along its path become physical tests. SPHEREx spectra extracted along the ephemerides of interstellar comet <a href="../eyes_3d/index.html?focus=ATLAS_3I" target="_blank" rel="noopener" class="fly-badge js-3d-link" data-fly-focus="ATLAS_3I">3I/ATLAS ↗</a> and the active Centaur <a href="../eyes_3d/index.html?focus=SW1_29P" target="_blank" rel="noopener" class="fly-badge js-3d-link" data-fly-focus="SW1_29P">29P/Schwassmann–Wachmann 1 ↗</a> recover the carbon monoxide and carbon dioxide emission of these comets, validating the moving-target extraction (<a href="#ext-fig-spectra">Extended Data</a>). For the fitted orbits of <a href="../eyes_3d/index.html?focus=DELTA_003" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> and <a href="../eyes_3d/index.html?focus=EPS_002" target="_blank" rel="noopener" class="fly-badge copper js-3d-link" data-fly-focus="EPS_002">R25-E02 ↗</a>, a volatile-escape model predicts surfaces that have lost methane, nitrogen, and carbon monoxide while retaining ethane and carbon dioxide (<a href="#ext-fig-volatiles">Extended Data</a>). The same multi-wavelength joins also test published far-infrared candidates for a distant planet, identifying a cataloged edge-on star-forming galaxy beside one IRAS source whose far-infrared-to-radio ratio matches a stationary counterpart.</p>
         </div>
       </section>
 
@@ -384,50 +242,11 @@
           <span class="sec-num" data-i18n="agents_kicker">Section 5 · Modular Architecture, Verification &amp; Milky
             Way</span>
           <h2 data-i18n="agents_title">Dynamic LEGO assembly, independent verification and Galactic extension</h2>
-          <p data-i18n-html="agents_p1">Building this many cross-survey paths by hand would occupy several survey teams.
-            Coding agents running on Gemini 4 Carbon lowered that cost by separating every search into two reusable
-            layers: archive adapters and algorithmic bricks. The agents surveyed open-source astronomical codes, among
-            them heliocentric linkers (<code>HelioLinC3D</code>, <code>THOR</code>), short-arc orbit methods
-            (Bernstein–Khushalani), shift-and-stack (<code>KBMOD</code>), N-body integrators (<code>REBOUND</code>,
-            <code>ASSIST</code>), and Galactic binary and orbit packages (<code>gaiamock</code>, <code>galpy</code>).
-            They reimplemented the core numerical operations once as array kernels whose accelerated and reference
-            versions agree to double precision, and mapped each telescope onto one observation record: epoch, observer
-            position in the Solar System, sky position with uncertainty, and brightness. Once an archive adapter exists,
-            detections from Rubin in Chile, Euclid at <i>L</i><sub>2</sub>, DECam, and SPHEREx enter any brick.</p>
-          <p data-i18n-html="agents_p2"><a href="#fig-progress">Figure 4</a> traces how the bricks accumulated over four
-            phases of work. Phase I attached Euclid and Rubin adapters with satellite vetoes and tracklet-free linkers.
-            Phase II widened the baseplate to more than a dozen archives and added archival DECam searches, spectral
-            joins, and the linking of archived tracklets. Phase III added planet-centered linking, sky-frame moments,
-            and internal cross-checks of the candidate lists. Phase IV reused the Euclid, Rubin, and Legacy Surveys
-            adapters for the Galactic searches.</p>
-          <p data-i18n-html="agents_p3">Verification rested on separated roles. Builder agents wrote adapters and
-            cross-survey joins. Tester agents validated each search through blind recoveries of cataloged objects
-            without their positions as input: distant TNOs, irregular satellites of the giant planets, the neutron-star
-            binary Gaia NS1, and a known hypervelocity star. After the searches closed, an independent set of Claude
-            agents working from a read-only copy of the project repeated the archive queries, orbit fits, and pixel
-            measurements, retaining 93 Solar System candidates alongside recovery controls <a
-              href="../eyes_3d/index.html?focus=EUCLID_EES149_GOLD_18" target="_blank" rel="noopener"
-              class="fly-badge emerald js-3d-link" data-fly-focus="EUCLID_EES149_GOLD_18">2019 UM31 ↗</a> and <a
-              href="../eyes_3d/index.html?focus=QB98_2021" target="_blank" rel="noopener"
-              class="fly-badge emerald js-3d-link" data-fly-focus="QB98_2021">2021 QB98 ↗</a>. Archival pixels back the
-            retained list wherever archives serve them: we assembled 388 real archival image frames across 96 targets in
-            the <a href="../movie_gallery/index.html">96-Target Movie Gallery</a>, with Euclid single exposures showing
-            a source at the predicted position of every retained Euclid candidate.</p>
-          <p data-i18n-html="agents_p4">To test the same principle outside the Solar System, agents attached Gaia DR3,
-            Legacy Surveys DR10, Euclid DR1, and Rubin to the baseplate (<a href="#ext-fig-galactic">Extended Data</a>).
-            Linking decade-long optical baselines to Euclid positions discovered 25 stars with measured proper motions
-            and no Gaia DR3 source nearby: 1 white-dwarf candidate, 17 ultracool-dwarf candidates, 2 redder objects with
-            the colors of late-M to early-L dwarfs, and 5 late-M dwarfs. All of them appear in the NOIRLab Source
-            Catalog with nonzero proper motions and have no SIMBAD identification, making them immediate spectroscopic
-            targets. In Euclid Deep Field South, Euclid resolves a companion within one arcsecond of 129 of 1,200 Gaia
-            stars with excess astrometric noise, against 3 of as many matched controls. The images reveal directly the
-            binary companions implied by Gaia's excess noise, with the resolved fraction rising toward redder, nearer
-            stars.</p>
-          <p data-i18n-html="agents_p5"><a href="#fig-hypergraph">Figure 5</a> shows the finished architecture as an
-            incidence hypergraph: rows are telescope archives and algorithmic bricks, and each column is one assembled
-            search, physical test, or verification check. Most columns join two or more telescopes across ground and
-            space or combine bricks drawn from different community codes. Euclid VIS, Rubin LSSTCam, and Gaia are the
-            most connected bricks.</p>
+          <p data-i18n-html="agents_p1">Building this many cross-survey paths by hand would occupy several survey teams. Coding agents running on Gemini 4 Carbon lowered that cost by separating every search into two reusable layers: archive adapters and algorithmic bricks. The agents surveyed open-source astronomical codes, among them heliocentric linkers (<code>HelioLinC3D</code>, <code>THOR</code>), short-arc orbit methods (Bernstein–Khushalani), shift-and-stack (<code>KBMOD</code>), N-body integrators (<code>REBOUND</code>, <code>ASSIST</code>), and Galactic binary and orbit packages (<code>gaiamock</code>, <code>galpy</code>). They reimplemented the core numerical operations once as array kernels whose accelerated and reference versions agree to double precision, and mapped each telescope onto one observation record: epoch, observer position in the Solar System, sky position with uncertainty, and brightness. Once an archive adapter exists, detections from Rubin in Chile, Euclid at <i>L</i><sub>2</sub>, DECam, and SPHEREx enter any brick.</p>
+          <p data-i18n-html="agents_p2"><a href="#fig-progress">Figure 4</a> traces how the bricks accumulated over four phases of work. Phase I attached Euclid and Rubin adapters with satellite vetoes and tracklet-free linkers. Phase II widened the baseplate to more than a dozen archives and added archival DECam searches, spectral joins, and the linking of archived tracklets. Phase III added planet-centered linking, sky-frame moments, and internal cross-checks of the candidate lists. Phase IV reused the Euclid, Rubin, and Legacy Surveys adapters for the Galactic searches.</p>
+          <p data-i18n-html="agents_p3">Verification rested on separated roles. Builder agents wrote adapters and cross-survey joins. Tester agents validated each search through blind recoveries of cataloged objects without their positions as input: distant TNOs, irregular satellites of the giant planets, the neutron-star binary Gaia NS1, and a known hypervelocity star. After the searches closed, an independent set of Claude agents working from a read-only copy of the project repeated the archive queries, orbit fits, and pixel measurements, retaining 93 Solar System candidates alongside recovery controls <a href="../eyes_3d/index.html?focus=EUCLID_EES149_GOLD_18" target="_blank" rel="noopener" class="fly-badge emerald js-3d-link" data-fly-focus="EUCLID_EES149_GOLD_18">2019 UM31 ↗</a> and <a href="../eyes_3d/index.html?focus=QB98_2021" target="_blank" rel="noopener" class="fly-badge emerald js-3d-link" data-fly-focus="QB98_2021">2021 QB98 ↗</a>. Archival pixels back the retained list wherever archives serve them: we assembled 388 real archival image frames across 96 targets in the <a href="../movie_gallery/index.html">96-Target Movie Gallery</a>, with Euclid single exposures showing a source at the predicted position of every retained Euclid candidate.</p>
+          <p data-i18n-html="agents_p4">To test the same principle outside the Solar System, agents attached Gaia DR3, Legacy Surveys DR10, Euclid DR1, and Rubin to the baseplate (<a href="#ext-fig-galactic">Extended Data</a>). Linking decade-long optical baselines to Euclid positions discovered 25 stars with measured proper motions and no Gaia DR3 source nearby: 1 white-dwarf candidate, 17 ultracool-dwarf candidates, 2 redder objects with the colors of late-M to early-L dwarfs, and 5 late-M dwarfs. All of them appear in the NOIRLab Source Catalog with nonzero proper motions and have no SIMBAD identification, making them immediate spectroscopic targets. In Euclid Deep Field South, Euclid resolves a companion within one arcsecond of 129 of 1,200 Gaia stars with excess astrometric noise, against 3 of as many matched controls. The images reveal directly the binary companions implied by Gaia's excess noise, with the resolved fraction rising toward redder, nearer stars.</p>
+          <p data-i18n-html="agents_p5"><a href="#fig-hypergraph">Figure 5</a> shows the finished architecture as an incidence hypergraph: rows are telescope archives and algorithmic bricks, and each column is one assembled search, physical test, or verification check. Most columns join two or more telescopes across ground and space or combine bricks drawn from different community codes. Euclid VIS, Rubin LSSTCam, and Gaia are the most connected bricks.</p>
         </div>
 
         <figure class="pub-figure" id="fig-progress">
@@ -462,22 +281,11 @@
       <!-- Section 6: Outlook -->
       <section class="paper-section" id="sec-outlook">
         <div class="prose">
-          <span class="sec-num" data-i18n="out_kicker">Section 6 · Outlook</span>
+          <span class="sec-num" data-i18n="out_kicker">Section 6</span>
           <h2 data-i18n="out_title">Outlook</h2>
-          <p data-i18n-html="out_p1">Three working rules summarize vibe discovery. Single-survey pipelines lose objects
-            wherever their cadence, sky-mask, coordinate-frame, or deblending assumptions bind, so the blind spots
-            follow from the pipeline's design. Treating telescopes, instruments, and community codes as interchangeable
-            bricks on one interface addresses each blind spot, in the Solar System and in the Galaxy. Coding agents cut
-            the cost of assembling cross-survey joins far enough for one researcher to test dozens of archive
-            combinations in days.</p>
-          <p data-i18n-html="out_p2">Pairing fast agentic construction with an independent verification pass makes the
-            workflow self-contained and reliable: every retained candidate is backed by independent archive queries,
-            refitted orbits, and archival pixels before community follow-up.</p>
-          <p data-i18n-html="out_p3">Every body reported here now invites standard community follow-up: astrometry
-            submitted to the Minor Planet Center, recovery at a second opposition by independent telescopes, and spectra
-            of the brightest bodies and of the cool dwarfs. With AI agents writing and composing modular survey
-            software, a single researcher can explore cross-archive parameter spaces across the Solar System and Milky
-            Way while keeping full scientific oversight of the physical evidence.</p>
+          <p data-i18n-html="out_p1">Three working rules summarize vibe discovery. Single-survey pipelines lose objects wherever their cadence, sky-mask, coordinate-frame, or deblending assumptions bind, so the blind spots follow from the pipeline's design. Treating telescopes, instruments, and community codes as interchangeable bricks on one interface addresses each blind spot, in the Solar System and in the Galaxy. Coding agents cut the cost of assembling cross-survey joins far enough for one researcher to test dozens of archive combinations in days.</p>
+          <p data-i18n-html="out_p2">Pairing fast agentic construction with an independent verification pass makes the workflow self-contained and reliable: every retained candidate is backed by independent archive queries, refitted orbits, and archival pixels before community follow-up.</p>
+          <p data-i18n-html="out_p3">Every body reported here now invites standard community follow-up: astrometry submitted to the Minor Planet Center, recovery at a second opposition by independent telescopes, and spectra of the brightest bodies and of the cool dwarfs. With AI agents writing and composing modular survey software, a single researcher can explore cross-archive parameter spaces across the Solar System and Milky Way while keeping full scientific oversight of the physical evidence.</p>
           <div class="audit-link-row">
             <a href="../outputs/manuscript_regenerated/ms.pdf" target="_blank" rel="noopener" class="fly-badge"
               data-i18n="out_link_ms">Open Full Manuscript (48-page PDF)</a>
@@ -893,7 +701,7 @@
     <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
 
-  <script src="blog.js"></script>
+  <script src="blog.js?v=20261124cm"></script>
 </body>
 
 </html>
