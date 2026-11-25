@@ -1548,3 +1548,76 @@ math {
 .pub-figure.fig-wide .figure-frame img {
   max-height: 780px;
 }
+
+.masthead-inner.masthead-clean {
+  justify-content: flex-end;
+}
+
+/* Hidden-by-default Companion Data disclosure */
+.companion-data-section {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: none;
+}
+
+.companion-data-details {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  overflow: hidden;
+  transition: border-color 0.16s ease;
+}
+
+.companion-data-details[open] {
+  border-color: var(--border-strong);
+}
+
+.companion-data-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 22px;
+  font-family: var(--font-sans);
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  user-select: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.companion-data-summary::-webkit-details-marker {
+  display: none;
+}
+
+.companion-data-summary:hover {
+  color: var(--text-primary);
+}
+
+.companion-data-chevron::before {
+  content: "▸";
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: transform 0.16s ease;
+}
+
+.companion-data-details[open] > .companion-data-summary {
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.companion-data-details[open] > .companion-data-summary .companion-data-chevron::before {
+  transform: rotate(90deg);
+}
+
+.companion-data-body {
+  padding: 24px 22px 26px;
+}
+
+.companion-audit-panel {
+  margin-top: 28px;
+}

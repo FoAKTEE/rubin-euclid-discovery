@@ -1,136 +1,586 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rubin / Euclid Multi-Archive Discovery Portal</title>
-  <meta name="description" content="Audited Solar System candidates from Rubin, Euclid and a dozen further archives: 93 survivors of an independent audit, real archival pixels for 96 targets, the manuscript, cutout atlases and the audit verdict ledgers." />
+  <meta name="description"
+    content="Audited Solar System candidates from Rubin, Euclid and a dozen further archives: 93 survivors of an independent audit, real archival pixels for 96 targets, the manuscript, cutout atlases and the audit verdict ledgers." />
   <style>
     /* Self-contained page: no external stylesheet, font or script. Dark first; data-theme="light" flips it. */
     :root {
-      --bg: #09090b; --bg-raise: #121215; --bg-card: #16161a; --bg-inset: #0e0e11;
-      --line: #27272a; --line-strong: #3f3f46;
-      --text: #f4f4f5; --text-2: #d4d4d8; --text-3: #8e8e96;
-      --accent: #e4e4e7; --accent-soft: rgba(255, 255, 255, 0.10);
-      --ok: #3ea87c; --ok-soft: rgba(62, 168, 124, 0.14);
-      --warn: #d99b26; --warn-soft: rgba(217, 155, 38, 0.14);
-      --bad: #d97757; --bad-soft: rgba(217, 119, 87, 0.14);
-      --quiet: #a1a1aa; --quiet-soft: rgba(161, 161, 170, 0.14);
+      --bg: #09090b;
+      --bg-raise: #121215;
+      --bg-card: #16161a;
+      --bg-inset: #0e0e11;
+      --line: #27272a;
+      --line-strong: #3f3f46;
+      --text: #f4f4f5;
+      --text-2: #d4d4d8;
+      --text-3: #8e8e96;
+      --accent: #e4e4e7;
+      --accent-soft: rgba(255, 255, 255, 0.10);
+      --ok: #3ea87c;
+      --ok-soft: rgba(62, 168, 124, 0.14);
+      --warn: #d99b26;
+      --warn-soft: rgba(217, 155, 38, 0.14);
+      --bad: #d97757;
+      --bad-soft: rgba(217, 119, 87, 0.14);
+      --quiet: #a1a1aa;
+      --quiet-soft: rgba(161, 161, 170, 0.14);
       --stamp-bg: #f4f1ea;
       --radius: 10px;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
       --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
     }
+
     [data-theme="light"] {
-      --bg: #f6f4ef; --bg-raise: #ffffff; --bg-card: #ffffff; --bg-inset: #f0ede6;
-      --line: #ddd8cc; --line-strong: #c3bcad;
-      --text: #171a1f; --text-2: #424a55; --text-3: #68717e;
-      --accent: #1b4d89; --accent-soft: rgba(27, 77, 137, 0.1);
-      --ok: #196b4d; --ok-soft: rgba(25, 107, 77, 0.1);
-      --warn: #8a5a05; --warn-soft: rgba(148, 98, 10, 0.12);
-      --bad: #a83d1e; --bad-soft: rgba(181, 68, 34, 0.1);
-      --quiet: #5c6673; --quiet-soft: rgba(67, 74, 84, 0.08);
+      --bg: #f6f4ef;
+      --bg-raise: #ffffff;
+      --bg-card: #ffffff;
+      --bg-inset: #f0ede6;
+      --line: #ddd8cc;
+      --line-strong: #c3bcad;
+      --text: #171a1f;
+      --text-2: #424a55;
+      --text-3: #68717e;
+      --accent: #1b4d89;
+      --accent-soft: rgba(27, 77, 137, 0.1);
+      --ok: #196b4d;
+      --ok-soft: rgba(25, 107, 77, 0.1);
+      --warn: #8a5a05;
+      --warn-soft: rgba(148, 98, 10, 0.12);
+      --bad: #a83d1e;
+      --bad-soft: rgba(181, 68, 34, 0.1);
+      --quiet: #5c6673;
+      --quiet-soft: rgba(67, 74, 84, 0.08);
       --stamp-bg: #ffffff;
     }
-    * { box-sizing: border-box; }
-    html { color-scheme: dark; scroll-behavior: smooth; }
-    [data-theme="light"] { color-scheme: light; }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.55; }
-    a { color: var(--accent); }
-    a:hover { text-decoration: none; }
-    code { font-family: var(--mono); font-size: 0.88em; }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 22px; }
 
-    .topbar { position: sticky; top: 0; z-index: 10; background: var(--bg-raise); border-bottom: 1px solid var(--line); }
-    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; }
-    .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 14px var(--ok); }
-    .topnav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .topnav a, .theme-toggle {
-      font: inherit; font-size: 0.86rem; font-weight: 600; color: var(--text-2); text-decoration: none;
-      background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 6px 11px; cursor: pointer;
+    * {
+      box-sizing: border-box;
     }
-    .topnav a:hover, .theme-toggle:hover { color: var(--text); border-color: var(--accent); }
 
-    .hero { padding: 46px 0 22px; }
-    .kicker { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ok); }
-    h1 { margin: 8px 0 12px; font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.15; letter-spacing: -0.01em; }
-    .lede { max-width: 860px; margin: 0; font-size: 1.06rem; color: var(--text-2); }
-    .live { margin-top: 14px; font-size: 0.82rem; color: var(--text-3); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .pill { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; background: var(--bg-inset); }
-    .pill.ok { border-color: var(--ok); color: var(--ok); }
-    .pill.off { border-color: var(--line-strong); color: var(--text-3); }
+    html {
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
 
-    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 18px 0 8px; }
-    .kpi { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 18px 16px; }
-    .kpi.lead { border-color: var(--ok); background: linear-gradient(180deg, var(--ok-soft), transparent 70%), var(--bg-card); }
-    .kpi-value { font-size: 2.5rem; font-weight: 750; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
-    .kpi-label { margin-top: 8px; font-size: 0.98rem; font-weight: 700; }
-    .kpi-note { margin-top: 6px; font-size: 0.86rem; color: var(--text-2); }
+    [data-theme="light"] {
+      color-scheme: light;
+    }
 
-    .bar-block { margin: 14px 0 6px; }
-    .stack { display: flex; height: 16px; border-radius: 8px; overflow: hidden; gap: 2px; background: var(--bg); }
-    .stack span { display: block; min-width: 4px; }
-    .seg-survivor { background: var(--ok); }
-    .seg-disputed { background: var(--warn); }
-    .seg-eliminated { background: var(--bad); }
-    .seg-catalogued { background: var(--quiet); }
-    .legend { display: flex; gap: 6px 18px; flex-wrap: wrap; margin-top: 8px; font-size: 0.86rem; color: var(--text-2); }
-    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: baseline; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.55;
+    }
 
-    section { padding: 26px 0 8px; }
-    h2 { margin: 0 0 6px; font-size: 1.35rem; }
-    .section-note { margin: 0 0 16px; color: var(--text-2); font-size: 0.95rem; max-width: 900px; }
+    a {
+      color: var(--accent);
+    }
 
-    .portals { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-    .card { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
-    .card.featured { grid-column: 1 / -1; border-color: var(--ok); }
-    .card h3 { margin: 0; font-size: 1.12rem; }
-    .card p { margin: 0; color: var(--text-2); font-size: 0.94rem; }
-    .tag { align-self: flex-start; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ok); border: 1px solid var(--ok); background: var(--ok-soft); border-radius: 5px; padding: 2px 8px; }
-    .tag.blue { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
-    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
-    .btn { font: inherit; font-size: 0.88rem; font-weight: 650; text-decoration: none; color: var(--text); background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 8px; padding: 8px 13px; display: inline-block; }
-    .btn:hover { filter: brightness(1.15); }
-    .btn.primary { background: var(--ok-soft); border-color: var(--ok); }
-    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
-    .chip { font-size: 0.84rem; font-weight: 600; text-decoration: none; color: var(--text-2); background: var(--bg-inset); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
-    .chip:hover { color: var(--text); border-color: var(--accent); }
-    .chip b { font-variant-numeric: tabular-nums; margin-left: 6px; color: var(--text); }
+    a:hover {
+      text-decoration: none;
+    }
 
-    .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-    .target { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-    .target:hover { border-color: var(--accent); }
-    .target.control { border-color: var(--warn); }
-    .target-thumb { aspect-ratio: 16 / 10; background: var(--stamp-bg); display: flex; align-items: center; justify-content: center; color: #68717e; font-size: 0.78rem; }
-    .target-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
-    .target-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 3px; }
-    .target-name { font-weight: 700; font-size: 0.98rem; }
-    .target-alias { font-family: var(--mono); font-size: 0.74rem; color: var(--text-3); }
-    .target-class { font-size: 0.82rem; color: var(--text-2); }
-    .target-meta { font-size: 0.78rem; color: var(--text-3); }
-    .target-flag { align-self: flex-start; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em; color: var(--warn); border: 1px solid var(--warn); background: var(--warn-soft); border-radius: 4px; padding: 1px 6px; }
+    code {
+      font-family: var(--mono);
+      font-size: 0.88em;
+    }
 
-    .artifacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-    .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; font-size: 0.92rem; }
-    .list li { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
-    .list small { color: var(--text-3); }
-    .ext { font-family: var(--mono); font-size: 0.68rem; font-weight: 700; color: var(--text-3); border: 1px solid var(--line-strong); border-radius: 4px; padding: 0 5px; }
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
 
-    footer { margin-top: 30px; border-top: 1px solid var(--line); padding: 20px 0 46px; color: var(--text-3); font-size: 0.86rem; }
-    footer p { margin: 0 0 8px; max-width: 940px; }
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg-raise);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 14px var(--ok);
+    }
+
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .topnav a,
+    .theme-toggle {
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-2);
+      text-decoration: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px 11px;
+      cursor: pointer;
+    }
+
+    .topnav a:hover,
+    .theme-toggle:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .hero {
+      padding: 46px 0 22px;
+    }
+
+    .kicker {
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ok);
+    }
+
+    h1 {
+      margin: 8px 0 12px;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .lede {
+      max-width: 860px;
+      margin: 0;
+      font-size: 1.06rem;
+      color: var(--text-2);
+    }
+
+    .live {
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: var(--text-3);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 10px;
+      background: var(--bg-inset);
+    }
+
+    .pill.ok {
+      border-color: var(--ok);
+      color: var(--ok);
+    }
+
+    .pill.off {
+      border-color: var(--line-strong);
+      color: var(--text-3);
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+      margin: 18px 0 8px;
+    }
+
+    .kpi {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+    }
+
+    .kpi.lead {
+      border-color: var(--ok);
+      background: linear-gradient(180deg, var(--ok-soft), transparent 70%), var(--bg-card);
+    }
+
+    .kpi-value {
+      font-size: 2.5rem;
+      font-weight: 750;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-label {
+      margin-top: 8px;
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+
+    .kpi-note {
+      margin-top: 6px;
+      font-size: 0.86rem;
+      color: var(--text-2);
+    }
+
+    .bar-block {
+      margin: 14px 0 6px;
+    }
+
+    .stack {
+      display: flex;
+      height: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      gap: 2px;
+      background: var(--bg);
+    }
+
+    .stack span {
+      display: block;
+      min-width: 4px;
+    }
+
+    .seg-survivor {
+      background: var(--ok);
+    }
+
+    .seg-disputed {
+      background: var(--warn);
+    }
+
+    .seg-eliminated {
+      background: var(--bad);
+    }
+
+    .seg-catalogued {
+      background: var(--quiet);
+    }
+
+    .legend {
+      display: flex;
+      gap: 6px 18px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      font-size: 0.86rem;
+      color: var(--text-2);
+    }
+
+    .legend i {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      margin-right: 6px;
+      vertical-align: baseline;
+    }
+
+    section {
+      padding: 26px 0 8px;
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 1.35rem;
+    }
+
+    .section-note {
+      margin: 0 0 16px;
+      color: var(--text-2);
+      font-size: 0.95rem;
+      max-width: 900px;
+    }
+
+    .portals {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card.featured {
+      grid-column: 1 / -1;
+      border-color: var(--ok);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.12rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-2);
+      font-size: 0.94rem;
+    }
+
+    .tag {
+      align-self: flex-start;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ok);
+      border: 1px solid var(--ok);
+      background: var(--ok-soft);
+      border-radius: 5px;
+      padding: 2px 8px;
+    }
+
+    .tag.blue {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 4px;
+    }
+
+    .btn {
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 650;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 8px 13px;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      filter: brightness(1.15);
+    }
+
+    .btn.primary {
+      background: var(--ok-soft);
+      border-color: var(--ok);
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-2);
+      background: var(--bg-inset);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 12px;
+    }
+
+    .chip:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .chip b {
+      font-variant-numeric: tabular-nums;
+      margin-left: 6px;
+      color: var(--text);
+    }
+
+    .strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+
+    .target {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .target:hover {
+      border-color: var(--accent);
+    }
+
+    .target.control {
+      border-color: var(--warn);
+    }
+
+    .target-thumb {
+      aspect-ratio: 16 / 10;
+      background: var(--stamp-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #68717e;
+      font-size: 0.78rem;
+    }
+
+    .target-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .target-body {
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .target-name {
+      font-weight: 700;
+      font-size: 0.98rem;
+    }
+
+    .target-alias {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      color: var(--text-3);
+    }
+
+    .target-class {
+      font-size: 0.82rem;
+      color: var(--text-2);
+    }
+
+    .target-meta {
+      font-size: 0.78rem;
+      color: var(--text-3);
+    }
+
+    .target-flag {
+      align-self: flex-start;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--warn);
+      border: 1px solid var(--warn);
+      background: var(--warn-soft);
+      border-radius: 4px;
+      padding: 1px 6px;
+    }
+
+    .artifacts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+    }
+
+    .list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 7px;
+      font-size: 0.92rem;
+    }
+
+    .list li {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .list small {
+      color: var(--text-3);
+    }
+
+    .ext {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-3);
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      padding: 0 5px;
+    }
+
+    footer {
+      margin-top: 30px;
+      border-top: 1px solid var(--line);
+      padding: 20px 0 46px;
+      color: var(--text-3);
+      font-size: 0.86rem;
+    }
+
+    footer p {
+      margin: 0 0 8px;
+      max-width: 940px;
+    }
   </style>
 </head>
+
 <body>
   <header class="topbar">
     <div class="wrap">
-      <div class="brand"><span class="brand-dot" aria-hidden="true"></span><span>Rubin / Euclid Discovery Portal</span></div>
+      <div class="brand"><span class="brand-dot" aria-hidden="true"></span><span>Rubin / Euclid Discovery Portal</span>
+      </div>
       <nav class="topnav" aria-label="Sections">
         <a href="#portals">Portals</a>
         <a href="#featured">Featured targets</a>
         <a href="#artifacts">Manuscript &amp; audit</a>
-        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme">Light theme</button>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme">Light
+          theme</button>
       </nav>
     </div>
   </header>
@@ -141,7 +591,8 @@
       <h1>Rubin / Euclid Multi-Archive Discovery Portal</h1>
       <p class="lede">
         Searches assembled across Vera C. Rubin Observatory, ESA Euclid, DECam and a dozen further public archives
-        proposed <span data-k="claims">157</span> Solar System candidates. An independent audit regraded every claim from
+        proposed <span data-k="claims">157</span> Solar System candidates. An independent audit regraded every claim
+        from
         its own archive queries, orbit fits and pixels. This portal shows what survived, what did not, and the
         archival images behind each target.
       </p>
@@ -187,38 +638,50 @@
     </div>
 
     <div class="bar-block" aria-label="How the claims were graded">
-      <div class="stack" role="img" id="claim-bar" aria-label="93 audited survivors, 17 disputed, 6 eliminated, 41 catalogued, out of 157 claims">
+      <div class="stack" role="img" id="claim-bar"
+        aria-label="93 audited survivors, 17 disputed, 6 eliminated, 41 catalogued, out of 157 claims">
         <span class="seg-survivor" style="flex: 93"></span>
         <span class="seg-disputed" style="flex: 17"></span>
         <span class="seg-eliminated" style="flex: 6"></span>
         <span class="seg-catalogued" style="flex: 41"></span>
       </div>
       <div class="legend">
-        <span><i class="seg-survivor"></i><span data-k="survivors">93</span> audited survivors (<span data-k="tnos">46</span> trans-Neptunian, <span data-k="asteroids">43</span> asteroid, <span data-k="moons">3</span> Jovian-satellite and <span data-k="centaurs">1</span> Centaur candidates)</span>
+        <span><i class="seg-survivor"></i><span data-k="survivors">93</span> audited survivors (<span
+            data-k="tnos">46</span> trans-Neptunian, <span data-k="asteroids">43</span> asteroid, <span
+            data-k="moons">3</span> Jovian-satellite and <span data-k="centaurs">1</span> Centaur candidates)</span>
         <span><i class="seg-disputed"></i><span data-k="disputed">17</span> disputed, not counted</span>
         <span><i class="seg-eliminated"></i><span data-k="eliminated">6</span> eliminated</span>
-        <span><i class="seg-catalogued"></i><span data-k="catalogued">41</span> catalogued objects, including the control <code>2019 UM31</code></span>
+        <span><i class="seg-catalogued"></i><span data-k="catalogued">41</span> catalogued objects, including the
+          control <code>2019 UM31</code></span>
       </div>
     </div>
 
     <section id="portals">
       <h2>Portals</h2>
-      <p class="section-note">Four views of the same audited catalogue. Every survivor is a candidate that awaits a Minor Planet Center designation and independent recovery.</p>
+      <p class="section-note">Four views of the same audited catalogue. Every survivor is a candidate that awaits a
+        Minor Planet Center designation and independent recovery.</p>
       <div class="portals">
         <article class="card featured">
           <span class="tag">Start here · real pixels</span>
           <h3><span data-k="movie_targets">96</span>-Target Real-Pixel Multi-Epoch Movie Gallery</h3>
           <p>
             Animated WebP movies, 300-dpi contact sheets and vector PDFs for every target, with the audit verdict and a
-            per-frame provenance table (archive URI, exposure, aperture signal-to-noise, SHA-256). No frame is synthetic.
-            <span data-k="movie_no_epoch">12</span> targets have only static coadds at the detection position and are labelled as such.
+            per-frame provenance table (archive URI, exposure, aperture signal-to-noise, SHA-256). No frame is
+            synthetic.
+            <span data-k="movie_no_epoch">12</span> targets have only static coadds at the detection position and are
+            labelled as such.
           </p>
           <div class="chips" aria-label="Open the gallery by group">
-            <a class="chip" href="./movie_gallery/index.html?group=group1">Group I · Rubin + DECam<b data-k="g_group1">13</b></a>
-            <a class="chip" href="./movie_gallery/index.html?group=group2">Group II · Euclid TNO candidates<b data-k="g_group2">13</b></a>
-            <a class="chip" href="./movie_gallery/index.html?group=group5">Group V · Euclid asteroid candidates<b data-k="g_group5">43</b></a>
-            <a class="chip" href="./movie_gallery/index.html?group=galactic">Galactic stars<b data-k="g_galactic">25</b></a>
-            <a class="chip" href="./movie_gallery/index.html?group=controls">Recovery controls<b data-k="g_controls">2</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=group1">Group I · Rubin + DECam<b
+                data-k="g_group1">13</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=group2">Group II · Euclid TNO candidates<b
+                data-k="g_group2">13</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=group5">Group V · Euclid asteroid candidates<b
+                data-k="g_group5">43</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=galactic">Galactic stars<b
+                data-k="g_galactic">25</b></a>
+            <a class="chip" href="./movie_gallery/index.html?group=controls">Recovery controls<b
+                data-k="g_controls">2</b></a>
           </div>
           <div class="actions">
             <a class="btn primary" href="./movie_gallery/index.html">Open the movie gallery</a>
@@ -227,15 +690,15 @@
         </article>
 
         <article class="card">
-          <span class="tag blue">Paper Companion · Blog</span>
-          <h3>Vibe Discovery: Research Blog &amp; Audited Ledger</h3>
+          <span class="tag blue">Research Blog</span>
+          <h3>Vibe Discovery</h3>
           <p>
-            Short main text aligned with the Overleaf manuscript, modular LEGO architecture figures,
-            interactive blink and stereoscopy demos, Extended Data plates, and the audited discovery ledger.
+            Research blog presenting AI-assembled cross-survey discoveries, modular LEGO architecture
+            figures, interactive blink and stereoscopy demos, Extended Data plates, and companion data.
           </p>
           <div class="actions">
-            <a class="btn" href="./discovery_blog/index.html">Read the research blog</a>
-            <a class="btn" href="./discovery_blog/index.html#sec-ledger">Audited ledger</a>
+            <a class="btn" href="./discovery_blog/index.html">Read Vibe Discovery</a>
+            <a class="btn" href="./discovery_blog/index.html#sec-ledger">Companion data</a>
           </div>
         </article>
 
@@ -272,58 +735,85 @@
 
     <section id="featured">
       <h2>Featured targets</h2>
-      <p class="section-note">Six entry points into the gallery: four audited candidates and the two recovery controls. Thumbnails are the contact sheets of real archival frames.</p>
+      <p class="section-note">Six entry points into the gallery: four audited candidates and the two recovery controls.
+        Thumbnails are the contact sheets of real archival frames.</p>
       <div class="strip" id="featured-strip">
         <a class="target" href="./movie_gallery/index.html?target=R25-D03" data-target="R25-D03">
           <div class="target-thumb">R25-D03</div>
-          <div class="target-body"><span class="target-name">R25-D03</span><span class="target-alias">DELTA_003</span><span class="target-class">Trans-Neptunian object candidate</span><span class="target-meta"></span></div>
+          <div class="target-body"><span class="target-name">R25-D03</span><span
+              class="target-alias">DELTA_003</span><span class="target-class">Trans-Neptunian object
+              candidate</span><span class="target-meta"></span></div>
         </a>
         <a class="target" href="./movie_gallery/index.html?target=EUC-S05" data-target="EUC-S05">
           <div class="target-thumb">EUC-S05</div>
-          <div class="target-body"><span class="target-name">EUC-S05</span><span class="target-alias">EUC0005</span><span class="target-class">Euclid trans-Neptunian object candidate</span><span class="target-meta"></span></div>
+          <div class="target-body"><span class="target-name">EUC-S05</span><span
+              class="target-alias">EUC0005</span><span class="target-class">Euclid trans-Neptunian object
+              candidate</span><span class="target-meta"></span></div>
         </a>
         <a class="target" href="./movie_gallery/index.html?target=EUC-S02" data-target="EUC-S02">
           <div class="target-thumb">EUC-S02</div>
-          <div class="target-body"><span class="target-name">EUC-S02</span><span class="target-alias">EUC0002</span><span class="target-class">Euclid trans-Neptunian object candidate</span><span class="target-meta"></span></div>
+          <div class="target-body"><span class="target-name">EUC-S02</span><span
+              class="target-alias">EUC0002</span><span class="target-class">Euclid trans-Neptunian object
+              candidate</span><span class="target-meta"></span></div>
         </a>
         <a class="target" href="./movie_gallery/index.html?target=R25-E02" data-target="R25-E02">
           <div class="target-thumb">R25-E02</div>
-          <div class="target-body"><span class="target-name">R25-E02</span><span class="target-alias">EPS_002</span><span class="target-class">Trans-Neptunian object candidate</span><span class="target-meta"></span></div>
+          <div class="target-body"><span class="target-name">R25-E02</span><span
+              class="target-alias">EPS_002</span><span class="target-class">Trans-Neptunian object candidate</span><span
+              class="target-meta"></span></div>
         </a>
-        <a class="target control" href="./movie_gallery/index.html?target=2019_UM31_recovery_control" data-target="2019_UM31_recovery_control">
+        <a class="target control" href="./movie_gallery/index.html?target=2019_UM31_recovery_control"
+          data-target="2019_UM31_recovery_control">
           <div class="target-thumb">2019 UM31</div>
-          <div class="target-body"><span class="target-flag">CONTROL</span><span class="target-name">2019 UM31</span><span class="target-alias">EUC-G18 · EUCLID_EES149_GOLD_18</span><span class="target-class">Known main-belt asteroid, Euclid VIS recovery control</span><span class="target-meta"></span></div>
+          <div class="target-body"><span class="target-flag">CONTROL</span><span class="target-name">2019
+              UM31</span><span class="target-alias">EUC-G18 · EUCLID_EES149_GOLD_18</span><span
+              class="target-class">Known main-belt asteroid, Euclid VIS recovery control</span><span
+              class="target-meta"></span></div>
         </a>
-        <a class="target control" href="./movie_gallery/index.html?target=2021_QB98_recovery_control" data-target="2021_QB98_recovery_control">
+        <a class="target control" href="./movie_gallery/index.html?target=2021_QB98_recovery_control"
+          data-target="2021_QB98_recovery_control">
           <div class="target-thumb">2021 QB98</div>
-          <div class="target-body"><span class="target-flag">CONTROL</span><span class="target-name">2021 QB98</span><span class="target-alias">Rubin recovery</span><span class="target-class">Known trans-Neptunian object, recovery control</span><span class="target-meta"></span></div>
+          <div class="target-body"><span class="target-flag">CONTROL</span><span class="target-name">2021
+              QB98</span><span class="target-alias">Rubin recovery</span><span class="target-class">Known
+              trans-Neptunian object, recovery control</span><span class="target-meta"></span></div>
         </a>
       </div>
     </section>
 
     <section id="artifacts">
       <h2>Research artifacts, cutout atlases and independent audit verdicts</h2>
-      <p class="section-note">The manuscript, the vector atlases built from the same archival frames as the gallery, and the raw verdict ledgers of the independent audit.</p>
+      <p class="section-note">The manuscript, the vector atlases built from the same archival frames as the gallery, and
+        the raw verdict ledgers of the independent audit.</p>
       <div class="artifacts">
         <article class="card">
           <span class="tag">Manuscript</span>
           <h3><span data-k="ms_pages">48</span>-page compiled AJ manuscript</h3>
           <p>Numbers, tables and figures are generated from the audited catalogue and the real-pixel manifests.</p>
-          <div class="actions"><a class="btn primary" href="./outputs/manuscript_regenerated/ms.pdf">Open ms.pdf</a></div>
+          <div class="actions"><a class="btn primary" href="./outputs/manuscript_regenerated/ms.pdf">Open ms.pdf</a>
+          </div>
         </article>
 
         <article class="card">
           <span class="tag blue">Vector atlases</span>
           <h3>Cutout and photometry atlases</h3>
           <ul class="list">
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_groups1_3_4.pdf">Cutouts · Groups I, III, IV</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group2_stereo.pdf">Cutouts · Group II and stereo candidates</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group5_p1.pdf">Cutouts · Group V, part 1</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group5_p2.pdf">Cutouts · Group V, part 2</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_groups1_3_4.pdf">Photometry · Groups I, III, IV</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group2.pdf">Photometry · Group II</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group5_p1.pdf">Photometry · Group V, part 1</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group5_p2.pdf">Photometry · Group V, part 2</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_groups1_3_4.pdf">Cutouts
+                · Groups I, III, IV</a></li>
+            <li><span class="ext">PDF</span><a
+                href="./outputs/real_cutout_atlases/fig_cutouts_group2_stereo.pdf">Cutouts · Group II and stereo
+                candidates</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group5_p1.pdf">Cutouts ·
+                Group V, part 1</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group5_p2.pdf">Cutouts ·
+                Group V, part 2</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_groups1_3_4.pdf">Photometry
+                · Groups I, III, IV</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group2.pdf">Photometry ·
+                Group II</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group5_p1.pdf">Photometry ·
+                Group V, part 1</a></li>
+            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group5_p2.pdf">Photometry ·
+                Group V, part 2</a></li>
           </ul>
         </article>
 
@@ -331,13 +821,20 @@
           <span class="tag blue">Audit ledgers</span>
           <h3>Raw verdict files of the independent audit</h3>
           <ul class="list">
-            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain1_euclid_verdicts.json">Euclid asteroids and trans-Neptunian candidates</a> <small id="verdicts-euclid"></small></li>
-            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain2_outerss_verdicts.json">Outer Solar System, moons, binaries, spectra</a></li>
-            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain3_galactic_integrity_verdicts.json">Galactic searches and data integrity</a></li>
-            <li><span class="ext">JSON</span><a href="./outputs/movies/movie_gallery_manifest.json">Movie gallery manifest</a></li>
-            <li><span class="ext">JSON</span><a href="./outputs/real_cutouts/real_cutouts_manifest.json">Real-cutout manifest</a></li>
+            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain1_euclid_verdicts.json">Euclid
+                asteroids and trans-Neptunian candidates</a> <small id="verdicts-euclid"></small></li>
+            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain2_outerss_verdicts.json">Outer Solar
+                System, moons, binaries, spectra</a></li>
+            <li><span class="ext">JSON</span><a
+                href="./data/audit_verdicts/brain3_galactic_integrity_verdicts.json">Galactic searches and data
+                integrity</a></li>
+            <li><span class="ext">JSON</span><a href="./outputs/movies/movie_gallery_manifest.json">Movie gallery
+                manifest</a></li>
+            <li><span class="ext">JSON</span><a href="./outputs/real_cutouts/real_cutouts_manifest.json">Real-cutout
+                manifest</a></li>
           </ul>
-          <p id="control-note">The Euclid track once listed as <code>EUC-G18</code> is the catalogued main-belt asteroid <code>2019 UM31</code>. It serves as a recovery control and is not a discovery.</p>
+          <p id="control-note">The Euclid track once listed as <code>EUC-G18</code> is the catalogued main-belt asteroid
+            <code>2019 UM31</code>. It serves as a recovery control and is not a discovery.</p>
         </article>
       </div>
     </section>
@@ -350,7 +847,8 @@
         Observatory DP1 and DP2, and Legacy Surveys DR10. Coadd frames are stamped with the midpoint of their epoch
         span or labelled as static sky.
       </p>
-      <p>This site publishes results and data products. The source code of the search pipelines is kept in a private repository.</p>
+      <p>This site publishes results and data products. The source code of the search pipelines is kept in a private
+        repository.</p>
     </div>
   </footer>
 
@@ -551,4 +1049,5 @@
     })();
   </script>
 </body>
+
 </html>
