@@ -148,33 +148,7 @@
         </div>
       </div>
 
-      <!-- 5. ADAM Platform Mission & Planetary Defense Dropdown -->
-      <div class="menu-group" data-menu="adam">
-        <button id="btn-menu-adam" class="menu-trigger" type="button" aria-expanded="false">
-          <span id="lbl-menu-adam">ADAM Platform</span> <span class="caret">▾</span>
-        </button>
-        <div class="menu-panel" id="panel-adam">
-          <div class="menu-section-hdr">3D Mission &amp; Hazard Layers</div>
-          <div class="menu-toggle-stack">
-            <button id="toggle-adam-transfers-btn" class="toggle-chip" type="button">Lambert Transfer
-              Trajectories</button>
-            <button id="toggle-adam-impactors-btn" class="toggle-chip" type="button">Virtual Impactor Tubes</button>
-            <button id="toggle-adam-corridors-btn" class="toggle-chip" type="button">Earth &amp; Moon Risk
-              Corridors</button>
-            <button id="toggle-adam-precovery-btn" class="toggle-chip" type="button">Precovery Sky Arcs</button>
-          </div>
-          <div class="menu-section-hdr" style="margin-top:12px;">Quick Views</div>
-          <div class="menu-preset-stack">
-            <button id="preset-adam-transfers-btn" class="preset-btn" type="button">Frame Interplanetary
-              Transfers</button>
-            <button id="preset-adam-corridor-btn" class="preset-btn" type="button">Inspect Earth Impact
-              Corridor</button>
-          </div>
-          <div id="adam-overlay-summary" style="margin-top:10px;font-size:11px;color:#a1a1aa;line-height:1.4;"></div>
-        </div>
-      </div>
-
-      <!-- 6. Companion portals (hub, movie gallery, ADAM console, 3D playground, research blog) -->
+      <!-- 5. Companion portals (hub, 3D playground, research blog) -->
       <div class="menu-group" data-menu="portals">
         <button id="btn-menu-portals" class="menu-trigger" type="button" aria-expanded="false">
           <span id="lbl-menu-portals">Portals</span> <span class="caret">▾</span>
@@ -182,16 +156,12 @@
         <div class="menu-panel menu-panel-right" id="panel-portals">
           <div id="lbl-portals-hdr" class="menu-section-hdr">Companion Portals</div>
           <div class="menu-link-stack">
-            <a id="hub-nav-link" class="menu-link" href="../index.html"
-              title="Portal hub: audited counts, manuscript and atlases">Portal Hub</a>
-            <a id="gallery-nav-link" class="menu-link" href="../movie_gallery/index.html"
-              title="96 real-pixel archival movie targets">Real-Pixel Movie Gallery (96)</a>
-            <a id="studio-nav-link" class="menu-link" href="studio.html" target="_blank" rel="noopener">3D Playground
-              ↗</a>
-            <a id="adam-console-link" class="menu-link" href="../adam_console/index.html" target="_blank"
-              rel="noopener">ADAM Console ↗</a>
             <a id="blog-nav-link" class="menu-link" href="../discovery_blog/index.html" target="_blank"
               rel="noopener">Research Blog ↗</a>
+            <a id="studio-nav-link" class="menu-link" href="studio.html" target="_blank" rel="noopener">3D Playground
+              ↗</a>
+            <a id="hub-nav-link" class="menu-link" href="../index.html"
+              title="Portal hub: audited counts, manuscript and atlases">Portal Hub</a>
           </div>
         </div>
       </div>
@@ -379,10 +349,9 @@
   </footer>
 
   <!-- Catalog Data + Application Engine -->
-  <script src="data/solar_catalog.js?v=20261124_v33" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
-  <script src="data/spacecraft_extra_catalog.js?v=20261124_v33"></script>
-  <script src="data/adam_overlay.js?v=20261124_v33" onerror="window.__ADAM_OVERLAY__=null"></script>
-  <script type="module" src="js/app.js?v=20261124_v33"></script>
+  <script src="data/solar_catalog.js?v=20261125_v34" onerror="window.__SOLAR_CATALOG_FALLBACK=true"></script>
+  <script src="data/spacecraft_extra_catalog.js?v=20261125_v34"></script>
+  <script type="module" src="js/app.js?v=20261125_v34"></script>
 </body>
 
 </html>

@@ -29,11 +29,10 @@ Every surviving body is a candidate that awaits a Minor Planet Center designatio
 
 | Path | What it is |
 |---|---|
-| `index.html` | Portal hub: audited figures, links to every portal and artifact |
-| `movie_gallery/` | Real-pixel multi-epoch movie gallery with per-frame provenance |
-| `discovery_blog/` | Research monograph (English and Chinese) and the audited ledger |
+| `index.html` | Portal hub: audited figures, links to Research Blog, 3D Explorer and artifacts |
+| `discovery_blog/` | Vibe Discovery research blog and companion data |
 | `eyes_3d/` | WebGL 3D explorer and model studio |
-| `adam_console/` | Trajectory and planetary-defense demonstration console |
+| `movie_gallery/` | Companion real-pixel archival frames referenced by the blog |
 | `outputs/movies/` | Movie manifest, animated WebP movies, 300-dpi contact sheets (PNG) and vector contact sheets (PDF) |
 | `outputs/real_cutouts/` | Cutout manifest and one `metadata.json` per target |
 | `outputs/manuscript_regenerated/ms.pdf` | Compiled manuscript |

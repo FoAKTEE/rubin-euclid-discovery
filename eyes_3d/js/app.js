@@ -3377,14 +3377,20 @@ function applyLanguageToStaticDOM() {
   document.getElementById("lbl-menu-camera").textContent = tr(L, "menuCamera");
   document.getElementById("lbl-menu-portals").textContent = tr(L, "menuPortals");
   document.getElementById("lbl-portals-hdr").textContent = tr(L, "portalsHdr");
-  document.getElementById("hub-nav-link").textContent = tr(L, "portalHubLink");
-  document.getElementById("gallery-nav-link").textContent = tr(L, "galleryLink");
-  document.getElementById("adam-console-link").textContent = `${tr(L, "adamConsoleLink")} ↗`;
-  document.getElementById("studio-nav-link").textContent = `${tr(L, "playgroundLink")} ↗`;
+  const hubNav = document.getElementById("hub-nav-link");
+  if (hubNav) hubNav.textContent = tr(L, "portalHubLink");
+  const galleryNav = document.getElementById("gallery-nav-link");
+  if (galleryNav) galleryNav.textContent = tr(L, "galleryLink");
+  const adamNav = document.getElementById("adam-console-link");
+  if (adamNav) adamNav.textContent = `${tr(L, "adamConsoleLink")} ↗`;
+  const studioNav = document.getElementById("studio-nav-link");
+  if (studioNav) studioNav.textContent = `${tr(L, "playgroundLink")} ↗`;
 
   const blogNav = document.getElementById("blog-nav-link");
-  blogNav.textContent = `${tr(L, "blogLinkLabel")} ↗`;
-  blogNav.href = buildBlogUrl(L);
+  if (blogNav) {
+    blogNav.textContent = `${tr(L, "blogLinkLabel")} ↗`;
+    blogNav.href = buildBlogUrl(L);
+  }
 
   document.getElementById("scale-log-btn").textContent = tr(L, "scaleLog");
   document.getElementById("scale-true-btn").textContent = tr(L, "scaleTrue");
