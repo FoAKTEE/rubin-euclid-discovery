@@ -28,12 +28,12 @@ const I18N = {
     theme_light: "Light",
 
     hero_title: "Vibe Discovery",
-    hero_authors: "Hai-Yang Wang",
+    hero_authors: "Hai-Yang Wang, Chang Sun",
     hero_affil: "California Institute of Technology",
 
     abstract_heading: "Summary",
     abstract_body:
-      "Large sky surveys release images and catalogs faster than dedicated teams can cross-link them, and each survey processes its own data with a pipeline tuned to one camera, cadence, and science goal. Objects that need two telescopes at once, or that break one pipeline's assumptions, can stay unrecognized in public archives. Here we test whether AI coding agents can find such objects. The agents decompose existing astronomical codes into reusable algorithmic bricks, place more than a dozen ground and space archives behind one observation interface, and join telescopes, instruments, and methods like LEGO blocks wherever a single survey has a predictable blind spot. A second, independent set of agents verifies every candidate from its own archive queries, orbit fits, and archival pixels. Across more than a dozen public archives, 93 Solar System candidates survive that independent check for follow-up: 46 trans-Neptunian objects, a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. They include a distant body whose fitted semimajor axis is about 156.6 astronomical units, a bright trans-Neptunian candidate seen against the Galactic bulge, and two trans-Neptunian candidates with distances measured in a single night between Euclid at the second Lagrange point and the Dark Energy Camera in Chile. On the same interface, joins of Gaia, Euclid, and ground-based surveys recover 25 faint high-proper-motion stars below Gaia's flux limit and measure how often Euclid resolves companions of Gaia stars with excess astrometric noise. Cross-survey joins assembled by coding agents reach objects that single-survey pipelines miss, turning public archives into a modular platform for discovery.",
+      "What happens when you apply \"vibe coding\" principles to observational astronomy? We built an agentic \"vibe discovery\" platform that turns more than a dozen ground- and space-based public archives into a unified, modular workspace. Our agents decompose existing astronomical software into reusable components, bridged blind spots across separate sky surveys, and dispatched an independent fleet of verification agents to audit every candidate against archival pixels and orbit fits. We uncovered 93 solar system candidates—46 trans-Neptunian objects (TNOs), a Centaur, 3 irregular Jovian satellite candidates, and 43 asteroids—plus 25 faint high-proper-motion stars.",
 
     hero_cta_primary: "Launch 3D Solar System & Galaxy Explorer ↗",
     hero_cta_pdf: "Read Full Manuscript (PDF) ↗",
