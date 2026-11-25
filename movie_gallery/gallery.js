@@ -13,7 +13,7 @@
 
   const MOVIE_MANIFEST_URL = "../outputs/movies/movie_gallery_manifest.json";
   const CUTOUT_MANIFEST_URL = "../outputs/real_cutouts/real_cutouts_manifest.json";
-  const THEME_KEY = "rubin_euclid_portal_theme";
+  const THEME_KEY = "vibe_discovery_gallery_theme";
 
   const GROUP_ORDER = ["group1", "group2", "group5", "galactic", "controls"];
   const GROUP_LABELS = {
@@ -308,7 +308,7 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     const btn = $("theme-toggle");
-    if (btn) btn.textContent = theme === "dark" ? "Light theme" : "Dark theme";
+    if (btn) btn.textContent = theme === "dark" ? "☀ Light" : "◐ Dark";
   }
 
   function initTheme() {
@@ -316,7 +316,7 @@
     try {
       saved = window.localStorage.getItem(THEME_KEY);
     } catch (_) { /* storage unavailable */ }
-    applyTheme(saved === "light" ? "light" : "dark");
+    applyTheme(saved === "dark" ? "dark" : "light");
     const btn = $("theme-toggle");
     if (btn) {
       btn.addEventListener("click", () => {
