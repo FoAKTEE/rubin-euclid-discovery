@@ -56,7 +56,7 @@
         "gif": "75dfba25003e1ee070349c5a72f0d2fb78c0b49f1c2b727cf612c89128983517",
         "webp": "77a11289701db850b2188a0d4414ae975c9a3521c300eefc99eaa47141e728bd",
         "contact_sheet_png": "2846430a7a90aa215d18eda63666ca491f4e7b7d9cc7be31d9eef4a29455a4ce",
-        "contact_sheet_pdf": "d7cfd05a697b49e915b12653972499890a7af36ad39550a2939ba3a5452d230c"
+        "contact_sheet_pdf": "1e0495e5d022a8f17d4b7cf2ecd0c0d6a4ced85b00c91f67a50e969f5954d9d3"
       },
       "source_bundle": "outputs/real_cutouts/controls/2019_UM31_recovery_control",
       "checks": {
@@ -81,7 +81,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "2021 QB98 | Known Trans-Neptunian Object (2021 QB98) Recovery Control | 9 Rubin DP2 detections (67.9 d arc · median S/N 6.1, peak 9.1)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -103,8 +103,8 @@
       "sha256": {
         "gif": "4053a2ddc9eaf789a9903a68200fc9c635af33745029d8bd60192d1278ed6bca",
         "webp": "c5f6f1f314f443049991630d3be6e8d4f198afe72bd6a7455af241807a75cd77",
-        "contact_sheet_png": "5bd39ea6a13d238f854af4b3ae204515b44b37f24e98fde92abf13352424abb5",
-        "contact_sheet_pdf": "89d2fb89995f9ac041f5fac27b25ae81113e8793d8d0b4fbbf7ed8b000bbcbe9"
+        "contact_sheet_png": "cc97c525aef09ca559d8cca92285408c5d26dceedf06db938489c3e04a632ee9",
+        "contact_sheet_pdf": "e910c47d211a655b55c9ec232302f3d04398147a730b74bbe1ec44fc5adad9b7"
       },
       "source_bundle": "outputs/real_cutouts/controls/2021_QB98_recovery_control",
       "checks": {
@@ -152,7 +152,7 @@
         "gif": "61a9387b8aec9929268abfa49f13c41f9d242d625520b032ccb16ca269c41690",
         "webp": "51b03bc35240a52d3db4c8f5439c15f32f01438b2c2c88b8647cd4b6d0b8de54",
         "contact_sheet_png": "1b363de08d1adf903716b26f7ea29a2c9142871446cbba05ac2d9969cfa995c3",
-        "contact_sheet_pdf": "f02c1617049700cbf11824cd8912dfa6fefd0dd745abe8e19bbce6efbb58c3f9"
+        "contact_sheet_pdf": "938b28814ccfb20c7f82d1151bbb3a7229b07f1fe2ce2317561db43a3cae1864"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-BD-01",
       "checks": {
@@ -201,7 +201,7 @@
         "gif": "4e7a07ee725d05df07fe8c2d41cdd3729f921748c92c3baff164347241812edd",
         "webp": "8965690c53326d0b3030453b71843a9875ecb11761129e8c0e49dff7a316f506",
         "contact_sheet_png": "d8786b2c454bd91bb567b3f446445732b2037a9590fb45cf0523a8c8ec626c64",
-        "contact_sheet_pdf": "ee11f76c8cd1cacac75b2afacec0978d0e9dd071963dc675ed547a55f1ff7137"
+        "contact_sheet_pdf": "dee1bf57ab34b9c0445b769f0d75712c16ce579ad4b1bbe1db2dcfde24d355ae"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-BD-02",
       "checks": {
@@ -250,7 +250,7 @@
         "gif": "5f1f4edc007091ca53efae061f8ea685c6603476dd413e2b4dce7ef58b65bbf0",
         "webp": "b30cf7e53da1d267074ac63050c40e6ab9ac175ca7708540c805e3ee270c0361",
         "contact_sheet_png": "8926d21cf5552024e4aa4de25c84bb063d19badc04839803cced3742957e43db",
-        "contact_sheet_pdf": "f296869e91bd4f05841b773d615e521e968a5880d4145a9cff55f37fae79d048"
+        "contact_sheet_pdf": "f3ebbf9b031e436e651f4fb4acff474d9166cb99cabc4dd2d22af6cb9d284702"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-01",
       "checks": {
@@ -299,7 +299,7 @@
         "gif": "86c5c118f652cadd0a35668ae0cc8be40b617b922ec17792e61c8f75235c8fae",
         "webp": "fbf4007f5714a97f3453440104e6c26deef1ab7a370ee7fe8bf848290066d036",
         "contact_sheet_png": "1cfbbc452c32cf90c2e525644f3233266a4a5ff213bca36c86508c21dc979470",
-        "contact_sheet_pdf": "3d90e70d4389c26e5918bf2e210f05558cc241e652afb0f95cf6b73fececb2a7"
+        "contact_sheet_pdf": "e603b99d73bbaaa78afc9a28026034453ece581c3d4e8d8b9e3e327ef6baa44b"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-02",
       "checks": {
@@ -348,7 +348,7 @@
         "gif": "f23fcc073b5339196ee46dcffd66459eae711acb52e64cd7e55dad1f90a821df",
         "webp": "c8ed9f1bd7fbd94dd76624e488be30fdb8168e2d4a320b4146a87907bfa22b70",
         "contact_sheet_png": "e61c1029c726cf852f2fb927b6435e9a91dd22c2a7febbd71079ba841ea73309",
-        "contact_sheet_pdf": "3c0f8ccd0bd864c73246a5edbcfb130764f0ad4937c9fda2b84dd561af159e86"
+        "contact_sheet_pdf": "2f2edb1bc3dd8f3b6db6ae1c9342eaefc9d349ceae81027c3698b11e00f4429c"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-03",
       "checks": {
@@ -397,7 +397,7 @@
         "gif": "a173883fcdbb999bd0d07c566aa8077687e794ba60f30360dae18596450f002d",
         "webp": "9f89b2685af712ca0365dbf27f300645bdb1a0264b95194b1196c84d35bd8b8f",
         "contact_sheet_png": "8cb7c08f945b950c7e98e98ba65a67f4d03532319afc49c07ef2bc903c2ee15c",
-        "contact_sheet_pdf": "ad7313bb230c4cd9edf06429e5c5154a8fd4809d9706fd3e96fbf7f5af499c13"
+        "contact_sheet_pdf": "ec037eceec5a09ef4e47fbbc48e11adf95cf17641fb4e6d8b232c9c3faecafcf"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-04",
       "checks": {
@@ -447,7 +447,7 @@
         "gif": "665281b72da9c8d008ca4b34f1f3f357bb771a56073fc37df0b662f29944f68f",
         "webp": "2b81d24c7c311733482cb15f3209b9e0ced893fcdf263fcbd3b91aaccaa9963f",
         "contact_sheet_png": "50ce2bc359d17de50d11c6a3e7a72c5a596f60eaa04f134b37a34e502413f1f4",
-        "contact_sheet_pdf": "aea20bbe9f862a5dad8416e5c990682249442ad9b20bd52dd73790be9d3d92fa"
+        "contact_sheet_pdf": "728905bc06dfe594e2d61a5d954c00169c118813cd79754a7cb75d23db386ba3"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-05",
       "checks": {
@@ -496,7 +496,7 @@
         "gif": "83656486be103863acde8f185e4f8d002e3317a85932d4bede04d0b3b1d25668",
         "webp": "8bff1139245f2565ad19bd9262df63872051bd1e86dbfa8a579d290878c6dbde",
         "contact_sheet_png": "80901e4e6fcace0c84f26f38f25f3c70b3f6242686dde60b2e3cbd80f18228f3",
-        "contact_sheet_pdf": "93a05f65ab4b37db6c6f84b564e6a13989d39b7ed26518bf0016bc2ca357cd7e"
+        "contact_sheet_pdf": "33680c2acd251e70ad4a45d94cda509bc16126f0cf3f17e81987159d1d216c75"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-01",
       "checks": {
@@ -545,7 +545,7 @@
         "gif": "33ec0c2196ee7545ef131b21fa88253dd51b0808e342493a70b373dcd3c93a16",
         "webp": "7daf0868cfe06d7aba73457909f0bccf14d9c6cba82afa37bd898746c5001134",
         "contact_sheet_png": "b918f6f24de8596219b182eeca3be44492a7c19a2774666bb0f6c0c7187343bd",
-        "contact_sheet_pdf": "bdfa16868f9b2369ffe1b03670b70c03fa1e19576593c54395cd4d3e559db3f3"
+        "contact_sheet_pdf": "e892c8ccc93e2952a00dd5381e51a43b3cefbaafb00c302d20eb0004e7ab6a3c"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-02",
       "checks": {
@@ -593,7 +593,7 @@
         "gif": "e69eafeaa5cb5d48fa91598676b282e103e8624cb327c8d27ea00670c977deb1",
         "webp": "02d53e5c0f102e8c46c0df04b72c9ead16fbc87734dd2f9dca3e55c5f6fc376d",
         "contact_sheet_png": "b38b94b7eca21f13fd5cddc8d56a5e877667228954320fe31b915c39986bb91c",
-        "contact_sheet_pdf": "02053974b7713cd3fd8c1205e06d7021ec03f3d6d2d17ecf935ca3ec510b8bcc"
+        "contact_sheet_pdf": "7931d1374ad4397d4b1361246d2730431ee4d4ea6c7bf3c71b0d4a3405848b3f"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-03",
       "checks": {
@@ -641,7 +641,7 @@
         "gif": "1d2e79ee63407044dcde1d7eec36595735b58bb391168dc04ac273f58a1288df",
         "webp": "fc0cd81fca9297b3c1bdb5ee00651057a040fbc4c5cc5b8267ef13c67a0fb46d",
         "contact_sheet_png": "9bad277832897476c35e36cc027da9297e3b634e3a6a7fbd73de08e54d886311",
-        "contact_sheet_pdf": "7a35b60ff61fbade363daa09fd8da5be65be7977234bc6825438393d60a219b0"
+        "contact_sheet_pdf": "ba7a9bf73d1fad2c0edec929697bd3c094c4aae8542b56c530637ef67536c320"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-04",
       "checks": {
@@ -689,7 +689,7 @@
         "gif": "53a6ddc033571eee272641fc975ac78e25c8f3ba813555b8930a8ea5c68ce39f",
         "webp": "4bbb6d66eeba0ed826938ae9a092a4935345344315b60388e1ae0e065efa652d",
         "contact_sheet_png": "aee9474fa9053ca98c2e347679fbc38ce68acddc9305d22a7c27cbf3730d6cbb",
-        "contact_sheet_pdf": "c22d75eae494235ef381ed29719489f1011435f82bdfa379e9bd33d406014cad"
+        "contact_sheet_pdf": "9eb5493f59181dc6f8a13f56d6433c68302033a39583a822070a2eeb3c88cda7"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-05",
       "checks": {
@@ -737,7 +737,7 @@
         "gif": "24619ad3d65a624a84ce0c32112490f024c8b0846b88b375dfdec85bb58a4aa8",
         "webp": "15799b760096e3cda9815b688934c14a839391c055f8e837523104d9f7bed7d1",
         "contact_sheet_png": "0b0a16aee6821068ddbd52dc4c8548b8acf68d536c28dd46686fc438013ea8c0",
-        "contact_sheet_pdf": "8a2d727e284ad8196ea0a2735fa9175753ee96616853f2cd3ab06a765833fe30"
+        "contact_sheet_pdf": "11d780e7bfd4866b8a3916a16f43b6a37241df010003e1a9a2e080ee5ce43b5e"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-06",
       "checks": {
@@ -785,7 +785,7 @@
         "gif": "0ec5d1e6c92dc860da791fda2f1cd35e61159e0d4a07a8afa4fe54ee42c62238",
         "webp": "924ff6afa78fa538bc2cafd94dc62ac31cc2f8d4262bce1acd8883c0e060798c",
         "contact_sheet_png": "d6e8961c66c3c59010655d94df33003f837812b39772530a75077795957f0e3e",
-        "contact_sheet_pdf": "a6956c2c298bade1c6c1a67391010c9b7b2fb70f1ffa51a85e4539b6ac9ff54e"
+        "contact_sheet_pdf": "0224d035d96b398271cd89aff29052719ccdd91d23addc1f8804821bd9b9c0a8"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-07",
       "checks": {
@@ -833,7 +833,7 @@
         "gif": "eda7741fb4a233b393dd055442f161b37443088c9d4200937983fc570a80c626",
         "webp": "df2e3a17efe99d8866c40725f1df13afbcd46b5ee2f66bd4c60b238cf89a1aa3",
         "contact_sheet_png": "a2219bbefcc92ec3eb0a6bc6d0554f69ef2152134115b5a0442b8fa35b11b5ea",
-        "contact_sheet_pdf": "c10650472b36fa225d45e4b9fcafce2dd186386c9bbb37c6869e6fd6aa6bd849"
+        "contact_sheet_pdf": "21c2bca09adf7222fbc03d6f3b91b00cb97c8b5ec3838f5207264c57cdd2f709"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-08",
       "checks": {
@@ -881,7 +881,7 @@
         "gif": "b797064a9d12e73d7e344987102f1e738ea33711fe1825f041be47a73bb4ee71",
         "webp": "d489f8f7b68981a0495e7b78a7f642c6705f006f5056790cba1ce5fe246f81c0",
         "contact_sheet_png": "efeadb8d9115b2508b18986b7708be34fcc274adcb1780c31a14cd804938bf05",
-        "contact_sheet_pdf": "491a0022027042caefafb32192c7f623aa6fc7ffbe5223942a0dad6ed46421d0"
+        "contact_sheet_pdf": "b53520c157c01d0e039089ea256b775cf5500fd6ddf90e0d7426f4a539ecc303"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-09",
       "checks": {
@@ -929,7 +929,7 @@
         "gif": "3e02410254242b9fe4c73230fed628d45cf63a3a59562244cf42abc2fb9c49cb",
         "webp": "bfdbb62328e89dfe50c6bb43818e09f5c707e40cdb499d6a5ae69fb02a06bec9",
         "contact_sheet_png": "cef0456616996afca1b163a05aeff6d264a8e52205fbfda34af5a2fd645393f6",
-        "contact_sheet_pdf": "2ab839f18c1bf3c39f89b08b81b2fad550131a7dc98c8aaf5fd65952992cfef7"
+        "contact_sheet_pdf": "4ead0358615c6e4c56fa915a2b3e73ed076ec7cfd9de82ff80d346a94c2abe67"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-10",
       "checks": {
@@ -977,7 +977,7 @@
         "gif": "da6dee53ab1b7f8a686aad65fb16a19b800756716d0aef2963dcb76612a4d247",
         "webp": "beeaa789320e6d18742d7b05a33c3ba3888fc1e983a20815d2293e4c6e94b018",
         "contact_sheet_png": "e691cfd04a94bdb5448ba158a0b9fde3190fb392f9527c1cc952688ce6303b0f",
-        "contact_sheet_pdf": "bee7b0e19c1bd62ffcd4fa8071893d5265262260e90b1070924ab0761aad877c"
+        "contact_sheet_pdf": "f3f286194048f32a402b59f265f317ad7f8bf20a669fa2826e2f7ffacbcfafbd"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-11",
       "checks": {
@@ -1025,7 +1025,7 @@
         "gif": "8a4b377b47c885c4b43a47f2c21ed717ac0f590cb48e6d49910ff8fff1dc6bae",
         "webp": "e1275a8805c0e1abd545a43d181c434843b94daec7d499f75a02eaf477cae16e",
         "contact_sheet_png": "983d47f2f64293628b6578555bfdd0c9d6e0862a7c3b5d5a4631458f75654a58",
-        "contact_sheet_pdf": "bfedbbcb5baa9e5f7d2c4b27481a211d7449d134319b2e1f71d082c3be3f1a57"
+        "contact_sheet_pdf": "9e4ec1cf2781236ab896d8b097aed14bf345f94602ee742dcb1c18bd50f7ead0"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-12",
       "checks": {
@@ -1073,7 +1073,7 @@
         "gif": "2f73f85a8648b00b68c0a1e78bc0a2fdb9e8945872ce279ed90764ca14ab9a36",
         "webp": "6861875da4798718b50660c083c3c98183c4452f705e5cdba200911547344f28",
         "contact_sheet_png": "08a946065eaccc5a9db65a491fd808013e51742aeab54aff9c1aacecca3100ce",
-        "contact_sheet_pdf": "f58c41339a4ec1c32a31ee1de69043b2c275a66789bcca91520706c271f20cdb"
+        "contact_sheet_pdf": "5235bb909fd90496c38d40e3c3f2cef5e6780f46afedd93e912e282eec80f600"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-13",
       "checks": {
@@ -1122,7 +1122,7 @@
         "gif": "6e69a8400261f4f0e7d8f3f0c66e09f1c81313a3b45c21f2e29be3097daa8afd",
         "webp": "5d482b353bf0e3b2c8a1ff2f95b9ebc6058c9b8de2b8d0c1157e93ae564b4e7a",
         "contact_sheet_png": "7101afb466c55f78546c9534d08e47f3ece16c1f08916b59d69173da4112dd30",
-        "contact_sheet_pdf": "4b44a456563e248eac10d4e02827e2dcdd6934da16c7e3c5660f309c1963dfdc"
+        "contact_sheet_pdf": "98d62ab9c6c5500af0e73e514ffe4400c809a6207751a4cc30585cc0b978d81c"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-14",
       "checks": {
@@ -1170,7 +1170,7 @@
         "gif": "40bc320b7d4fe1418ef0225dc615f3b546956e50ca5e2f3eea2e62a5c4f1b97f",
         "webp": "d5ed700c2fdc4dc2a8489dd0b86e0c9d756b498339ecc9ef0ad5ee75205abe06",
         "contact_sheet_png": "b3b134d5371253b29df56d6bca994c243cf74ef094f7e5d5d14beb0dd03d1e26",
-        "contact_sheet_pdf": "eeacdafd373122d0d1ef6313d4edc366a8cfbac1f8762dcb619ca0447362727a"
+        "contact_sheet_pdf": "f23243f72b6e0115770c9780652648779f5cfd40a10259c0f744d40a3ac51163"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-15",
       "checks": {
@@ -1218,7 +1218,7 @@
         "gif": "29426a1f9bd156418a5fe4984d93c1d7f990ed18c90b1a3bf38a1fed73ca38f6",
         "webp": "301716b369dfa75710e3deb709dfabba9aea7c89d27d62c92275fee5e59c2105",
         "contact_sheet_png": "f39b43826548c6d386777f9e247159030a6f48de68ed6c24e3a7c13738b6c938",
-        "contact_sheet_pdf": "79a4a7ee77bfb2b709b63b76ac9492d29a2e455bdb8d425c900578817fa087f9"
+        "contact_sheet_pdf": "64e640d644de8ae50e1066304f7d4051d90179ddab03c0ea920c1eb85ab5e8ca"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-16",
       "checks": {
@@ -1266,7 +1266,7 @@
         "gif": "f8b5e95e717e0727e3684ebb21e86a078e071364f4183d8baa830242ba25a1b2",
         "webp": "ba09946abd56ea0675e705f65bef2ed98c00f50ccd577659a838eb29e19a5854",
         "contact_sheet_png": "dcc7fc03e5682cfb59b66f1d8e24be919300b9b996dae916f61cc573f752fb8e",
-        "contact_sheet_pdf": "50b73940bf3ac1f6b073d6accd7c42f13db30d8a229ccb3220c36faa99c14acd"
+        "contact_sheet_pdf": "8dfaeb59c105ac4f053ac13ec1778318252fe2d3ce4a616f52bb911b2b2412e0"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-17",
       "checks": {
@@ -1316,7 +1316,7 @@
         "gif": "ba716d58f69a6385114b478c921a515828741d3e814780a673b91ca88cd75f84",
         "webp": "8e4e0b384a5bf504fb55b41d1a70f6a2e367591c823635b1a096660e75575885",
         "contact_sheet_png": "f12cdbd3f8a27235b50a31167cc40fd89ef9568151d4241fd0651bf438619768",
-        "contact_sheet_pdf": "97a0c155d27c500cf350347ca8ec338d8275c2a0166573ff29c5972bcd1b996b"
+        "contact_sheet_pdf": "48697baaef012fb7fa530d36b358bde116837f522944e24ff77db638ad37d557"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-WD-01",
       "checks": {
@@ -1341,7 +1341,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "2025 NU192 | Trans-Neptunian object (binary claim not supported) | 24 Rubin DP2 detections (73.0 d arc · median S/N 7.6, peak 12.6)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1363,8 +1363,8 @@
       "sha256": {
         "gif": "19036b7afae0e653d7ab4a781330eb3d374b213ae07513fe8b88d86cd4cf40d0",
         "webp": "842a49457c58188caf1b375e7b421aacf6e230e6f1ba43162dd1051622b1542f",
-        "contact_sheet_png": "08e9bac4ac7a0f5e0c8c2dc5339d08f430cae8efe5345a39a556f19d1f5d2504",
-        "contact_sheet_pdf": "9e1875760bba0a7dc71cee37c41b2bb9a8779324bc035db594abddae4c332a3d"
+        "contact_sheet_png": "d64291f76714b38d7c21768b162fe770ae1b3133454df381bb2649e81c840615",
+        "contact_sheet_pdf": "1b044b0819237318f0a100937504f33c54c321c2b050039537cb5c703257a56a"
       },
       "source_bundle": "outputs/real_cutouts/group1/2025_NU192",
       "checks": {
@@ -1389,7 +1389,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "2025 NW189 | Trans-Neptunian object, wide-binary candidate | 25 Rubin DP2 detections (75.0 d arc · median S/N 8.9, peak 17.8)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1411,8 +1411,8 @@
       "sha256": {
         "gif": "1de30d9aa6a89ea028d0ad46746b4a3a6bff68723afdfca971acba2de47e3c9f",
         "webp": "0f891a5b08d9eaa645e4104c9f19bb24cb6cba2587e122d8f6e15e442b204a0a",
-        "contact_sheet_png": "c66475dde52bdbc7f96f5b301badaf99d3c99002cfe03ad0d18aa874b8bcb356",
-        "contact_sheet_pdf": "1c6911a0660c08a8a447b238aa82bfaea1386cf35baac200a68ebfba5dff5f4e"
+        "contact_sheet_png": "8a8ee825bbb503b117a78b533ac97f1bc2bfa44b4a27b886390a7d60e3f1a208",
+        "contact_sheet_pdf": "d0bfa851f061ee237178016d432a479ab7fa112c3fae79d72a01c308491c0c42"
       },
       "source_bundle": "outputs/real_cutouts/group1/2025_NW189",
       "checks": {
@@ -1437,7 +1437,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "R25-D03 | Trans-Neptunian object candidate | 12 Rubin DP2 detections (124.8 d arc · median S/N 6.0, peak 8.5)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1459,8 +1459,8 @@
       "sha256": {
         "gif": "73e16c9b7e83fa395b89aa1f8c3453ea5998d8f3f1ded433a2b4eee5e9360598",
         "webp": "581611a48106965592b776b9621d1e1fbc011f58aa61b1d22278c6478e55a015",
-        "contact_sheet_png": "0398e09da2a347b99f941f33c23440f13ad9b92a36baac22fcb72b126df98316",
-        "contact_sheet_pdf": "48d506963200eeef95b815a36228226b05535694523aaec0ab1f3ce332cc1baf"
+        "contact_sheet_png": "63e18ca13337ccdfca329e2ec43c50bb0bca65a7b54da9f1da7f990867119f34",
+        "contact_sheet_pdf": "21b5428accf82b93159c906646b8eb5a682b337d5e1d8663a5ded78b50d9bedd"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-D03",
       "checks": {
@@ -1485,7 +1485,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "R25-D04 | Trans-Neptunian object candidate | 14 Rubin DP2 detections (67.1 d arc · median S/N 5.4, peak 8.6)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1507,8 +1507,8 @@
       "sha256": {
         "gif": "a10ecae14a730cf7ebc1659d232b0fc8a32461687b348ff75a8cc1c3414ae491",
         "webp": "62a1460b19399e7439c5747c25c849c062d1a12948bf670071a9419961bbb11b",
-        "contact_sheet_png": "82ab0369bdb57b58231f61c5ba6d564acc0d51cc81c2e268b74436a70725682f",
-        "contact_sheet_pdf": "6ec2e1f9f772a083324e7ecbbf2160c3a1e08ae9eaf090ef5ed37c2d6d05c02d"
+        "contact_sheet_png": "6e475c02b99ba64ca136d202822df10d7a035698e968a1efc2fad5dbc798de68",
+        "contact_sheet_pdf": "8e218b46f281dd2033dd3274963c41f671819f6c234e48f38c45b697f426046d"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-D04",
       "checks": {
@@ -1555,7 +1555,7 @@
         "gif": "a78d8ba9e0a509a220df5a39a887c0deec40c35622bc50469600aff0bdc08f29",
         "webp": "308781b3e7aa147e51a5f849ffe091d40288975d1f7b450ecb09662c785e76b7",
         "contact_sheet_png": "c9f4a4bbae156866d3694171205e977d124396803a4d79d43dbaed29ce10907b",
-        "contact_sheet_pdf": "e29f8ee0dad2caf0803c2cb69cca0a79a34ed8ef7174bf0c7020dbed0c966492"
+        "contact_sheet_pdf": "ebef023dc3b5bce5b5baffeb1673eb3c0606e771e8dc4c859fc037d937f52952"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-D09",
       "checks": {
@@ -1580,7 +1580,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "R25-D14 | Trans-Neptunian object candidate | 9 Rubin DP2 detections (57.8 d arc · median S/N 5.7, peak 7.4)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1602,8 +1602,8 @@
       "sha256": {
         "gif": "9ced3b939a947b2d85fd65402f9998ef5dc71cc8b4109305fe3fa0386c424824",
         "webp": "f91f84f924b5b41d6e06a567118b2d3329050c9a91888512ff2373cde29b8d86",
-        "contact_sheet_png": "483d7b5ca1e66b83f70a092ea5cf6b7e4470795d8d4b26b8622f1edd45d487f2",
-        "contact_sheet_pdf": "84d7a6f4b07dbf63acc1b985e72ed4cfea1dfc897869d15d2a45b9e41b1a7e26"
+        "contact_sheet_png": "7b7496d5e8f13199bcd1e23d772dafceb96a9bc40a7ddfa0a5b43c652a2c5f4a",
+        "contact_sheet_pdf": "5038548af6c15d05a03b27a9bff2657c7673979912dbe1d028a7c07faf35dc08"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-D14",
       "checks": {
@@ -1650,7 +1650,7 @@
         "gif": "3ae31e6ba2af39a06aa48a29a1e9451fa144e95a55ea99817ab4a92c74cb7e6a",
         "webp": "9910909bab3d7aed6f0d12e17a5c3e4d8fa7918aeceef0aca12c0fbcfe332f2e",
         "contact_sheet_png": "290fb57a5275420146697110994ad7ad1d628e0fb6aabb15a8b46b654f9461b6",
-        "contact_sheet_pdf": "75e4eb60f4f6762873546ead4f496ebe97c393ad8cdee61536a30b7c4816dd86"
+        "contact_sheet_pdf": "2fae790c74b5cb72d1aca91cb47fe1fef7228d362b7a749c7aa7d7c2d09f031f"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-E02",
       "checks": {
@@ -1675,7 +1675,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "R25-E07 | Trans-Neptunian object candidate | 15 Rubin DP2 detections (28.9 d arc · median S/N 10.3, peak 15.3)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1697,8 +1697,8 @@
       "sha256": {
         "gif": "6b37955668175b888de8df5385b8d79593d52b221296c043df52421f5683547f",
         "webp": "592850fdc75591b8451a5f7358ecde61e90a82951559b331f9cd87eb2ec16318",
-        "contact_sheet_png": "d40fc7d487051e57495a2acb847c3d788a251869301d03b348829d58ea242570",
-        "contact_sheet_pdf": "1cbbc111228e5630436ad4622b21823d4eba847192d707a9f75ca35cd5f500af"
+        "contact_sheet_png": "51c649f50828d9043b5306a1130cdc2bef81d6eec3ed6213ad305694483b9e91",
+        "contact_sheet_pdf": "d29053be4270457b4322713d88248399098545ab3e9f511fdf11ef1401e614b3"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-E07",
       "checks": {
@@ -1722,8 +1722,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-I04 | Centaur candidate | 28 Rubin DP2 detections (74.0 d arc · median S/N 25.7, peak 69.5)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "R25-I04 | Centaur candidate | Palomar ZTF (S/N 8.1) + 28 Rubin DP2 detections",
+        "Top: real Palomar ZTF single exposures, off-epoch control & 19-frame shift-and-stack | Bottom: Rubin DP2 (74.0 d arc · median S/N 25.7, peak 69.5)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1745,8 +1745,8 @@
       "sha256": {
         "gif": "e97243f3a37e800a4f5c587fb277c90586e930a664f3f37ee4b2b602bbca9efe",
         "webp": "d7cd0c9a664def11cddbd48713019b274af48437435d4e998f8dc614a0a4e5e7",
-        "contact_sheet_png": "68ed8572d94ae443d17610a4c36ce9e5a105a8e446edc78f6ac623b1e20b8710",
-        "contact_sheet_pdf": "f66d74918ed79fc73dd4a81907586e608a6dcf6bc322777a56191f693df33ab0"
+        "contact_sheet_png": "5397745d92d400e39b6d8439815f56ff19707296c4171de39eee7f20c9808ba0",
+        "contact_sheet_pdf": "8fc4c086c41cc1899aa898a8ca9d2b125347e01f81e56cc5f48d5e3db83f662d"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-I04",
       "checks": {
@@ -1756,7 +1756,7 @@
         "no_banned_words": true,
         "no_bold_italic": true
       },
-      "figure_mode": "rubin_catalog_detection"
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "R25-T07",
@@ -1771,7 +1771,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "R25-T07 | Trans-Neptunian object candidate | 9 Rubin DP2 detections (29.1 d arc · median S/N 6.7, peak 9.5)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1793,8 +1793,8 @@
       "sha256": {
         "gif": "181db3b623fd5fb3ca2dd778ca67675c319804c4cdb386366a8b5465a57fad9c",
         "webp": "8c0333f600199bf4e3bd2c43fa824b5bbff5541bbf6367acf15994bc9ce2b61f",
-        "contact_sheet_png": "5d30d7ae9d338d6ae4964c3bc41e19ddd01ba3b5ea665e787374b43052695d21",
-        "contact_sheet_pdf": "c45b01bdc2cf27c966572a534fcf9c85aaaa127749616bd70cd3cb332df2fb40"
+        "contact_sheet_png": "94a19dc86a8af50d5250dd1a3e9f892b5989c53d8b0e223ac63f0f04d8a4a0f7",
+        "contact_sheet_pdf": "f83596eac7ce454c19cc1186a1b7cfdcb78c589811d8e680dd4f716033ddf98d"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-T07",
       "checks": {
@@ -1819,7 +1819,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "R25-T09 | Trans-Neptunian object candidate | 12 Rubin DP2 detections (54.1 d arc · median S/N 6.1, peak 8.8)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1841,8 +1841,8 @@
       "sha256": {
         "gif": "8806a37aade18b6f7f632535514a45c150f2af324b3d388e172d920f5b3bd7b1",
         "webp": "d0a40e7c2e4ca406f020301cf2d9ca6c6d4477d4298933853961e7f3b3d9e282",
-        "contact_sheet_png": "e58b00ae8b93e2d042dd7999f376c2c42869055168a4683719856513bcebad6f",
-        "contact_sheet_pdf": "8916e71b456fca330be49c0d6ef69713632731c5512bd6fa80f9ac302e7f993e"
+        "contact_sheet_png": "96f6631eab25316b6e5c9d5a3ad539c07055b8e60e676237b028d4912a4d0bfa",
+        "contact_sheet_pdf": "d262c8dc7d12e23c56d90f52a6d2a645b5988bc1698d495fd0a574d3461cbd5e"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-T09",
       "checks": {
@@ -1867,7 +1867,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "R25-T12 | Trans-Neptunian object candidate | 15 Rubin DP2 detections (38.1 d arc · median S/N 9.3, peak 16.3)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1889,8 +1889,8 @@
       "sha256": {
         "gif": "18c2440d7164ee60ff2ed44d1114c632ccf8459d77a2ffa7bb3a388b1884555a",
         "webp": "038bc9211105ac033ffe620c672042849f7bd425df7a76ae4aa97dd42dd73308",
-        "contact_sheet_png": "3ddb3b2d5c5ee1ca9074c29978c8aee1142468ddccb7af08db3397c1723be6f4",
-        "contact_sheet_pdf": "e159087db113ba03b1f711955750a8da61a04e51e8ac07fef4edbacba3aff672"
+        "contact_sheet_png": "ae97008dad611ce5fbcf9cfa3c2ad9364268ae4831ea884666d81f45a9d762a8",
+        "contact_sheet_pdf": "361967b0b007b246ecc038c82d4692a0210c1faa43226af6358a38f54ae23e06"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-T12",
       "checks": {
@@ -1915,7 +1915,7 @@
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
         "R25-T13 | Trans-Neptunian object candidate | 7 Rubin DP2 detections (65.0 d arc · median S/N 6.0, peak 7.7)",
-        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
+        "Measured single-visit Rubin DP2 astrometry & photometry (DP2 Early releases deep coadds only; single-visit pixels pending)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1937,8 +1937,8 @@
       "sha256": {
         "gif": "cd154ae638f33a8001b6b8e6689301a137aca87bc45faf1f637bafab17febad3",
         "webp": "44b38f18aca7529aec428469a3f8b56a1ef8ee92b8f216ee5751be77493e4b2a",
-        "contact_sheet_png": "d6e3e69f00459cf4137a65bdf76a2f852358f5cdc2cdbe3cc54b5b86a77e0180",
-        "contact_sheet_pdf": "d5dde36beae251f0632007e053ffabe6d315ae6ea6e5f63f2d5a3ce6d335d9ae"
+        "contact_sheet_png": "8f212b56c261c103513f07ad3ff2c141ca3bc7993b838d58e512b4032ffc3494",
+        "contact_sheet_pdf": "8eaab9d38f40ad157ba3859791cfa7fde019536470f902efd6f945c1d712a2ba"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-T13",
       "checks": {
@@ -1984,7 +1984,7 @@
         "gif": "f3fe9f4e438f60c5252fe2357fe621371b0dbf8b85fe3a5ee84edc294171b39e",
         "webp": "afb450cecee76697f4532df8ea4e101042f14a4d70b4c3211b3edfc15bf49637",
         "contact_sheet_png": "d4c918ea609bc78ad2edb4554b131bb1894ab13b7c7e49a9911f415d770245f5",
-        "contact_sheet_pdf": "72b583e8fe961402d3633a99e0943e807c78d0371d3fc4baf77365eae02a1775"
+        "contact_sheet_pdf": "72e5d009c93b7072eec31cd3cf09819be2406901dc6ecfcee02c96817cd4c27e"
       },
       "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_02",
       "checks": {
@@ -2030,7 +2030,7 @@
         "gif": "ee3edc3a4d4c39d342edec2fb7ac80e5280d452398a1f01f2957516c563f4df9",
         "webp": "8d30fa17c78a46da37aecf27a923b1e515218c75caf58e7c03d0bcdd9a8f6361",
         "contact_sheet_png": "154edeff4a500a923c3e48454bb4bb0610e69a770fe3503f979e238d53a10ca6",
-        "contact_sheet_pdf": "9bd7364e15f272fee19ebbbd5e6d140fd6c203ea4aaf9794c028feee8ce624a3"
+        "contact_sheet_pdf": "9d12b7ce676b906075c83ade107640b7a598d48349d538212aef59bcde2a2239"
       },
       "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_07",
       "checks": {
@@ -2076,7 +2076,7 @@
         "gif": "30217e244f90282879124c1b8b41a3eb69e34680ff73a986cfa10bab15dbcc8b",
         "webp": "815e749948540fbe60faf85119f7606e8de20d01d44b17e2aa65ac07bc4e84fd",
         "contact_sheet_png": "367adfee7018a0a05c4be596238e1e8a0fa663ef0463465a420a3bd9d7b4d58f",
-        "contact_sheet_pdf": "9adbba10d429bfbf88b3ab8ebc2275c919f40c0ebc3f84f815e4b2c9421902ae"
+        "contact_sheet_pdf": "ac8453da62459336c308a1562b541497cd51e6f4ee3f51c86f4c9184cbba1bab"
       },
       "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_11",
       "checks": {
@@ -2122,7 +2122,7 @@
         "gif": "d1b9a17fb6b6edcd392839b424957bfd271bfb302150ed08639edbdbbeae7db8",
         "webp": "fd6a771ffdde5c6c1485301a82315614ac974eca832b8a01c7257114a47c8364",
         "contact_sheet_png": "1e280f0b74a2180ef0928adf8d2da3cc68e7115d7016fb9abc8dd8ebf837c6c3",
-        "contact_sheet_pdf": "3196d4a792cabf1a4c8493a934e36021d3138b91de84e03d14fde04009f592a8"
+        "contact_sheet_pdf": "48732b29b9e4d1693aee1bf4af7ce9efeaa4a27814fec40d23c84a591f238da3"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CN01",
       "checks": {
@@ -2168,7 +2168,7 @@
         "gif": "3fe1e9360d09c1912ff78a1c51773b656567d6f4d0218433830d72c4aab7acda",
         "webp": "53a8b4686663cc5f040876bbb02735ab7f5f8acddff788e0b31fb7d0ce7a9b78",
         "contact_sheet_png": "db03460b5d34cfb6d18685ffac83c9dd36c8e5d095141a84231a5b476a51b69b",
-        "contact_sheet_pdf": "563b80f8f278081f577ecf49eae4eda9f367cb9fd6e0dd97cb231386e8c4a474"
+        "contact_sheet_pdf": "0d903738b9ece6712b5779c2a7dec46de9629a3a1cb167de0b132448faadf682"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CS02",
       "checks": {
@@ -2214,7 +2214,7 @@
         "gif": "fabe751cf33f94658f26b15ef8be9146f895c745ac4f3efe894fd62f35d710b2",
         "webp": "d3a22ba63350ef036f7cf209e4467f7751b215f58544c1a7feba61178dbff5a0",
         "contact_sheet_png": "bdccf85b3585201c1131fc978bb1822ebddfc58595da94477188b9c10ce2e737",
-        "contact_sheet_pdf": "94178c395dcf0e852d0bb77f38afa7cc29be7aa0960496d19198ff31d2c04428"
+        "contact_sheet_pdf": "cab01f12925b95c7b2f0e5eb61f647d0e7e10de19c28ffb909ddd4766ba24e90"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CS03",
       "checks": {
@@ -2261,7 +2261,7 @@
         "gif": "ff2c34e859c6caa91c7758b6ca1a2ba447dafb8c25c72d902ce8bbee9d4d208a",
         "webp": "95a32b43389184fdb7ced7766b71d9fca4483beb648d06661f88de760fd06762",
         "contact_sheet_png": "c7643e8c65d30e1fe84a77f1d7e6798f25d3b2668246b9a5b4f2fc68e66faff2",
-        "contact_sheet_pdf": "84a4568c3003ef56b8578ccd76e16e28ca374e03eaa169b70b0e7874e427c824"
+        "contact_sheet_pdf": "42f2001fc0d3d4ce6b4b5ca66616019f234b6a4cef257578515bb7e642bbfe3e"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CW04",
       "checks": {
@@ -2307,7 +2307,7 @@
         "gif": "493ecb2d9b25c576f93b7a0bb261fba33a96681ada8278f9eddaaa43cd717c11",
         "webp": "b4cdbea59e99d8243065d7e000a8c021f26a19516369543953bdc82f62c6505c",
         "contact_sheet_png": "42bac9ed143bb702f7e5f40afff5433a804e310f30683cb5dbaaef35253f3b6a",
-        "contact_sheet_pdf": "3a4787e8155531e099ca36245994683bad93cd1a6b4ac4cd8aa4ee320efc195e"
+        "contact_sheet_pdf": "b19984cd64dc849ddc95261e60881a72d3afc21a4526fa5f50eb08a81e30dca2"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CW05",
       "checks": {
@@ -2353,7 +2353,7 @@
         "gif": "e4462043dab27b356827259701f86b2ea2ce1b23981f185350183d4e0a6776cb",
         "webp": "1a1bf64eb2b80dd607d26a56f27b2f82666bda0ce978f577ddf146750b9d5b5a",
         "contact_sheet_png": "ba3e88ee59c8c06c3bf464fa8a3dd18c299cf0199e3b64e51220b057942dae0a",
-        "contact_sheet_pdf": "8bac6f5b2960fe07e794b622f2b181f79922acc03a24ffeb3dd0bb662c9f233a"
+        "contact_sheet_pdf": "7b97cd0fd242043472d00d1edd0f146f2c5264d3525eaadc80d36eae990888e6"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CW06",
       "checks": {
@@ -2400,7 +2400,7 @@
         "gif": "eef5618749ef232b0b6227534600d4b93ceb3322e6882ec69b52c7439065a934",
         "webp": "2cc703b31234c5d715b06b3c6845bdb2979ef8ef3d67566cfb17d9f463696a4e",
         "contact_sheet_png": "297cdccfcc20bdeff879d3150cb25d357b1ac87a33fb788fac60ce1383b5e086",
-        "contact_sheet_pdf": "f103943a91ae62d6a927214fac1d193413c6eaf95bb879f4809a7b5fc5590868"
+        "contact_sheet_pdf": "a61ac0f70b48ee95b5a12f55066f960e93dc5f01f59b59cc4e686d9d839aadde"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-S02",
       "checks": {
@@ -2447,7 +2447,7 @@
         "gif": "7af3b02b415915c540179ce44b9c5b161de12fecad54f65f7d7962eab9f1e9dd",
         "webp": "63c78728bc8b31bb7327acb20b69c9fe5518c1417820c288989477d0a0ac2e93",
         "contact_sheet_png": "f68aa32cd9d0f45e2a41acbf760d9cb713a79b1f1dcdd1930b5076c6759121d6",
-        "contact_sheet_pdf": "148671b2f59cce412e5c82e1b28807c4b08509449e7cb6f7693bc4a7c059ad7b"
+        "contact_sheet_pdf": "a0b99bc1a37cbeaef273f38b6c1eb363c731dd749b3f9824b8b2f64adc7c2c62"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-S05",
       "checks": {
@@ -2493,7 +2493,7 @@
         "gif": "ece57a99cdd3a23498524c788a5bc046cd61fc94f99ab5536abee20fab67dd1c",
         "webp": "217d426e8522cd0e864fa71924a48d6fb7295093680663749f6318148bcece82",
         "contact_sheet_png": "7a85768848727d485e2ff14374b11a89dc85dbe5979caf3a012f8bd0edea5a88",
-        "contact_sheet_pdf": "481c98e75abca56f8509678bcb25c022e87e6a36d3f0a322ba290aa94357a10b"
+        "contact_sheet_pdf": "6179c72bae1e7c90998b96bcc98003e8d54cfeb98d328d08218c68dfd1dbc137"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-V02",
       "checks": {
@@ -2539,7 +2539,7 @@
         "gif": "7c3d7e313e6db0d8c4bb8742cd8ceb6f9d01b10ae256bc7bac32bf84650f1a50",
         "webp": "663a022a656b7120b8b92d6d52c7beea84d5854dd612245192db73b0862353bc",
         "contact_sheet_png": "defb636ec3b2de0d532ed4955c6de17b3d44ba1173d06e861f8e9dfc1d0d9493",
-        "contact_sheet_pdf": "b401b3340b0f9f7ed8f1983f54c0e641eabc038621aaca9c9ea091a650cdb3a9"
+        "contact_sheet_pdf": "5aaad1ac596dd9c2edd0ce6b2ac194cc1e7c1cee00748db93bb98a2be60bcc8e"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-V03",
       "checks": {
@@ -2585,7 +2585,7 @@
         "gif": "cd9de1a770f8631ec6a59e23b1f32f3ceda8d6a23b71991e2a3ea271720ffb22",
         "webp": "c1baad95b7553367a62fe387e8bba9f18c21d1c93adc4f198390479162ca2982",
         "contact_sheet_png": "52c8b433cddfe312fc6302f2d94d1e098f708b4efd7840b23a8a08c6128225cc",
-        "contact_sheet_pdf": "aca745d35011254706fc67a76a1892516eb898e3b902765423245bfe5dce3c65"
+        "contact_sheet_pdf": "094181f8aa9871acf89e5aa71f5d3aabe6bbcc8ed7ce8e586376ef422ce069d3"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_01",
       "checks": {
@@ -2631,7 +2631,7 @@
         "gif": "473e6a84abd9007a9ca579f02772e1688476627912d488bb47b44c50972c73e5",
         "webp": "6926fae51211864a3bccaa2cb6e1ae0d866cb1fa65c5a138713fd50d5b0a87bd",
         "contact_sheet_png": "1c2b5f4eed6e5d7ac456f2564b573e8ac4c6abc37ee4333cd3872fb52aff2a7d",
-        "contact_sheet_pdf": "5247e9c738b66ea484aefbf8747a1a7cda534f8a20b83e0db94b6625fab0113c"
+        "contact_sheet_pdf": "aeee75dc61a2c862fb8b9419a6591da00e70519f6648e1843071c6d255c367b3"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_04",
       "checks": {
@@ -2677,7 +2677,7 @@
         "gif": "11ad6aa186dfb21d427981acbb89aa48cc49e45040ed53aa5522cca434b513e1",
         "webp": "b25218741d88734e26eda06cf24477ac2a4444aecaace116bdc7e7651dea2cb9",
         "contact_sheet_png": "ec353eb10724387f06350871d1e521beac8b44431e10d3e260854a9fac121c28",
-        "contact_sheet_pdf": "1cdbda383ee23e7ae87a84dcda17b08fab2db6f0b83f0bac369e931af6b61cbf"
+        "contact_sheet_pdf": "a8c655a9df0b0f16c797caee701aa62d2b92628a64f7ab32621131e97eb9fc71"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_05",
       "checks": {
@@ -2723,7 +2723,7 @@
         "gif": "98be84518cf26eb7d3ec52cf24fa0986ffc22c10e56e14206b517cbdd63078b4",
         "webp": "1057684db704837a5bcf6e3a07af3776919b54ae330fd642e77a3a4ec1373897",
         "contact_sheet_png": "493b06456ae92b5db6f64b4b730f966ba1d6676aace05b8e48fac7b609552425",
-        "contact_sheet_pdf": "032b7c36b4e533736384b58ac8c31135f9aeba190783f91585d92416e3004371"
+        "contact_sheet_pdf": "8d7525d3eccce3a25ee7a4a377f65e108f846c6d1e383fd3b4a6f33bfb74a39e"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_06",
       "checks": {
@@ -2769,7 +2769,7 @@
         "gif": "70acaa1f0febd7b2ccdc425418dea9ac9d98adabda80155af73a15540c760c9d",
         "webp": "3ecd40ba7c118e239d731fe61b5eaa0428049e42a0a95b6d52ef0adafed6ba57",
         "contact_sheet_png": "4d7b6ba15ba5659a4094e95e97f72577c8dab233fc2f46220c3af1c065c06408",
-        "contact_sheet_pdf": "3d0c2256887accd2fe926181cdc022d2b97f20e1de48db6d0bc6eb5474d102d8"
+        "contact_sheet_pdf": "d8c6895d46eb864108f7b6ee00f626c62e2a7b91f80c8ae83fe7de6c1c4e5f1c"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_09",
       "checks": {
@@ -2815,7 +2815,7 @@
         "gif": "94ac07cc632a7bc683baec90d8c837465272b2a2c36b0b4de764812649a66512",
         "webp": "22fb70e80c453e050ed26a6ddefc89173801ef10c95ad1aef93befdb1efeae58",
         "contact_sheet_png": "132eb2224f2a665c272a3e0b0f49c9caaf90e5045800955f3ace9bb67418f9b6",
-        "contact_sheet_pdf": "77a4eac0ee6809bed521b4b5d3238ce1209be883fb1e160c5c9f909ba48d9d56"
+        "contact_sheet_pdf": "63f518fcf73c92ada6cfdb214fa2c8d0822c36d2c24a3cf0f8d9b2fd087e50ad"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_13",
       "checks": {
@@ -2861,7 +2861,7 @@
         "gif": "33a5dd738325931b61992eac57944bef9a004a1490a20801a01198bd84c304dc",
         "webp": "8f52e1ecce8cf0dfb19a791a468882f3c2e00f3dddda5242b332c9937014a53e",
         "contact_sheet_png": "0088a7f5497c55e9c6b744457faf694b8f78e32a74fe2232f39ef35c419561f7",
-        "contact_sheet_pdf": "95fbaaa51ac09be020edc9e3d4a65069258d31f3b51db2c2a15dbc9f2f299329"
+        "contact_sheet_pdf": "cbfb7783a253e6c86a202a27da7135532922fc60edf8c39d8fec53a2ed13a69e"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_17",
       "checks": {
@@ -2907,7 +2907,7 @@
         "gif": "1a9169e658a41d0b108c79f6bf28e5eadbdfb9e01456e3001366a0c48600a552",
         "webp": "aca1096ef70c4e2d304fe1bcaf1a397104d0a3b61479d6a592968fc3a94a8259",
         "contact_sheet_png": "63a19539b8dfc1e51000d1c4a3b277d17fd08db420fe96569727192581de964e",
-        "contact_sheet_pdf": "6ea86b3bcc8d8156892f7222b2737db069586d7c0747c2c5df21775cd3e04d3c"
+        "contact_sheet_pdf": "0f1e53cf05d5909406974a9106c03493e9f6d371bac0e87006d9c68ae0ee20fe"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G01",
       "checks": {
@@ -2953,7 +2953,7 @@
         "gif": "46cc05d8f72a53d63d09fbe6257a34cd32d8ddc8cccc03452e3779168373fb36",
         "webp": "dd0d6b3057909e51272742160e19e40b8070d888e1d29ac45fd1e092af32b80a",
         "contact_sheet_png": "124e34c716be9aaa0bc17e2d7989db2b003a3dced189e3b34674ef4174046e88",
-        "contact_sheet_pdf": "9f3905220b8052c28a5ececfa6f859a8d3a3522e9a8128cffdea37546fb4fbf7"
+        "contact_sheet_pdf": "e14b37416972498399224fdde79df932f4f98d0f45d0cfd88a24bc680412e33f"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G02",
       "checks": {
@@ -2999,7 +2999,7 @@
         "gif": "59622bf620ddcad10055838f1c47e09049dfdd690de72654267afbc6db285824",
         "webp": "d09d263ae39c9ed041ec17f758e6f6684fc30144a8cbbd960a2106872d61efca",
         "contact_sheet_png": "4df66900ead7d88b48eb3e7eeca28c92253771326049bd1769ccb697ea225bb3",
-        "contact_sheet_pdf": "e62fe3fbe4d54c776734ead361219ecfafb59244f37318e4dfce8215ad4a3d6d"
+        "contact_sheet_pdf": "88a49b883e2e7ac55f9d3907bef6a0bb6b706e221b5517015426f6fb7febfd05"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G03",
       "checks": {
@@ -3045,7 +3045,7 @@
         "gif": "64a78307feb7ac10cb8cfaf0b09531e99fd56ed9d9af9435fcdb80a83337852a",
         "webp": "ed6f9a0c3e8ae8438e0e609ade9331f25bcc17de8fde3aed292f86702470b2c0",
         "contact_sheet_png": "eae246c7d278f310746dbc9fd0746d96abf812edeb00d7466e87f97b76a1bdbc",
-        "contact_sheet_pdf": "cbbac00c19c4f508ece72fb970fde4ab4aa6413933505f71da39c4fd3242cd4c"
+        "contact_sheet_pdf": "cef62a0ade070ce06cf550bab84d6a7660f38863aab4aff66a6b6282dfef14d1"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G04",
       "checks": {
@@ -3091,7 +3091,7 @@
         "gif": "75e284a7ae03d1a3c8de73ad8747b68448455ac12452b7909fce75c604dc9296",
         "webp": "5ef9aa5c33a30b4bdb91093ecadbcecc0596533acc601af1ee1a56e883fe530c",
         "contact_sheet_png": "6bed0a2840336ccfca232109c643b5d90673102c33b695c3638e0101fc24cfff",
-        "contact_sheet_pdf": "eb1b6aa33efd6e79da931457494010a4b07e7e1a8ffbe558df7291e22eb1f68d"
+        "contact_sheet_pdf": "0207cb717f84d91fcaafea2aa634147525b5e3869565e63195efd42fc80b9078"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G05",
       "checks": {
@@ -3137,7 +3137,7 @@
         "gif": "448413d455cbaf5b585e0f7604c7151f66e0e1ef74d90956e5bc2a05a116e032",
         "webp": "16efaa0a6e7b2fcb413c27f144865756f4cb5500b16b3d76807e397f928279b8",
         "contact_sheet_png": "418153fb5cd2c73a78deac485116a95f3736eab10dd864118e1cfa025f1d4c4b",
-        "contact_sheet_pdf": "e8d5b3065118a7f32d20b922b7250889e45e9cb16d41c04a1bf0d649c5303000"
+        "contact_sheet_pdf": "4f83c0b49f4c84592c125e8c7348c2e06f3ffb2c39771d400e6bfbaeb654f901"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G06",
       "checks": {
@@ -3183,7 +3183,7 @@
         "gif": "f5a650b9f1343501dbc97f0c0752e021794d085e07014c76893984ee2009dce3",
         "webp": "5f0b34413ced901ed08a2fd2f96bb89947e014d9c33c656ae8081c6ca83d1c03",
         "contact_sheet_png": "c8a170f7d5d931e959737ecd30ec5ca82b5a9ec0fcb8823f89cfea117d207ae5",
-        "contact_sheet_pdf": "166199c4501c7a9c5cabaf54a938f51dd06009b6b3092555ec2598ce37f37e51"
+        "contact_sheet_pdf": "975db638c5952ca1f4eacc0b70e3fc832c5af145aab6ea38db7bf82129f58cc0"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G07",
       "checks": {
@@ -3229,7 +3229,7 @@
         "gif": "201d9781273a8a30ddf19bb3ed0ced59184c492ca03e3852a1ea55d6696f8a30",
         "webp": "b3aa29b465f3672fab4acaba8c3eea49a8b7353add3ad5673365392da0b73a25",
         "contact_sheet_png": "99e9fbb2e1bd26c12538edf26a4ff3180ae4b03da99c3d3d638888b5f389b01b",
-        "contact_sheet_pdf": "554632a68d354d14d7e5530d5d4a3ceceb347106ea098d4254734a3869fd6aa2"
+        "contact_sheet_pdf": "c03a2800223ad9392ccf22e47b1d63f4faec665ef8d10b56fd09a1dc35698b4c"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G08",
       "checks": {
@@ -3275,7 +3275,7 @@
         "gif": "2f664a2ab0a1f67d1470df58da8085f12ec51b9411dda3c8d0986fef696c4c43",
         "webp": "783c4fcacc7852c3ce7bd7bd0be090a31bc6237c8c28e9f7d09ed30a266dc9db",
         "contact_sheet_png": "b2bb38ecbd7500b29c71b1e77bf87e8b7fcb11ac032a7d15ae8db06c4c5b6408",
-        "contact_sheet_pdf": "bcbf37a51fae34c7a778d0f87c265ad5b9abf892fe212156fc56d3ef4611da89"
+        "contact_sheet_pdf": "ef1e0c4f69ee8785a9d2fd599d5866e4d35f5e09b13c16cdf9c28d85f4c57d88"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G09",
       "checks": {
@@ -3321,7 +3321,7 @@
         "gif": "d6ff8752b1d94083f915d294520ac7b148a359078f51be86efd18c1d6fbe4259",
         "webp": "182aa1494cae585a8e6cd325173440100dc710f6f736bf8e35c1632c38fb0ffc",
         "contact_sheet_png": "55e1cd9aa46c734a8158262e64f6cf96fbebb4793836428c1db82b3cf33f327a",
-        "contact_sheet_pdf": "6198a67bdd913de114b4a9bb699cf838c1a23335a20cbdbe87a16e96f0840e83"
+        "contact_sheet_pdf": "80fef64c3a85c71cbc3d475b919491ed3952de18cb407fa9940a81404a7ffcbe"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G10",
       "checks": {
@@ -3367,7 +3367,7 @@
         "gif": "79a4c62fc9a6ef49a744459816372a442b4348dc05e3bef7cbebf7bcbd229fc4",
         "webp": "6a4396921b9c6fe374ea7727151827f6a85dec3c22b54dc07fc309b69d84456f",
         "contact_sheet_png": "195dac72509bfdfa35833da1a3848ee97195aa60dd513212eb7d7e54a3b4bd19",
-        "contact_sheet_pdf": "fade98b8d3b84a156acaeb091cec19d53396c519f7f5faae208881dabde26821"
+        "contact_sheet_pdf": "5e9b7db55efb0207379310b2c570f2e20501d5ccc7221e17d5782c440c623764"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G11",
       "checks": {
@@ -3413,7 +3413,7 @@
         "gif": "9d29cbd0950e19c81afb753529a61a88042fcf9bf4288a3c5e2ea71ead0f8676",
         "webp": "a84e82969e42842991561c0081f747f0b7dad45cbbc0375ff3cb117ebb18e564",
         "contact_sheet_png": "193f2fbdd0103856becebafccdd4ff9756021537808df56aa0a54670e4d9f3f5",
-        "contact_sheet_pdf": "36b5099cbdb958b006149a018af3a1340c8197c6be12c05554ad72c387fb0d3f"
+        "contact_sheet_pdf": "6cdcb6951c45a699e580fd83f8f3e1824adf714380aea6dd231759f74e8e7706"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G12",
       "checks": {
@@ -3459,7 +3459,7 @@
         "gif": "ab8f7ad69c266e67373958950b62d737aa54d4347933646369e675781d1dab5c",
         "webp": "e84801363a89277fe696dab7d025efe149dbad50a0103f14cd0bf21e5dc46acc",
         "contact_sheet_png": "ffa57db6ccac40d8db9895be2925a107f9d75a49b97a3cb168af1c76c019c534",
-        "contact_sheet_pdf": "f7939e91405fa5cd951850277fc69b06173dd0c58a2edd06d5b60ef7ebb2a31c"
+        "contact_sheet_pdf": "4f8bf59904aad2cfaf6e4aa139d95c17fb334eb3a96f090d8860c7bc7f466259"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G13",
       "checks": {
@@ -3505,7 +3505,7 @@
         "gif": "de3d03b2d1181723c315d73e8073467799fd2a785f277d2831be4ed3eaa03683",
         "webp": "0235b5b72b961b9f5970036735eaa2c39cbbf5c52bf028f243fc86e5e8951ad9",
         "contact_sheet_png": "0fa808524be873e733688409b5eaf68fb2af6b6ba568d0bdbe6080baf3c638d8",
-        "contact_sheet_pdf": "28da138454c87e5f5e4b60abfc4901b08cf133c27a1c86ded946f98e4f92417f"
+        "contact_sheet_pdf": "fd540e0e5d096cb34b6d8193d2d52e6fe398e35864ddbce0a212d6fc91fbc856"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G14",
       "checks": {
@@ -3551,7 +3551,7 @@
         "gif": "3d4a42542057783aef40a724ba0cc728f9c1e5fc34d2009ab76c2d17acc04a5a",
         "webp": "a9183438e9ebf5026b6b498dc81296ef90744d1755d13a328ea3922cd7911c71",
         "contact_sheet_png": "88f5c7bbb6be323f8e9293bddffccad7755b893ba4bc3db91b35293b205a58be",
-        "contact_sheet_pdf": "40ad96ec2f466ecccb047161374db0078908caba1c5c3817fa3477be888fe5ed"
+        "contact_sheet_pdf": "fded94a830b0208480dac124ef8757bc5c97105c2880507adf7c8adf752d6d2d"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G15",
       "checks": {
@@ -3597,7 +3597,7 @@
         "gif": "762ad93e18c7be1de1175fc719de5bb4d2bba7a274390f786b8c28c0781ab29d",
         "webp": "9c58a826201469685c6e37ca8d6c224ca9360c0951a2e73207b9afe5a695e5a6",
         "contact_sheet_png": "84a2a69f746af3c22e40d12c9c2bf0a41beba39729121e7487597fb22ea2b0e3",
-        "contact_sheet_pdf": "0d7d2db4a4b002a5004b8292c23a95ec4aad44b7e4f4dae745310c0095ccc981"
+        "contact_sheet_pdf": "8f0f5f8082fdb26d4d46384ab0f227fd2c1dc7cb4da333744ea4e383913bb6d2"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G16",
       "checks": {
@@ -3643,7 +3643,7 @@
         "gif": "6fdcd6ec3f106dd775cf6b03292b9fa60d0c813a9c49c5dea4f3e0e8c5faa25e",
         "webp": "cc1ff0230ce7e1a890a58f755548af2be245f8127f58494d33065cdbf0b681ed",
         "contact_sheet_png": "f8530206bc3230d4d755cba6934e8cc96001b0bb3bd1047eacbf6857ce0df1b7",
-        "contact_sheet_pdf": "d9e2eca31d1812f95a8e6facd9f1fb2aee05e4ba060879eb7b670b4d61e5266b"
+        "contact_sheet_pdf": "94a3577596e33b49e0f74bdf7526c3200a8bf4fc0fcf5d8df839bb44c998c49a"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G17",
       "checks": {
@@ -3689,7 +3689,7 @@
         "gif": "ca5af714ca2dfe24042a7801a8cdc847aec23a85b663e96dec69d1b572004ee5",
         "webp": "09dbe8d2b11333f981cdd860786a3d2265b8170b1cc440d49ed0f88795faf3a7",
         "contact_sheet_png": "d0096067fe9221fdc7550b02914dfc014695e092a4bcbe20580d1b4ac6f39487",
-        "contact_sheet_pdf": "927137c576aa04df6a9f5e93b01d763e6c3c046760d361e60e6b14f33ea377a9"
+        "contact_sheet_pdf": "0b4dac374dd45b78d3e85b9d90f2e2485713f27b993a5d690088259c6263b5bd"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G19",
       "checks": {
@@ -3735,7 +3735,7 @@
         "gif": "5f94a48ab917e33185de4325b11cea2c8408b8afa557bdbb70bacd2e707cfe71",
         "webp": "2002bcd221ca139ee0350cda2b30c53b563abfa1a004aa01acbf09848afcfd1f",
         "contact_sheet_png": "8d0db4ccbf0da0f5c9814e90cf1c6a4f7e7891ac3277335787bbcec26aed8e1e",
-        "contact_sheet_pdf": "dbf8e9b2a1ea07b0957759ffae0f731dcd3e004f50ef7a998ad65e7c065f323e"
+        "contact_sheet_pdf": "4ee5aa10a0efab942efdacdbee696e5164a8dfca56247874db22f98ee97afe02"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G20",
       "checks": {
@@ -3781,7 +3781,7 @@
         "gif": "3ea9929cadd9788967e5140f3ff62bf2e71501a111cd1ebac9bedbf5c23cd50a",
         "webp": "d6cfde3c8b62575ca1801d00d372bb8c15755680665e5badccad07d134fcd218",
         "contact_sheet_png": "d80bfef713beba3acefe076e2682709d9e726ce10d1053d0234327c8d9e5add8",
-        "contact_sheet_pdf": "cb5f822eb245fd7c8dfd201207fbf65a2f43a364d10bf718f088bc71b7787fae"
+        "contact_sheet_pdf": "bf63a6fd540ea4d00c9758aaf1fe66f6cfaf00073c2c19c2a755f9c031ac49b9"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G21",
       "checks": {
@@ -3827,7 +3827,7 @@
         "gif": "74af27501911b12ad6b11130596617b3748ea23b47036397627fcc120cadc4dc",
         "webp": "582d443ef22de07ee0c966c48310c16c79d8c07860086b396f3e12b1e8f357f1",
         "contact_sheet_png": "0a03c50cac499166fa27dec5b954452ad2345d1186a78e55a52ae0b15230abd2",
-        "contact_sheet_pdf": "5c94f3a553fd04d36a24b3509232c554dee8b2fb0726f069143e258fac61be28"
+        "contact_sheet_pdf": "9b96cc119169cec265f325f9d63c3d6ef416c1b6b98eb26b505c9a02db0311b9"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G22",
       "checks": {
@@ -3873,7 +3873,7 @@
         "gif": "dcfd1914bdc83d9a724e14accf1ba66852b61f5768702bf1418f14773df82de7",
         "webp": "481cba2e1e3017154b057aa301adac9a0a452c9caede35e6575ca9bca8804ba1",
         "contact_sheet_png": "307f0c30caee2306df474126371b3633aef8df66e45e61abcef5053a019d9120",
-        "contact_sheet_pdf": "2933384436745e34b68560e3bc8d3174515fb6b83cb179e52e4e70342e4dba63"
+        "contact_sheet_pdf": "4a3d3fdc0f530925b7d9210b54f9ff0a1cec1982e27681f6fce2a4eb78c1d160"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G23",
       "checks": {
@@ -3919,7 +3919,7 @@
         "gif": "f3cf95020131ab05b2606d03738525cde1a422ad09c517f10d127ee2a02998a6",
         "webp": "d62cc428427ac9b5f0eada79b13789572447c3b1bd051efefdd9b5716f3761db",
         "contact_sheet_png": "b29f879b306b04b0922ac34c98caadcde7ad1f1eb9998ef306840bcc16d59d91",
-        "contact_sheet_pdf": "f9d51c6334f58f3c0e4038fe5599b319c9b1c7aa1639dd5585d02b6986851773"
+        "contact_sheet_pdf": "165ccde80c9934d16c6a24627627adba6fadd66bb369b1167dcd9d603e44b8b0"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G24",
       "checks": {
@@ -3965,7 +3965,7 @@
         "gif": "e229980f50e3b299d9a83e194affc0c65e7b90160ca1249bf1f4a1ff79f24d4c",
         "webp": "2ae49118d2d7b573a450ea99690a2096ac448610e391ed74d1c186f0514b7ad5",
         "contact_sheet_png": "4a76ac5fa2ffe9919a4e2206b33a447d31269249a5b02d717bc2d9c1286e4091",
-        "contact_sheet_pdf": "ebad70877fbfde04d51535679248de740b65c720ffc5124d4f93080174046aee"
+        "contact_sheet_pdf": "9e6f9eda30c0ebf399adfa13ce3bcc3ca9adde20261070c4bea46831e20b6146"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G25",
       "checks": {
@@ -4011,7 +4011,7 @@
         "gif": "fa71975c80cd414497d475c07ff2ef03b9ee9e019eab216fd55b1ed81487b035",
         "webp": "759501c06b0dcde30c62497686d0bebb220d309b056e282b4c4fd85e1b345764",
         "contact_sheet_png": "95d9911a2fae002469f037448426336be4dc73cc3bef97b3e685723595cd611e",
-        "contact_sheet_pdf": "4cd35667b184f6150a496f88b7fcdd97d5d0db53ecd7505679758c9c2a0de093"
+        "contact_sheet_pdf": "fac48f7b3673d08c6bdac520e0df6afd2f4aa2c9c72509cc9dd76d9119bd729f"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G26",
       "checks": {
@@ -4057,7 +4057,7 @@
         "gif": "c58ccbcbbb30dd1eb37b717c58fb7d803d3a6ef348f1e5e7c035b4ea2e627d6d",
         "webp": "9c72fa2329dfa7e0588eab527e231bb95b2c77dd1bf501696ff4275f7af22433",
         "contact_sheet_png": "45411ac64e73db0ca67e54f1d0f8fe181f2e97739634aafdd91c37c5d8f0b0b3",
-        "contact_sheet_pdf": "c5b52dc478c1b08d2726c98d4752c47acb5a6374b24561f50565b915d12be2bb"
+        "contact_sheet_pdf": "e6978f1e9f6b8835aa404f834e8e4c356fe159b15ff170d900ffef10f8a7a164"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G27",
       "checks": {
@@ -4103,7 +4103,7 @@
         "gif": "528194b694a6bd5fb10621ed7f20f164be92b0d763f4d69b14cd16806383924a",
         "webp": "fe3e8570fb644c10461e967432661fb7a1e452ad9046bbdf5268d635a917a79c",
         "contact_sheet_png": "e9c203e0c325ee13a2e212aa0ad64f24e30d6fff8457d127382f4cf0f63e21c9",
-        "contact_sheet_pdf": "c832915ac7f021e7d11d713cf6bf88258e076c2c82573276c9d8bd5930e7e256"
+        "contact_sheet_pdf": "e0544b79ce59d26b6f1523ab3fa2e3eac7fe92a7876ad4bfa293b5f49f8f5db9"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G28",
       "checks": {
@@ -4149,7 +4149,7 @@
         "gif": "c2e01743d4798551662293f3780a690d6a0306e6912d9882ab326b795b82dfc2",
         "webp": "8cc793ee37bb2e19afcd2980d8f3b7ab1618a73265ccfb55d963ec2fbfe1c937",
         "contact_sheet_png": "1a4632376be57ea3d4053570599014319326604c5f67a49f2135d675a304904e",
-        "contact_sheet_pdf": "e12cef704b2d335ad5827b51e672e7db8cf1305100d359a48f3cda07de7c8d63"
+        "contact_sheet_pdf": "b9f0291d5553380323d464d6041891a5e7e91fcb429ad2b511625018bc984430"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G29",
       "checks": {
@@ -4195,7 +4195,7 @@
         "gif": "11687bbeb68ce6cfd1be304d8edf2e917e215b7cabfd6547f92b84aa4a560912",
         "webp": "3480428ce926d42a1f70a4bf086e8c7e76f831a84db0966fa946a5612ee57709",
         "contact_sheet_png": "7ac212a6d1e345f705901caa2b304599a1c30c2bef5ad60080ac726ec52c0411",
-        "contact_sheet_pdf": "d5fb8880ac7ceef5cc990c6431afd9818346c8c584095d6b3bba6549de6f910c"
+        "contact_sheet_pdf": "bc591c4e442de3cde0ebd6c8dbc2ff02f90c7830c8d009a0adcf7729ad072f6f"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G30",
       "checks": {
@@ -4241,7 +4241,7 @@
         "gif": "73ff4d17f25bb4fff9bc13709a71b286a2505c27bc660522fa20f6c51bcd7c7f",
         "webp": "03ca5b10dd3fb638bb71a7f95933e12b601229ca3a0d102068bf061e5890fb1c",
         "contact_sheet_png": "994d7a2020c1c9ad10ae948690c3084b8b2c4e802867836059017cbec4183a64",
-        "contact_sheet_pdf": "882e53abb566a0dddccd6bdb95697f61da24927fccf6c2c354daf3e219a33cb8"
+        "contact_sheet_pdf": "2bd4ab0ce9064a7cf415880cda3a48a056ed9591d0c449f108bddf8c8922d76f"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G31",
       "checks": {
@@ -4287,7 +4287,7 @@
         "gif": "9dde804ad5649211c354afbed33375b67b92c976d77b004875ce8a7f6f0f3db3",
         "webp": "598d7375faa68af24736e61bfb153b77eac3744b952fd6df5207403510fdffe0",
         "contact_sheet_png": "4ad5898cbd5cac9e1e8250b4c1a681f50dd0e948b05b6bd906bcb0aad725e6b8",
-        "contact_sheet_pdf": "8c73729357f5825f8b38233ca274066a854944f0ca8a3762051ad18db4893a11"
+        "contact_sheet_pdf": "16e2e787bdb661c20bd856f58ee5f404c7467d7a2ba8f8cab03f65d73b178d34"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G32",
       "checks": {
@@ -4333,7 +4333,7 @@
         "gif": "b360612fdea8dd7b4b349cdbbd5ea210004d5c07d384066ec527be754309949f",
         "webp": "8726d883589a723ef8a052b7ebb616efab62c66767cb5ff4eebd33a4de1a5810",
         "contact_sheet_png": "840a11515fa46ea6bc5b7a3425d5234b3006c250171efff9a3d3364edb331a5d",
-        "contact_sheet_pdf": "bcb735af3b23945938d8607fc2c11ac0e13dc30803c6ec763e6fb8a8c763923b"
+        "contact_sheet_pdf": "0b6a41968d5f603b148d92930beea231ba9129f34793592f5b2f15a188a74e9c"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-J01",
       "checks": {
@@ -4379,7 +4379,7 @@
         "gif": "2b35237fa3828bd29964e746251e214def48bdd8d638dde48d09a4c8acc626a0",
         "webp": "be7068bfa54fec1aad876192b6a232bf539953b61baa61977c9d40009b5afa55",
         "contact_sheet_png": "a790f521a8e3e2f40547f026e47295a34ca7242a9ce16733a65a30e1125af51a",
-        "contact_sheet_pdf": "17c4d3ff87057b882113919ee3d7283b2435db08c99c9a06e124ce510d36e8fa"
+        "contact_sheet_pdf": "2075510d0828044dd1e246fbc7d11437959e6a0690150e2c9269b71a851c8eab"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-J02",
       "checks": {
@@ -4425,7 +4425,7 @@
         "gif": "1326f7d66101e07108b671b4726c56df6498a72e0de9b52eb0680459688125f3",
         "webp": "901bdfe907a795917e4fdbbd48567887dc2a04c3c322a514437c39c07e12529e",
         "contact_sheet_png": "77c6573dfde3d3d6ba83039ad35fbf8e2fb9fc3dbe0ddd6ab584b5b75407b406",
-        "contact_sheet_pdf": "d9c3fdc9eeacf3e98d8d80a6064940cc2a5c9b919e8120fa297aa633bb171d22"
+        "contact_sheet_pdf": "d1e134fce11b425dc35d4479ce51648d51890480386d1138bbf1b532f7bd6f46"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-M01",
       "checks": {
@@ -4471,7 +4471,7 @@
         "gif": "129fb25e3ebd25756f52a80179946e07a4670dad33ecd065203a0ec7aa6c3af3",
         "webp": "e73b92e41c63ccdc4af638bc7bdfde234217ad060983427969fa71684da36736",
         "contact_sheet_png": "d1db3020fabbbca90815a4d2ed3243508bbc6f8511641f240fd7d02b0d9c79fa",
-        "contact_sheet_pdf": "b9e3e61dfd5a7b6e2f5eea0f80690a12969fb6862c096ca5ee8ad8a739a335d9"
+        "contact_sheet_pdf": "945785691b08eff070e6f20e2ed267c2bf1a072a0f971c72fd655bed7d1e3145"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-M02",
       "checks": {
@@ -4517,7 +4517,7 @@
         "gif": "1826a2868c75d23aa65ca88f821a56457cacd58019bfdd29992338d82ff2e605",
         "webp": "ab02ce67e594ddb2ec3699f3eca4e0248eb2d67e0d59159b836729f75663a71b",
         "contact_sheet_png": "f57c0e2ca9a8f51b38410ece0a614c8a422dfa52f53dc8edd40f6cba47e18fb2",
-        "contact_sheet_pdf": "6088336b7e4d7915c21a8acec515143574e9b7bc8f554f19b5e50024fc24cf78"
+        "contact_sheet_pdf": "9faa3174dc29c49bc4c39b53be5c870eaa21997c3ea838a1c45b0545690d4cee"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-M03",
       "checks": {

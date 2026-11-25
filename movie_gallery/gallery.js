@@ -1,12 +1,8 @@
 /* ==========================================================================
    Vibe Discovery — Detection Figure Gallery (PDF-only)
    Reads the two manifests under ../outputs/, joins them by target_id and renders
-   filterable cards plus a vector PDF lightbox (contact_sheet.pdf).
+   filterable cards plus a clean vector PDF lightbox (contact_sheet.pdf).
    No dependency, no build step.
-
-   Every asset path is relative to the folder above this one, so the page works
-   unchanged at https://<host>/<any-subpath>/movie_gallery/ and from a local
-   static server. Vector figures are presented exclusively as contact_sheet.pdf.
    ========================================================================== */
 (function () {
   "use strict";
@@ -48,14 +44,11 @@
     filters: Object.assign({}, DEFAULT_FILTERS),
     visible: [],
     modalId: null,
-    modalToken: 0,
-    metadataCache: new Map(),
     lastFocus: null
   };
 
   /* ------------------------------------------------------------------ helpers */
 
-  /** Path stored in a manifest (repository-relative) -> URL relative to this page. */
   function relRoot(p) {
     return `../${String(p).replace(/^\/+/, "")}`;
   }
@@ -65,7 +58,6 @@
     return i === -1 ? GROUP_ORDER.length : i;
   }
 
-  /** "Euclid DR1 VIS [euclid]" -> "Euclid DR1 VIS". */
   function normalizeSurvey(name) {
     return String(name || "").replace(/\s*\[[^\]]*\]\s*$/, "").trim();
   }
@@ -79,20 +71,18 @@
     return `${(d / 365.25).toFixed(1)} yr baseline`;
   }
 
-  function formatNumber(value, digits) {
-    if (value === null || value === undefined || value === "" || !Number.isFinite(Number(value))) return "—";
-    return Number(value).toFixed(digits);
-  }
-
   function plural(n, one, many) {
     return `${n} ${n === 1 ? one : many}`;
   }
 
   function isCatalogFigure(t) {
-    return t.figure_mode === "rubin_catalog_detection" || t.n_detection_epoch_frames === 0;
+    return t.figure_mode === "rubin_catalog_detection";
   }
 
-  /** Accept the paper id, the display name or an internal pipeline id in ?target=. */
+  function isZtfRubinFigure(t) {
+    return t.figure_mode === "real_pixel_zoom" && t.n_detection_epoch_frames === 0;
+  }
+
   function resolveTargetId(raw, byId) {
     if (!raw) return null;
     const want = String(raw).trim();
@@ -124,7 +114,6 @@
     return null;
   }
 
-  /** Join the figure manifest with the cutout manifest; the figure row wins for display fields. */
   function joinManifests(movieManifest, cutoutManifest) {
     const cutouts = new Map((cutoutManifest.targets || []).map((t) => [t.target_id, t]));
     const targets = (movieManifest.movies || []).map((m) => {
@@ -144,10 +133,7 @@
         surveys: Array.from(new Set(surveys)),
         baseline_days: m.baseline_days === undefined ? null : m.baseline_days,
         contact_sheet_png_path: m.contact_sheet_png_path || null,
-        contact_sheet_pdf_path: m.contact_sheet_pdf_path || null,
-        metadata_path: c.metadata_path || null,
-        sha256: m.sha256 || {},
-        metadata_sha256: c.metadata_sha256 || null
+        contact_sheet_pdf_path: m.contact_sheet_pdf_path || null
       };
     });
     const totals = {
@@ -166,7 +152,7 @@
       t.object_class,
       t.known_designation,
       t.surveys.join(" "),
-      isCatalogFigure(t) ? "rubin dp2 track photometry orbit residuals" : "real pixel zoom"
+      isCatalogFigure(t) ? "rubin dp2 track photometry orbit residuals telescope sky" : "real pixel zoom"
     ].filter(Boolean).join(" ").toLowerCase();
   }
 
@@ -242,10 +228,13 @@
   }
 
   function badgesFor(t) {
+    const modeLabel = isZtfRubinFigure(t)
+      ? "Palomar ZTF + Rubin DP2"
+      : (isCatalogFigure(t) ? "Rubin DP2 Detections" : "Real-Pixel Zoom");
     return [
       badge(GROUP_SHORT[t.group] || t.group, `g-${t.group}`),
       t.is_control ? badge("CONTROL", "b-control") : null,
-      badge(isCatalogFigure(t) ? "Rubin DP2 Detections" : "Real-Pixel Zoom", "v-verified"),
+      badge(modeLabel, "v-verified"),
       badge("contact_sheet.pdf", "b-quiet")
     ];
   }
@@ -340,6 +329,9 @@
   /* -------------------------------------------------------------------- cards */
 
   function cardFacts(t) {
+    if (isZtfRubinFigure(t)) {
+      return ["Palomar ZTF real exposures + stack", "Multi-epoch Rubin DP2 detections"];
+    }
     if (isCatalogFigure(t)) {
       return ["Multi-epoch Rubin DP2 detections", "Sky track · photometry · orbit fit"];
     }
@@ -377,39 +369,25 @@
     ]);
   }
 
-  function renderSummary() {
-    const totals = state.totals;
-    if ($("stat-showing")) $("stat-showing").textContent = `${state.visible.length} / ${totals.targets}`;
-    if ($("stat-showing-label")) {
-      $("stat-showing-label").textContent = state.visible.length === totals.targets
-        ? "vector detection figures"
-        : `of ${totals.targets} figures shown`;
-    }
-    if ($("stat-frames")) $("stat-frames").textContent = String(totals.frames);
-    if ($("stat-single")) $("stat-single").textContent = String(totals.single);
-  }
-
   function render() {
     state.visible = applyFilters(state.targets, state.filters);
     syncControlState();
-    renderSummary();
     const grid = $("grid");
     clear(grid);
     grid.className = "grid view-sheets";
     const frag = document.createDocumentFragment();
     state.visible.forEach((t) => frag.appendChild(cardFor(t)));
     grid.appendChild(frag);
-    const frames = state.visible.reduce((s, t) => s + t.n_frames, 0);
     $("status").textContent = state.visible.length
-      ? `Showing ${state.visible.length} of ${state.totals.targets} vector detection figures (${frames} real archival frames in view). Click any card to view contact_sheet.pdf.`
+      ? `Showing ${state.visible.length} of ${state.totals.targets} vector detection figures. Click any card to view contact_sheet.pdf.`
       : "No target matches these filters.";
     writeUrl();
   }
 
   /* -------------------------------------------------------------------- modal */
 
-  function linkButton(label, href, download) {
-    return h("a", { class: "btn", href, target: "_blank", rel: "noopener", download: download || null, text: label });
+  function linkButton(label, href) {
+    return h("a", { class: "btn", href, target: "_blank", rel: "noopener", text: label });
   }
 
   function renderModalMedia(t) {
@@ -422,125 +400,6 @@
     pdf.setAttribute("title", `${t.display_id}: vector detection figure (contact_sheet.pdf)`);
   }
 
-  function renderDigests(t) {
-    const dl = $("modal-digests");
-    clear(dl);
-    [
-      ["contact_sheet_pdf", t.sha256.contact_sheet_pdf],
-      ["metadata.json", t.metadata_sha256]
-    ].forEach(([name, digest]) => {
-      if (!digest) return;
-      dl.appendChild(h("dt", { text: name }));
-      dl.appendChild(h("dd", {}, [h("code", { text: digest })]));
-    });
-  }
-
-  function copyText(text, button) {
-    const done = () => {
-      const prev = button.textContent;
-      button.textContent = "copied";
-      window.setTimeout(() => { button.textContent = prev; }, 1200);
-    };
-    if (window.navigator && window.navigator.clipboard && window.navigator.clipboard.writeText) {
-      window.navigator.clipboard.writeText(text).then(done, () => {});
-    }
-  }
-
-  function archiveCell(frame) {
-    const uri = frame.archive_uri;
-    if (typeof uri === "string" && /^https:\/\//.test(uri)) {
-      return h("a", { href: uri, target: "_blank", rel: "noopener noreferrer", text: "archive ↗", title: uri });
-    }
-    const cache = frame.derived_cache_source;
-    if (cache && typeof cache === "object") {
-      const service = typeof cache.archive_service === "string" && /^https:\/\//.test(cache.archive_service) ? cache.archive_service : null;
-      return h("span", { class: "muted", title: cache.note || "" }, [
-        "derived cache",
-        service ? " · " : null,
-        service ? h("a", { href: service, target: "_blank", rel: "noopener noreferrer", text: "service ↗" }) : null
-      ]);
-    }
-    return h("span", { class: "muted", text: "—" });
-  }
-
-  function frameRow(frame) {
-    const sha = typeof frame.source_sha256 === "string" ? frame.source_sha256 : "";
-    const shaCell = h("td", {});
-    if (sha) {
-      const btn = h("button", { type: "button", class: "sha-btn", title: `${sha} (click to copy)`, text: `${sha.slice(0, 10)}…` });
-      btn.addEventListener("click", () => copyText(sha, btn));
-      shaCell.appendChild(btn);
-    } else {
-      shaCell.textContent = "—";
-    }
-    const survey = [frame.survey, frame.band].filter(Boolean).join(" · ") || "—";
-    const role = String(frame.role || "—").replace(/_/g, " ");
-    const kind = String(frame.epoch_kind || "—").replace(/_/g, " ");
-    return h("tr", {}, [
-      h("td", { class: "mono", text: frame.array_key || "—" }),
-      h("td", { text: role, title: frame.marker_note || "" }),
-      h("td", { text: kind, title: frame.epoch_note || frame.epoch_source || "" }),
-      h("td", { class: "mono", text: frame.utc_iso ? String(frame.utc_iso).replace("T", " ").replace(/\.\d+Z$/, "Z") : "—" }),
-      h("td", { class: "mono", text: formatNumber(frame.mjd_utc, 5) }),
-      h("td", { text: survey, title: frame.product_subtype || "" }),
-      h("td", { class: "mono", text: formatNumber(frame.exptime_s, 1) }),
-      h("td", { class: "mono", text: formatNumber(frame.pixel_scale_arcsec, 3) }),
-      h("td", { class: "mono", text: formatNumber(frame.aperture_snr, 2) }),
-      h("td", { class: "mono", text: formatNumber(frame.padded_fraction, 3) }),
-      h("td", { text: frame.centering || "—" }),
-      shaCell,
-      h("td", {}, [archiveCell(frame)])
-    ]);
-  }
-
-  function renderFrames(t, metadata) {
-    const frames = Array.isArray(metadata && metadata.frames) ? metadata.frames : [];
-    const body = $("modal-frames-body");
-    clear(body);
-    frames.forEach((frame) => body.appendChild(frameRow(frame || {})));
-    $("modal-frames").hidden = frames.length === 0;
-    const nCache = frames.filter((f) => f && f.derived_cache_source).length;
-    if (isCatalogFigure(t)) {
-      $("modal-frames-status").textContent =
-        "Vector figure displays measured single-visit Rubin DP2 astrometry, multi-band photometry, and orbit-fit residuals; archival coadd context provenance is listed below.";
-      return;
-    }
-    $("modal-frames-status").textContent = frames.length
-      ? `${plural(frames.length, "real archival frame", "real archival frames")}`
-        + (nCache ? ` · ${plural(nCache, "frame", "frames")} served from locally cached archival stamps` : "")
-      : "No archival frame entries listed in metadata.json.";
-  }
-
-  function loadMetadata(t) {
-    const token = ++state.modalToken;
-    $("modal-frames").hidden = true;
-    clear($("modal-frames-body"));
-    if (!t.metadata_path) {
-      $("modal-frames-status").textContent = "No metadata file listed for this target.";
-      return Promise.resolve();
-    }
-    const cached = state.metadataCache.get(t.target_id);
-    if (cached) {
-      renderFrames(t, cached);
-      return Promise.resolve();
-    }
-    $("modal-frames-status").textContent = "Loading metadata.json…";
-    return fetch(relRoot(t.metadata_path))
-      .then((resp) => {
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        return resp.json();
-      })
-      .then((metadata) => {
-        state.metadataCache.set(t.target_id, metadata);
-        if (token === state.modalToken && state.modalId === t.target_id) renderFrames(t, metadata);
-      })
-      .catch((err) => {
-        if (token === state.modalToken && state.modalId === t.target_id) {
-          $("modal-frames-status").textContent = `Could not load metadata.json (${err && err.message ? err.message : "network error"}).`;
-        }
-      });
-  }
-
   function renderModal() {
     const t = state.byId.get(state.modalId);
     if (!t) return;
@@ -549,8 +408,10 @@
     badgesFor(t).forEach((b) => { if (b) badges.appendChild(b); });
     $("modal-title").textContent = t.display_id;
 
-    const subParts = isCatalogFigure(t)
-      ? [t.object_class, "Multi-epoch Rubin DP2 detection figure (sky track, photometry, orbit residuals)", t.surveys.join(", ")]
+    const subParts = isZtfRubinFigure(t)
+      ? [t.object_class, "Palomar ZTF real telescope exposures & shift-and-stack + Rubin DP2 multi-epoch detections"]
+      : isCatalogFigure(t)
+      ? [t.object_class, "Rubin DP2 multi-epoch detections (sky track, photometry, orbit residuals)"]
       : [
           t.object_class,
           plural(t.n_frames, "real archival frame", "real archival frames"),
@@ -560,8 +421,6 @@
         ];
     $("modal-sub").textContent = subParts.filter(Boolean).join(" · ");
 
-    const idx = state.visible.findIndex((x) => x.target_id === t.target_id);
-    $("modal-pos").textContent = idx >= 0 ? `${idx + 1} / ${state.visible.length}` : "outside current filters";
     $("modal-prev").disabled = state.visible.length < 2;
     $("modal-next").disabled = state.visible.length < 2;
 
@@ -572,12 +431,6 @@
     if (t.contact_sheet_pdf_path) {
       links.appendChild(linkButton("Open Full Vector Figure (PDF) ↗", relRoot(t.contact_sheet_pdf_path)));
     }
-    if (t.metadata_path) {
-      links.appendChild(linkButton("Raw metadata.json", relRoot(t.metadata_path)));
-    }
-
-    renderDigests(t);
-    loadMetadata(t);
   }
 
   function openModal(targetId) {
@@ -595,7 +448,6 @@
   function closeModal() {
     if (!state.modalId) return;
     state.modalId = null;
-    state.modalToken += 1;
     $("modal").hidden = true;
     const pdf = $("modal-pdf");
     if (pdf) pdf.setAttribute("src", "about:blank");

@@ -35,7 +35,6 @@ Every surviving body is a candidate that awaits a Minor Planet Center designatio
 | `movie_gallery/` | Companion vector detection figure gallery (`contact_sheet.pdf`) |
 | `outputs/movies/` | Figure manifest, Cyclic Zoom vector detection figures (`contact_sheet.pdf`) and preview thumbnails |
 | `outputs/real_cutouts/` | Cutout manifest and one `metadata.json` per target |
-| `outputs/manuscript_regenerated/ms.pdf` | Compiled manuscript |
 | `outputs/real_cutout_atlases/` | Vector cutout and photometry atlases |
 | `data/audit_verdicts/` | Verdict ledgers of the independent audit |
 

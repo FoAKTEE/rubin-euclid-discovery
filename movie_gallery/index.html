@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="Publication-grade vector detection figures (contact_sheet.pdf) for every Vibe Discovery Solar System candidate and faint high-proper-motion star." />
   <meta name="twitter:image" content="https://foaktee.github.io/rubin-euclid-discovery/og-thumbnail.png" />
   <meta name="twitter:image:alt" content="Vibe Discovery logo" />
-  <link rel="stylesheet" href="styles.css?v=20261125pdf" />
+  <link rel="stylesheet" href="styles.css?v=20261125clean" />
 </head>
 <body>
   <header class="topbar">
@@ -42,30 +42,11 @@
     <div class="gallery-hero-inner">
       <div class="hero-tag">Vibe Discovery · Vector Detection Figures</div>
       <h1 class="brand-title">Detection Figure Gallery</h1>
-      <p class="hero-sub">Publication-grade vector detection figures (<code>contact_sheet.pdf</code>) for every Solar System candidate and faint high-proper-motion star — zoomed real archival exposures and multi-epoch Rubin DP2 detection tracks.</p>
+      <p class="hero-sub">Publication-grade vector detection figures (<code>contact_sheet.pdf</code>) for every Solar System candidate and faint high-proper-motion star.</p>
     </div>
   </section>
 
   <main class="page">
-    <section class="provenance" aria-label="Summary">
-      <div class="prov-stat prov-lead">
-        <span class="prov-value" id="stat-showing">–</span>
-        <span class="prov-label" id="stat-showing-label">figures shown</span>
-      </div>
-      <div class="prov-stat">
-        <span class="prov-value" id="stat-frames">–</span>
-        <span class="prov-label">real archival frames</span>
-      </div>
-      <div class="prov-stat">
-        <span class="prov-value" id="stat-single">–</span>
-        <span class="prov-label">single exposures</span>
-      </div>
-      <div class="prov-stat">
-        <span class="prov-value">PDF</span>
-        <span class="prov-label">vector figure format</span>
-      </div>
-    </section>
-
     <section class="filters" aria-label="Filters">
       <div class="filter-row">
         <span class="filter-label" id="group-label">Group</span>
@@ -92,19 +73,6 @@
 
     <p class="status" id="status" role="status" aria-live="polite">Loading detection figures…</p>
     <section class="grid" id="grid" aria-label="Detection figures"></section>
-
-    <footer class="page-footer">
-      <p>
-        Every figure is generated exclusively from real public survey measurements and archival exposures: ESA Euclid DR1
-        (VIS and MER), CTIO DECam, Vera C. Rubin Observatory DP1 and DP2, and Legacy Surveys DR10.
-      </p>
-      <p>
-        Data &amp; Manuscript:
-        <a href="../outputs/movies/movie_gallery_manifest.json">figure manifest</a> ·
-        <a href="../outputs/real_cutouts/real_cutouts_manifest.json">provenance manifest</a> ·
-        <a href="../outputs/manuscript_regenerated/ms.pdf" target="_blank" rel="noopener">full manuscript (PDF)</a>
-      </p>
-    </footer>
   </main>
 
   <div class="modal-backdrop" id="modal" hidden>
@@ -115,11 +83,10 @@
           <h2 id="modal-title">Target</h2>
           <div class="modal-sub" id="modal-sub"></div>
         </div>
-        <div class="modal-nav">
-          <button type="button" class="btn btn-quiet" id="modal-prev" aria-label="Previous target">← Prev</button>
-          <span class="modal-pos" id="modal-pos"></span>
-          <button type="button" class="btn btn-quiet" id="modal-next" aria-label="Next target">Next →</button>
-          <button type="button" class="btn" id="modal-close" aria-label="Close">Close (Esc)</button>
+        <div class="modal-nav" aria-label="Figure navigation">
+          <button type="button" class="icon-btn" id="modal-prev" aria-label="Previous target" title="Previous (←)">←</button>
+          <button type="button" class="icon-btn" id="modal-next" aria-label="Next target" title="Next (→)">→</button>
+          <button type="button" class="icon-btn icon-btn-close" id="modal-close" aria-label="Close" title="Close (Esc)">×</button>
         </div>
       </header>
 
@@ -128,42 +95,10 @@
           <iframe id="modal-pdf" class="pdf-viewer" title="Vector Detection Figure (PDF)"></iframe>
         </div>
         <div class="link-row" id="modal-links"></div>
-
-        <section class="modal-section">
-          <h3>Per-frame archival provenance</h3>
-          <p class="status" id="modal-frames-status" role="status" aria-live="polite"></p>
-          <div class="table-wrap">
-            <table class="frames-table" id="modal-frames" hidden>
-              <thead>
-                <tr>
-                  <th>Frame</th>
-                  <th>Role</th>
-                  <th>Epoch kind</th>
-                  <th>UTC</th>
-                  <th>MJD</th>
-                  <th>Survey · band</th>
-                  <th>Exp. (s)</th>
-                  <th>Scale (″/px)</th>
-                  <th>Aperture S/N</th>
-                  <th>Padded</th>
-                  <th>Centering</th>
-                  <th>Source SHA-256</th>
-                  <th>Archive</th>
-                </tr>
-              </thead>
-              <tbody id="modal-frames-body"></tbody>
-            </table>
-          </div>
-        </section>
-
-        <section class="modal-section">
-          <h3>Figure SHA-256 digests</h3>
-          <dl class="digests" id="modal-digests"></dl>
-        </section>
       </div>
     </div>
   </div>
 
-  <script src="gallery.js?v=20261125pdf"></script>
+  <script src="gallery.js?v=20261125clean"></script>
 </body>
 </html>

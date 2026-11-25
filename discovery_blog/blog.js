@@ -33,12 +33,11 @@ const I18N = {
 
     abstract_heading: "Summary",
     abstract_body:
-      "Large sky surveys release images and catalogs faster than dedicated teams can cross-link them, and each survey processes its own data with a pipeline tuned to one camera, cadence, and science goal. Objects that need two telescopes at once, or that break one pipeline's assumptions, can stay unrecognized in public archives. Here we test whether AI coding agents can find such objects. The agents decompose existing astronomical codes into reusable algorithmic bricks, place more than a dozen ground and space archives behind one observation interface, and join telescopes, instruments, and methods like LEGO blocks wherever a single survey has a predictable blind spot. A second, independent set of agents verifies every candidate from its own archive queries, orbit fits, and archival pixels. Across more than a dozen public archives, 93 Solar System candidates survive that independent check for follow-up: 46 trans-Neptunian objects, a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. They include a distant body whose fitted semimajor axis is about 156.6 astronomical units, a bright trans-Neptunian candidate seen against the Galactic bulge, and two trans-Neptunian candidates with distances measured in a single night between Euclid at the second Lagrange point and the Dark Energy Camera in Chile. On the same interface, joins of Gaia, Euclid, and ground-based surveys recover 25 faint high-proper-motion stars below Gaia's flux limit and measure how often Euclid resolves companions of Gaia stars with excess astrometric noise. Cross-survey joins assembled by coding agents reach objects that single-survey pipelines miss, turning public archives into a modular platform for discovery.",
+      "What happens when you apply \"vibe coding\" principles to observational astronomy? We built an agentic \"vibe discovery\" platform that turns more than a dozen ground- and space-based public archives into a unified, modular workspace. Our agents decompose existing astronomical software into reusable components, bridged blind spots across separate sky surveys, and dispatched an independent fleet of verification agents to audit every candidate against archival pixels and orbit fits. We uncovered 93 solar system candidates—46 trans-Neptunian objects (TNOs), a Centaur, 3 irregular Jovian satellite candidates, and 43 asteroids—plus 25 faint high-proper-motion stars. The searches were built and run with Gemini 4 Carbon.",
 
     hero_cta_primary: "Launch 3D Solar System & Galaxy Explorer ↗",
-    hero_cta_pdf: "Read Full Manuscript (PDF) ↗",
     hero_cta_discoveries: "{{survivors}} Candidate Orbits in 3D ↗",
-    hero_cta_gallery: "{{movie_targets}}-Target Real-Pixel Movie Gallery ↗",
+    hero_cta_gallery: "{{movie_targets}}-Target Detection Figure Gallery ↗",
     hero_cta_playground: "Interactive 3D Studio ↗",
 
     toc_title: "Contents",
@@ -51,6 +50,7 @@ const I18N = {
     toc_moons: "4. Reference-Frame Joins & Physical Tests",
     toc_agents: "5. Dynamic LEGO & Galactic Extension",
     toc_out: "6. Outlook",
+    toc_ack: "Acknowledgements",
     toc_int: "Interactive Sky & L2 Demos",
     toc_ext: "Extended Data Plates",
     toc_s6: "Companion Data",
@@ -76,16 +76,16 @@ const I18N = {
     intro_p2:
       "Machine learning and large language models have entered observational astronomy and automated science along two paths. In astronomy, neural classifiers and anomaly detectors have found exoplanets, asteroid trails in Hubble archives, bright transients, and morphological anomalies across nearly one hundred million Hubble cutouts, and have written textual explanations of transient images. Each of those systems works inside one survey's data format and inherits whatever that survey's pipeline kept or discarded. Outside astronomy, autonomous AI systems have discovered crystal structures, planned robotic chemistry experiments, evolved mathematical programs, and proposed research hypotheses. Those systems rely on closed-world evaluators, physical simulators, or controlled laboratory apparatus. Astronomical archives are open, noisy, and heterogeneous: telescopes observe from the ground, from low Earth orbit, and from the Sun–Earth second Lagrange point (<i>L</i><sub>2</sub>), with mismatched catalogs, rotated detectors, and undocumented processing artifacts.",
     intro_p3:
-      "We test whether AI coding agents can bridge this gap by composing searches from modular parts, an approach we call <strong>vibe discovery</strong> (<a href=\"#fig-pipeline\">Fig. 1</a>). One researcher states the scientific targets, the blind-spot hypotheses, and the acceptance rules in plain language. Agents do the rest of the construction. They read the astronomical literature and open-source codes, decompose each code into tested physical kernels, and wrap every archive behind one standardized observation interface. For each blind spot they load the telescopes, instruments, and algorithmic bricks it requires and join them like LEGO blocks on a shared baseplate. A second set of agents then verifies every candidate independently from a read-only copy of the project.",
+      "We test whether AI coding agents can bridge this gap by composing searches from modular parts, an approach we call <strong>vibe discovery</strong> (<a href=\"#fig-pipeline\">Fig. 1</a>). Human states the scientific targets, the blind-spot hypotheses, and the acceptance rules in plain language. Agents do the rest of the construction. They read the astronomical literature and open-source codes, decompose each code into tested physical kernels, and wrap every archive behind one standardized observation interface. For each blind spot they load the telescopes, instruments, and algorithmic bricks it requires and join them like LEGO blocks on a shared baseplate. A second set of agents then verifies every candidate independently from a read-only copy of the project.",
     intro_p4:
-      "Running this architecture across more than a dozen public archives and verifying every candidate independently yields 93 Solar System candidates for follow-up: 46 trans-Neptunian objects (TNOs), a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. On the same baseplate, the Galactic searches recover 25 faint high-proper-motion stars absent from Gaia and measure how often Euclid resolves companions of Gaia stars with excess astrometric noise. Every Solar System body reported here is a candidate that awaits a Minor Planet Center designation and independent recovery; provisional labels such as <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"DELTA_003\">R25-D03 ↗</a> identify them (<a href=\"../outputs/manuscript_regenerated/ms.pdf\">full manuscript</a> and <a href=\"#sec-ledger\">Companion Data</a>).",
+      "Running this architecture across more than a dozen public archives and verifying every candidate independently yields 93 Solar System candidates for follow-up: 46 trans-Neptunian objects (TNOs), a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. On the same baseplate, the Galactic searches recover 25 faint high-proper-motion stars absent from Gaia and measure how often Euclid resolves companions of Gaia stars with excess astrometric noise. Every Solar System body reported here is a candidate that awaits a Minor Planet Center designation and independent recovery; provisional labels such as <a href=\"#\" target=\"_blank\" rel=\"noopener\" class=\"fly-badge copper js-3d-link\" data-fly-focus=\"DELTA_003\">R25-D03 ↗</a> identify them (<a href=\"#sec-ledger\">Companion Data</a>).",
     fig1_cap:
       "<strong>Figure 1 · Several vantage points and searches assembled from modular blocks.</strong> <strong>a,</strong> Schematic of the ground, low-Earth-orbit, and Sun–Earth <i>L</i><sub>2</sub> observatories used here; the dark-sky backdrop is illustrative artwork. The five stamps beneath it are archival pixels at the positions of five candidates, labeled with instrument, date, and exposure type. <strong>b,</strong> Coding agents decompose archives and open codes into blocks that attach to one observation record; an independent verification pass checks the candidates, with the verified discovery yields at right.",
 
     bs_kicker: "Section 1 · Design Principles",
     bs_title: "Predictable single-survey blind spots",
     bs_p1:
-      "Three ideas organize the work. A single-survey pipeline loses objects wherever its operating assumptions bind, so the losses follow from the pipeline's design. Adding a second telescope, an archival epoch, or a method from another code addresses each loss. Decomposing codes and archives into interchangeable blocks lets coding agents build such joins at the pace of one researcher, and an independent check verifies which candidates stand.",
+      "Three ideas – A single-survey pipeline loses objects wherever its operating assumptions bind, so the losses follow from the pipeline's design. Adding a second telescope, an archival epoch, or a method from another code addresses each loss. Decomposing codes and archives into interchangeable blocks lets coding agents build such joins, and an independent check verifies which candidates stand.",
     bs_p2:
       "Early Rubin data show the first idea at work. Standard linking needs intra-night tracklets, pairs of detections separated by measurable motion within one night. Beyond Neptune a body moves too little across a short revisit, and a night with a single visit yields no tracklet at any brightness. Rubin also separates detections into difference-image (<code>DiaSource</code>) and direct-image (<code>Source</code>) catalogs. Where templates are absent or incomplete, a distant body appears only in the direct-image catalog, so a search of either table alone breaks multi-month arcs. Our search of Rubin data yields 10 TNO candidates with fitted orbits and recovers 14 cataloged distant TNOs without their positions as input. None of these appeared in the data preview's table of linked objects when the search queried it. Most of the recovered controls carry 2025 designations based on Rubin astrometry from other dedicated searches: the data reach such bodies, and the standard linking table omits them.",
     bs_p3:
@@ -147,10 +147,12 @@ const I18N = {
       "Pairing fast agentic construction with an independent verification pass makes the workflow self-contained and reliable: every retained candidate is backed by independent archive queries, refitted orbits, and archival pixels before community follow-up.",
     out_p3:
       "Every body reported here now invites standard community follow-up: astrometry submitted to the Minor Planet Center, recovery at a second opposition by independent telescopes, and spectra of the brightest bodies and of the cool dwarfs. With AI agents writing and composing modular survey software, a single researcher can explore cross-archive parameter spaces across the Solar System and Milky Way while keeping full scientific oversight of the physical evidence.",
-    out_link_ms: "Open Full Manuscript (48-page PDF)",
-    out_link_gallery: "{{movie_targets}}-Target Movie Gallery",
+    out_link_gallery: "{{movie_targets}}-Target Detection Figure Gallery",
     out_link_3d: "Open 3D Explorer",
     out_link_ledger: "Companion Data",
+
+    ack_title: "Acknowledgements",
+    ack_p1: "We gratefully acknowledge Google for supporting this work through the Google Antigravity scientific research program.",
 
     comp_divider_label: "Interactive Demonstrations & Extended Data",
 
@@ -192,7 +194,7 @@ const I18N = {
     ext_kicker: "Extended Data · Multi-Survey Results",
     ext_title: "Extended Data Plates",
     ext_p1:
-      "Click any Extended Data plate below to enlarge it. Single archival frames, static references, and provenance tables for every discovery target and recovery control are served in full resolution in the companion Movie Gallery and Vector Cutout Atlases.",
+      "Click any Extended Data plate below to enlarge it. Vector detection figures for every discovery target and recovery control are served in full resolution in the companion Detection Figure Gallery.",
     realpix_note:
       "<strong>Real archival pixels.</strong> Single exposures, static references, and difference panels where the archive provides them are in the movie gallery: <a href=\"../movie_gallery/index.html?group=group1\">Group I (Rubin and DECam)</a>, <a href=\"../movie_gallery/index.html?group=group2\">Group II (Euclid trans-Neptunian candidates)</a>, <a href=\"../movie_gallery/index.html?group=group5\">Group V (Euclid asteroid candidates)</a>, <a href=\"../movie_gallery/index.html?group=galactic\">Galactic stars</a>, and the <a href=\"../movie_gallery/index.html?group=controls\">two recovery controls</a>.",
     ext_fig1_cap:
@@ -216,8 +218,7 @@ const I18N = {
       "<strong>Verification notes.</strong> <code>EUC-G18</code> (catalog alias <code>EUCLID_EES149_GOLD_18</code>) is the cataloged main-belt asteroid <strong>2019 UM31</strong> (a = 2.60 au, e = 0.31, i = 7.05°, H = 19.3) and serves as the Euclid VIS recovery control beside the Rubin control <strong>2021 QB98</strong>. Asteroid candidates with arcs shorter than a day leave orbits and sizes open. In the SPHEREx spectra the check confirms CO and <sup>12</sup>CO<sub>2</sub> emission in 3I/ATLAS and CO emission in 29P.",
     audit_p3:
       "<strong>Real pixels.</strong> The <a href=\"../movie_gallery/index.html\">movie gallery</a> holds archival image sequences for <strong>{{movie_targets}}</strong> targets: {{movie_discovery_targets}} discovery targets and the {{movie_controls}} recovery controls, in <strong>{{movie_frames}}</strong> real archival frames of which {{movie_single}} are single exposures, with <strong>{{movie_synthetic}}</strong> synthetic frames and {{movie_gaps}} coverage gaps. For {{movie_no_epoch}} of them (eleven Group I targets and the 2021 QB98 control) the archive serves only static deep coadds.",
-    audit_link_gallery: "{{movie_targets}}-Target Movie Gallery",
-    audit_link_ms: "Full Manuscript (PDF)",
+    audit_link_gallery: "{{movie_targets}}-Target Detection Figure Gallery",
     audit_link_verdicts: "Verification Ledgers (JSON)",
 
     s6_title: "Companion Data",
@@ -260,8 +261,7 @@ const I18N = {
     ledger_legend: "<strong>†</strong> Provisional or unconstrained orbit: for arcs shorter than a day, orbit elements and sizes are not determined; sizes elsewhere assume an albedo. Dropped claims ({{eliminated}}: {{eliminated_list}}) have no row.",
 
     footer_hub: "Portal Hub",
-    footer_gallery: "{{movie_targets}}-Target Movie Gallery",
-    footer_ms: "Manuscript PDF",
+    footer_gallery: "{{movie_targets}}-Target Detection Figure Gallery",
     footer_left:
       "Data Credits: ESA Euclid DR1 (MPC 273, NASA/IPAC IRSA), Vera C. Rubin Observatory DP2 (MPC X05), Gaia DR3, CTIO DECam (MPC W84), Legacy Surveys DR10, NASA SPHEREx, WISE/NEOWISE, ASKAP, eROSITA, and MPC ITF.",
     footer_cta: "Open 3D Solar System Explorer ↗",

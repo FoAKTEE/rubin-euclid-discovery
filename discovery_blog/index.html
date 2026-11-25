@@ -57,36 +57,18 @@
       <!-- Principle 2.5: Summary contains strictly zero mathematical symbols, zero Unicode math, and zero equations -->
       <div class="abstract-box">
         <div class="abstract-label" data-i18n="abstract_heading">Summary</div>
-        <p class="abstract-text" data-i18n="abstract_body">Large sky surveys release images and catalogs faster than
-          dedicated teams can cross-link them, and each survey processes its own data with a pipeline tuned to one
-          camera, cadence, and science goal. Objects that need two telescopes at once, or that break one pipeline's
-          assumptions, can stay unrecognized in public archives. Here we test whether AI coding agents can find such
-          objects. The agents decompose existing astronomical codes into reusable algorithmic bricks, place more than a
-          dozen ground and space archives behind one observation interface, and join telescopes, instruments, and
-          methods like LEGO blocks wherever a single survey has a predictable blind spot. A second, independent set of
-          agents verifies every candidate from its own archive queries, orbit fits, and archival pixels. Across more
-          than a dozen public archives, 93 Solar System candidates survive that independent check for follow-up: 46
-          trans-Neptunian objects, a Centaur, 3 candidate irregular satellites of Jupiter, and 43 asteroids. They
-          include a distant body whose fitted semimajor axis is about 156.6 astronomical units, a bright trans-Neptunian
-          candidate seen against the Galactic bulge, and two trans-Neptunian candidates with distances measured in a
-          single night between Euclid at the second Lagrange point and the Dark Energy Camera in Chile. On the same
-          interface, joins of Gaia, Euclid, and ground-based surveys recover 25 faint high-proper-motion stars below
-          Gaia's flux limit and measure how often Euclid resolves companions of Gaia stars with excess astrometric
-          noise. Cross-survey joins assembled by coding agents reach objects that single-survey pipelines miss, turning
-          public archives into a modular platform for discovery.</p>
+        <p class="abstract-text" data-i18n="abstract_body">What happens when you apply &ldquo;vibe coding&rdquo; principles to observational astronomy? We built an agentic &ldquo;vibe discovery&rdquo; platform that turns more than a dozen ground- and space-based public archives into a unified, modular workspace. Our agents decompose existing astronomical software into reusable components, bridged blind spots across separate sky surveys, and dispatched an independent fleet of verification agents to audit every candidate against archival pixels and orbit fits. We uncovered 93 solar system candidates—46 trans-Neptunian objects (TNOs), a Centaur, 3 irregular Jovian satellite candidates, and 43 asteroids—plus 25 faint high-proper-motion stars. The searches were built and run with Gemini 4 Carbon.</p>
       </div>
 
       <!-- Primary Navigation Links -->
       <div class="hero-cta-row">
         <a href="../eyes_3d/index.html" target="_blank" rel="noopener" class="btn-hero-3d js-3d-link" data-fly-root="1"
           data-i18n="hero_cta_primary">Launch 3D Solar System &amp; Galaxy Explorer ↗</a>
-        <a href="../outputs/manuscript_regenerated/ms.pdf" target="_blank" rel="noopener" class="btn-hero-secondary"
-          data-i18n="hero_cta_pdf">Read Full Manuscript (PDF) ↗</a>
         <a href="../eyes_3d/index.html?category=discoveries" target="_blank" rel="noopener"
           class="btn-hero-secondary js-3d-link" data-fly-cat="discoveries" data-i18n="hero_cta_discoveries">93 Candidate
           Orbits in 3D ↗</a>
         <a href="../movie_gallery/index.html" class="btn-hero-secondary" data-i18n="hero_cta_gallery">96-Target
-          Real-Pixel Movie Gallery ↗</a>
+          Detection Figure Gallery ↗</a>
         <a href="../eyes_3d/studio.html" target="_blank" rel="noopener" class="btn-hero-secondary js-3d-link"
           data-playground="1" data-i18n="hero_cta_playground">Interactive 3D Studio ↗</a>
       </div>
@@ -113,6 +95,7 @@
         <li><a href="#sec-agents" class="toc-link" data-i18n="toc_agents">5. Dynamic LEGO &amp; Galactic Extension</a>
         </li>
         <li><a href="#sec-outlook" class="toc-link" data-i18n="toc_out">6. Outlook</a></li>
+        <li><a href="#sec-acknowledgements" class="toc-link" data-i18n="toc_ack">Acknowledgements</a></li>
       </ul>
       <div class="toc-group-label" data-i18n="toc_grp_comp">Interactive &amp; Data</div>
       <ul class="toc-list">
@@ -197,8 +180,7 @@
             Sun–Earth second Lagrange point (<i>L</i><sub>2</sub>), with mismatched catalogs, rotated detectors, and
             undocumented processing artifacts.</p>
           <p data-i18n-html="intro_p3">We test whether AI coding agents can bridge this gap by composing searches from
-            modular parts, an approach we call <strong>vibe discovery</strong> (<a href="#fig-pipeline">Fig. 1</a>). One
-            researcher states the scientific targets, the blind-spot hypotheses, and the acceptance rules in plain
+            modular parts, an approach we call <strong>vibe discovery</strong> (<a href="#fig-pipeline">Fig. 1</a>). Human states the scientific targets, the blind-spot hypotheses, and the acceptance rules in plain
             language. Agents do the rest of the construction. They read the astronomical literature and open-source
             codes, decompose each code into tested physical kernels, and wrap every archive behind one standardized
             observation interface. For each blind spot they load the telescopes, instruments, and algorithmic bricks it
@@ -211,8 +193,7 @@
             resolves companions of Gaia stars with excess astrometric noise. Every Solar System body reported here is a
             candidate that awaits a Minor Planet Center designation and independent recovery; provisional labels such as
             <a href="../eyes_3d/index.html?focus=DELTA_003" target="_blank" rel="noopener"
-              class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> identify them (<a
-              href="../outputs/manuscript_regenerated/ms.pdf">full manuscript</a> and <a href="#sec-ledger">Companion
+              class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> identify them (<a href="#sec-ledger">Companion
               Data</a>).
           </p>
         </div>
@@ -238,10 +219,10 @@
         <div class="prose">
           <span class="sec-num" data-i18n="bs_kicker">Section 1 · Design Principles</span>
           <h2 data-i18n="bs_title">Predictable single-survey blind spots</h2>
-          <p data-i18n-html="bs_p1">Three ideas organize the work. A single-survey pipeline loses objects wherever its
+          <p data-i18n-html="bs_p1">Three ideas – A single-survey pipeline loses objects wherever its
             operating assumptions bind, so the losses follow from the pipeline's design. Adding a second telescope, an
             archival epoch, or a method from another code addresses each loss. Decomposing codes and archives into
-            interchangeable blocks lets coding agents build such joins at the pace of one researcher, and an independent
+            interchangeable blocks lets coding agents build such joins, and an independent
             check verifies which candidates stand.</p>
           <p data-i18n-html="bs_p2">Early Rubin data show the first idea at work. Standard linking needs intra-night
             tracklets, pairs of detections separated by measurable motion within one night. Beyond Neptune a body moves
@@ -328,7 +309,7 @@
           </p>
           <p data-i18n-html="tri_p3">Where no archival image exists, a spacecraft and a ground telescope observing at
             the same time replace months of orbital motion with parallax. Euclid orbits the Sun–Earth
-            <i>L</i><sub>2</sub> point, about $1.5 imes 10^6$ km from Cerro Tololo in Chile. A distant body imaged from
+            <i>L</i><sub>2</sub> point, about 1.5 × 10<sup>6</sup> km from Cerro Tololo in Chile. A distant body imaged from
             both sites within one night shifts on the sky between the two viewpoints by an angle that gives its distance
             (<a href="#parallax-widget">interactive triangulation slider</a>). Two Euclid candidates, <a
               href="../eyes_3d/index.html?focus=EUC0005" target="_blank" rel="noopener" class="fly-badge js-3d-link"
@@ -499,14 +480,21 @@
             software, a single researcher can explore cross-archive parameter spaces across the Solar System and Milky
             Way while keeping full scientific oversight of the physical evidence.</p>
           <div class="audit-link-row">
-            <a href="../outputs/manuscript_regenerated/ms.pdf" target="_blank" rel="noopener" class="fly-badge"
-              data-i18n="out_link_ms">Open Full Manuscript (48-page PDF)</a>
-            <a href="../movie_gallery/index.html" class="fly-badge emerald" data-i18n="out_link_gallery">96-Target Movie
-              Gallery</a>
+            <a href="../movie_gallery/index.html" class="fly-badge emerald" data-i18n="out_link_gallery">96-Target
+              Detection Figure Gallery</a>
             <a href="../eyes_3d/index.html" target="_blank" rel="noopener" class="fly-badge copper js-3d-link"
               data-fly-root="1" data-i18n="out_link_3d">Open 3D Explorer</a>
             <a href="#sec-ledger" class="fly-badge" data-i18n="out_link_ledger">Companion Data</a>
           </div>
+        </div>
+      </section>
+
+      <!-- Acknowledgements -->
+      <section class="paper-section" id="sec-acknowledgements">
+        <div class="prose">
+          <h2 data-i18n="ack_title">Acknowledgements</h2>
+          <p data-i18n="ack_p1">We gratefully acknowledge Google for supporting this work through the Google Antigravity
+            scientific research program.</p>
         </div>
       </section>
 
@@ -647,9 +635,9 @@
         <div class="prose">
           <span class="sec-num" data-i18n="ext_kicker">Extended Data · Multi-Survey Results</span>
           <h2 data-i18n="ext_title">Extended Data Plates</h2>
-          <p data-i18n="ext_p1">Click any Extended Data plate below to enlarge it. Single archival frames, static
-            references, and provenance tables for every discovery target and recovery control are served in full
-            resolution in the companion Movie Gallery and Vector Cutout Atlases.</p>
+          <p data-i18n="ext_p1">Click any Extended Data plate below to enlarge it. Vector detection figures for every
+            discovery target and recovery control are served in full resolution in the companion Detection Figure
+            Gallery.</p>
         </div>
 
         <div class="realpix-callout" data-i18n-html="realpix_note"><strong>Real archival pixels.</strong> Single
@@ -874,9 +862,7 @@
                 the 2021 QB98 control) the archive serves only static deep coadds.</p>
               <div class="audit-link-row">
                 <a href="../movie_gallery/index.html" class="fly-badge emerald" data-i18n="audit_link_gallery">96-Target
-                  Movie Gallery</a>
-                <a href="../outputs/manuscript_regenerated/ms.pdf" target="_blank" rel="noopener" class="fly-badge"
-                  data-i18n="audit_link_ms">Full Manuscript (PDF)</a>
+                  Detection Figure Gallery</a>
                 <a href="../data/audit_verdicts/brain1_euclid_verdicts.json" target="_blank" rel="noopener"
                   class="fly-badge copper" data-i18n="audit_link_verdicts">Verification Ledgers (JSON)</a>
               </div>
@@ -896,10 +882,8 @@
         MPC ITF.</div>
       <div class="footer-links">
         <a href="../index.html" class="fly-badge copper" data-i18n="footer_hub">Portal Hub</a>
-        <a href="../outputs/manuscript_regenerated/ms.pdf" target="_blank" rel="noopener" class="fly-badge"
-          data-i18n="footer_ms">Manuscript PDF</a>
-        <a href="../movie_gallery/index.html" class="fly-badge emerald" data-i18n="footer_gallery">96-Target Movie
-          Gallery</a>
+        <a href="../movie_gallery/index.html" class="fly-badge emerald" data-i18n="footer_gallery">96-Target Detection
+          Figure Gallery</a>
         <a href="../eyes_3d/index.html" target="_blank" rel="noopener" class="fly-badge js-3d-link" data-fly-root="1"
           data-i18n="footer_cta">Open 3D Solar System Explorer ↗</a>
       </div>
@@ -915,7 +899,7 @@
     <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
 
-  <script src="blog.js?v=20261125a"></script>
+  <script src="blog.js?v=20261125b"></script>
 </body>
 
 </html>

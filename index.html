@@ -756,8 +756,6 @@
           </p>
           <div class="actions">
             <a class="btn primary" href="./discovery_blog/index.html">Read Research Blog →</a>
-            <a class="btn" href="./outputs/manuscript_regenerated/ms.pdf" target="_blank" rel="noopener">Manuscript PDF
-              (<span data-k="ms_pages">48</span> pp.) ↗</a>
           </div>
         </article>
 
@@ -780,10 +778,10 @@
     </section>
 
     <section class="content-sec" id="featured">
-      <span class="sec-kicker">Real Archival Pixels</span>
+      <span class="sec-kicker">Vector Detection Figures</span>
       <h2>Highlighted Discoveries</h2>
-      <p class="section-note">Real multi-epoch archival contact sheets for four standout outer-Solar-System candidates.
-        Click any card to inspect the animated archival sequence.</p>
+      <p class="section-note">Publication-grade vector detection figures for four standout outer-Solar-System candidates.
+        Click any card to open <code>contact_sheet.pdf</code>.</p>
       <div class="strip" id="featured-strip">
         <a class="target" href="./movie_gallery/index.html?target=R25-D03" data-target="R25-D03">
           <div class="target-thumb">R25-D03</div>
@@ -894,7 +892,9 @@
           }
           var meta = card.querySelector(".target-meta");
           if (meta) {
-            meta.textContent = m.n_frames + " archival frames · " + m.n_single_epoch_frames + " single exposures";
+            meta.textContent = m.figure_mode === "rubin_catalog_detection"
+              ? "Rubin DP2 multi-epoch detections · Vector PDF"
+              : (m.n_frames + " archival frames · Vector PDF");
           }
         }
       }
