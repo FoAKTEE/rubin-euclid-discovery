@@ -1,74 +1,147 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rubin / Euclid Multi-Archive Discovery Portal</title>
+  <title>Vibe Discovery — Cross-Survey Astronomy Portal</title>
   <meta name="description"
-    content="Audited Solar System candidates from Rubin, Euclid and a dozen further archives: 93 survivors of an independent audit, real archival pixels for 96 targets, the manuscript, cutout atlases and the audit verdict ledgers." />
+    content="Vibe Discovery: AI-assembled cross-survey searches across Vera C. Rubin Observatory, ESA Euclid, DECam, Gaia, and a dozen public archives — 93 Solar System candidates, 25 faint high-proper-motion stars, interactive 3D Explorer, and real archival pixels." />
   <style>
-    /* Self-contained page: no external stylesheet, font or script. Dark first; data-theme="light" flips it. */
-    :root {
-      --bg: #09090b;
-      --bg-raise: #121215;
-      --bg-card: #16161a;
-      --bg-inset: #0e0e11;
-      --line: #27272a;
-      --line-strong: #3f3f46;
-      --text: #f4f4f5;
-      --text-2: #d4d4d8;
-      --text-3: #8e8e96;
-      --accent: #e4e4e7;
-      --accent-soft: rgba(255, 255, 255, 0.10);
-      --ok: #3ea87c;
-      --ok-soft: rgba(62, 168, 124, 0.14);
-      --warn: #d99b26;
-      --warn-soft: rgba(217, 155, 38, 0.14);
-      --bad: #d97757;
-      --bad-soft: rgba(217, 119, 87, 0.14);
-      --quiet: #a1a1aa;
-      --quiet-soft: rgba(161, 161, 170, 0.14);
-      --stamp-bg: #f4f1ea;
-      --radius: 10px;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+    /* Self-contained hub: Computer Modern Serif + UISDC 626956 Palette 1 (matches Vibe Discovery blog). */
+    @font-face {
+      font-family: "CMU Serif";
+      src: url("./discovery_blog/assets/fonts/cmu-serif-roman.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
 
-    [data-theme="light"] {
-      --bg: #f6f4ef;
+    @font-face {
+      font-family: "CMU Serif";
+      src: url("./discovery_blog/assets/fonts/cmu-serif-roman.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "CMU Serif";
+      src: url("./discovery_blog/assets/fonts/cmu-serif-italic.woff2") format("woff2");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "CMU Serif";
+      src: url("./discovery_blog/assets/fonts/cmu-serif-italic.woff2") format("woff2");
+      font-weight: 500;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "CMU Serif";
+      src: url("./discovery_blog/assets/fonts/cmu-serif-bold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "CMU Serif";
+      src: url("./discovery_blog/assets/fonts/cmu-serif-bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "CMU Serif";
+      src: url("./discovery_blog/assets/fonts/cmu-serif-bolditalic.woff2") format("woff2");
+      font-weight: 600;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "CMU Serif";
+      src: url("./discovery_blog/assets/fonts/cmu-serif-bolditalic.woff2") format("woff2");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    :root {
+      --c-pine: #065758;
+      --c-teal: #00999F;
+      --c-mint: #BCEDD8;
+      --c-lemon: #FEEE30;
+      --c-sky: #81D2E3;
+
+      --bg: #f4faf9;
       --bg-raise: #ffffff;
       --bg-card: #ffffff;
-      --bg-inset: #f0ede6;
-      --line: #ddd8cc;
-      --line-strong: #c3bcad;
-      --text: #171a1f;
-      --text-2: #424a55;
-      --text-3: #68717e;
-      --accent: #1b4d89;
-      --accent-soft: rgba(27, 77, 137, 0.1);
-      --ok: #196b4d;
-      --ok-soft: rgba(25, 107, 77, 0.1);
-      --warn: #8a5a05;
-      --warn-soft: rgba(148, 98, 10, 0.12);
-      --bad: #a83d1e;
-      --bad-soft: rgba(181, 68, 34, 0.1);
-      --quiet: #5c6673;
-      --quiet-soft: rgba(67, 74, 84, 0.08);
+      --bg-inset: #e7f4f2;
+      --line: #c8e5e2;
+      --line-strong: #8fc8cc;
+      --text: #063839;
+      --text-2: #1e5355;
+      --text-3: #4b797b;
+      --text-on-accent: #ffffff;
+
+      --accent: #065758;
+      --accent-hover: #00999F;
+      --accent-soft: rgba(188, 237, 216, 0.45);
+      --sky-soft: rgba(129, 210, 227, 0.26);
+      --lemon-soft: rgba(254, 238, 48, 0.40);
       --stamp-bg: #ffffff;
+      --shadow-sm: 0 1px 3px rgba(6, 87, 88, 0.06);
+      --shadow-md: 0 8px 24px rgba(6, 87, 88, 0.10);
+
+      --radius-sm: 4px;
+      --radius: 7px;
+      --header-height: 62px;
+      --font: "CMU Serif", "Computer Modern Serif", "Latin Modern Roman", Georgia, serif;
     }
 
-    * {
+    [data-theme="dark"] {
+      --bg: #041718;
+      --bg-raise: #072325;
+      --bg-card: #072325;
+      --bg-inset: #0a2e31;
+      --line: #134447;
+      --line-strong: #1e6266;
+      --text: #eefaf8;
+      --text-2: #bce2df;
+      --text-3: #7cb4b7;
+      --text-on-accent: #041718;
+
+      --accent: #81D2E3;
+      --accent-hover: #BCEDD8;
+      --accent-soft: rgba(129, 210, 227, 0.16);
+      --sky-soft: rgba(0, 153, 159, 0.22);
+      --lemon-soft: #FEEE30;
+      --stamp-bg: #f4faf9;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
+      --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.58);
+    }
+
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
     html {
-      color-scheme: dark;
+      color-scheme: light;
+      font-size: 17px;
       scroll-behavior: smooth;
     }
 
-    [data-theme="light"] {
-      color-scheme: light;
+    [data-theme="dark"] {
+      color-scheme: dark;
     }
 
     body {
@@ -76,8 +149,18 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.55;
+      line-height: 1.66;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    button,
+    input,
+    select,
+    textarea,
+    code {
+      font-family: var(--font);
     }
 
     a {
@@ -85,362 +168,397 @@
     }
 
     a:hover {
+      color: var(--accent-hover);
       text-decoration: none;
     }
 
-    code {
-      font-family: var(--mono);
-      font-size: 0.88em;
-    }
-
     :focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--c-teal);
       outline-offset: 2px;
     }
 
     .wrap {
-      max-width: 1240px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 0 22px;
+      padding: 0 24px;
     }
 
+    /* Sticky Masthead */
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 10;
-      background: var(--bg-raise);
+      z-index: 100;
+      min-height: var(--header-height);
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
     }
 
+    .topbar::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        var(--c-pine) 0% 24%,
+        var(--c-teal) 24% 48%,
+        var(--c-mint) 48% 68%,
+        var(--c-lemon) 68% 82%,
+        var(--c-sky) 82% 100%
+      );
+    }
+
     .topbar .wrap {
+      min-height: var(--header-height);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 14px;
+      justify-content: flex-end;
+      gap: 12px;
       flex-wrap: wrap;
-      padding-top: 12px;
-      padding-bottom: 12px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    .brand-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--ok);
-      box-shadow: 0 0 14px var(--ok);
+      padding-top: 8px;
+      padding-bottom: 8px;
     }
 
     .topnav {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
-    .topnav a,
-    .theme-toggle {
+    .topnav a {
       font: inherit;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--text-2);
       text-decoration: none;
-      background: transparent;
-      border: 1px solid var(--line);
-      border-radius: 8px;
       padding: 6px 11px;
-      cursor: pointer;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
     }
 
-    .topnav a:hover,
+    .topnav a:hover {
+      color: var(--text);
+      background: var(--accent-soft);
+      border-color: var(--line);
+    }
+
+    .topnav a.nav-cta-3d {
+      background: var(--accent);
+      color: var(--text-on-accent);
+      border-color: var(--accent);
+      padding: 7px 14px;
+    }
+
+    .topnav a.nav-cta-3d:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: var(--text-on-accent);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle {
+      appearance: none;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-2);
+      background: var(--bg-raise);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      padding: 6px 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
     .theme-toggle:hover {
       color: var(--text);
       border-color: var(--accent);
     }
 
-    .hero {
-      padding: 46px 0 22px;
+    /* Hero Banner */
+    .hero-band {
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #d8efec 0%, #eaf7f5 50%, var(--bg) 100%);
+      padding: 60px 0 46px;
+    }
+
+    [data-theme="dark"] .hero-band {
+      background: linear-gradient(180deg, #062b2d 0%, #051e20 55%, var(--bg) 100%);
     }
 
     .kicker {
-      font-size: 0.76rem;
+      display: inline-block;
+      font-size: 0.74rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--ok);
+      color: var(--c-pine);
+      background: var(--lemon-soft);
+      padding: 2px 10px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+    }
+
+    [data-theme="dark"] .kicker {
+      color: #041718;
     }
 
     h1 {
-      margin: 8px 0 12px;
-      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      margin: 0 0 10px;
+      font-size: clamp(2.1rem, 4vw, 2.9rem);
       line-height: 1.15;
-      letter-spacing: -0.01em;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--c-pine);
+    }
+
+    [data-theme="dark"] h1 {
+      color: var(--c-mint);
+    }
+
+    .byline {
+      margin: 0 0 20px;
+      font-size: 0.94rem;
+      color: var(--text-2);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      align-items: center;
+    }
+
+    .byline .affil {
+      color: var(--c-teal);
+    }
+
+    [data-theme="dark"] .byline .affil {
+      color: var(--c-sky);
     }
 
     .lede {
-      max-width: 860px;
-      margin: 0;
-      font-size: 1.06rem;
-      color: var(--text-2);
+      max-width: 820px;
+      margin: 0 0 28px;
+      font-size: 1.04rem;
+      line-height: 1.72;
+      color: var(--text);
     }
 
-    .live {
-      margin-top: 14px;
-      font-size: 0.82rem;
-      color: var(--text-3);
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 2px 10px;
-      background: var(--bg-inset);
-    }
-
-    .pill.ok {
-      border-color: var(--ok);
-      color: var(--ok);
-    }
-
-    .pill.off {
-      border-color: var(--line-strong);
-      color: var(--text-3);
-    }
-
+    /* Positive KPI Cards */
     .kpis {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 12px;
-      margin: 18px 0 8px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
     }
 
     .kpi {
       background: var(--bg-card);
       border: 1px solid var(--line);
+      border-top: 3px solid var(--c-mint);
       border-radius: var(--radius);
-      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-sm);
+      padding: 18px 20px 16px;
+    }
+
+    [data-theme="dark"] .kpi {
+      border-top-color: var(--line-strong);
     }
 
     .kpi.lead {
-      border-color: var(--ok);
-      background: linear-gradient(180deg, var(--ok-soft), transparent 70%), var(--bg-card);
+      border-top: 3px solid var(--c-teal);
     }
 
     .kpi-value {
-      font-size: 2.5rem;
-      font-weight: 750;
-      line-height: 1;
+      font-size: 2.35rem;
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--c-pine);
       font-variant-numeric: tabular-nums;
       letter-spacing: -0.02em;
     }
 
+    [data-theme="dark"] .kpi-value {
+      color: var(--c-mint);
+    }
+
     .kpi-label {
-      margin-top: 8px;
-      font-size: 0.98rem;
+      margin-top: 6px;
+      font-size: 0.96rem;
       font-weight: 700;
+      color: var(--text);
     }
 
     .kpi-note {
-      margin-top: 6px;
-      font-size: 0.86rem;
-      color: var(--text-2);
+      margin-top: 5px;
+      font-size: 0.84rem;
+      color: var(--text-3);
+      line-height: 1.48;
     }
 
-    .bar-block {
-      margin: 14px 0 6px;
+    /* Sections */
+    section.content-sec {
+      padding: 40px 0 6px;
     }
 
-    .stack {
-      display: flex;
-      height: 16px;
-      border-radius: 8px;
-      overflow: hidden;
-      gap: 2px;
-      background: var(--bg);
-    }
-
-    .stack span {
+    .sec-kicker {
       display: block;
-      min-width: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--c-teal);
+      margin-bottom: 4px;
     }
 
-    .seg-survivor {
-      background: var(--ok);
-    }
-
-    .seg-disputed {
-      background: var(--warn);
-    }
-
-    .seg-eliminated {
-      background: var(--bad);
-    }
-
-    .seg-catalogued {
-      background: var(--quiet);
-    }
-
-    .legend {
-      display: flex;
-      gap: 6px 18px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-      font-size: 0.86rem;
-      color: var(--text-2);
-    }
-
-    .legend i {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      margin-right: 6px;
-      vertical-align: baseline;
-    }
-
-    section {
-      padding: 26px 0 8px;
+    [data-theme="dark"] .sec-kicker {
+      color: var(--c-sky);
     }
 
     h2 {
-      margin: 0 0 6px;
-      font-size: 1.35rem;
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--c-pine);
+    }
+
+    [data-theme="dark"] h2 {
+      color: var(--c-mint);
     }
 
     .section-note {
-      margin: 0 0 16px;
+      margin: 0 0 20px;
       color: var(--text-2);
       font-size: 0.95rem;
-      max-width: 900px;
+      max-width: 780px;
     }
 
+    /* Two-Portal Grid */
     .portals {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 18px;
     }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--line);
+      border-top: 3px solid var(--c-teal);
       border-radius: var(--radius);
-      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      padding: 24px 24px 22px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
     }
 
-    .card.featured {
-      grid-column: 1 / -1;
-      border-color: var(--ok);
+    .card:hover {
+      border-color: var(--c-teal);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
     }
 
     .card h3 {
       margin: 0;
-      font-size: 1.12rem;
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--c-pine);
+    }
+
+    [data-theme="dark"] .card h3 {
+      color: var(--c-mint);
     }
 
     .card p {
       margin: 0;
       color: var(--text-2);
-      font-size: 0.94rem;
+      font-size: 0.95rem;
+      line-height: 1.64;
     }
 
     .tag {
       align-self: flex-start;
       font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--ok);
-      border: 1px solid var(--ok);
-      background: var(--ok-soft);
-      border-radius: 5px;
-      padding: 2px 8px;
+      color: var(--c-pine);
+      background: var(--accent-soft);
+      border: 1px solid color-mix(in srgb, var(--c-teal) 40%, transparent);
+      border-radius: var(--radius-sm);
+      padding: 2px 9px;
     }
 
-    .tag.blue {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: var(--accent-soft);
+    [data-theme="dark"] .tag {
+      color: var(--c-mint);
+    }
+
+    .tag.sky {
+      background: var(--sky-soft);
+      border-color: color-mix(in srgb, var(--c-sky) 65%, transparent);
+    }
+
+    [data-theme="dark"] .tag.sky {
+      color: var(--c-sky);
     }
 
     .actions {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
       margin-top: auto;
-      padding-top: 4px;
+      padding-top: 6px;
     }
 
     .btn {
       font: inherit;
       font-size: 0.88rem;
-      font-weight: 650;
+      font-weight: 600;
       text-decoration: none;
-      color: var(--text);
-      background: var(--accent-soft);
-      border: 1px solid var(--accent);
-      border-radius: 8px;
-      padding: 8px 13px;
-      display: inline-block;
+      color: var(--accent);
+      background: var(--bg-raise);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
     }
 
     .btn:hover {
-      filter: brightness(1.15);
+      background: var(--accent-soft);
+      border-color: var(--c-teal);
+      color: var(--text);
     }
 
     .btn.primary {
-      background: var(--ok-soft);
-      border-color: var(--ok);
-    }
-
-    .chips {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      font-size: 0.84rem;
-      font-weight: 600;
-      text-decoration: none;
-      color: var(--text-2);
-      background: var(--bg-inset);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 5px 12px;
-    }
-
-    .chip:hover {
-      color: var(--text);
+      background: var(--accent);
       border-color: var(--accent);
+      color: var(--text-on-accent);
+      font-weight: 700;
     }
 
-    .chip b {
-      font-variant-numeric: tabular-nums;
-      margin-left: 6px;
-      color: var(--text);
+    .btn.primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: var(--text-on-accent);
+      transform: translateY(-1px);
     }
 
+    /* Featured Discovery Strip */
     .strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
     }
 
     .target {
@@ -451,25 +569,26 @@
       background: var(--bg-card);
       border: 1px solid var(--line);
       border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
       overflow: hidden;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
     }
 
     .target:hover {
-      border-color: var(--accent);
-    }
-
-    .target.control {
-      border-color: var(--warn);
+      border-color: var(--c-teal);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
     }
 
     .target-thumb {
       aspect-ratio: 16 / 10;
       background: var(--stamp-bg);
+      border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #68717e;
-      font-size: 0.78rem;
+      color: var(--text-3);
+      font-size: 0.82rem;
     }
 
     .target-thumb img {
@@ -480,7 +599,7 @@
     }
 
     .target-body {
-      padding: 10px 12px 12px;
+      padding: 12px 14px 14px;
       display: flex;
       flex-direction: column;
       gap: 3px;
@@ -488,84 +607,56 @@
 
     .target-name {
       font-weight: 700;
-      font-size: 0.98rem;
+      font-size: 1.04rem;
+      color: var(--c-pine);
+    }
+
+    [data-theme="dark"] .target-name {
+      color: var(--c-mint);
     }
 
     .target-alias {
-      font-family: var(--mono);
-      font-size: 0.74rem;
-      color: var(--text-3);
+      font-size: 0.78rem;
+      color: var(--c-teal);
+      font-weight: 600;
+    }
+
+    [data-theme="dark"] .target-alias {
+      color: var(--c-sky);
     }
 
     .target-class {
-      font-size: 0.82rem;
+      font-size: 0.86rem;
       color: var(--text-2);
     }
 
     .target-meta {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-3);
-    }
-
-    .target-flag {
-      align-self: flex-start;
-      font-size: 0.66rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--warn);
-      border: 1px solid var(--warn);
-      background: var(--warn-soft);
-      border-radius: 4px;
-      padding: 1px 6px;
-    }
-
-    .artifacts {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 14px;
-    }
-
-    .list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 7px;
-      font-size: 0.92rem;
-    }
-
-    .list li {
-      display: flex;
-      gap: 8px;
-      align-items: baseline;
-      flex-wrap: wrap;
-    }
-
-    .list small {
-      color: var(--text-3);
-    }
-
-    .ext {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: var(--text-3);
-      border: 1px solid var(--line-strong);
-      border-radius: 4px;
-      padding: 0 5px;
+      font-variant-numeric: tabular-nums;
     }
 
     footer {
-      margin-top: 30px;
+      margin-top: 52px;
       border-top: 1px solid var(--line);
-      padding: 20px 0 46px;
+      padding: 22px 0 44px;
       color: var(--text-3);
-      font-size: 0.86rem;
+      font-size: 0.84rem;
     }
 
     footer p {
-      margin: 0 0 8px;
-      max-width: 940px;
+      margin: 0 0 6px;
+      max-width: 920px;
+    }
+
+    @media (max-width: 720px) {
+      .hero-band {
+        padding: 40px 0 34px;
+      }
+
+      .portals {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -573,229 +664,144 @@
 <body>
   <header class="topbar">
     <div class="wrap">
-      <div class="brand"><span class="brand-dot" aria-hidden="true"></span><span>Rubin / Euclid Discovery Portal</span>
-      </div>
-      <nav class="topnav" aria-label="Sections">
-        <a href="#portals">Portals</a>
-        <a href="#featured">Featured targets</a>
-        <a href="#artifacts">Manuscript &amp; audit</a>
-        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme">Light
-          theme</button>
+      <nav class="topnav" aria-label="Navigation">
+        <a href="./discovery_blog/index.html">Research Blog</a>
+        <a href="./eyes_3d/index.html" target="_blank" rel="noopener" class="nav-cta-3d">Launch 3D Explorer ↗</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme">◐ Dark</button>
       </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <div class="hero">
-      <div class="kicker">Audited results · real archival pixels</div>
-      <h1>Rubin / Euclid Multi-Archive Discovery Portal</h1>
+  <section class="hero-band">
+    <div class="wrap">
+      <div class="kicker">Vibe Discovery · Cross-Survey Astronomy</div>
+      <h1>Vibe Discovery</h1>
+      <div class="byline">
+        <span>Hai-Yang Wang, Chang Sun</span>
+        <span class="affil">California Institute of Technology</span>
+      </div>
       <p class="lede">
-        Searches assembled across Vera C. Rubin Observatory, ESA Euclid, DECam and a dozen further public archives
-        proposed <span data-k="claims">157</span> Solar System candidates. An independent audit regraded every claim
-        from
-        its own archive queries, orbit fits and pixels. This portal shows what survived, what did not, and the
-        archival images behind each target.
+        AI coding agents decompose community astronomy codes into reusable modular bricks and join more than a dozen
+        public ground and space archives—including Vera C. Rubin Observatory, ESA Euclid, DECam, Gaia, Legacy Surveys,
+        and SPHEREx—to uncover distant Solar System worlds and faint nearby stars that single-survey pipelines miss.
       </p>
-      <div class="live" id="live" aria-live="polite">
-        <span class="pill off" id="live-manifests">manifests: loading</span>
-        <span class="pill off" id="live-catalog">catalogue: loading</span>
-        <span class="pill off" id="live-verdicts">audit ledger: loading</span>
-        <span class="pill off" id="live-api">API: checking</span>
-      </div>
-    </div>
 
-    <div class="kpis" aria-label="Audited key figures">
-      <div class="kpi lead">
-        <div class="kpi-value" data-k="survivors">93</div>
-        <div class="kpi-label">Audited Survivors</div>
-        <div class="kpi-note">
-          from <span data-k="claims">157</span> pre-audit Solar System claims:
-          <span data-k="disputed">17</span> disputed and uncounted, <span data-k="eliminated">6</span> eliminated,
-          <span data-k="catalogued">41</span> matched to catalogued objects
+      <div class="kpis" aria-label="Discovery highlights">
+        <div class="kpi lead">
+          <div class="kpi-value" data-k="survivors">93</div>
+          <div class="kpi-label">Solar System Candidates</div>
+          <div class="kpi-note">
+            <span data-k="tnos">46</span> trans-Neptunian objects · <span data-k="asteroids">43</span> asteroids ·
+            <span data-k="moons">3</span> Jovian moons · <span data-k="centaurs">1</span> Centaur
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-value">25</div>
+          <div class="kpi-label">Faint High-PM Stars</div>
+          <div class="kpi-note">
+            below Gaia's limit · plus 129 of 1,200 high-RUWE Gaia pairs resolved by Euclid within 1″
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-value" data-k="movie_targets">96</div>
+          <div class="kpi-label">Real-Pixel Targets</div>
+          <div class="kpi-note">
+            <span data-k="movie_frames">388</span> real archival frames · <span data-k="movie_single">249</span> single
+            exposures · <span data-k="movie_synthetic">0</span> synthetic
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-value" data-k="objects">265</div>
+          <div class="kpi-label">3D Cosmos Explorer Bodies</div>
+          <div class="kpi-note">
+            JPL N-body Solar System · 82,199 Gaia DR3 stars · relativistic black holes
+          </div>
         </div>
       </div>
-      <div class="kpi">
-        <div class="kpi-value" data-k="movie_targets">96</div>
-        <div class="kpi-label">Real-Pixel Movie Targets</div>
-        <div class="kpi-note">
-          <span data-k="movie_discovery">94</span> discovery targets + <span data-k="movie_controls">2</span> recovery
-          controls (<code>2019 UM31</code> and <code>2021 QB98</code>)
-        </div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-value" data-k="movie_frames">388</div>
-        <div class="kpi-label">Real Archival Frames</div>
-        <div class="kpi-note">
-          <span data-k="movie_single">249</span> single exposures · <span data-k="movie_synthetic">0</span> synthetic ·
-          <span data-k="movie_gaps">0</span> coverage gaps
-        </div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-value"><span data-k="ms_pages">48</span></div>
-        <div class="kpi-label">Page AJ Manuscript</div>
-        <div class="kpi-note">text, tables, macros and figures synced to the audited catalogue</div>
-      </div>
     </div>
+  </section>
 
-    <div class="bar-block" aria-label="How the claims were graded">
-      <div class="stack" role="img" id="claim-bar"
-        aria-label="93 audited survivors, 17 disputed, 6 eliminated, 41 catalogued, out of 157 claims">
-        <span class="seg-survivor" style="flex: 93"></span>
-        <span class="seg-disputed" style="flex: 17"></span>
-        <span class="seg-eliminated" style="flex: 6"></span>
-        <span class="seg-catalogued" style="flex: 41"></span>
-      </div>
-      <div class="legend">
-        <span><i class="seg-survivor"></i><span data-k="survivors">93</span> audited survivors (<span
-            data-k="tnos">46</span> trans-Neptunian, <span data-k="asteroids">43</span> asteroid, <span
-            data-k="moons">3</span> Jovian-satellite and <span data-k="centaurs">1</span> Centaur candidates)</span>
-        <span><i class="seg-disputed"></i><span data-k="disputed">17</span> disputed, not counted</span>
-        <span><i class="seg-eliminated"></i><span data-k="eliminated">6</span> eliminated</span>
-        <span><i class="seg-catalogued"></i><span data-k="catalogued">41</span> catalogued objects, including the
-          control <code>2019 UM31</code></span>
-      </div>
-    </div>
-
-    <section id="portals">
-      <h2>Portals</h2>
-      <p class="section-note">Two interactive views of the same audited catalogue. Every survivor is a candidate that
-        awaits a Minor Planet Center designation and independent recovery.</p>
+  <main class="wrap">
+    <section class="content-sec" id="portals">
+      <span class="sec-kicker">Interactive Portals</span>
+      <h2>Explore Vibe Discovery</h2>
+      <p class="section-note">Read the research blog or fly directly through the Solar System and Milky Way in 3D.</p>
       <div class="portals">
         <article class="card">
           <span class="tag">Research Blog</span>
           <h3>Vibe Discovery</h3>
           <p>
-            Research blog presenting AI-assembled cross-survey discoveries, modular LEGO architecture
-            figures, interactive blink and stereoscopy demos, Extended Data plates, and companion data.
+            How AI coding agents join ground and space archives like dynamically loaded LEGO blocks to close predictable
+            single-survey blind spots—featuring interactive blink and Sun–Earth L<sub>2</sub> parallax demos, Extended
+            Data plates, and the companion catalog.
           </p>
           <div class="actions">
-            <a class="btn primary" href="./discovery_blog/index.html">Read Vibe Discovery</a>
-            <a class="btn" href="./discovery_blog/index.html#sec-ledger">Companion data</a>
+            <a class="btn primary" href="./discovery_blog/index.html">Read Research Blog →</a>
+            <a class="btn" href="./outputs/manuscript_regenerated/ms.pdf" target="_blank" rel="noopener">Manuscript PDF
+              (<span data-k="ms_pages">48</span> pp.) ↗</a>
           </div>
         </article>
 
         <article class="card">
-          <span class="tag blue">WebGL · Three.js</span>
+          <span class="tag sky">3D Explorer · WebGL</span>
           <h3>Eyes on the Cosmos 3D Explorer &amp; Studio</h3>
           <p>
-            Solar System and Milky Way outreach explorer. The Sun, planets and Pluto follow an N-body integration
-            started from JPL ephemeris state vectors, set in a Gaia DR3 Milky Way with black-hole disks, a WGS-84
-            Earth model and NORAD satellites. It holds <span data-k="objects">265</span> catalogued bodies; the
-            <span data-k="survivors">93</span> audited candidates are an opt-in survey layer, hidden until selected.
-            Fitted orbits are display solutions for short arcs.
+            Interactive 3D Solar System and Milky Way explorer built on JPL ephemeris N-body orbits, 82,199 Gaia DR3
+            stars, black-hole accretion disks, and a toggleable layer for all <span data-k="survivors">93</span>
+            candidate orbits alongside the 3D Model Studio.
           </p>
           <div class="actions">
-            <a class="btn primary" href="./eyes_3d/index.html">Open the 3D explorer</a>
-            <a class="btn" href="./eyes_3d/index.html?category=discoveries">Audited candidates</a>
-            <a class="btn" href="./eyes_3d/studio.html">3D studio</a>
+            <a class="btn primary" href="./eyes_3d/index.html" target="_blank" rel="noopener">Launch 3D Explorer ↗</a>
+            <a class="btn" href="./eyes_3d/index.html?category=discoveries" target="_blank" rel="noopener">93 Candidate
+              Orbits ↗</a>
+            <a class="btn" href="./eyes_3d/studio.html" target="_blank" rel="noopener">3D Studio ↗</a>
           </div>
         </article>
       </div>
     </section>
 
-    <section id="featured">
-      <h2>Featured targets</h2>
-      <p class="section-note">Six entry points into the gallery: four audited candidates and the two recovery controls.
-        Thumbnails are the contact sheets of real archival frames.</p>
+    <section class="content-sec" id="featured">
+      <span class="sec-kicker">Real Archival Pixels</span>
+      <h2>Highlighted Discoveries</h2>
+      <p class="section-note">Real multi-epoch archival contact sheets for four standout outer-Solar-System candidates.
+        Click any card to inspect the animated archival sequence.</p>
       <div class="strip" id="featured-strip">
         <a class="target" href="./movie_gallery/index.html?target=R25-D03" data-target="R25-D03">
           <div class="target-thumb">R25-D03</div>
-          <div class="target-body"><span class="target-name">R25-D03</span><span
-              class="target-alias">DELTA_003</span><span class="target-class">Trans-Neptunian object
-              candidate</span><span class="target-meta"></span></div>
+          <div class="target-body">
+            <span class="target-name">R25-D03</span>
+            <span class="target-alias">Detached TNO · a ≈ 156.6 au</span>
+            <span class="target-class">Rubin tracklet-free cross-table discovery</span>
+            <span class="target-meta"></span>
+          </div>
         </a>
         <a class="target" href="./movie_gallery/index.html?target=EUC-S05" data-target="EUC-S05">
           <div class="target-thumb">EUC-S05</div>
-          <div class="target-body"><span class="target-name">EUC-S05</span><span
-              class="target-alias">EUC0005</span><span class="target-class">Euclid trans-Neptunian object
-              candidate</span><span class="target-meta"></span></div>
+          <div class="target-body">
+            <span class="target-name">EUC-S05</span>
+            <span class="target-alias">Euclid <i>L</i><sub>2</sub> × DECam · 35.6 au</span>
+            <span class="target-class">Single-night space–ground parallax TNO</span>
+            <span class="target-meta"></span>
+          </div>
         </a>
         <a class="target" href="./movie_gallery/index.html?target=EUC-S02" data-target="EUC-S02">
           <div class="target-thumb">EUC-S02</div>
-          <div class="target-body"><span class="target-name">EUC-S02</span><span
-              class="target-alias">EUC0002</span><span class="target-class">Euclid trans-Neptunian object
-              candidate</span><span class="target-meta"></span></div>
+          <div class="target-body">
+            <span class="target-name">EUC-S02</span>
+            <span class="target-alias">Euclid <i>L</i><sub>2</sub> × DECam · 34.4 au</span>
+            <span class="target-class">Single-night space–ground parallax TNO</span>
+            <span class="target-meta"></span>
+          </div>
         </a>
         <a class="target" href="./movie_gallery/index.html?target=R25-E02" data-target="R25-E02">
           <div class="target-thumb">R25-E02</div>
-          <div class="target-body"><span class="target-name">R25-E02</span><span
-              class="target-alias">EPS_002</span><span class="target-class">Trans-Neptunian object candidate</span><span
-              class="target-meta"></span></div>
-        </a>
-        <a class="target control" href="./movie_gallery/index.html?target=2019_UM31_recovery_control"
-          data-target="2019_UM31_recovery_control">
-          <div class="target-thumb">2019 UM31</div>
-          <div class="target-body"><span class="target-flag">CONTROL</span><span class="target-name">2019
-              UM31</span><span class="target-alias">EUC-G18 · EUCLID_EES149_GOLD_18</span><span
-              class="target-class">Known main-belt asteroid, Euclid VIS recovery control</span><span
-              class="target-meta"></span></div>
-        </a>
-        <a class="target control" href="./movie_gallery/index.html?target=2021_QB98_recovery_control"
-          data-target="2021_QB98_recovery_control">
-          <div class="target-thumb">2021 QB98</div>
-          <div class="target-body"><span class="target-flag">CONTROL</span><span class="target-name">2021
-              QB98</span><span class="target-alias">Rubin recovery</span><span class="target-class">Known
-              trans-Neptunian object, recovery control</span><span class="target-meta"></span></div>
-        </a>
-      </div>
-    </section>
-
-    <section id="artifacts">
-      <h2>Research artifacts, cutout atlases and independent audit verdicts</h2>
-      <p class="section-note">The manuscript, the vector atlases built from the same archival frames as the gallery, and
-        the raw verdict ledgers of the independent audit.</p>
-      <div class="artifacts">
-        <article class="card">
-          <span class="tag">Manuscript</span>
-          <h3><span data-k="ms_pages">48</span>-page compiled AJ manuscript</h3>
-          <p>Numbers, tables and figures are generated from the audited catalogue and the real-pixel manifests.</p>
-          <div class="actions"><a class="btn primary" href="./outputs/manuscript_regenerated/ms.pdf">Open ms.pdf</a>
+          <div class="target-body">
+            <span class="target-name">R25-E02</span>
+            <span class="target-alias">Galactic Bulge TNO</span>
+            <span class="target-class">Bright outer-Solar-System candidate in low-latitude sky</span>
+            <span class="target-meta"></span>
           </div>
-        </article>
-
-        <article class="card">
-          <span class="tag blue">Vector atlases</span>
-          <h3>Cutout and photometry atlases</h3>
-          <ul class="list">
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_groups1_3_4.pdf">Cutouts
-                · Groups I, III, IV</a></li>
-            <li><span class="ext">PDF</span><a
-                href="./outputs/real_cutout_atlases/fig_cutouts_group2_stereo.pdf">Cutouts · Group II and stereo
-                candidates</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group5_p1.pdf">Cutouts ·
-                Group V, part 1</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_cutouts_group5_p2.pdf">Cutouts ·
-                Group V, part 2</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_groups1_3_4.pdf">Photometry
-                · Groups I, III, IV</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group2.pdf">Photometry ·
-                Group II</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group5_p1.pdf">Photometry ·
-                Group V, part 1</a></li>
-            <li><span class="ext">PDF</span><a href="./outputs/real_cutout_atlases/fig_phot_group5_p2.pdf">Photometry ·
-                Group V, part 2</a></li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <span class="tag blue">Audit ledgers</span>
-          <h3>Raw verdict files of the independent audit</h3>
-          <ul class="list">
-            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain1_euclid_verdicts.json">Euclid
-                asteroids and trans-Neptunian candidates</a> <small id="verdicts-euclid"></small></li>
-            <li><span class="ext">JSON</span><a href="./data/audit_verdicts/brain2_outerss_verdicts.json">Outer Solar
-                System, moons, binaries, spectra</a></li>
-            <li><span class="ext">JSON</span><a
-                href="./data/audit_verdicts/brain3_galactic_integrity_verdicts.json">Galactic searches and data
-                integrity</a></li>
-            <li><span class="ext">JSON</span><a href="./outputs/movies/movie_gallery_manifest.json">Movie gallery
-                manifest</a></li>
-            <li><span class="ext">JSON</span><a href="./outputs/real_cutouts/real_cutouts_manifest.json">Real-cutout
-                manifest</a></li>
-          </ul>
-          <p id="control-note">The Euclid track once listed as <code>EUC-G18</code> is the catalogued main-belt asteroid
-            <code>2019 UM31</code>. It serves as a recovery control and is not a discovery.</p>
-        </article>
+        </a>
       </div>
     </section>
   </main>
@@ -803,32 +809,29 @@
   <footer>
     <div class="wrap">
       <p>
-        Image data: ESA Euclid DR1 (VIS and MER), CTIO DECam via the NOIRLab Astro Data Archive, Vera C. Rubin
-        Observatory DP1 and DP2, and Legacy Surveys DR10. Coadd frames are stamped with the midpoint of their epoch
-        span or labelled as static sky.
+        Data Credits: ESA Euclid DR1 (VIS &amp; MER), Vera C. Rubin Observatory DP1 &amp; DP2, CTIO DECam (NOIRLab Astro
+        Data Archive), Gaia DR3, Legacy Surveys DR10, NASA SPHEREx, and the Minor Planet Center.
       </p>
-      <p>This site publishes results and data products. The source code of the search pipelines is kept in a private
-        repository.</p>
     </div>
   </footer>
 
   <script>
     (function () {
       "use strict";
-      var THEME_KEY = "rubin_euclid_portal_theme";
+      var THEME_KEY = "vibe_discovery_hub_theme";
 
       function $(id) { return document.getElementById(id); }
 
       function applyTheme(theme) {
         document.documentElement.setAttribute("data-theme", theme);
         var btn = $("theme-toggle");
-        if (btn) btn.textContent = theme === "dark" ? "Light theme" : "Dark theme";
+        if (btn) btn.textContent = theme === "dark" ? "☀ Light" : "◐ Dark";
       }
 
       function initTheme() {
         var saved = null;
         try { saved = window.localStorage.getItem(THEME_KEY); } catch (_) { /* storage unavailable */ }
-        applyTheme(saved === "light" ? "light" : "dark");
+        applyTheme(saved === "dark" ? "dark" : "light");
         $("theme-toggle").addEventListener("click", function () {
           var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
           applyTheme(next);
@@ -836,7 +839,6 @@
         });
       }
 
-      /* Write a figure into every element bound to it with data-k="name". */
       function setFigures(values) {
         Object.keys(values).forEach(function (key) {
           var value = values[key];
@@ -846,40 +848,11 @@
         });
       }
 
-      function setPill(id, ok, text) {
-        var el = $(id);
-        if (!el) return;
-        el.className = "pill " + (ok ? "ok" : "off");
-        el.textContent = text;
-      }
-
-      function fetchJson(url, timeoutMs) {
-        var controller = typeof AbortController === "function" ? new AbortController() : null;
-        var timer = controller && timeoutMs ? window.setTimeout(function () { controller.abort(); }, timeoutMs) : null;
-        return fetch(url, controller ? { signal: controller.signal } : undefined).then(function (resp) {
-          if (timer) window.clearTimeout(timer);
+      function fetchJson(url) {
+        return fetch(url).then(function (resp) {
           if (!resp.ok) throw new Error("HTTP " + resp.status);
           return resp.json();
         });
-      }
-
-      function figuresFromManifests(movies, cutouts) {
-        var rows = movies.movies || [];
-        var sum = function (key) { return rows.reduce(function (s, m) { return s + (Number(m[key]) || 0); }, 0); };
-        var groups = movies.counts_by_group || {};
-        var controls = rows.filter(function (m) { return m.is_control; }).length;
-        var out = {
-          movie_targets: rows.length,
-          movie_controls: controls,
-          movie_discovery: rows.length - controls,
-          movie_frames: sum("n_frames"),
-          movie_single: sum("n_single_epoch_frames"),
-          movie_synthetic: rows.filter(function (m) { return m.synthetic; }).length,
-          movie_no_epoch: rows.filter(function (m) { return Number(m.n_detection_epoch_frames) === 0; }).length,
-          movie_gaps: Number(cutouts.n_coverage_gaps) || 0
-        };
-        Object.keys(groups).forEach(function (g) { out["g_" + g] = groups[g]; });
-        return out;
       }
 
       function decorateFeatured(movies) {
@@ -895,115 +868,59 @@
             var img = document.createElement("img");
             img.setAttribute("loading", "lazy");
             img.setAttribute("decoding", "async");
-            img.setAttribute("alt", m.display_id + ": contact sheet of " + m.n_frames + " real archival frames");
+            img.setAttribute("alt", m.display_id + ": real archival frames");
             img.setAttribute("src", "./" + String(m.contact_sheet_png_path).replace(/^\/+/, ""));
             thumb.textContent = "";
             thumb.appendChild(img);
           }
-          var cls = card.querySelector(".target-class");
-          if (cls && m.object_class && !card.classList.contains("control")) cls.textContent = m.object_class;
           var meta = card.querySelector(".target-meta");
           if (meta) {
-            meta.textContent = m.n_frames + " frames · " + m.n_single_epoch_frames + " single exposures"
-              + (m.detection_epoch_note ? " · " + m.detection_epoch_note : "");
+            meta.textContent = m.n_frames + " archival frames · " + m.n_single_epoch_frames + " single exposures";
           }
         }
       }
 
       function loadManifests() {
-        return Promise.all([
-          fetchJson("./outputs/movies/movie_gallery_manifest.json"),
-          fetchJson("./outputs/real_cutouts/real_cutouts_manifest.json")
-        ]).then(function (pair) {
-          setFigures(figuresFromManifests(pair[0], pair[1]));
-          decorateFeatured(pair[0]);
-          setPill("live-manifests", true, "manifests: live (" + (pair[0].movies || []).length + " targets, synthetic " + String(pair[0].synthetic === true) + ")");
-        }).catch(function () {
-          setPill("live-manifests", false, "manifests: not reachable, showing audited defaults");
-        });
+        return fetchJson("./outputs/movies/movie_gallery_manifest.json").then(function (movies) {
+          var rows = movies.movies || [];
+          var sum = function (key) { return rows.reduce(function (s, m) { return s + (Number(m[key]) || 0); }, 0); };
+          setFigures({
+            movie_targets: rows.length,
+            movie_frames: sum("n_frames"),
+            movie_single: sum("n_single_epoch_frames"),
+            movie_synthetic: rows.filter(function (m) { return m.synthetic; }).length
+          });
+          decorateFeatured(movies);
+        }).catch(function () { /* keep static defaults */ });
       }
 
-      function loadVerdicts() {
-        return fetchJson("./data/audit_verdicts/brain1_euclid_verdicts.json").then(function (ledger) {
-          var totals = ledger.totals || {};
-          var tally = function (obj) {
-            return Object.keys(obj || {}).map(function (k) { return obj[k] + " " + k.toLowerCase().replace(/_/g, " "); }).join(", ");
-          };
-          var note = (totals.n_objects ? totals.n_objects + " objects graded" : "") + (ledger.date_utc ? " on " + ledger.date_utc : "");
-          $("verdicts-euclid").textContent = note ? "(" + note + ")" : "";
-          var control = (ledger.objects || []).filter(function (o) { return o.paper_id === "EUC-G18"; })[0];
-          var match = control && control.known_object_match;
-          if (match && match.designation) {
-            $("control-note").textContent = "Audit of EUC-G18: " + (control.verdict_basis || "known object recovered") + " Matched body: "
-              + match.designation + " (" + String(match.orbit_class || "catalogued object").toLowerCase() + ", a = " + match.a_au + " au, H = " + match.H + "). "
-              + "Group II: " + tally(totals.group_II) + ". Group V: " + tally(totals.group_V) + ".";
-          }
-          setPill("live-verdicts", true, "audit ledger: live");
-        }).catch(function () {
-          setPill("live-verdicts", false, "audit ledger: not reachable");
-        });
-      }
-
-      /* The compiled catalogue is a script that defines window.SOLAR_CATALOG; its audit accounting
-         overrides the audited defaults printed in the page. */
       function loadCatalog() {
-        return new Promise(function (resolve) {
-          var tag = document.createElement("script");
-          tag.src = "./eyes_3d/data/solar_catalog.js";
-          tag.async = true;
-          tag.onload = function () {
-            var meta = window.SOLAR_CATALOG && window.SOLAR_CATALOG.meta;
-            var acc = meta && meta.audit_accounting;
-            if (!acc) { setPill("live-catalog", false, "catalogue: no audit accounting"); resolve(); return; }
-            var cat = meta.new_discoveries_by_category || {};
-            var figures = {
-              claims: acc.claims_before_audit,
-              survivors: acc.audited_survivors,
-              disputed: acc.disputed_claims,
-              eliminated: acc.eliminated_rows_dropped,
-              catalogued: acc.catalogued_object_rows,
-              tnos: (cat.kuiper_etno || 0) + (cat.dwarf_planets || 0),
-              asteroids: cat.asteroids,
-              moons: cat.moons,
-              centaurs: cat.comets_centaurs,
-              objects: meta.total_objects
-            };
-            setFigures(figures);
-            var bar = $("claim-bar");
-            var segs = bar ? bar.querySelectorAll("span") : [];
-            var order = [figures.survivors, figures.disputed, figures.eliminated, figures.catalogued];
-            for (var i = 0; i < segs.length && i < order.length; i += 1) segs[i].style.flex = String(order[i]);
-            if (bar) {
-              bar.setAttribute("aria-label", figures.survivors + " audited survivors, " + figures.disputed + " disputed, " + figures.eliminated
-                + " eliminated, " + figures.catalogued + " catalogued, out of " + figures.claims + " claims");
-            }
-            setPill("live-catalog", true, "catalogue: live (" + figures.survivors + " of " + figures.claims + ")");
-            resolve();
-          };
-          tag.onerror = function () { setPill("live-catalog", false, "catalogue: not reachable, showing audited defaults"); resolve(); };
-          document.head.appendChild(tag);
-        });
-      }
-
-      /* A local API server may answer ./api/health; a static host answers 404, which is expected. */
-      function probeApi() {
-        return fetchJson("./api/health", 2500).then(function (health) {
-          var label = health && typeof health === "object" && health.status ? String(health.status) : "online";
-          setPill("live-api", true, "API: " + label);
-        }).catch(function () {
-          setPill("live-api", false, "API: static hosting");
-        });
+        var tag = document.createElement("script");
+        tag.src = "./eyes_3d/data/solar_catalog.js";
+        tag.async = true;
+        tag.onload = function () {
+          var meta = window.SOLAR_CATALOG && window.SOLAR_CATALOG.meta;
+          var acc = meta && meta.audit_accounting;
+          if (!acc) return;
+          var cat = meta.new_discoveries_by_category || {};
+          setFigures({
+            survivors: acc.audited_survivors,
+            tnos: (cat.kuiper_etno || 0) + (cat.dwarf_planets || 0),
+            asteroids: cat.asteroids,
+            moons: cat.moons,
+            centaurs: cat.comets_centaurs,
+            objects: meta.total_objects
+          });
+        };
+        document.head.appendChild(tag);
       }
 
       function start() {
         initTheme();
         loadManifests();
-        loadVerdicts();
         loadCatalog();
-        probeApi();
       }
 
-      window.PortalHub = { figuresFromManifests: figuresFromManifests, setFigures: setFigures };
       if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
       else start();
     })();
