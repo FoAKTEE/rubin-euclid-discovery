@@ -32,8 +32,8 @@ Every surviving body is a candidate that awaits a Minor Planet Center designatio
 | `index.html` | Portal hub: audited figures, links to Research Blog, 3D Explorer and artifacts |
 | `discovery_blog/` | Vibe Discovery research blog and companion data |
 | `eyes_3d/` | WebGL 3D explorer and model studio |
-| `movie_gallery/` | Companion real-pixel archival frames referenced by the blog |
-| `outputs/movies/` | Movie manifest, animated WebP movies, 300-dpi contact sheets (PNG) and vector contact sheets (PDF) |
+| `movie_gallery/` | Companion vector detection figure gallery (`contact_sheet.pdf`) |
+| `outputs/movies/` | Figure manifest, Cyclic Zoom vector detection figures (`contact_sheet.pdf`) and preview thumbnails |
 | `outputs/real_cutouts/` | Cutout manifest and one `metadata.json` per target |
 | `outputs/manuscript_regenerated/ms.pdf` | Compiled manuscript |
 | `outputs/real_cutout_atlases/` | Vector cutout and photometry atlases |

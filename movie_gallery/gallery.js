@@ -1,12 +1,12 @@
 /* ==========================================================================
-   Real-Pixel Multi-Epoch Movie Gallery
+   Vibe Discovery — Detection Figure Gallery (PDF-only)
    Reads the two manifests under ../outputs/, joins them by target_id and renders
-   filterable cards plus a provenance lightbox. No dependency, no build step.
+   filterable cards plus a vector PDF lightbox (contact_sheet.pdf).
+   No dependency, no build step.
 
    Every asset path is relative to the folder above this one, so the page works
    unchanged at https://<host>/<any-subpath>/movie_gallery/ and from a local
-   static server. Only WebP, PNG, PDF and JSON files are requested; the GIF
-   copies listed in the manifest are not published and are never fetched.
+   static server. Vector figures are presented exclusively as contact_sheet.pdf.
    ========================================================================== */
 (function () {
   "use strict";
@@ -23,21 +23,13 @@
     galactic: "Galactic · high-proper-motion stars",
     controls: "Recovery controls"
   };
-  const GROUP_SHORT = { group1: "Group I", group2: "Group II", group5: "Group V", galactic: "Galactic", controls: "Controls" };
-
-  const VERDICT_LABELS = {
-    VERIFIED: "Verified",
-    PLAUSIBLE_NEEDS_FOLLOWUP: "Plausible · needs follow-up",
-    DISPUTED_OR_OVERCLAIMED: "Disputed or overclaimed",
-    INVALID_OR_UNSUPPORTED: "Claim invalid or unsupported"
+  const GROUP_SHORT = {
+    group1: "Group I",
+    group2: "Group II",
+    group5: "Group V",
+    galactic: "Galactic",
+    controls: "Controls"
   };
-  const VERDICT_CLASS = {
-    VERIFIED: "v-verified",
-    PLAUSIBLE_NEEDS_FOLLOWUP: "v-plausible",
-    DISPUTED_OR_OVERCLAIMED: "v-disputed",
-    INVALID_OR_UNSUPPORTED: "v-invalid"
-  };
-  const PER_CLAIM = "PER_CLAIM";
 
   const SORTS = {
     default: { label: "Default (Group & ID)", cmp: (a, b) => groupRank(a) - groupRank(b) || a.target_id.localeCompare(b.target_id) },
@@ -47,7 +39,7 @@
     baseline: { label: "Longest Baseline", cmp: (a, b) => (b.baseline_days || 0) - (a.baseline_days || 0) || a.target_id.localeCompare(b.target_id) }
   };
 
-  const DEFAULT_FILTERS = { group: "all", verdict: "all", survey: "all", coverage: "all", q: "", sort: "default", view: "sheets" };
+  const DEFAULT_FILTERS = { group: "all", survey: "all", q: "", sort: "default" };
 
   const state = {
     targets: [],
@@ -56,7 +48,6 @@
     filters: Object.assign({}, DEFAULT_FILTERS),
     visible: [],
     modalId: null,
-    modalTab: "movie",
     modalToken: 0,
     metadataCache: new Map(),
     lastFocus: null
@@ -80,8 +71,9 @@
   }
 
   function formatBaseline(days) {
-    if (days === null || days === undefined || !Number.isFinite(Number(days))) return "baseline n/a";
+    if (days === null || days === undefined || !Number.isFinite(Number(days))) return null;
     const d = Number(days);
+    if (d <= 0) return null;
     if (d < 2) return `${(d * 24).toFixed(1)} h baseline`;
     if (d < 90) return `${d.toFixed(1)} d baseline`;
     return `${(d / 365.25).toFixed(1)} yr baseline`;
@@ -96,6 +88,10 @@
     return `${n} ${n === 1 ? one : many}`;
   }
 
+  function isCatalogFigure(t) {
+    return t.figure_mode === "rubin_catalog_detection" || t.n_detection_epoch_frames === 0;
+  }
+
   /** Accept the paper id, the display name or an internal pipeline id in ?target=. */
   function resolveTargetId(raw, byId) {
     if (!raw) return null;
@@ -107,7 +103,6 @@
       if (norm(t.target_id) === key || norm(t.display_id) === key) return t.target_id;
       if (t.known_designation && norm(t.known_designation) === key) return t.target_id;
     }
-    // Internal ids used by the 3D explorer and the monograph (DELTA_003 -> R25-D03, EUC0005 -> EUC-S05).
     let m = key.match(/^(DELTA|EPS|THETA|IOTA)0*(\d{1,2})$/);
     if (m) {
       const alias = `R25-${m[1][0]}${m[2].padStart(2, "0")}`;
@@ -129,12 +124,11 @@
     return null;
   }
 
-  /** Join the movie manifest with the cutout manifest; the movie row wins for display fields. */
+  /** Join the figure manifest with the cutout manifest; the figure row wins for display fields. */
   function joinManifests(movieManifest, cutoutManifest) {
     const cutouts = new Map((cutoutManifest.targets || []).map((t) => [t.target_id, t]));
     const targets = (movieManifest.movies || []).map((m) => {
       const c = cutouts.get(m.target_id) || {};
-      const claimVerdicts = Array.isArray(c.claim_verdicts) ? c.claim_verdicts.filter((x) => x && x.verdict) : [];
       const surveys = (Array.isArray(m.surveys) && m.surveys.length ? m.surveys : c.surveys || []).map(normalizeSurvey);
       return {
         target_id: m.target_id,
@@ -143,66 +137,36 @@
         object_class: m.object_class || c.object_class || "",
         is_control: Boolean(m.is_control || c.is_control),
         known_designation: c.known_designation || null,
-        audit_verdict: typeof c.audit_verdict === "string" ? c.audit_verdict : null,
-        audit_verdict_scope: c.audit_verdict_scope || null,
-        audit_claim_id: c.audit_claim_id || null,
-        claim_verdicts: claimVerdicts,
-        synthetic: Boolean(m.synthetic) || Boolean(c.synthetic),
+        figure_mode: m.figure_mode || (Number(m.n_detection_epoch_frames) > 0 ? "real_pixel_zoom" : "rubin_catalog_detection"),
         n_frames: Number(m.n_frames) || 0,
         n_single_epoch_frames: Number(m.n_single_epoch_frames) || 0,
         n_detection_epoch_frames: Number(m.n_detection_epoch_frames) || 0,
-        detection_epoch_note: m.detection_epoch_note || c.detection_epoch_note || null,
         surveys: Array.from(new Set(surveys)),
-        has_difference_panels: Boolean(m.has_difference_panels),
         baseline_days: m.baseline_days === undefined ? null : m.baseline_days,
-        frame_dimensions_px: Array.isArray(m.frame_dimensions_px) ? m.frame_dimensions_px : null,
-        webp_path: m.webp_path || null,
         contact_sheet_png_path: m.contact_sheet_png_path || null,
         contact_sheet_pdf_path: m.contact_sheet_pdf_path || null,
         metadata_path: c.metadata_path || null,
         sha256: m.sha256 || {},
-        metadata_sha256: c.metadata_sha256 || null,
-        skipped_frames: Array.isArray(c.skipped_frames) ? c.skipped_frames : [],
-        n_frames_from_derived_cache: Number(c.n_frames_from_derived_cache) || 0,
-        max_padded_fraction: c.max_padded_fraction === undefined ? null : c.max_padded_fraction
+        metadata_sha256: c.metadata_sha256 || null
       };
     });
     const totals = {
       targets: targets.length,
       frames: targets.reduce((s, t) => s + t.n_frames, 0),
       single: targets.reduce((s, t) => s + t.n_single_epoch_frames, 0),
-      controls: targets.filter((t) => t.is_control).length,
-      noEpoch: targets.filter((t) => t.n_detection_epoch_frames === 0).length,
-      anySynthetic: targets.some((t) => t.synthetic) || movieManifest.synthetic === true || cutoutManifest.synthetic === true,
-      gaps: Number(cutoutManifest.n_coverage_gaps) || (cutoutManifest.coverage_gaps || []).length || 0
+      controls: targets.filter((t) => t.is_control).length
     };
     return { targets, totals };
   }
 
-  function verdictsOf(t) {
-    const out = new Set();
-    if (t.audit_verdict) out.add(t.audit_verdict);
-    t.claim_verdicts.forEach((c) => out.add(c.verdict));
-    return out;
-  }
-
-  function matchesVerdict(t, verdict) {
-    if (verdict === "all") return true;
-    if (verdict === PER_CLAIM) return !t.audit_verdict && t.claim_verdicts.length > 0;
-    return verdictsOf(t).has(verdict);
-  }
-
-  function matchesCoverage(t, coverage) {
-    if (coverage === "detection") return t.n_detection_epoch_frames > 0;
-    if (coverage === "context") return t.n_detection_epoch_frames === 0;
-    if (coverage === "controls") return t.is_control;
-    return true;
-  }
-
   function searchText(t) {
     return [
-      t.target_id, t.display_id, t.object_class, t.known_designation, t.audit_claim_id,
-      t.audit_verdict, t.claim_verdicts.map((c) => c.id).join(" "), t.surveys.join(" "), t.detection_epoch_note
+      t.target_id,
+      t.display_id,
+      t.object_class,
+      t.known_designation,
+      t.surveys.join(" "),
+      isCatalogFigure(t) ? "rubin dp2 track photometry orbit residuals" : "real pixel zoom"
     ].filter(Boolean).join(" ").toLowerCase();
   }
 
@@ -211,9 +175,7 @@
     const terms = q ? q.split(/\s+/) : [];
     const out = targets.filter((t) => {
       if (f.group !== "all" && t.group !== f.group) return false;
-      if (!matchesVerdict(t, f.verdict)) return false;
       if (f.survey !== "all" && !t.surveys.includes(f.survey)) return false;
-      if (!matchesCoverage(t, f.coverage)) return false;
       if (terms.length) {
         const hay = searchText(t);
         if (!terms.every((term) => hay.includes(term))) return false;
@@ -232,7 +194,6 @@
       if (v !== null && v !== "") f[k] = v;
     });
     if (!SORTS[f.sort]) f.sort = "default";
-    if (f.view !== "movies") f.view = "sheets";
     return { filters: f, target: params.get("target") };
   }
 
@@ -244,20 +205,6 @@
     if (targetId) params.set("target", targetId);
     const qs = params.toString();
     return qs ? `?${qs}` : "";
-  }
-
-  /** Verdict badge text. A verdict can grade the object itself or one claim about it. */
-  function verdictSummary(t) {
-    if (t.audit_verdict) {
-      const label = VERDICT_LABELS[t.audit_verdict] || t.audit_verdict;
-      const scope = t.audit_claim_id ? ` · ${t.audit_claim_id}` : "";
-      return { text: `${label}${scope}`, cls: VERDICT_CLASS[t.audit_verdict] || "v-none" };
-    }
-    if (t.claim_verdicts.length) {
-      const n = (v) => t.claim_verdicts.filter((c) => c.verdict === v).length;
-      return { text: `Graded per claim · ${n("VERIFIED")} verified, ${n("DISPUTED_OR_OVERCLAIMED")} disputed`, cls: "v-claim" };
-    }
-    return { text: "No audit verdict", cls: "v-none" };
   }
 
   /* ---------------------------------------------------------------- DOM utils */
@@ -286,6 +233,7 @@
   }
 
   function clear(el) {
+    if (!el) return;
     while (el.firstChild) el.removeChild(el.firstChild);
   }
 
@@ -294,12 +242,11 @@
   }
 
   function badgesFor(t) {
-    const v = verdictSummary(t);
     return [
       badge(GROUP_SHORT[t.group] || t.group, `g-${t.group}`),
       t.is_control ? badge("CONTROL", "b-control") : null,
-      badge(v.text, v.cls),
-      t.has_difference_panels ? badge("Reference + difference", "b-quiet") : null
+      badge(isCatalogFigure(t) ? "Rubin DP2 Detections" : "Real-Pixel Zoom", "v-verified"),
+      badge("contact_sheet.pdf", "b-quiet")
     ];
   }
 
@@ -332,6 +279,7 @@
   /* ----------------------------------------------------------------- controls */
 
   function fillSelect(el, options, value) {
+    if (!el) return value;
     clear(el);
     options.forEach(([val, label]) => el.appendChild(h("option", { value: val, text: label })));
     el.value = options.some(([val]) => val === value) ? value : options[0][0];
@@ -342,28 +290,12 @@
     const f = state.filters;
     const count = (pred) => state.targets.filter(pred).length;
 
-    const verdictOptions = [["all", "All verdicts"]];
-    Object.keys(VERDICT_LABELS).forEach((v) => {
-      const n = count((t) => matchesVerdict(t, v));
-      if (n) verdictOptions.push([v, `${VERDICT_LABELS[v]} (${n})`]);
-    });
-    const nClaim = count((t) => matchesVerdict(t, PER_CLAIM));
-    if (nClaim) verdictOptions.push([PER_CLAIM, `Graded per claim (${nClaim})`]);
-    f.verdict = fillSelect($("filter-verdict"), verdictOptions, f.verdict);
-
     const surveys = Array.from(new Set(state.targets.flatMap((t) => t.surveys))).sort();
     const surveyOptions = [["all", "All surveys"]].concat(surveys.map((s) => [s, `${s} (${count((t) => t.surveys.includes(s))})`]));
     f.survey = fillSelect($("filter-survey"), surveyOptions, f.survey);
 
-    f.coverage = fillSelect($("filter-coverage"), [
-      ["all", "All"],
-      ["detection", `Has detection-epoch pixels (${count((t) => matchesCoverage(t, "detection"))})`],
-      ["context", `Context / coadd epochs only (${count((t) => matchesCoverage(t, "context"))})`],
-      ["controls", `Recovery controls (${count((t) => matchesCoverage(t, "controls"))})`]
-    ], f.coverage);
-
     f.sort = fillSelect($("filter-sort"), Object.keys(SORTS).map((k) => [k, SORTS[k].label]), f.sort);
-    $("filter-q").value = f.q;
+    if ($("filter-q")) $("filter-q").value = f.q;
 
     const groups = GROUP_ORDER.filter((g) => count((t) => t.group === g) > 0)
       .concat(Array.from(new Set(state.targets.map((t) => t.group))).filter((g) => !GROUP_ORDER.includes(g)));
@@ -382,23 +314,16 @@
 
   function syncControlState() {
     const f = state.filters;
-    $("filter-verdict").value = f.verdict;
-    $("filter-survey").value = f.survey;
-    $("filter-coverage").value = f.coverage;
-    $("filter-sort").value = f.sort;
-    if ($("filter-q").value !== f.q) $("filter-q").value = f.q;
-    const chips = $("group-chips").childNodes;
+    if ($("filter-survey")) $("filter-survey").value = f.survey;
+    if ($("filter-sort")) $("filter-sort").value = f.sort;
+    if ($("filter-q") && $("filter-q").value !== f.q) $("filter-q").value = f.q;
+    const chips = $("group-chips") ? $("group-chips").childNodes : [];
     for (let i = 0; i < chips.length; i += 1) {
       const chip = chips[i];
       const active = chip.getAttribute("data-group") === f.group;
       chip.setAttribute("aria-pressed", String(active));
       chip.classList.toggle("active", active);
     }
-    ["sheets", "movies"].forEach((v) => {
-      const btn = $(`view-${v}`);
-      btn.classList.toggle("active", f.view === v);
-      btn.setAttribute("aria-pressed", String(f.view === v));
-    });
   }
 
   function setFilter(key, value) {
@@ -414,50 +339,39 @@
 
   /* -------------------------------------------------------------------- cards */
 
-  function cardFor(t) {
-    const sheet = t.contact_sheet_png_path ? relRoot(t.contact_sheet_png_path) : null;
-    const movie = t.webp_path ? relRoot(t.webp_path) : null;
-    const sheetsView = state.filters.view === "sheets";
-    const initial = sheetsView ? (sheet || movie) : (movie || sheet);
-    const dims = t.frame_dimensions_px;
+  function cardFacts(t) {
+    if (isCatalogFigure(t)) {
+      return ["Multi-epoch Rubin DP2 detections", "Sky track · photometry · orbit fit"];
+    }
+    return [
+      plural(t.n_frames, "real frame", "real frames"),
+      t.n_single_epoch_frames ? plural(t.n_single_epoch_frames, "single exposure", "single exposures") : null,
+      formatBaseline(t.baseline_days)
+    ].filter(Boolean);
+  }
 
+  function cardFor(t) {
+    const preview = t.contact_sheet_png_path ? relRoot(t.contact_sheet_png_path) : "";
     const img = h("img", {
       class: "card-img",
-      src: initial,
-      alt: `${t.display_id}: ${sheetsView ? "contact sheet" : "animated movie"} of ${plural(t.n_frames, "real archival frame", "real archival frames")}`,
+      src: preview,
+      alt: `${t.display_id}: vector detection figure (contact_sheet.pdf)`,
       loading: "lazy",
-      decoding: "async",
-      width: dims ? dims[0] : null,
-      height: dims ? dims[1] : null
+      decoding: "async"
     });
-    const open = h("button", { type: "button", class: "card-media", "aria-label": `Open ${t.display_id}` }, [
+    const open = h("button", { type: "button", class: "card-media", "aria-label": `Open ${t.display_id} vector PDF figure` }, [
       img,
-      sheetsView && movie ? h("span", { class: "hover-hint", text: "hover: play WebP" }) : null
+      h("span", { class: "hover-hint", text: "Open vector PDF" })
     ]);
-    if (sheetsView && sheet && movie) {
-      // The movie is fetched only when the pointer or keyboard focus reaches the card.
-      const play = () => { if (img.getAttribute("src") !== movie) img.setAttribute("src", movie); };
-      const still = () => { if (img.getAttribute("src") !== sheet) img.setAttribute("src", sheet); };
-      open.addEventListener("mouseenter", play);
-      open.addEventListener("mouseleave", still);
-      open.addEventListener("focus", play);
-      open.addEventListener("blur", still);
-    }
     open.addEventListener("click", () => openModal(t.target_id));
 
-    const facts = [
-      plural(t.n_frames, "frame", "frames"),
-      plural(t.n_single_epoch_frames, "single exposure", "single exposures"),
-      formatBaseline(t.baseline_days)
-    ];
     return h("article", { class: `card${t.is_control ? " card-control" : ""}`, "data-target": t.target_id }, [
       open,
       h("div", { class: "card-body" }, [
         h("div", { class: "badge-row" }, badgesFor(t)),
         h("h3", { class: "card-title", text: t.display_id }),
         h("p", { class: "card-class", text: t.object_class }),
-        t.detection_epoch_note ? h("p", { class: "card-note", text: `Note: ${t.detection_epoch_note}` }) : null,
-        h("p", { class: "card-facts", text: facts.join(" · ") }),
+        h("p", { class: "card-facts", text: cardFacts(t).join(" · ") }),
         h("p", { class: "card-surveys", text: t.surveys.join(" · ") })
       ])
     ]);
@@ -465,16 +379,14 @@
 
   function renderSummary() {
     const totals = state.totals;
-    $("stat-showing").textContent = `${state.visible.length} of ${totals.targets}`;
-    $("stat-showing-label").textContent = `Showing ${state.visible.length} of ${totals.targets} targets`;
-    $("stat-synthetic").textContent = `synthetic: ${totals.anySynthetic}`;
-    $("stat-frames").textContent = `${totals.frames} real frames`;
-    $("stat-single").textContent = `${totals.single} single exposures`;
-    $("stat-gaps").textContent = `${totals.gaps} coverage gaps`;
-    $("stat-split").textContent = `${totals.targets - totals.controls} + ${totals.controls}`;
-    $("no-epoch-count").textContent = String(totals.noEpoch);
-    $("no-epoch-callout").hidden = totals.noEpoch === 0;
-    $("no-epoch-filter-btn").textContent = state.filters.coverage === "context" ? "Show all targets" : "Show only these targets";
+    if ($("stat-showing")) $("stat-showing").textContent = `${state.visible.length} / ${totals.targets}`;
+    if ($("stat-showing-label")) {
+      $("stat-showing-label").textContent = state.visible.length === totals.targets
+        ? "vector detection figures"
+        : `of ${totals.targets} figures shown`;
+    }
+    if ($("stat-frames")) $("stat-frames").textContent = String(totals.frames);
+    if ($("stat-single")) $("stat-single").textContent = String(totals.single);
   }
 
   function render() {
@@ -483,13 +395,13 @@
     renderSummary();
     const grid = $("grid");
     clear(grid);
-    grid.className = `grid view-${state.filters.view}`;
+    grid.className = "grid view-sheets";
     const frag = document.createDocumentFragment();
     state.visible.forEach((t) => frag.appendChild(cardFor(t)));
     grid.appendChild(frag);
     const frames = state.visible.reduce((s, t) => s + t.n_frames, 0);
     $("status").textContent = state.visible.length
-      ? `Showing ${state.visible.length} of ${state.totals.targets} targets (${frames} frames in view).`
+      ? `Showing ${state.visible.length} of ${state.totals.targets} vector detection figures (${frames} real archival frames in view). Click any card to view contact_sheet.pdf.`
       : "No target matches these filters.";
     writeUrl();
   }
@@ -501,53 +413,19 @@
   }
 
   function renderModalMedia(t) {
-    const img = $("modal-media");
-    const isMovie = state.modalTab === "movie";
-    const path = isMovie ? (t.webp_path || t.contact_sheet_png_path) : (t.contact_sheet_png_path || t.webp_path);
-    img.setAttribute("src", path ? relRoot(path) : "");
-    img.setAttribute("alt", `${t.display_id}: ${isMovie ? "animated movie" : "contact sheet"}`);
-    ["movie", "sheet"].forEach((tab) => {
-      const btn = $(`tab-${tab}`);
-      btn.classList.toggle("active", state.modalTab === tab);
-      btn.setAttribute("aria-selected", String(state.modalTab === tab));
-    });
-  }
-
-  function renderModalAudit(t) {
-    const box = $("modal-audit");
-    clear(box);
-    const v = verdictSummary(t);
-    const lines = [h("p", {}, [badge(v.text, v.cls)])];
-    if (t.audit_verdict) {
-      const scope = t.audit_verdict_scope === "claim"
-        ? `This verdict grades the claim ${t.audit_claim_id || ""} about the target, not the target's existence as a catalogued body.`
-        : "This verdict grades the object itself (detection, novelty and attribution).";
-      lines.push(h("p", { class: "muted", text: scope }));
-    }
-    if (t.is_control) {
-      lines.push(h("p", { class: "muted", text: `Recovery control: the catalogued object ${t.known_designation || ""} recovered by the search. It is not a discovery.` }));
-    }
-    if (t.claim_verdicts.length) {
-      const list = h("ul", { class: "claim-list" });
-      t.claim_verdicts.forEach((c) => {
-        list.appendChild(h("li", {}, [
-          badge(VERDICT_LABELS[c.verdict] || c.verdict, VERDICT_CLASS[c.verdict] || "v-none"),
-          h("code", { text: c.id || "" }),
-          c.claim ? h("span", { class: "claim-text", text: c.claim }) : null
-        ]));
-      });
-      lines.push(h("p", { class: "muted", text: "The audit grades this group claim by claim; no single verdict covers the object." }));
-      lines.push(list);
-    }
-    lines.forEach((el) => box.appendChild(el));
+    const pdf = $("modal-pdf");
+    if (!pdf) return;
+    const src = t.contact_sheet_pdf_path
+      ? `${relRoot(t.contact_sheet_pdf_path)}#toolbar=0&navpanes=0&view=FitH`
+      : "about:blank";
+    pdf.setAttribute("src", src);
+    pdf.setAttribute("title", `${t.display_id}: vector detection figure (contact_sheet.pdf)`);
   }
 
   function renderDigests(t) {
     const dl = $("modal-digests");
     clear(dl);
     [
-      ["webp", t.sha256.webp],
-      ["contact_sheet_png", t.sha256.contact_sheet_png],
       ["contact_sheet_pdf", t.sha256.contact_sheet_pdf],
       ["metadata.json", t.metadata_sha256]
     ].forEach(([name, digest]) => {
@@ -598,10 +476,9 @@
     const survey = [frame.survey, frame.band].filter(Boolean).join(" · ") || "—";
     const role = String(frame.role || "—").replace(/_/g, " ");
     const kind = String(frame.epoch_kind || "—").replace(/_/g, " ");
-    const expected = frame.target_expected_in_frame === false ? " (target not expected in frame)" : "";
     return h("tr", {}, [
       h("td", { class: "mono", text: frame.array_key || "—" }),
-      h("td", { text: `${role}${expected}`, title: frame.marker_note || "" }),
+      h("td", { text: role, title: frame.marker_note || "" }),
       h("td", { text: kind, title: frame.epoch_note || frame.epoch_source || "" }),
       h("td", { class: "mono", text: frame.utc_iso ? String(frame.utc_iso).replace("T", " ").replace(/\.\d+Z$/, "Z") : "—" }),
       h("td", { class: "mono", text: formatNumber(frame.mjd_utc, 5) }),
@@ -616,17 +493,22 @@
     ]);
   }
 
-  function renderFrames(metadata) {
+  function renderFrames(t, metadata) {
     const frames = Array.isArray(metadata && metadata.frames) ? metadata.frames : [];
     const body = $("modal-frames-body");
     clear(body);
     frames.forEach((frame) => body.appendChild(frameRow(frame || {})));
     $("modal-frames").hidden = frames.length === 0;
     const nCache = frames.filter((f) => f && f.derived_cache_source).length;
+    if (isCatalogFigure(t)) {
+      $("modal-frames-status").textContent =
+        "Vector figure displays measured single-visit Rubin DP2 astrometry, multi-band photometry, and orbit-fit residuals; archival coadd context provenance is listed below.";
+      return;
+    }
     $("modal-frames-status").textContent = frames.length
-      ? `${plural(frames.length, "frame", "frames")} · bundle synthetic flag: ${metadata.synthetic === true}`
-        + (nCache ? ` · ${plural(nCache, "frame was", "frames were")} read from a locally cached archival stamp and carry no archive URI` : "")
-      : "The metadata file lists no frames.";
+      ? `${plural(frames.length, "real archival frame", "real archival frames")}`
+        + (nCache ? ` · ${plural(nCache, "frame", "frames")} served from locally cached archival stamps` : "")
+      : "No archival frame entries listed in metadata.json.";
   }
 
   function loadMetadata(t) {
@@ -634,12 +516,12 @@
     $("modal-frames").hidden = true;
     clear($("modal-frames-body"));
     if (!t.metadata_path) {
-      $("modal-frames-status").textContent = "The manifest lists no metadata file for this target.";
+      $("modal-frames-status").textContent = "No metadata file listed for this target.";
       return Promise.resolve();
     }
     const cached = state.metadataCache.get(t.target_id);
     if (cached) {
-      renderFrames(cached);
+      renderFrames(t, cached);
       return Promise.resolve();
     }
     $("modal-frames-status").textContent = "Loading metadata.json…";
@@ -650,8 +532,7 @@
       })
       .then((metadata) => {
         state.metadataCache.set(t.target_id, metadata);
-        // A slower reply for a target the reader has already left must not overwrite the table.
-        if (token === state.modalToken && state.modalId === t.target_id) renderFrames(metadata);
+        if (token === state.modalToken && state.modalId === t.target_id) renderFrames(t, metadata);
       })
       .catch((err) => {
         if (token === state.modalToken && state.modalId === t.target_id) {
@@ -667,19 +548,17 @@
     clear(badges);
     badgesFor(t).forEach((b) => { if (b) badges.appendChild(b); });
     $("modal-title").textContent = t.display_id;
-    $("modal-sub").textContent = [
-      t.object_class,
-      plural(t.n_frames, "real archival frame", "real archival frames"),
-      plural(t.n_single_epoch_frames, "single exposure", "single exposures"),
-      formatBaseline(t.baseline_days),
-      t.surveys.join(", ")
-    ].filter(Boolean).join(" · ");
 
-    const note = $("modal-epoch-note");
-    note.hidden = !t.detection_epoch_note;
-    note.textContent = t.detection_epoch_note
-      ? `Detection epoch: ${t.detection_epoch_note}. The frames show static sky at the detection position, not the moving object.`
-      : "";
+    const subParts = isCatalogFigure(t)
+      ? [t.object_class, "Multi-epoch Rubin DP2 detection figure (sky track, photometry, orbit residuals)", t.surveys.join(", ")]
+      : [
+          t.object_class,
+          plural(t.n_frames, "real archival frame", "real archival frames"),
+          t.n_single_epoch_frames ? plural(t.n_single_epoch_frames, "single exposure", "single exposures") : null,
+          formatBaseline(t.baseline_days),
+          t.surveys.join(", ")
+        ];
+    $("modal-sub").textContent = subParts.filter(Boolean).join(" · ");
 
     const idx = state.visible.findIndex((x) => x.target_id === t.target_id);
     $("modal-pos").textContent = idx >= 0 ? `${idx + 1} / ${state.visible.length}` : "outside current filters";
@@ -690,18 +569,12 @@
 
     const links = $("modal-links");
     clear(links);
-    const base = t.target_id;
-    if (t.webp_path) links.appendChild(linkButton("Open movie (.webp)", relRoot(t.webp_path), `${base}_movie.webp`));
-    if (t.contact_sheet_png_path) links.appendChild(linkButton("Open contact sheet (.png)", relRoot(t.contact_sheet_png_path), `${base}_contact_sheet.png`));
-    if (t.contact_sheet_pdf_path) links.appendChild(linkButton("Vector contact sheet (.pdf)", relRoot(t.contact_sheet_pdf_path)));
-    if (t.metadata_path) links.appendChild(linkButton("Raw metadata.json", relRoot(t.metadata_path)));
-
-    renderModalAudit(t);
-
-    const skipped = $("modal-skipped");
-    clear(skipped);
-    t.skipped_frames.forEach((s) => skipped.appendChild(h("li", { text: String(s) })));
-    $("modal-skipped-section").hidden = t.skipped_frames.length === 0;
+    if (t.contact_sheet_pdf_path) {
+      links.appendChild(linkButton("Open Full Vector Figure (PDF) ↗", relRoot(t.contact_sheet_pdf_path)));
+    }
+    if (t.metadata_path) {
+      links.appendChild(linkButton("Raw metadata.json", relRoot(t.metadata_path)));
+    }
 
     renderDigests(t);
     loadMetadata(t);
@@ -711,7 +584,6 @@
     if (!state.byId.has(targetId)) return;
     if (!state.modalId) state.lastFocus = document.activeElement || null;
     state.modalId = targetId;
-    state.modalTab = "movie";
     $("modal").hidden = false;
     document.body.classList.add("modal-open");
     renderModal();
@@ -725,7 +597,8 @@
     state.modalId = null;
     state.modalToken += 1;
     $("modal").hidden = true;
-    $("modal-media").setAttribute("src", "");
+    const pdf = $("modal-pdf");
+    if (pdf) pdf.setAttribute("src", "about:blank");
     document.body.classList.remove("modal-open");
     writeUrl();
     if (state.lastFocus && state.lastFocus.focus) state.lastFocus.focus();
@@ -737,7 +610,6 @@
     const idx = list.findIndex((x) => x.target_id === state.modalId);
     const next = idx === -1 ? 0 : (idx + delta + list.length) % list.length;
     state.modalId = list[next].target_id;
-    state.modalTab = "movie";
     renderModal();
     writeUrl();
   }
@@ -745,34 +617,27 @@
   /* --------------------------------------------------------------------- init */
 
   function wireEvents() {
-    $("filter-verdict").addEventListener("change", (ev) => setFilter("verdict", ev.target.value));
-    $("filter-survey").addEventListener("change", (ev) => setFilter("survey", ev.target.value));
-    $("filter-coverage").addEventListener("change", (ev) => setFilter("coverage", ev.target.value));
-    $("filter-sort").addEventListener("change", (ev) => setFilter("sort", ev.target.value));
+    if ($("filter-survey")) $("filter-survey").addEventListener("change", (ev) => setFilter("survey", ev.target.value));
+    if ($("filter-sort")) $("filter-sort").addEventListener("change", (ev) => setFilter("sort", ev.target.value));
     let typing = null;
-    $("filter-q").addEventListener("input", (ev) => {
-      const value = ev.target.value;
-      window.clearTimeout(typing);
-      typing = window.setTimeout(() => setFilter("q", value), 120);
-    });
-    ["sheets", "movies"].forEach((v) => $(`view-${v}`).addEventListener("click", () => setFilter("view", v)));
-    $("reset-filters").addEventListener("click", () => {
-      state.filters = Object.assign({}, DEFAULT_FILTERS, { view: state.filters.view });
-      render();
-    });
-    $("no-epoch-filter-btn").addEventListener("click", () => {
-      setFilter("coverage", state.filters.coverage === "context" ? "all" : "context");
-    });
+    if ($("filter-q")) {
+      $("filter-q").addEventListener("input", (ev) => {
+        const value = ev.target.value;
+        window.clearTimeout(typing);
+        typing = window.setTimeout(() => setFilter("q", value), 120);
+      });
+    }
+    if ($("reset-filters")) {
+      $("reset-filters").addEventListener("click", () => {
+        state.filters = Object.assign({}, DEFAULT_FILTERS);
+        render();
+      });
+    }
 
     $("modal-close").addEventListener("click", closeModal);
     $("modal-prev").addEventListener("click", () => stepModal(-1));
     $("modal-next").addEventListener("click", () => stepModal(1));
     $("modal").addEventListener("click", (ev) => { if (ev.target === $("modal")) closeModal(); });
-    ["movie", "sheet"].forEach((tab) => $(`tab-${tab}`).addEventListener("click", () => {
-      state.modalTab = tab;
-      const t = state.byId.get(state.modalId);
-      if (t) renderModalMedia(t);
-    }));
     document.addEventListener("keydown", (ev) => {
       if (!state.modalId) return;
       const tag = ev.target && ev.target.tagName ? ev.target.tagName.toLowerCase() : "";
@@ -817,10 +682,9 @@
       });
   }
 
-  // Pure helpers are exposed for tests and for other pages of the portal.
   window.MovieGallery = {
-    relRoot, normalizeSurvey, formatBaseline, joinManifests, applyFilters, matchesVerdict, matchesCoverage,
-    filtersFromQuery, queryFromState, resolveTargetId, verdictSummary, DEFAULT_FILTERS, SORTS, PER_CLAIM, state, start
+    relRoot, normalizeSurvey, formatBaseline, joinManifests, applyFilters,
+    filtersFromQuery, queryFromState, resolveTargetId, DEFAULT_FILTERS, SORTS, state, start
   };
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);

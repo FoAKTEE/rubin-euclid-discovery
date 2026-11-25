@@ -55,8 +55,8 @@
       "sha256": {
         "gif": "75dfba25003e1ee070349c5a72f0d2fb78c0b49f1c2b727cf612c89128983517",
         "webp": "77a11289701db850b2188a0d4414ae975c9a3521c300eefc99eaa47141e728bd",
-        "contact_sheet_png": "dcd8df0e37948cca0ee40b2488a1a62213f3d0a65011b49a4484a1d20b097d8d",
-        "contact_sheet_pdf": "4cd6216f8070d1230e4207689c0b8ba4810aff58709dacf3acc09e26a811dff2"
+        "contact_sheet_png": "2846430a7a90aa215d18eda63666ca491f4e7b7d9cc7be31d9eef4a29455a4ce",
+        "contact_sheet_pdf": "d7cfd05a697b49e915b12653972499890a7af36ad39550a2939ba3a5452d230c"
       },
       "source_bundle": "outputs/real_cutouts/controls/2019_UM31_recovery_control",
       "checks": {
@@ -65,7 +65,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "2021_QB98_recovery_control",
@@ -79,8 +80,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "2021 QB98 | Known Trans-Neptunian Object (2021 QB98) Recovery Control | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "2021 QB98 | Known Trans-Neptunian Object (2021 QB98) Recovery Control | 9 Rubin DP2 detections (67.9 d arc · median S/N 6.1, peak 9.1)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -102,8 +103,8 @@
       "sha256": {
         "gif": "4053a2ddc9eaf789a9903a68200fc9c635af33745029d8bd60192d1278ed6bca",
         "webp": "c5f6f1f314f443049991630d3be6e8d4f198afe72bd6a7455af241807a75cd77",
-        "contact_sheet_png": "c2b44df90f9edc61152b16659380b2461d298ac32fd2232f9118a1ad8c794b85",
-        "contact_sheet_pdf": "ea187ac6783d0cb140241a1a28424bd8e2931b56d3afb4acc07e3355348ab6da"
+        "contact_sheet_png": "5bd39ea6a13d238f854af4b3ae204515b44b37f24e98fde92abf13352424abb5",
+        "contact_sheet_pdf": "89d2fb89995f9ac041f5fac27b25ae81113e8793d8d0b4fbbf7ed8b000bbcbe9"
       },
       "source_bundle": "outputs/real_cutouts/controls/2021_QB98_recovery_control",
       "checks": {
@@ -112,7 +113,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "GLC-BD-01",
@@ -149,8 +151,8 @@
       "sha256": {
         "gif": "61a9387b8aec9929268abfa49f13c41f9d242d625520b032ccb16ca269c41690",
         "webp": "51b03bc35240a52d3db4c8f5439c15f32f01438b2c2c88b8647cd4b6d0b8de54",
-        "contact_sheet_png": "d9ea1cc94978f800f3d4adf72ab7a1d1fc022bfd3ebda4af797c31db1c6e19da",
-        "contact_sheet_pdf": "d853cc47681f90b672af0d84013ad6b29053f89d81620dc7de1813ca1a1dd50f"
+        "contact_sheet_png": "1b363de08d1adf903716b26f7ea29a2c9142871446cbba05ac2d9969cfa995c3",
+        "contact_sheet_pdf": "f02c1617049700cbf11824cd8912dfa6fefd0dd745abe8e19bbce6efbb58c3f9"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-BD-01",
       "checks": {
@@ -159,7 +161,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-BD-02",
@@ -173,7 +176,7 @@
       "n_detection_epoch_frames": 4,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-BD-02 | High-proper-motion late-M/early-L dwarf candidate | 4 real archival frames"
+        "GLC-BD-02 | High-proper-motion late-M/early-L dwarf candidate | 3 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -197,8 +200,8 @@
       "sha256": {
         "gif": "4e7a07ee725d05df07fe8c2d41cdd3729f921748c92c3baff164347241812edd",
         "webp": "8965690c53326d0b3030453b71843a9875ecb11761129e8c0e49dff7a316f506",
-        "contact_sheet_png": "8ee792385c10bb769064fbf9e27649a68fb775e9d32659aa8ae5e35423cfbf33",
-        "contact_sheet_pdf": "325802fa6c880607c5678b7c3cc604285bb96d5dcae549f6352de4bddbe03082"
+        "contact_sheet_png": "d8786b2c454bd91bb567b3f446445732b2037a9590fb45cf0523a8c8ec626c64",
+        "contact_sheet_pdf": "ee11f76c8cd1cacac75b2afacec0978d0e9dd071963dc675ed547a55f1ff7137"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-BD-02",
       "checks": {
@@ -207,7 +210,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-LM-01",
@@ -221,7 +225,7 @@
       "n_detection_epoch_frames": 4,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-LM-01 | High-proper-motion late-M dwarf candidate | 4 real archival frames"
+        "GLC-LM-01 | High-proper-motion late-M dwarf candidate | 3 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -245,8 +249,8 @@
       "sha256": {
         "gif": "5f1f4edc007091ca53efae061f8ea685c6603476dd413e2b4dce7ef58b65bbf0",
         "webp": "b30cf7e53da1d267074ac63050c40e6ab9ac175ca7708540c805e3ee270c0361",
-        "contact_sheet_png": "bb722eda02139a031a1d2a34d82f7124331bba69121eb41f20cce7f7ba3aa16a",
-        "contact_sheet_pdf": "3a6119702fa707f30823cdcf8159690ce7526ffd63c04d7b976319471671d9cb"
+        "contact_sheet_png": "8926d21cf5552024e4aa4de25c84bb063d19badc04839803cced3742957e43db",
+        "contact_sheet_pdf": "f296869e91bd4f05841b773d615e521e968a5880d4145a9cff55f37fae79d048"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-01",
       "checks": {
@@ -255,7 +259,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-LM-02",
@@ -269,7 +274,7 @@
       "n_detection_epoch_frames": 4,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-LM-02 | High-proper-motion late-M dwarf candidate | 4 real archival frames"
+        "GLC-LM-02 | High-proper-motion late-M dwarf candidate | 3 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -293,8 +298,8 @@
       "sha256": {
         "gif": "86c5c118f652cadd0a35668ae0cc8be40b617b922ec17792e61c8f75235c8fae",
         "webp": "fbf4007f5714a97f3453440104e6c26deef1ab7a370ee7fe8bf848290066d036",
-        "contact_sheet_png": "7b987ef4d2d5dad30bdb7f8308b2ef67a54849e95b86206f1ea2daafe4195fa9",
-        "contact_sheet_pdf": "3fd1b3a33eabe2786ac48b7c5d57cbc9e6088310f12254528978908d40d31a98"
+        "contact_sheet_png": "1cfbbc452c32cf90c2e525644f3233266a4a5ff213bca36c86508c21dc979470",
+        "contact_sheet_pdf": "3d90e70d4389c26e5918bf2e210f05558cc241e652afb0f95cf6b73fececb2a7"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-02",
       "checks": {
@@ -303,7 +308,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-LM-03",
@@ -317,7 +323,7 @@
       "n_detection_epoch_frames": 4,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-LM-03 | High-proper-motion late-M dwarf candidate | 4 real archival frames"
+        "GLC-LM-03 | High-proper-motion late-M dwarf candidate | 3 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -341,8 +347,8 @@
       "sha256": {
         "gif": "f23fcc073b5339196ee46dcffd66459eae711acb52e64cd7e55dad1f90a821df",
         "webp": "c8ed9f1bd7fbd94dd76624e488be30fdb8168e2d4a320b4146a87907bfa22b70",
-        "contact_sheet_png": "630e81cf5ec1fdc80f77bd6159e8e321b9e95b1ce125d97e3276ac613b126526",
-        "contact_sheet_pdf": "aeecafcd9a5058e5e5f95d3bccd19f909ea086655cffb4b5545c9e765f81a54e"
+        "contact_sheet_png": "e61c1029c726cf852f2fb927b6435e9a91dd22c2a7febbd71079ba841ea73309",
+        "contact_sheet_pdf": "3c0f8ccd0bd864c73246a5edbcfb130764f0ad4937c9fda2b84dd561af159e86"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-03",
       "checks": {
@@ -351,7 +357,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-LM-04",
@@ -365,7 +372,7 @@
       "n_detection_epoch_frames": 4,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-LM-04 | High-proper-motion late-M dwarf candidate | 4 real archival frames"
+        "GLC-LM-04 | High-proper-motion late-M dwarf candidate | 3 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -389,8 +396,8 @@
       "sha256": {
         "gif": "a173883fcdbb999bd0d07c566aa8077687e794ba60f30360dae18596450f002d",
         "webp": "9f89b2685af712ca0365dbf27f300645bdb1a0264b95194b1196c84d35bd8b8f",
-        "contact_sheet_png": "6ada2a054deb2b642ca384d4e377371363ac26e508ceddd59f6f57e67b8781e3",
-        "contact_sheet_pdf": "76d13085b2ed76fafa51fd7f6ad79cbc98a86a3e07816fdc5f2170af8cc80922"
+        "contact_sheet_png": "8cb7c08f945b950c7e98e98ba65a67f4d03532319afc49c07ef2bc903c2ee15c",
+        "contact_sheet_pdf": "ad7313bb230c4cd9edf06429e5c5154a8fd4809d9706fd3e96fbf7f5af499c13"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-04",
       "checks": {
@@ -399,7 +406,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-LM-05",
@@ -413,7 +421,7 @@
       "n_detection_epoch_frames": 6,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-LM-05 | High-proper-motion late-M dwarf candidate | 6 real archival frames"
+        "GLC-LM-05 | High-proper-motion late-M dwarf candidate | 5 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -438,8 +446,8 @@
       "sha256": {
         "gif": "665281b72da9c8d008ca4b34f1f3f357bb771a56073fc37df0b662f29944f68f",
         "webp": "2b81d24c7c311733482cb15f3209b9e0ced893fcdf263fcbd3b91aaccaa9963f",
-        "contact_sheet_png": "702dbc3b5013fe653e9bd605c337b0c49f1b336f239fe7deba369bb59bb7e768",
-        "contact_sheet_pdf": "5ba8d88054576b64ce7fe70204b26389fd9fea0b1bda3f44b81b4008b89bde10"
+        "contact_sheet_png": "50ce2bc359d17de50d11c6a3e7a72c5a596f60eaa04f134b37a34e502413f1f4",
+        "contact_sheet_pdf": "aea20bbe9f862a5dad8416e5c990682249442ad9b20bd52dd73790be9d3d92fa"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-LM-05",
       "checks": {
@@ -448,7 +456,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-01",
@@ -462,7 +471,7 @@
       "n_detection_epoch_frames": 4,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-UCD-01 | High-proper-motion ultracool dwarf candidate | 4 real archival frames"
+        "GLC-UCD-01 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -486,8 +495,8 @@
       "sha256": {
         "gif": "83656486be103863acde8f185e4f8d002e3317a85932d4bede04d0b3b1d25668",
         "webp": "8bff1139245f2565ad19bd9262df63872051bd1e86dbfa8a579d290878c6dbde",
-        "contact_sheet_png": "5987d8e5e93c919c9836378e1eb769f8ca57980f907f183d143a317fb34ae6ae",
-        "contact_sheet_pdf": "b830c4023e8873ca18a88abfa0653d3148fc3cfc92fb39ee9063de2115aefc06"
+        "contact_sheet_png": "80901e4e6fcace0c84f26f38f25f3c70b3f6242686dde60b2e3cbd80f18228f3",
+        "contact_sheet_pdf": "93a05f65ab4b37db6c6f84b564e6a13989d39b7ed26518bf0016bc2ca357cd7e"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-01",
       "checks": {
@@ -496,7 +505,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-02",
@@ -510,7 +520,7 @@
       "n_detection_epoch_frames": 4,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-UCD-02 | High-proper-motion ultracool dwarf candidate | 4 real archival frames"
+        "GLC-UCD-02 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -534,8 +544,8 @@
       "sha256": {
         "gif": "33ec0c2196ee7545ef131b21fa88253dd51b0808e342493a70b373dcd3c93a16",
         "webp": "7daf0868cfe06d7aba73457909f0bccf14d9c6cba82afa37bd898746c5001134",
-        "contact_sheet_png": "ef302e3c87683294483670d677656f76cdae923f06de5e19afc543a1301066b9",
-        "contact_sheet_pdf": "e77d03eec01fc9e3ddadbb7aa2dd7c91ebba2158f72ee21a0809a2dc4829494e"
+        "contact_sheet_png": "b918f6f24de8596219b182eeca3be44492a7c19a2774666bb0f6c0c7187343bd",
+        "contact_sheet_pdf": "bdfa16868f9b2369ffe1b03670b70c03fa1e19576593c54395cd4d3e559db3f3"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-02",
       "checks": {
@@ -544,7 +554,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-03",
@@ -581,8 +592,8 @@
       "sha256": {
         "gif": "e69eafeaa5cb5d48fa91598676b282e103e8624cb327c8d27ea00670c977deb1",
         "webp": "02d53e5c0f102e8c46c0df04b72c9ead16fbc87734dd2f9dca3e55c5f6fc376d",
-        "contact_sheet_png": "6cdbc803050b43a3795360d2e5ea6fcd32c19421ccc70ebb964719b92fbe9044",
-        "contact_sheet_pdf": "adf7b7d3fecce86505af3b1ffbf04679124e6b56fa69a50c5aaca1985c75b6fa"
+        "contact_sheet_png": "b38b94b7eca21f13fd5cddc8d56a5e877667228954320fe31b915c39986bb91c",
+        "contact_sheet_pdf": "02053974b7713cd3fd8c1205e06d7021ec03f3d6d2d17ecf935ca3ec510b8bcc"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-03",
       "checks": {
@@ -591,7 +602,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-04",
@@ -628,8 +640,8 @@
       "sha256": {
         "gif": "1d2e79ee63407044dcde1d7eec36595735b58bb391168dc04ac273f58a1288df",
         "webp": "fc0cd81fca9297b3c1bdb5ee00651057a040fbc4c5cc5b8267ef13c67a0fb46d",
-        "contact_sheet_png": "9d146a529957a899f3eb51e1ff211c1e413c6c47a65a1fe9ed705f6ee7e5bc5b",
-        "contact_sheet_pdf": "ca4ab59371b7defe019d6fc88f864c2881c1f6f7bb2f357570489114cd8ebc2a"
+        "contact_sheet_png": "9bad277832897476c35e36cc027da9297e3b634e3a6a7fbd73de08e54d886311",
+        "contact_sheet_pdf": "7a35b60ff61fbade363daa09fd8da5be65be7977234bc6825438393d60a219b0"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-04",
       "checks": {
@@ -638,7 +650,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-05",
@@ -675,8 +688,8 @@
       "sha256": {
         "gif": "53a6ddc033571eee272641fc975ac78e25c8f3ba813555b8930a8ea5c68ce39f",
         "webp": "4bbb6d66eeba0ed826938ae9a092a4935345344315b60388e1ae0e065efa652d",
-        "contact_sheet_png": "0ccfd929d5bfd8f2cf5a4a088e5b2d436fce2efb80f2381fd96e2f20c67b41f0",
-        "contact_sheet_pdf": "bf0d8c1d9d4dc86895f607925f254c0cbebcd5e846198503850bc0d504116335"
+        "contact_sheet_png": "aee9474fa9053ca98c2e347679fbc38ce68acddc9305d22a7c27cbf3730d6cbb",
+        "contact_sheet_pdf": "c22d75eae494235ef381ed29719489f1011435f82bdfa379e9bd33d406014cad"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-05",
       "checks": {
@@ -685,7 +698,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-06",
@@ -722,8 +736,8 @@
       "sha256": {
         "gif": "24619ad3d65a624a84ce0c32112490f024c8b0846b88b375dfdec85bb58a4aa8",
         "webp": "15799b760096e3cda9815b688934c14a839391c055f8e837523104d9f7bed7d1",
-        "contact_sheet_png": "5e9791c6881aef2750248e30eb9bb522f7027d3c8c71592c46c1a761420900ce",
-        "contact_sheet_pdf": "008367e483edb8c5ca9ca98c5200fbce0c357471be5f1f4ecb0fdcf5c9d898bc"
+        "contact_sheet_png": "0b0a16aee6821068ddbd52dc4c8548b8acf68d536c28dd46686fc438013ea8c0",
+        "contact_sheet_pdf": "8a2d727e284ad8196ea0a2735fa9175753ee96616853f2cd3ab06a765833fe30"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-06",
       "checks": {
@@ -732,7 +746,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-07",
@@ -769,8 +784,8 @@
       "sha256": {
         "gif": "0ec5d1e6c92dc860da791fda2f1cd35e61159e0d4a07a8afa4fe54ee42c62238",
         "webp": "924ff6afa78fa538bc2cafd94dc62ac31cc2f8d4262bce1acd8883c0e060798c",
-        "contact_sheet_png": "c7b586cfcd65242822c6bc2eea50602dc64003c3c6ae8c163c5a550ec578600b",
-        "contact_sheet_pdf": "2848f01c4e202d3829d9939d52d05f15abb3af40c6933e9070fddd5e7bf2b977"
+        "contact_sheet_png": "d6e8961c66c3c59010655d94df33003f837812b39772530a75077795957f0e3e",
+        "contact_sheet_pdf": "a6956c2c298bade1c6c1a67391010c9b7b2fb70f1ffa51a85e4539b6ac9ff54e"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-07",
       "checks": {
@@ -779,7 +794,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-08",
@@ -816,8 +832,8 @@
       "sha256": {
         "gif": "eda7741fb4a233b393dd055442f161b37443088c9d4200937983fc570a80c626",
         "webp": "df2e3a17efe99d8866c40725f1df13afbcd46b5ee2f66bd4c60b238cf89a1aa3",
-        "contact_sheet_png": "d633a64c3c44a715c71826506e28ccce4a38c771a238783998f6bb1c060f8426",
-        "contact_sheet_pdf": "fc5324ef61059b204d5f0e35b93ebdeb5ecbb3143cd4dc35cf8cc3c654b8a153"
+        "contact_sheet_png": "a2219bbefcc92ec3eb0a6bc6d0554f69ef2152134115b5a0442b8fa35b11b5ea",
+        "contact_sheet_pdf": "c10650472b36fa225d45e4b9fcafce2dd186386c9bbb37c6869e6fd6aa6bd849"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-08",
       "checks": {
@@ -826,7 +842,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-09",
@@ -863,8 +880,8 @@
       "sha256": {
         "gif": "b797064a9d12e73d7e344987102f1e738ea33711fe1825f041be47a73bb4ee71",
         "webp": "d489f8f7b68981a0495e7b78a7f642c6705f006f5056790cba1ce5fe246f81c0",
-        "contact_sheet_png": "0dab888a6c3175f83e23585d9505d6bec308835755ee0b0e911025bf402eaa98",
-        "contact_sheet_pdf": "1b20def57dbfae2952474f5ad4272a831216021127f5960e187ace3e11647647"
+        "contact_sheet_png": "efeadb8d9115b2508b18986b7708be34fcc274adcb1780c31a14cd804938bf05",
+        "contact_sheet_pdf": "491a0022027042caefafb32192c7f623aa6fc7ffbe5223942a0dad6ed46421d0"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-09",
       "checks": {
@@ -873,7 +890,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-10",
@@ -910,8 +928,8 @@
       "sha256": {
         "gif": "3e02410254242b9fe4c73230fed628d45cf63a3a59562244cf42abc2fb9c49cb",
         "webp": "bfdbb62328e89dfe50c6bb43818e09f5c707e40cdb499d6a5ae69fb02a06bec9",
-        "contact_sheet_png": "a0451adbf6e7d0c8190d7ca47a57b57bb81df410c7207d607ee950110bb0df02",
-        "contact_sheet_pdf": "a7c3fbc58ea656a47d953db28cc302bb7c70d94b9c1f30d05494e2f30f9a4d05"
+        "contact_sheet_png": "cef0456616996afca1b163a05aeff6d264a8e52205fbfda34af5a2fd645393f6",
+        "contact_sheet_pdf": "2ab839f18c1bf3c39f89b08b81b2fad550131a7dc98c8aaf5fd65952992cfef7"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-10",
       "checks": {
@@ -920,7 +938,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-11",
@@ -957,8 +976,8 @@
       "sha256": {
         "gif": "da6dee53ab1b7f8a686aad65fb16a19b800756716d0aef2963dcb76612a4d247",
         "webp": "beeaa789320e6d18742d7b05a33c3ba3888fc1e983a20815d2293e4c6e94b018",
-        "contact_sheet_png": "98ad12a8eff79d27e0e0ddeb95795dde6fbc9be568385fd0917317dce4fce809",
-        "contact_sheet_pdf": "728e50aea463e19961fd21e20e12e281cd21bc0930d6c8dc1c4ac8d337a4cd21"
+        "contact_sheet_png": "e691cfd04a94bdb5448ba158a0b9fde3190fb392f9527c1cc952688ce6303b0f",
+        "contact_sheet_pdf": "bee7b0e19c1bd62ffcd4fa8071893d5265262260e90b1070924ab0761aad877c"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-11",
       "checks": {
@@ -967,7 +986,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-12",
@@ -1004,8 +1024,8 @@
       "sha256": {
         "gif": "8a4b377b47c885c4b43a47f2c21ed717ac0f590cb48e6d49910ff8fff1dc6bae",
         "webp": "e1275a8805c0e1abd545a43d181c434843b94daec7d499f75a02eaf477cae16e",
-        "contact_sheet_png": "e2cd1958f1b535354370460f2456a9f1c37954d353ec7ec444658dfe30b8b923",
-        "contact_sheet_pdf": "5af99b91cf0459f749b46e97cc3e8b4532c4ce4c8bfe1238c446912a458cd752"
+        "contact_sheet_png": "983d47f2f64293628b6578555bfdd0c9d6e0862a7c3b5d5a4631458f75654a58",
+        "contact_sheet_pdf": "bfedbbcb5baa9e5f7d2c4b27481a211d7449d134319b2e1f71d082c3be3f1a57"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-12",
       "checks": {
@@ -1014,7 +1034,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-13",
@@ -1051,8 +1072,8 @@
       "sha256": {
         "gif": "2f73f85a8648b00b68c0a1e78bc0a2fdb9e8945872ce279ed90764ca14ab9a36",
         "webp": "6861875da4798718b50660c083c3c98183c4452f705e5cdba200911547344f28",
-        "contact_sheet_png": "2d14163aa282c6a0ed03460ede784f10ae2cd70828f4c3047ecc545ad1a8dddc",
-        "contact_sheet_pdf": "bff4af4d5dacef730c71caebbc679e3543a131a637e1e111f788f4d12e0fd827"
+        "contact_sheet_png": "08a946065eaccc5a9db65a491fd808013e51742aeab54aff9c1aacecca3100ce",
+        "contact_sheet_pdf": "f58c41339a4ec1c32a31ee1de69043b2c275a66789bcca91520706c271f20cdb"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-13",
       "checks": {
@@ -1061,7 +1082,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-14",
@@ -1075,7 +1097,7 @@
       "n_detection_epoch_frames": 4,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-UCD-14 | High-proper-motion ultracool dwarf candidate | 4 real archival frames"
+        "GLC-UCD-14 | High-proper-motion ultracool dwarf candidate | 3 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -1099,8 +1121,8 @@
       "sha256": {
         "gif": "6e69a8400261f4f0e7d8f3f0c66e09f1c81313a3b45c21f2e29be3097daa8afd",
         "webp": "5d482b353bf0e3b2c8a1ff2f95b9ebc6058c9b8de2b8d0c1157e93ae564b4e7a",
-        "contact_sheet_png": "1d728a9fd1dccf16f9037116c94a1f5fed86ffce18a646f4f59df33968ec125f",
-        "contact_sheet_pdf": "ebe8c5bb563b72427e20c8f0713499fd35203b8bcd49e62b0cef5b9e02da4593"
+        "contact_sheet_png": "7101afb466c55f78546c9534d08e47f3ece16c1f08916b59d69173da4112dd30",
+        "contact_sheet_pdf": "4b44a456563e248eac10d4e02827e2dcdd6934da16c7e3c5660f309c1963dfdc"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-14",
       "checks": {
@@ -1109,7 +1131,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-15",
@@ -1146,8 +1169,8 @@
       "sha256": {
         "gif": "40bc320b7d4fe1418ef0225dc615f3b546956e50ca5e2f3eea2e62a5c4f1b97f",
         "webp": "d5ed700c2fdc4dc2a8489dd0b86e0c9d756b498339ecc9ef0ad5ee75205abe06",
-        "contact_sheet_png": "a8463e812ed40c6cc9f09b2cdd31e860d477d95726b6bd023b3d7306ffd81162",
-        "contact_sheet_pdf": "b40e7f5a66863b6156fbc26e5288b1c4bd332a0befa79232f3db78c73e804955"
+        "contact_sheet_png": "b3b134d5371253b29df56d6bca994c243cf74ef094f7e5d5d14beb0dd03d1e26",
+        "contact_sheet_pdf": "eeacdafd373122d0d1ef6313d4edc366a8cfbac1f8762dcb619ca0447362727a"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-15",
       "checks": {
@@ -1156,7 +1179,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-16",
@@ -1193,8 +1217,8 @@
       "sha256": {
         "gif": "29426a1f9bd156418a5fe4984d93c1d7f990ed18c90b1a3bf38a1fed73ca38f6",
         "webp": "301716b369dfa75710e3deb709dfabba9aea7c89d27d62c92275fee5e59c2105",
-        "contact_sheet_png": "e628a03ec6565f2c56123e49a70f3bf4a731e3d1e0d6e571446435fbac76442d",
-        "contact_sheet_pdf": "a27acab3ea5b69aa7051d1787a6701e1629951a0d32b7c8cfcdfabd28e9a4f04"
+        "contact_sheet_png": "f39b43826548c6d386777f9e247159030a6f48de68ed6c24e3a7c13738b6c938",
+        "contact_sheet_pdf": "79a4a7ee77bfb2b709b63b76ac9492d29a2e455bdb8d425c900578817fa087f9"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-16",
       "checks": {
@@ -1203,7 +1227,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-UCD-17",
@@ -1240,8 +1265,8 @@
       "sha256": {
         "gif": "f8b5e95e717e0727e3684ebb21e86a078e071364f4183d8baa830242ba25a1b2",
         "webp": "ba09946abd56ea0675e705f65bef2ed98c00f50ccd577659a838eb29e19a5854",
-        "contact_sheet_png": "a8429d738338863ef7d3110900f45dd5fb58e338d620944f83b7cafbfc5ddb24",
-        "contact_sheet_pdf": "55ccd40b8112da8a20007ecf7c30c6fb90734540444d40c117356d1c4fe04f21"
+        "contact_sheet_png": "dcc7fc03e5682cfb59b66f1d8e24be919300b9b996dae916f61cc573f752fb8e",
+        "contact_sheet_pdf": "50b73940bf3ac1f6b073d6accd7c42f13db30d8a229ccb3220c36faa99c14acd"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-UCD-17",
       "checks": {
@@ -1250,7 +1275,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "GLC-WD-01",
@@ -1264,7 +1290,7 @@
       "n_detection_epoch_frames": 6,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "GLC-WD-01 | High-proper-motion white dwarf candidate | 6 real archival frames"
+        "GLC-WD-01 | High-proper-motion white dwarf candidate | 5 real archival frames"
       ],
       "surveys": [
         "Euclid DR1 MER H",
@@ -1289,8 +1315,8 @@
       "sha256": {
         "gif": "ba716d58f69a6385114b478c921a515828741d3e814780a673b91ca88cd75f84",
         "webp": "8e4e0b384a5bf504fb55b41d1a70f6a2e367591c823635b1a096660e75575885",
-        "contact_sheet_png": "7a08ec1099024435bb3d6fbaeeb85fa6bf923fd296de31119102b7410beb7980",
-        "contact_sheet_pdf": "920ef74be4ff3e4f5f54cd3ead15af3018ee177970db514ca623749b21d5dd50"
+        "contact_sheet_png": "f12cdbd3f8a27235b50a31167cc40fd89ef9568151d4241fd0651bf438619768",
+        "contact_sheet_pdf": "97a0c155d27c500cf350347ca8ec338d8275c2a0166573ff29c5972bcd1b996b"
       },
       "source_bundle": "outputs/real_cutouts/galactic/GLC-WD-01",
       "checks": {
@@ -1299,7 +1325,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "2025_NU192",
@@ -1313,8 +1340,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "2025 NU192 | Trans-Neptunian object (binary claim not supported) | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "2025 NU192 | Trans-Neptunian object (binary claim not supported) | 24 Rubin DP2 detections (73.0 d arc · median S/N 7.6, peak 12.6)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1336,8 +1363,8 @@
       "sha256": {
         "gif": "19036b7afae0e653d7ab4a781330eb3d374b213ae07513fe8b88d86cd4cf40d0",
         "webp": "842a49457c58188caf1b375e7b421aacf6e230e6f1ba43162dd1051622b1542f",
-        "contact_sheet_png": "06b593aed9c592e59cdbbfa7b42b12438825f37dd6279446f16dfc1fc1ffa05c",
-        "contact_sheet_pdf": "c27121ba58ff7847b1f2461a02dd638a5ef7b63b1288ba5cbc5a7f63e5a8c5d9"
+        "contact_sheet_png": "08e9bac4ac7a0f5e0c8c2dc5339d08f430cae8efe5345a39a556f19d1f5d2504",
+        "contact_sheet_pdf": "9e1875760bba0a7dc71cee37c41b2bb9a8779324bc035db594abddae4c332a3d"
       },
       "source_bundle": "outputs/real_cutouts/group1/2025_NU192",
       "checks": {
@@ -1346,7 +1373,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "2025_NW189",
@@ -1360,8 +1388,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "2025 NW189 | Trans-Neptunian object, wide-binary candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "2025 NW189 | Trans-Neptunian object, wide-binary candidate | 25 Rubin DP2 detections (75.0 d arc · median S/N 8.9, peak 17.8)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1383,8 +1411,8 @@
       "sha256": {
         "gif": "1de30d9aa6a89ea028d0ad46746b4a3a6bff68723afdfca971acba2de47e3c9f",
         "webp": "0f891a5b08d9eaa645e4104c9f19bb24cb6cba2587e122d8f6e15e442b204a0a",
-        "contact_sheet_png": "1655b58198fb7b791a5fbcb8fbe0d2b65b15711535ef1fab2d862550e6a2bb2c",
-        "contact_sheet_pdf": "2ab627a820a3d774a4ca60bae491a9d854d53f6966705e99dea4f412fa993b3b"
+        "contact_sheet_png": "c66475dde52bdbc7f96f5b301badaf99d3c99002cfe03ad0d18aa874b8bcb356",
+        "contact_sheet_pdf": "1c6911a0660c08a8a447b238aa82bfaea1386cf35baac200a68ebfba5dff5f4e"
       },
       "source_bundle": "outputs/real_cutouts/group1/2025_NW189",
       "checks": {
@@ -1393,7 +1421,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-D03",
@@ -1407,8 +1436,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-D03 | Trans-Neptunian object candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-D03 | Trans-Neptunian object candidate | 12 Rubin DP2 detections (124.8 d arc · median S/N 6.0, peak 8.5)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1430,8 +1459,8 @@
       "sha256": {
         "gif": "73e16c9b7e83fa395b89aa1f8c3453ea5998d8f3f1ded433a2b4eee5e9360598",
         "webp": "581611a48106965592b776b9621d1e1fbc011f58aa61b1d22278c6478e55a015",
-        "contact_sheet_png": "71b06854b25f1a8c63df05d63e796e87fcad741f8bc161ab6540e83b5d481019",
-        "contact_sheet_pdf": "d0c0f174390281bd8ef6d59af4e81233fa27aa8a1a972a09459aec9b90ab0caf"
+        "contact_sheet_png": "0398e09da2a347b99f941f33c23440f13ad9b92a36baac22fcb72b126df98316",
+        "contact_sheet_pdf": "48d506963200eeef95b815a36228226b05535694523aaec0ab1f3ce332cc1baf"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-D03",
       "checks": {
@@ -1440,7 +1469,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-D04",
@@ -1454,8 +1484,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-D04 | Trans-Neptunian object candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-D04 | Trans-Neptunian object candidate | 14 Rubin DP2 detections (67.1 d arc · median S/N 5.4, peak 8.6)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1477,8 +1507,8 @@
       "sha256": {
         "gif": "a10ecae14a730cf7ebc1659d232b0fc8a32461687b348ff75a8cc1c3414ae491",
         "webp": "62a1460b19399e7439c5747c25c849c062d1a12948bf670071a9419961bbb11b",
-        "contact_sheet_png": "db7f667ffacd332ed632b17bfa40cec35fb756a8c62fd87e55c228d275aeae0e",
-        "contact_sheet_pdf": "d3426ea97ce121283c38f40f5297c834e6e80f3aaabcfe1aa35c27bcfc6e5e92"
+        "contact_sheet_png": "82ab0369bdb57b58231f61c5ba6d564acc0d51cc81c2e268b74436a70725682f",
+        "contact_sheet_pdf": "6ec2e1f9f772a083324e7ecbbf2160c3a1e08ae9eaf090ef5ed37c2d6d05c02d"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-D04",
       "checks": {
@@ -1487,7 +1517,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-D09",
@@ -1501,7 +1532,7 @@
       "n_detection_epoch_frames": 1,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "R25-D09 | Trans-Neptunian object candidate | 6 real archival frames"
+        "R25-D09 | Trans-Neptunian object candidate | 3 real archival frames"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1523,8 +1554,8 @@
       "sha256": {
         "gif": "a78d8ba9e0a509a220df5a39a887c0deec40c35622bc50469600aff0bdc08f29",
         "webp": "308781b3e7aa147e51a5f849ffe091d40288975d1f7b450ecb09662c785e76b7",
-        "contact_sheet_png": "34f560db33a3a8948a3fcf18afee5914c1bfdba71747e27fd37588efe37c5b66",
-        "contact_sheet_pdf": "c80de75d08a0165b7f17a60297b2e776f85b27b3b852beb8ebeb94dc84cbd7e0"
+        "contact_sheet_png": "c9f4a4bbae156866d3694171205e977d124396803a4d79d43dbaed29ce10907b",
+        "contact_sheet_pdf": "e29f8ee0dad2caf0803c2cb69cca0a79a34ed8ef7174bf0c7020dbed0c966492"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-D09",
       "checks": {
@@ -1533,7 +1564,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "R25-D14",
@@ -1547,8 +1579,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-D14 | Trans-Neptunian object candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-D14 | Trans-Neptunian object candidate | 9 Rubin DP2 detections (57.8 d arc · median S/N 5.7, peak 7.4)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1570,8 +1602,8 @@
       "sha256": {
         "gif": "9ced3b939a947b2d85fd65402f9998ef5dc71cc8b4109305fe3fa0386c424824",
         "webp": "f91f84f924b5b41d6e06a567118b2d3329050c9a91888512ff2373cde29b8d86",
-        "contact_sheet_png": "8eaba013fa79e4e9cd403ddd01716da8251bb70b37d1530529d7146948b823b8",
-        "contact_sheet_pdf": "7184933e8551127c448bb4eebf91a43a9f3f8adeba9a71e817263de94d029549"
+        "contact_sheet_png": "483d7b5ca1e66b83f70a092ea5cf6b7e4470795d8d4b26b8622f1edd45d487f2",
+        "contact_sheet_pdf": "84d7a6f4b07dbf63acc1b985e72ed4cfea1dfc897869d15d2a45b9e41b1a7e26"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-D14",
       "checks": {
@@ -1580,7 +1612,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-E02",
@@ -1594,7 +1627,7 @@
       "n_detection_epoch_frames": 2,
       "detection_epoch_note": null,
       "contact_sheet_header": [
-        "R25-E02 | Trans-Neptunian object candidate | 6 real archival frames"
+        "R25-E02 | Trans-Neptunian object candidate | 3 real archival frames"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1616,8 +1649,8 @@
       "sha256": {
         "gif": "3ae31e6ba2af39a06aa48a29a1e9451fa144e95a55ea99817ab4a92c74cb7e6a",
         "webp": "9910909bab3d7aed6f0d12e17a5c3e4d8fa7918aeceef0aca12c0fbcfe332f2e",
-        "contact_sheet_png": "79148f9f9eb4f5c648961acca91b897b43413c32248a60f2ce91809fc8c2572d",
-        "contact_sheet_pdf": "915242257178099b0bdb9337310a960df9d5503ef373094180651119eb5b76df"
+        "contact_sheet_png": "290fb57a5275420146697110994ad7ad1d628e0fb6aabb15a8b46b654f9461b6",
+        "contact_sheet_pdf": "75e4eb60f4f6762873546ead4f496ebe97c393ad8cdee61536a30b7c4816dd86"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-E02",
       "checks": {
@@ -1626,7 +1659,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "R25-E07",
@@ -1640,8 +1674,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-E07 | Trans-Neptunian object candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-E07 | Trans-Neptunian object candidate | 15 Rubin DP2 detections (28.9 d arc · median S/N 10.3, peak 15.3)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1663,8 +1697,8 @@
       "sha256": {
         "gif": "6b37955668175b888de8df5385b8d79593d52b221296c043df52421f5683547f",
         "webp": "592850fdc75591b8451a5f7358ecde61e90a82951559b331f9cd87eb2ec16318",
-        "contact_sheet_png": "7683b878488c5714f1cbbe7fda3181511423007242983e45586cb79bfcb55a7b",
-        "contact_sheet_pdf": "6240cd64fba655b73a4ed4e582c07087251e9678b8b624a317a872f32b9483b0"
+        "contact_sheet_png": "d40fc7d487051e57495a2acb847c3d788a251869301d03b348829d58ea242570",
+        "contact_sheet_pdf": "1cbbc111228e5630436ad4622b21823d4eba847192d707a9f75ca35cd5f500af"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-E07",
       "checks": {
@@ -1673,7 +1707,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-I04",
@@ -1687,8 +1722,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-I04 | Centaur candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-I04 | Centaur candidate | 28 Rubin DP2 detections (74.0 d arc · median S/N 25.7, peak 69.5)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1710,8 +1745,8 @@
       "sha256": {
         "gif": "e97243f3a37e800a4f5c587fb277c90586e930a664f3f37ee4b2b602bbca9efe",
         "webp": "d7cd0c9a664def11cddbd48713019b274af48437435d4e998f8dc614a0a4e5e7",
-        "contact_sheet_png": "40a7be7e460dfa6d07161b85f094b652e15ce05521abc875c37b676f3465db5c",
-        "contact_sheet_pdf": "aaf69ff94328814c66e2b679068abe05f72935ab7705602c37c83b0404338dfe"
+        "contact_sheet_png": "68ed8572d94ae443d17610a4c36ce9e5a105a8e446edc78f6ac623b1e20b8710",
+        "contact_sheet_pdf": "f66d74918ed79fc73dd4a81907586e608a6dcf6bc322777a56191f693df33ab0"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-I04",
       "checks": {
@@ -1720,7 +1755,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-T07",
@@ -1734,8 +1770,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-T07 | Trans-Neptunian object candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-T07 | Trans-Neptunian object candidate | 9 Rubin DP2 detections (29.1 d arc · median S/N 6.7, peak 9.5)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1757,8 +1793,8 @@
       "sha256": {
         "gif": "181db3b623fd5fb3ca2dd778ca67675c319804c4cdb386366a8b5465a57fad9c",
         "webp": "8c0333f600199bf4e3bd2c43fa824b5bbff5541bbf6367acf15994bc9ce2b61f",
-        "contact_sheet_png": "920423423ef1d9b212a4f96f100e2a47a8c23ab5b9a8b2e970bce2e591cc2b46",
-        "contact_sheet_pdf": "c3d44da8c5eb8db33b281dc5b1f0516d9bc413d9b7330d0c6c027ba9f3339af6"
+        "contact_sheet_png": "5d30d7ae9d338d6ae4964c3bc41e19ddd01ba3b5ea665e787374b43052695d21",
+        "contact_sheet_pdf": "c45b01bdc2cf27c966572a534fcf9c85aaaa127749616bd70cd3cb332df2fb40"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-T07",
       "checks": {
@@ -1767,7 +1803,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-T09",
@@ -1781,8 +1818,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-T09 | Trans-Neptunian object candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-T09 | Trans-Neptunian object candidate | 12 Rubin DP2 detections (54.1 d arc · median S/N 6.1, peak 8.8)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1804,8 +1841,8 @@
       "sha256": {
         "gif": "8806a37aade18b6f7f632535514a45c150f2af324b3d388e172d920f5b3bd7b1",
         "webp": "d0a40e7c2e4ca406f020301cf2d9ca6c6d4477d4298933853961e7f3b3d9e282",
-        "contact_sheet_png": "2604f55e97844c3797a76d62caf0c316ecbdf8cc95a3c55ab3a57190ceb1385a",
-        "contact_sheet_pdf": "cbbe9c1999e4422a0d47f0c42d686ad08b64872a509b4778cb7c07b2071bfe11"
+        "contact_sheet_png": "e58b00ae8b93e2d042dd7999f376c2c42869055168a4683719856513bcebad6f",
+        "contact_sheet_pdf": "8916e71b456fca330be49c0d6ef69713632731c5512bd6fa80f9ac302e7f993e"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-T09",
       "checks": {
@@ -1814,7 +1851,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-T12",
@@ -1828,8 +1866,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-T12 | Trans-Neptunian object candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-T12 | Trans-Neptunian object candidate | 15 Rubin DP2 detections (38.1 d arc · median S/N 9.3, peak 16.3)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1851,8 +1889,8 @@
       "sha256": {
         "gif": "18c2440d7164ee60ff2ed44d1114c632ccf8459d77a2ffa7bb3a388b1884555a",
         "webp": "038bc9211105ac033ffe620c672042849f7bd425df7a76ae4aa97dd42dd73308",
-        "contact_sheet_png": "3881bba71a33e6ae05fd22a1707500e732f472f23b7fd3ceeab96f728823f13f",
-        "contact_sheet_pdf": "41fe1cec2f4751a748ed10bb2ed0680db43c2aaa2fdb5a8cccf148e72a1102f6"
+        "contact_sheet_png": "3ddb3b2d5c5ee1ca9074c29978c8aee1142468ddccb7af08db3397c1723be6f4",
+        "contact_sheet_pdf": "e159087db113ba03b1f711955750a8da61a04e51e8ac07fef4edbacba3aff672"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-T12",
       "checks": {
@@ -1861,7 +1899,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "R25-T13",
@@ -1875,8 +1914,8 @@
       "n_detection_epoch_frames": 0,
       "detection_epoch_note": "no detection-epoch pixels available",
       "contact_sheet_header": [
-        "R25-T13 | Trans-Neptunian object candidate | 7 real archival frames",
-        "Note: no detection-epoch pixels available; frames show the marked detection positions at other epochs or in multi-visit coadds"
+        "R25-T13 | Trans-Neptunian object candidate | 7 Rubin DP2 detections (65.0 d arc · median S/N 6.0, peak 7.7)",
+        "Measured single-visit Rubin DP2 astrometry and photometry (LSST.DP2 ObsCore serves deep coadds only)"
       ],
       "surveys": [
         "CTIO DECam InstCal",
@@ -1898,8 +1937,8 @@
       "sha256": {
         "gif": "cd154ae638f33a8001b6b8e6689301a137aca87bc45faf1f637bafab17febad3",
         "webp": "44b38f18aca7529aec428469a3f8b56a1ef8ee92b8f216ee5751be77493e4b2a",
-        "contact_sheet_png": "36924ecfd53d66e8fc0610ab2a57a21abece9fef32c93f29d6cc0f335407b03c",
-        "contact_sheet_pdf": "868f07b8481f6fe72ef397085063ec29a75243eb9feb444e2688925aeda81405"
+        "contact_sheet_png": "d6e3e69f00459cf4137a65bdf76a2f852358f5cdc2cdbe3cc54b5b86a77e0180",
+        "contact_sheet_pdf": "d5dde36beae251f0632007e053ffabe6d315ae6ea6e5f63f2d5a3ce6d335d9ae"
       },
       "source_bundle": "outputs/real_cutouts/group1/R25-T13",
       "checks": {
@@ -1908,7 +1947,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "rubin_catalog_detection"
     },
     {
       "target_id": "C3_GOLD_02",
@@ -1943,8 +1983,8 @@
       "sha256": {
         "gif": "f3fe9f4e438f60c5252fe2357fe621371b0dbf8b85fe3a5ee84edc294171b39e",
         "webp": "afb450cecee76697f4532df8ea4e101042f14a4d70b4c3211b3edfc15bf49637",
-        "contact_sheet_png": "9a860be550ae136f6db8bfb44b167f215600e813dd18d30c3eeef4298c7b6628",
-        "contact_sheet_pdf": "f17d8cedfa6477ed942b58263fd150274eb8e16992c457a8bb86b307c1b1a3eb"
+        "contact_sheet_png": "d4c918ea609bc78ad2edb4554b131bb1894ab13b7c7e49a9911f415d770245f5",
+        "contact_sheet_pdf": "72b583e8fe961402d3633a99e0943e807c78d0371d3fc4baf77365eae02a1775"
       },
       "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_02",
       "checks": {
@@ -1953,7 +1993,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_07",
@@ -1988,8 +2029,8 @@
       "sha256": {
         "gif": "ee3edc3a4d4c39d342edec2fb7ac80e5280d452398a1f01f2957516c563f4df9",
         "webp": "8d30fa17c78a46da37aecf27a923b1e515218c75caf58e7c03d0bcdd9a8f6361",
-        "contact_sheet_png": "41b0e76dd261be0a240a43a3edc58c83aa5b846d558cd3a33a35cf9828105d6e",
-        "contact_sheet_pdf": "51a271eab7a6c0590637996646cb656b76809323b7472f036c94ff6da4da1ee9"
+        "contact_sheet_png": "154edeff4a500a923c3e48454bb4bb0610e69a770fe3503f979e238d53a10ca6",
+        "contact_sheet_pdf": "9bd7364e15f272fee19ebbbd5e6d140fd6c203ea4aaf9794c028feee8ce624a3"
       },
       "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_07",
       "checks": {
@@ -1998,7 +2039,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_11",
@@ -2033,8 +2075,8 @@
       "sha256": {
         "gif": "30217e244f90282879124c1b8b41a3eb69e34680ff73a986cfa10bab15dbcc8b",
         "webp": "815e749948540fbe60faf85119f7606e8de20d01d44b17e2aa65ac07bc4e84fd",
-        "contact_sheet_png": "2c7b8cb709aeef12cb7fd3ac5274366356fc8f33ccbd414958498a6f3b8982c8",
-        "contact_sheet_pdf": "ca422767b6807335724daf625614b412a0fc9a3e7546f4ee58478a2b68ce660f"
+        "contact_sheet_png": "367adfee7018a0a05c4be596238e1e8a0fa663ef0463465a420a3bd9d7b4d58f",
+        "contact_sheet_pdf": "9adbba10d429bfbf88b3ab8ebc2275c919f40c0ebc3f84f815e4b2c9421902ae"
       },
       "source_bundle": "outputs/real_cutouts/group2/C3_GOLD_11",
       "checks": {
@@ -2043,7 +2085,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-CN01",
@@ -2078,8 +2121,8 @@
       "sha256": {
         "gif": "d1b9a17fb6b6edcd392839b424957bfd271bfb302150ed08639edbdbbeae7db8",
         "webp": "fd6a771ffdde5c6c1485301a82315614ac974eca832b8a01c7257114a47c8364",
-        "contact_sheet_png": "ec2ea97a09c659a0a95a916615737417c4fe27bcf55e33a677f0c0fe3c2e7800",
-        "contact_sheet_pdf": "4a7c70b878ee350f1333cf60869385494db23849a11014d524e8bccc286c122c"
+        "contact_sheet_png": "1e280f0b74a2180ef0928adf8d2da3cc68e7115d7016fb9abc8dd8ebf837c6c3",
+        "contact_sheet_pdf": "3196d4a792cabf1a4c8493a934e36021d3138b91de84e03d14fde04009f592a8"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CN01",
       "checks": {
@@ -2088,7 +2131,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-CS02",
@@ -2123,8 +2167,8 @@
       "sha256": {
         "gif": "3fe1e9360d09c1912ff78a1c51773b656567d6f4d0218433830d72c4aab7acda",
         "webp": "53a8b4686663cc5f040876bbb02735ab7f5f8acddff788e0b31fb7d0ce7a9b78",
-        "contact_sheet_png": "695262319ff77ef2111e9d64d8ea42b83c78e37f81275393a66a2890b4d10ee6",
-        "contact_sheet_pdf": "0a9e891068240c183552bfcc58b0a3ccb3b4870a24ffcc9b1189ad05edd65af9"
+        "contact_sheet_png": "db03460b5d34cfb6d18685ffac83c9dd36c8e5d095141a84231a5b476a51b69b",
+        "contact_sheet_pdf": "563b80f8f278081f577ecf49eae4eda9f367cb9fd6e0dd97cb231386e8c4a474"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CS02",
       "checks": {
@@ -2133,7 +2177,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-CS03",
@@ -2168,8 +2213,8 @@
       "sha256": {
         "gif": "fabe751cf33f94658f26b15ef8be9146f895c745ac4f3efe894fd62f35d710b2",
         "webp": "d3a22ba63350ef036f7cf209e4467f7751b215f58544c1a7feba61178dbff5a0",
-        "contact_sheet_png": "5cab32dbbb20a451a1daadc842980ff655fb4c219ac408276541fcb9c08f11c5",
-        "contact_sheet_pdf": "c893eee6cb0bd43386bd4d30803fd58459a1001de1015da1bd2ffb9187cd6a93"
+        "contact_sheet_png": "bdccf85b3585201c1131fc978bb1822ebddfc58595da94477188b9c10ce2e737",
+        "contact_sheet_pdf": "94178c395dcf0e852d0bb77f38afa7cc29be7aa0960496d19198ff31d2c04428"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CS03",
       "checks": {
@@ -2178,7 +2223,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-CW04",
@@ -2214,8 +2260,8 @@
       "sha256": {
         "gif": "ff2c34e859c6caa91c7758b6ca1a2ba447dafb8c25c72d902ce8bbee9d4d208a",
         "webp": "95a32b43389184fdb7ced7766b71d9fca4483beb648d06661f88de760fd06762",
-        "contact_sheet_png": "d5346de8d88c52a3bd35ea9aaff2046d4230aad2d9fe2c8734e952c97087b453",
-        "contact_sheet_pdf": "d759e1b8397147774f818198e898184946aac5f565e4db2dacc901bdf8b89794"
+        "contact_sheet_png": "c7643e8c65d30e1fe84a77f1d7e6798f25d3b2668246b9a5b4f2fc68e66faff2",
+        "contact_sheet_pdf": "84a4568c3003ef56b8578ccd76e16e28ca374e03eaa169b70b0e7874e427c824"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CW04",
       "checks": {
@@ -2224,7 +2270,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-CW05",
@@ -2259,8 +2306,8 @@
       "sha256": {
         "gif": "493ecb2d9b25c576f93b7a0bb261fba33a96681ada8278f9eddaaa43cd717c11",
         "webp": "b4cdbea59e99d8243065d7e000a8c021f26a19516369543953bdc82f62c6505c",
-        "contact_sheet_png": "d82f1ddc5fafe916bd950fe9d66bdc68f2432db1bf82dd44a611264fe915dda3",
-        "contact_sheet_pdf": "86ab2d5fefa43e092a792723a3aa664658687afdc3caf10a33d0b673b1722910"
+        "contact_sheet_png": "42bac9ed143bb702f7e5f40afff5433a804e310f30683cb5dbaaef35253f3b6a",
+        "contact_sheet_pdf": "3a4787e8155531e099ca36245994683bad93cd1a6b4ac4cd8aa4ee320efc195e"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CW05",
       "checks": {
@@ -2269,7 +2316,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-CW06",
@@ -2304,8 +2352,8 @@
       "sha256": {
         "gif": "e4462043dab27b356827259701f86b2ea2ce1b23981f185350183d4e0a6776cb",
         "webp": "1a1bf64eb2b80dd607d26a56f27b2f82666bda0ce978f577ddf146750b9d5b5a",
-        "contact_sheet_png": "a0178d16d3dedf5e9b6e1361597d5cab727f01ca3a58acea3abb854ec987bb6a",
-        "contact_sheet_pdf": "06246fc5026176d924312f98acb57597c7df7ff3319d02a29ec7948466b92338"
+        "contact_sheet_png": "ba3e88ee59c8c06c3bf464fa8a3dd18c299cf0199e3b64e51220b057942dae0a",
+        "contact_sheet_pdf": "8bac6f5b2960fe07e794b622f2b181f79922acc03a24ffeb3dd0bb662c9f233a"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-CW06",
       "checks": {
@@ -2314,7 +2362,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-S02",
@@ -2350,8 +2399,8 @@
       "sha256": {
         "gif": "eef5618749ef232b0b6227534600d4b93ceb3322e6882ec69b52c7439065a934",
         "webp": "2cc703b31234c5d715b06b3c6845bdb2979ef8ef3d67566cfb17d9f463696a4e",
-        "contact_sheet_png": "d552a282eea2e3ae093380dbdb4405e964767daf7d4c39c04dcf9897127d6588",
-        "contact_sheet_pdf": "39162e99759e95351eb7c7c091cda8e08d2bdd10081e75068703308bbde59f02"
+        "contact_sheet_png": "297cdccfcc20bdeff879d3150cb25d357b1ac87a33fb788fac60ce1383b5e086",
+        "contact_sheet_pdf": "f103943a91ae62d6a927214fac1d193413c6eaf95bb879f4809a7b5fc5590868"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-S02",
       "checks": {
@@ -2360,7 +2409,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-S05",
@@ -2396,8 +2446,8 @@
       "sha256": {
         "gif": "7af3b02b415915c540179ce44b9c5b161de12fecad54f65f7d7962eab9f1e9dd",
         "webp": "63c78728bc8b31bb7327acb20b69c9fe5518c1417820c288989477d0a0ac2e93",
-        "contact_sheet_png": "f4015f959fe76f4e21a7cc7233b6870ab24b45e7ffc0d65dbb77fe68d50173df",
-        "contact_sheet_pdf": "4619393eaed9af60cf2a2c1fa03fa1a41cb2feb40c05e0cf2f106686960633af"
+        "contact_sheet_png": "f68aa32cd9d0f45e2a41acbf760d9cb713a79b1f1dcdd1930b5076c6759121d6",
+        "contact_sheet_pdf": "148671b2f59cce412e5c82e1b28807c4b08509449e7cb6f7693bc4a7c059ad7b"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-S05",
       "checks": {
@@ -2406,7 +2456,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-V02",
@@ -2441,8 +2492,8 @@
       "sha256": {
         "gif": "ece57a99cdd3a23498524c788a5bc046cd61fc94f99ab5536abee20fab67dd1c",
         "webp": "217d426e8522cd0e864fa71924a48d6fb7295093680663749f6318148bcece82",
-        "contact_sheet_png": "aafe709231e7ae8d8789b20e021ef484499272834c7de0f48dc7dade0a8b0c41",
-        "contact_sheet_pdf": "d3c4f085030e3ab46120c175ee1ede007c3867af68c2eda512c53659780a86b9"
+        "contact_sheet_png": "7a85768848727d485e2ff14374b11a89dc85dbe5979caf3a012f8bd0edea5a88",
+        "contact_sheet_pdf": "481c98e75abca56f8509678bcb25c022e87e6a36d3f0a322ba290aa94357a10b"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-V02",
       "checks": {
@@ -2451,7 +2502,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-V03",
@@ -2486,8 +2538,8 @@
       "sha256": {
         "gif": "7c3d7e313e6db0d8c4bb8742cd8ceb6f9d01b10ae256bc7bac32bf84650f1a50",
         "webp": "663a022a656b7120b8b92d6d52c7beea84d5854dd612245192db73b0862353bc",
-        "contact_sheet_png": "bc08e7c065a963058d2d5585651faaae74774c00240d30c0de87fb7991419b37",
-        "contact_sheet_pdf": "972fece67eadcdebd63447e6540793bf67d81756a2400697e398d8043fc20725"
+        "contact_sheet_png": "defb636ec3b2de0d532ed4955c6de17b3d44ba1173d06e861f8e9dfc1d0d9493",
+        "contact_sheet_pdf": "b401b3340b0f9f7ed8f1983f54c0e641eabc038621aaca9c9ea091a650cdb3a9"
       },
       "source_bundle": "outputs/real_cutouts/group2/EUC-V03",
       "checks": {
@@ -2496,7 +2548,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_01",
@@ -2531,8 +2584,8 @@
       "sha256": {
         "gif": "cd9de1a770f8631ec6a59e23b1f32f3ceda8d6a23b71991e2a3ea271720ffb22",
         "webp": "c1baad95b7553367a62fe387e8bba9f18c21d1c93adc4f198390479162ca2982",
-        "contact_sheet_png": "c487515431a15f8da8f9d27a2b88db8c5745c8bee697835c6eabbf1c1c7a7fae",
-        "contact_sheet_pdf": "97b09709bbbc9bf425a8d47d16454778607aa44010a1faa450ee0de3932dcf9e"
+        "contact_sheet_png": "52c8b433cddfe312fc6302f2d94d1e098f708b4efd7840b23a8a08c6128225cc",
+        "contact_sheet_pdf": "aca745d35011254706fc67a76a1892516eb898e3b902765423245bfe5dce3c65"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_01",
       "checks": {
@@ -2541,7 +2594,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_04",
@@ -2576,8 +2630,8 @@
       "sha256": {
         "gif": "473e6a84abd9007a9ca579f02772e1688476627912d488bb47b44c50972c73e5",
         "webp": "6926fae51211864a3bccaa2cb6e1ae0d866cb1fa65c5a138713fd50d5b0a87bd",
-        "contact_sheet_png": "6bf46ebfb82d0690d893cd7ef7d157b94c52e55fe45f078c5b5d70c05712b73d",
-        "contact_sheet_pdf": "59bc3b78af5b716f8631c3323435852c7196f336646737fc3fe2bace6647999c"
+        "contact_sheet_png": "1c2b5f4eed6e5d7ac456f2564b573e8ac4c6abc37ee4333cd3872fb52aff2a7d",
+        "contact_sheet_pdf": "5247e9c738b66ea484aefbf8747a1a7cda534f8a20b83e0db94b6625fab0113c"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_04",
       "checks": {
@@ -2586,7 +2640,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_05",
@@ -2621,8 +2676,8 @@
       "sha256": {
         "gif": "11ad6aa186dfb21d427981acbb89aa48cc49e45040ed53aa5522cca434b513e1",
         "webp": "b25218741d88734e26eda06cf24477ac2a4444aecaace116bdc7e7651dea2cb9",
-        "contact_sheet_png": "c167fc5cd0b51c01da6e91d5837090ec53263d433ee5353c790ac20de501cb58",
-        "contact_sheet_pdf": "bb38be3a309b35402a2ae0422ee688cf38ae3fe6f9cb9909cca110f0026c0c3a"
+        "contact_sheet_png": "ec353eb10724387f06350871d1e521beac8b44431e10d3e260854a9fac121c28",
+        "contact_sheet_pdf": "1cdbda383ee23e7ae87a84dcda17b08fab2db6f0b83f0bac369e931af6b61cbf"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_05",
       "checks": {
@@ -2631,7 +2686,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_06",
@@ -2666,8 +2722,8 @@
       "sha256": {
         "gif": "98be84518cf26eb7d3ec52cf24fa0986ffc22c10e56e14206b517cbdd63078b4",
         "webp": "1057684db704837a5bcf6e3a07af3776919b54ae330fd642e77a3a4ec1373897",
-        "contact_sheet_png": "13c00a6aa8103bf00683ccebb3c522c5adfed064b516261559988adc2873c41a",
-        "contact_sheet_pdf": "c2b3cffb7e5b5b346297554eecc7ba4ac4e9e83ae611c0bacd888f19d372562e"
+        "contact_sheet_png": "493b06456ae92b5db6f64b4b730f966ba1d6676aace05b8e48fac7b609552425",
+        "contact_sheet_pdf": "032b7c36b4e533736384b58ac8c31135f9aeba190783f91585d92416e3004371"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_06",
       "checks": {
@@ -2676,7 +2732,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_09",
@@ -2711,8 +2768,8 @@
       "sha256": {
         "gif": "70acaa1f0febd7b2ccdc425418dea9ac9d98adabda80155af73a15540c760c9d",
         "webp": "3ecd40ba7c118e239d731fe61b5eaa0428049e42a0a95b6d52ef0adafed6ba57",
-        "contact_sheet_png": "6b23cb05b1383df489e92f4292656c7ffb5abdb1e1a08f6b3385c406c5cfbc26",
-        "contact_sheet_pdf": "62667d553d2acff9b16c3d5fad85766adb093298e36f913991d05c79d26fbaf3"
+        "contact_sheet_png": "4d7b6ba15ba5659a4094e95e97f72577c8dab233fc2f46220c3af1c065c06408",
+        "contact_sheet_pdf": "3d0c2256887accd2fe926181cdc022d2b97f20e1de48db6d0bc6eb5474d102d8"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_09",
       "checks": {
@@ -2721,7 +2778,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_13",
@@ -2756,8 +2814,8 @@
       "sha256": {
         "gif": "94ac07cc632a7bc683baec90d8c837465272b2a2c36b0b4de764812649a66512",
         "webp": "22fb70e80c453e050ed26a6ddefc89173801ef10c95ad1aef93befdb1efeae58",
-        "contact_sheet_png": "30e593691556e75c75c8247a524fe5695b617148f0e3f891d68a4446faa00e45",
-        "contact_sheet_pdf": "d884d0e0181a41436b2432cf21722a22b29d2b98e3aa68d094d9806cea984627"
+        "contact_sheet_png": "132eb2224f2a665c272a3e0b0f49c9caaf90e5045800955f3ace9bb67418f9b6",
+        "contact_sheet_pdf": "77a4eac0ee6809bed521b4b5d3238ce1209be883fb1e160c5c9f909ba48d9d56"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_13",
       "checks": {
@@ -2766,7 +2824,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "C3_GOLD_17",
@@ -2801,8 +2860,8 @@
       "sha256": {
         "gif": "33a5dd738325931b61992eac57944bef9a004a1490a20801a01198bd84c304dc",
         "webp": "8f52e1ecce8cf0dfb19a791a468882f3c2e00f3dddda5242b332c9937014a53e",
-        "contact_sheet_png": "9bf5a345c497b31af9c80e0fba0e26db2e02dee04c503f766d3f07207aff9c2b",
-        "contact_sheet_pdf": "3d6a0abbf1c38415e8894682b38d2260a5e0dfcdc203c28453c6af33626a4ee3"
+        "contact_sheet_png": "0088a7f5497c55e9c6b744457faf694b8f78e32a74fe2232f39ef35c419561f7",
+        "contact_sheet_pdf": "95fbaaa51ac09be020edc9e3d4a65069258d31f3b51db2c2a15dbc9f2f299329"
       },
       "source_bundle": "outputs/real_cutouts/group5/C3_GOLD_17",
       "checks": {
@@ -2811,7 +2870,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G01",
@@ -2846,8 +2906,8 @@
       "sha256": {
         "gif": "1a9169e658a41d0b108c79f6bf28e5eadbdfb9e01456e3001366a0c48600a552",
         "webp": "aca1096ef70c4e2d304fe1bcaf1a397104d0a3b61479d6a592968fc3a94a8259",
-        "contact_sheet_png": "76ed84e9e9164ba79704395e11a2df65a0c52ff355447270299726675e4fdbfa",
-        "contact_sheet_pdf": "a502d7d281ae5a250276efb720d6e0643ff0dae8726d37644b37bbe9323be129"
+        "contact_sheet_png": "63a19539b8dfc1e51000d1c4a3b277d17fd08db420fe96569727192581de964e",
+        "contact_sheet_pdf": "6ea86b3bcc8d8156892f7222b2737db069586d7c0747c2c5df21775cd3e04d3c"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G01",
       "checks": {
@@ -2856,7 +2916,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G02",
@@ -2891,8 +2952,8 @@
       "sha256": {
         "gif": "46cc05d8f72a53d63d09fbe6257a34cd32d8ddc8cccc03452e3779168373fb36",
         "webp": "dd0d6b3057909e51272742160e19e40b8070d888e1d29ac45fd1e092af32b80a",
-        "contact_sheet_png": "67559fb5e8d86f283a04e203e31b13157e0a9ffee08093f08cae62a8856f80ad",
-        "contact_sheet_pdf": "791c48c2881ef47f9ab53a0fc1ba235cc6720157bd048e7bade3c2d4ad3a5b32"
+        "contact_sheet_png": "124e34c716be9aaa0bc17e2d7989db2b003a3dced189e3b34674ef4174046e88",
+        "contact_sheet_pdf": "9f3905220b8052c28a5ececfa6f859a8d3a3522e9a8128cffdea37546fb4fbf7"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G02",
       "checks": {
@@ -2901,7 +2962,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G03",
@@ -2936,8 +2998,8 @@
       "sha256": {
         "gif": "59622bf620ddcad10055838f1c47e09049dfdd690de72654267afbc6db285824",
         "webp": "d09d263ae39c9ed041ec17f758e6f6684fc30144a8cbbd960a2106872d61efca",
-        "contact_sheet_png": "ae67595f992a6ebf1ecc5338d9133b6fa253ddb9f855cb0ad6c78c588211b72c",
-        "contact_sheet_pdf": "82e074ab0c4f1321737d36d8a6d8056e3430a3b1f2d5dfde48b04615c78f3fc7"
+        "contact_sheet_png": "4df66900ead7d88b48eb3e7eeca28c92253771326049bd1769ccb697ea225bb3",
+        "contact_sheet_pdf": "e62fe3fbe4d54c776734ead361219ecfafb59244f37318e4dfce8215ad4a3d6d"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G03",
       "checks": {
@@ -2946,7 +3008,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G04",
@@ -2981,8 +3044,8 @@
       "sha256": {
         "gif": "64a78307feb7ac10cb8cfaf0b09531e99fd56ed9d9af9435fcdb80a83337852a",
         "webp": "ed6f9a0c3e8ae8438e0e609ade9331f25bcc17de8fde3aed292f86702470b2c0",
-        "contact_sheet_png": "049f0c3f87026d83dc53e0692fc8f0324dbcbc76c12223b675c0e2b81f939187",
-        "contact_sheet_pdf": "865942fe590cc2fa6c180885697a99211d52d12213bc0c534cf655203aa0cbf3"
+        "contact_sheet_png": "eae246c7d278f310746dbc9fd0746d96abf812edeb00d7466e87f97b76a1bdbc",
+        "contact_sheet_pdf": "cbbac00c19c4f508ece72fb970fde4ab4aa6413933505f71da39c4fd3242cd4c"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G04",
       "checks": {
@@ -2991,7 +3054,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G05",
@@ -3026,8 +3090,8 @@
       "sha256": {
         "gif": "75e284a7ae03d1a3c8de73ad8747b68448455ac12452b7909fce75c604dc9296",
         "webp": "5ef9aa5c33a30b4bdb91093ecadbcecc0596533acc601af1ee1a56e883fe530c",
-        "contact_sheet_png": "f68951b22d261f90313a111bd6535852b83c78825385317a16634019a4643a86",
-        "contact_sheet_pdf": "e39f64723bfc74f3fc766a95160705ab20e1bc6a1c3090f2833ef9580fa90a09"
+        "contact_sheet_png": "6bed0a2840336ccfca232109c643b5d90673102c33b695c3638e0101fc24cfff",
+        "contact_sheet_pdf": "eb1b6aa33efd6e79da931457494010a4b07e7e1a8ffbe558df7291e22eb1f68d"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G05",
       "checks": {
@@ -3036,7 +3100,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G06",
@@ -3071,8 +3136,8 @@
       "sha256": {
         "gif": "448413d455cbaf5b585e0f7604c7151f66e0e1ef74d90956e5bc2a05a116e032",
         "webp": "16efaa0a6e7b2fcb413c27f144865756f4cb5500b16b3d76807e397f928279b8",
-        "contact_sheet_png": "a4eab314793394de37624cfa13f326ec49df14060646619064dd923359275fca",
-        "contact_sheet_pdf": "cb6e0a87d59996718d523fdfc7ddb3d14ea288cd962b3b09180f54f00941376b"
+        "contact_sheet_png": "418153fb5cd2c73a78deac485116a95f3736eab10dd864118e1cfa025f1d4c4b",
+        "contact_sheet_pdf": "e8d5b3065118a7f32d20b922b7250889e45e9cb16d41c04a1bf0d649c5303000"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G06",
       "checks": {
@@ -3081,7 +3146,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G07",
@@ -3116,8 +3182,8 @@
       "sha256": {
         "gif": "f5a650b9f1343501dbc97f0c0752e021794d085e07014c76893984ee2009dce3",
         "webp": "5f0b34413ced901ed08a2fd2f96bb89947e014d9c33c656ae8081c6ca83d1c03",
-        "contact_sheet_png": "470f5d1f0ab90e81bece55c68232cb0cd05dcc97783d5ffc88d6075531308592",
-        "contact_sheet_pdf": "678ad75b2d53bc186278fa5d4aae755adba7b0a5d1b67114b768006b21706114"
+        "contact_sheet_png": "c8a170f7d5d931e959737ecd30ec5ca82b5a9ec0fcb8823f89cfea117d207ae5",
+        "contact_sheet_pdf": "166199c4501c7a9c5cabaf54a938f51dd06009b6b3092555ec2598ce37f37e51"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G07",
       "checks": {
@@ -3126,7 +3192,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G08",
@@ -3161,8 +3228,8 @@
       "sha256": {
         "gif": "201d9781273a8a30ddf19bb3ed0ced59184c492ca03e3852a1ea55d6696f8a30",
         "webp": "b3aa29b465f3672fab4acaba8c3eea49a8b7353add3ad5673365392da0b73a25",
-        "contact_sheet_png": "cbaf633a3220e39a055d5b96801935014b80c25b3eb2dbf442f494a47296f209",
-        "contact_sheet_pdf": "7b292fb2a9f21b14d6e040fc3d7bc871f4a4ea1cbb52c92fdbfd6fb2e2a47a97"
+        "contact_sheet_png": "99e9fbb2e1bd26c12538edf26a4ff3180ae4b03da99c3d3d638888b5f389b01b",
+        "contact_sheet_pdf": "554632a68d354d14d7e5530d5d4a3ceceb347106ea098d4254734a3869fd6aa2"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G08",
       "checks": {
@@ -3171,7 +3238,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G09",
@@ -3206,8 +3274,8 @@
       "sha256": {
         "gif": "2f664a2ab0a1f67d1470df58da8085f12ec51b9411dda3c8d0986fef696c4c43",
         "webp": "783c4fcacc7852c3ce7bd7bd0be090a31bc6237c8c28e9f7d09ed30a266dc9db",
-        "contact_sheet_png": "576c4708549e66cb4e6fe84f992db0696de33b91545608d829f300ced8156e2e",
-        "contact_sheet_pdf": "003058fec2e85733cef1c8c03accc33d4983a22be5827ce8a0ab81d7c584089f"
+        "contact_sheet_png": "b2bb38ecbd7500b29c71b1e77bf87e8b7fcb11ac032a7d15ae8db06c4c5b6408",
+        "contact_sheet_pdf": "bcbf37a51fae34c7a778d0f87c265ad5b9abf892fe212156fc56d3ef4611da89"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G09",
       "checks": {
@@ -3216,7 +3284,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G10",
@@ -3251,8 +3320,8 @@
       "sha256": {
         "gif": "d6ff8752b1d94083f915d294520ac7b148a359078f51be86efd18c1d6fbe4259",
         "webp": "182aa1494cae585a8e6cd325173440100dc710f6f736bf8e35c1632c38fb0ffc",
-        "contact_sheet_png": "811f3d19c9f5e178c6961aece8eb79d063ed6745fbc993b3fe9ba97338c9d080",
-        "contact_sheet_pdf": "0a8495bcb6bbe77fd55e58ebabd02da5c0ae53542989ecf6ab5acc4ebeaefa14"
+        "contact_sheet_png": "55e1cd9aa46c734a8158262e64f6cf96fbebb4793836428c1db82b3cf33f327a",
+        "contact_sheet_pdf": "6198a67bdd913de114b4a9bb699cf838c1a23335a20cbdbe87a16e96f0840e83"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G10",
       "checks": {
@@ -3261,7 +3330,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G11",
@@ -3296,8 +3366,8 @@
       "sha256": {
         "gif": "79a4c62fc9a6ef49a744459816372a442b4348dc05e3bef7cbebf7bcbd229fc4",
         "webp": "6a4396921b9c6fe374ea7727151827f6a85dec3c22b54dc07fc309b69d84456f",
-        "contact_sheet_png": "048b73354cfd9bf73fa2d5acfcf3ebd55acf43016fff75dee19fe1bd4b85bf77",
-        "contact_sheet_pdf": "326f8760998d6bf4ed2c6951205488e645e99cd871204a94d6f6008ad4aef621"
+        "contact_sheet_png": "195dac72509bfdfa35833da1a3848ee97195aa60dd513212eb7d7e54a3b4bd19",
+        "contact_sheet_pdf": "fade98b8d3b84a156acaeb091cec19d53396c519f7f5faae208881dabde26821"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G11",
       "checks": {
@@ -3306,7 +3376,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G12",
@@ -3341,8 +3412,8 @@
       "sha256": {
         "gif": "9d29cbd0950e19c81afb753529a61a88042fcf9bf4288a3c5e2ea71ead0f8676",
         "webp": "a84e82969e42842991561c0081f747f0b7dad45cbbc0375ff3cb117ebb18e564",
-        "contact_sheet_png": "fe427d6c94acc41f84e05d81b8083d4e3c26cf7fb946d555167ad090ccb0c6fe",
-        "contact_sheet_pdf": "a45f064cf65bd12920bd9fc68b93b0b52b5eef044e194b5902a2eff33aae614f"
+        "contact_sheet_png": "193f2fbdd0103856becebafccdd4ff9756021537808df56aa0a54670e4d9f3f5",
+        "contact_sheet_pdf": "36b5099cbdb958b006149a018af3a1340c8197c6be12c05554ad72c387fb0d3f"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G12",
       "checks": {
@@ -3351,7 +3422,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G13",
@@ -3386,8 +3458,8 @@
       "sha256": {
         "gif": "ab8f7ad69c266e67373958950b62d737aa54d4347933646369e675781d1dab5c",
         "webp": "e84801363a89277fe696dab7d025efe149dbad50a0103f14cd0bf21e5dc46acc",
-        "contact_sheet_png": "638dd61121210ce165ef79118c06c5702c5549e0934267cd39c4d8e2d898f0ad",
-        "contact_sheet_pdf": "668ebb4637dcb3c1cd271685c76d7f166027b3ad44586c98e5ec3a994b58719e"
+        "contact_sheet_png": "ffa57db6ccac40d8db9895be2925a107f9d75a49b97a3cb168af1c76c019c534",
+        "contact_sheet_pdf": "f7939e91405fa5cd951850277fc69b06173dd0c58a2edd06d5b60ef7ebb2a31c"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G13",
       "checks": {
@@ -3396,7 +3468,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G14",
@@ -3431,8 +3504,8 @@
       "sha256": {
         "gif": "de3d03b2d1181723c315d73e8073467799fd2a785f277d2831be4ed3eaa03683",
         "webp": "0235b5b72b961b9f5970036735eaa2c39cbbf5c52bf028f243fc86e5e8951ad9",
-        "contact_sheet_png": "d1eba1fabe01a256fde352b2c6b2e42c03f1c0d75c0223a7d39e732a01f2b9c6",
-        "contact_sheet_pdf": "932734eb1fc7531f757e5ebd022d614ef1913d22f2eb3b7cebf28fa77474a8b9"
+        "contact_sheet_png": "0fa808524be873e733688409b5eaf68fb2af6b6ba568d0bdbe6080baf3c638d8",
+        "contact_sheet_pdf": "28da138454c87e5f5e4b60abfc4901b08cf133c27a1c86ded946f98e4f92417f"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G14",
       "checks": {
@@ -3441,7 +3514,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G15",
@@ -3476,8 +3550,8 @@
       "sha256": {
         "gif": "3d4a42542057783aef40a724ba0cc728f9c1e5fc34d2009ab76c2d17acc04a5a",
         "webp": "a9183438e9ebf5026b6b498dc81296ef90744d1755d13a328ea3922cd7911c71",
-        "contact_sheet_png": "21fe9e69050cf441ddd06169c0be614851f209b0a5db07cb90fa583985af9fad",
-        "contact_sheet_pdf": "99b007071528866b37b708d97a0d81e67497cf4f01425bfab7f515c293f74f25"
+        "contact_sheet_png": "88f5c7bbb6be323f8e9293bddffccad7755b893ba4bc3db91b35293b205a58be",
+        "contact_sheet_pdf": "40ad96ec2f466ecccb047161374db0078908caba1c5c3817fa3477be888fe5ed"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G15",
       "checks": {
@@ -3486,7 +3560,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G16",
@@ -3521,8 +3596,8 @@
       "sha256": {
         "gif": "762ad93e18c7be1de1175fc719de5bb4d2bba7a274390f786b8c28c0781ab29d",
         "webp": "9c58a826201469685c6e37ca8d6c224ca9360c0951a2e73207b9afe5a695e5a6",
-        "contact_sheet_png": "bc0639c1b55696ca9f0b23e0735f116c43b166294df616958b72c36960f41022",
-        "contact_sheet_pdf": "d4f55c5e12e8e4265a5c6cdd9fa15673fa5231a755cbcd49bbdf2264d49bba64"
+        "contact_sheet_png": "84a2a69f746af3c22e40d12c9c2bf0a41beba39729121e7487597fb22ea2b0e3",
+        "contact_sheet_pdf": "0d7d2db4a4b002a5004b8292c23a95ec4aad44b7e4f4dae745310c0095ccc981"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G16",
       "checks": {
@@ -3531,7 +3606,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G17",
@@ -3566,8 +3642,8 @@
       "sha256": {
         "gif": "6fdcd6ec3f106dd775cf6b03292b9fa60d0c813a9c49c5dea4f3e0e8c5faa25e",
         "webp": "cc1ff0230ce7e1a890a58f755548af2be245f8127f58494d33065cdbf0b681ed",
-        "contact_sheet_png": "18033f6fcf03d9b985efb2bb3f7928c0f82b9b7c75836c71fdc2d40ed5aabec1",
-        "contact_sheet_pdf": "7779b1e7a1db1dc065b655570244e84e79522dcfb3ce89c42c4a33ef3797cc77"
+        "contact_sheet_png": "f8530206bc3230d4d755cba6934e8cc96001b0bb3bd1047eacbf6857ce0df1b7",
+        "contact_sheet_pdf": "d9e2eca31d1812f95a8e6facd9f1fb2aee05e4ba060879eb7b670b4d61e5266b"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G17",
       "checks": {
@@ -3576,7 +3652,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G19",
@@ -3611,8 +3688,8 @@
       "sha256": {
         "gif": "ca5af714ca2dfe24042a7801a8cdc847aec23a85b663e96dec69d1b572004ee5",
         "webp": "09dbe8d2b11333f981cdd860786a3d2265b8170b1cc440d49ed0f88795faf3a7",
-        "contact_sheet_png": "a05efb8ad3b57b7cd1c35b632aa455b6e7f5c428c2f0431c66f7bdc85ba340d0",
-        "contact_sheet_pdf": "11849c19ddaee75509d216f7d84437246a158534eaabeddf40c82fe3aa3bdef1"
+        "contact_sheet_png": "d0096067fe9221fdc7550b02914dfc014695e092a4bcbe20580d1b4ac6f39487",
+        "contact_sheet_pdf": "927137c576aa04df6a9f5e93b01d763e6c3c046760d361e60e6b14f33ea377a9"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G19",
       "checks": {
@@ -3621,7 +3698,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G20",
@@ -3656,8 +3734,8 @@
       "sha256": {
         "gif": "5f94a48ab917e33185de4325b11cea2c8408b8afa557bdbb70bacd2e707cfe71",
         "webp": "2002bcd221ca139ee0350cda2b30c53b563abfa1a004aa01acbf09848afcfd1f",
-        "contact_sheet_png": "75366f8e81b3cf0424b30068b1b50adc4777e2a931ebc3f2c356afb5474bfe54",
-        "contact_sheet_pdf": "6ad42abf9e55689b8820487e4244c5e56d28d4c55fa63bfca025c1c42a533a9c"
+        "contact_sheet_png": "8d0db4ccbf0da0f5c9814e90cf1c6a4f7e7891ac3277335787bbcec26aed8e1e",
+        "contact_sheet_pdf": "dbf8e9b2a1ea07b0957759ffae0f731dcd3e004f50ef7a998ad65e7c065f323e"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G20",
       "checks": {
@@ -3666,7 +3744,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G21",
@@ -3701,8 +3780,8 @@
       "sha256": {
         "gif": "3ea9929cadd9788967e5140f3ff62bf2e71501a111cd1ebac9bedbf5c23cd50a",
         "webp": "d6cfde3c8b62575ca1801d00d372bb8c15755680665e5badccad07d134fcd218",
-        "contact_sheet_png": "364671c2c4fa9884c6e4c76ef10d72f3373f9b39e3c87cc9d19811e29f466b7c",
-        "contact_sheet_pdf": "58a3e82a62a943a6cda35a9b7408770fc8711719c7746b2309a68096e9805a33"
+        "contact_sheet_png": "d80bfef713beba3acefe076e2682709d9e726ce10d1053d0234327c8d9e5add8",
+        "contact_sheet_pdf": "cb5f822eb245fd7c8dfd201207fbf65a2f43a364d10bf718f088bc71b7787fae"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G21",
       "checks": {
@@ -3711,7 +3790,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G22",
@@ -3746,8 +3826,8 @@
       "sha256": {
         "gif": "74af27501911b12ad6b11130596617b3748ea23b47036397627fcc120cadc4dc",
         "webp": "582d443ef22de07ee0c966c48310c16c79d8c07860086b396f3e12b1e8f357f1",
-        "contact_sheet_png": "e6580b934f64413b4918a17a8e70b24f124a898af880e015d6b5e47c08dd5cea",
-        "contact_sheet_pdf": "2afbf7259a8cd1a9cd35a2e90761c81ebef64f15226c74abaa4aee2b6b693a5d"
+        "contact_sheet_png": "0a03c50cac499166fa27dec5b954452ad2345d1186a78e55a52ae0b15230abd2",
+        "contact_sheet_pdf": "5c94f3a553fd04d36a24b3509232c554dee8b2fb0726f069143e258fac61be28"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G22",
       "checks": {
@@ -3756,7 +3836,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G23",
@@ -3791,8 +3872,8 @@
       "sha256": {
         "gif": "dcfd1914bdc83d9a724e14accf1ba66852b61f5768702bf1418f14773df82de7",
         "webp": "481cba2e1e3017154b057aa301adac9a0a452c9caede35e6575ca9bca8804ba1",
-        "contact_sheet_png": "4c0b597e4ab34a153d39e88b1d0883dce8f596111e5fe07112cffed459b5f5cf",
-        "contact_sheet_pdf": "eb67066085df0a59ef2f04da714e20147a2c1d0ee32b781f5ff469132fa97ce3"
+        "contact_sheet_png": "307f0c30caee2306df474126371b3633aef8df66e45e61abcef5053a019d9120",
+        "contact_sheet_pdf": "2933384436745e34b68560e3bc8d3174515fb6b83cb179e52e4e70342e4dba63"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G23",
       "checks": {
@@ -3801,7 +3882,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G24",
@@ -3836,8 +3918,8 @@
       "sha256": {
         "gif": "f3cf95020131ab05b2606d03738525cde1a422ad09c517f10d127ee2a02998a6",
         "webp": "d62cc428427ac9b5f0eada79b13789572447c3b1bd051efefdd9b5716f3761db",
-        "contact_sheet_png": "026caa9b05cc3b62f4d2fb24538e523941c10be1229736f6c7ce07e900a212f3",
-        "contact_sheet_pdf": "1fb32aaeff514cad0c2d511541112da776b51d84f501e5114cd0e2a0038e33f1"
+        "contact_sheet_png": "b29f879b306b04b0922ac34c98caadcde7ad1f1eb9998ef306840bcc16d59d91",
+        "contact_sheet_pdf": "f9d51c6334f58f3c0e4038fe5599b319c9b1c7aa1639dd5585d02b6986851773"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G24",
       "checks": {
@@ -3846,7 +3928,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G25",
@@ -3881,8 +3964,8 @@
       "sha256": {
         "gif": "e229980f50e3b299d9a83e194affc0c65e7b90160ca1249bf1f4a1ff79f24d4c",
         "webp": "2ae49118d2d7b573a450ea99690a2096ac448610e391ed74d1c186f0514b7ad5",
-        "contact_sheet_png": "39aa75e3e200bb58c55fd223ea4a5db106f2e78fa7e2def941a9d8da0943e155",
-        "contact_sheet_pdf": "6ce45f804f0b0981161ab4dddc889ae2f0b137edf761a534bbea60e7a537259e"
+        "contact_sheet_png": "4a76ac5fa2ffe9919a4e2206b33a447d31269249a5b02d717bc2d9c1286e4091",
+        "contact_sheet_pdf": "ebad70877fbfde04d51535679248de740b65c720ffc5124d4f93080174046aee"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G25",
       "checks": {
@@ -3891,7 +3974,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G26",
@@ -3926,8 +4010,8 @@
       "sha256": {
         "gif": "fa71975c80cd414497d475c07ff2ef03b9ee9e019eab216fd55b1ed81487b035",
         "webp": "759501c06b0dcde30c62497686d0bebb220d309b056e282b4c4fd85e1b345764",
-        "contact_sheet_png": "ac022fa4d89a301edbe41ae5b8f97f084ce6ca5d4a7292043e2a59d297b9d566",
-        "contact_sheet_pdf": "9083d48a65db0333ea387c8d33ea5e7e4a942825826ef5b61f8e689892772a3b"
+        "contact_sheet_png": "95d9911a2fae002469f037448426336be4dc73cc3bef97b3e685723595cd611e",
+        "contact_sheet_pdf": "4cd35667b184f6150a496f88b7fcdd97d5d0db53ecd7505679758c9c2a0de093"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G26",
       "checks": {
@@ -3936,7 +4020,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G27",
@@ -3971,8 +4056,8 @@
       "sha256": {
         "gif": "c58ccbcbbb30dd1eb37b717c58fb7d803d3a6ef348f1e5e7c035b4ea2e627d6d",
         "webp": "9c72fa2329dfa7e0588eab527e231bb95b2c77dd1bf501696ff4275f7af22433",
-        "contact_sheet_png": "bacb221ff8f7908d8513c63d26c664d4230aa71787f70bb4d8378ecbefce2b1c",
-        "contact_sheet_pdf": "6eb7a4a2007a8f636de25b01bd908033e6080a37c6b02b02d79acb3360048717"
+        "contact_sheet_png": "45411ac64e73db0ca67e54f1d0f8fe181f2e97739634aafdd91c37c5d8f0b0b3",
+        "contact_sheet_pdf": "c5b52dc478c1b08d2726c98d4752c47acb5a6374b24561f50565b915d12be2bb"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G27",
       "checks": {
@@ -3981,7 +4066,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G28",
@@ -4016,8 +4102,8 @@
       "sha256": {
         "gif": "528194b694a6bd5fb10621ed7f20f164be92b0d763f4d69b14cd16806383924a",
         "webp": "fe3e8570fb644c10461e967432661fb7a1e452ad9046bbdf5268d635a917a79c",
-        "contact_sheet_png": "53d5d600cc59c863eb2367b0da397071d59c315e21381b327cbce3a55dd110b5",
-        "contact_sheet_pdf": "cc789656f24fd8f4048d72dada0c8ee177aaa45006300b82f8aa5f60fc5ed9c9"
+        "contact_sheet_png": "e9c203e0c325ee13a2e212aa0ad64f24e30d6fff8457d127382f4cf0f63e21c9",
+        "contact_sheet_pdf": "c832915ac7f021e7d11d713cf6bf88258e076c2c82573276c9d8bd5930e7e256"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G28",
       "checks": {
@@ -4026,7 +4112,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G29",
@@ -4061,8 +4148,8 @@
       "sha256": {
         "gif": "c2e01743d4798551662293f3780a690d6a0306e6912d9882ab326b795b82dfc2",
         "webp": "8cc793ee37bb2e19afcd2980d8f3b7ab1618a73265ccfb55d963ec2fbfe1c937",
-        "contact_sheet_png": "c0ba2d532d015bf2b44bccc4f6aad11b90c4262282fcf87e741035c2adcd91b6",
-        "contact_sheet_pdf": "595f3ebf31fd8a77532d8168d12e1da6e15968310d0238f007de73ef10eace19"
+        "contact_sheet_png": "1a4632376be57ea3d4053570599014319326604c5f67a49f2135d675a304904e",
+        "contact_sheet_pdf": "e12cef704b2d335ad5827b51e672e7db8cf1305100d359a48f3cda07de7c8d63"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G29",
       "checks": {
@@ -4071,7 +4158,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G30",
@@ -4106,8 +4194,8 @@
       "sha256": {
         "gif": "11687bbeb68ce6cfd1be304d8edf2e917e215b7cabfd6547f92b84aa4a560912",
         "webp": "3480428ce926d42a1f70a4bf086e8c7e76f831a84db0966fa946a5612ee57709",
-        "contact_sheet_png": "bd2e9905ea4e31328d081237988149e77901a35e3aaad196dddbd5f5faded565",
-        "contact_sheet_pdf": "1f80e4553965d6bc01b574abf1014305010240e72a33b70462219efb67b3da6d"
+        "contact_sheet_png": "7ac212a6d1e345f705901caa2b304599a1c30c2bef5ad60080ac726ec52c0411",
+        "contact_sheet_pdf": "d5fb8880ac7ceef5cc990c6431afd9818346c8c584095d6b3bba6549de6f910c"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G30",
       "checks": {
@@ -4116,7 +4204,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G31",
@@ -4151,8 +4240,8 @@
       "sha256": {
         "gif": "73ff4d17f25bb4fff9bc13709a71b286a2505c27bc660522fa20f6c51bcd7c7f",
         "webp": "03ca5b10dd3fb638bb71a7f95933e12b601229ca3a0d102068bf061e5890fb1c",
-        "contact_sheet_png": "4fa66b3933d175d52b6143241193aae9c16e36eb61f283e9d88bdb774fb29bda",
-        "contact_sheet_pdf": "51d733ed82ae7b0f0dacb8948e562104bb8e5a3731ad91d466248c06b588ac0d"
+        "contact_sheet_png": "994d7a2020c1c9ad10ae948690c3084b8b2c4e802867836059017cbec4183a64",
+        "contact_sheet_pdf": "882e53abb566a0dddccd6bdb95697f61da24927fccf6c2c354daf3e219a33cb8"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G31",
       "checks": {
@@ -4161,7 +4250,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-G32",
@@ -4196,8 +4286,8 @@
       "sha256": {
         "gif": "9dde804ad5649211c354afbed33375b67b92c976d77b004875ce8a7f6f0f3db3",
         "webp": "598d7375faa68af24736e61bfb153b77eac3744b952fd6df5207403510fdffe0",
-        "contact_sheet_png": "81ce5f94bf3b65627d4d50204a9cbad9e051a7e404c9bbc22770c9a91a668ac6",
-        "contact_sheet_pdf": "a9e09731d761e3df1c0b1f29ef5c2ab5c22a0da38febbd1768bd57ba529abf8b"
+        "contact_sheet_png": "4ad5898cbd5cac9e1e8250b4c1a681f50dd0e948b05b6bd906bcb0aad725e6b8",
+        "contact_sheet_pdf": "8c73729357f5825f8b38233ca274066a854944f0ca8a3762051ad18db4893a11"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-G32",
       "checks": {
@@ -4206,7 +4296,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-J01",
@@ -4241,8 +4332,8 @@
       "sha256": {
         "gif": "b360612fdea8dd7b4b349cdbbd5ea210004d5c07d384066ec527be754309949f",
         "webp": "8726d883589a723ef8a052b7ebb616efab62c66767cb5ff4eebd33a4de1a5810",
-        "contact_sheet_png": "dc30a28e6e95f241b61766a28b68be3054411e7cc9071b107373f186358adaa2",
-        "contact_sheet_pdf": "a34cede050682066a223c85151adfaf8ff8b6432c4edb52b4600e8ff52a69384"
+        "contact_sheet_png": "840a11515fa46ea6bc5b7a3425d5234b3006c250171efff9a3d3364edb331a5d",
+        "contact_sheet_pdf": "bcb735af3b23945938d8607fc2c11ac0e13dc30803c6ec763e6fb8a8c763923b"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-J01",
       "checks": {
@@ -4251,7 +4342,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-J02",
@@ -4286,8 +4378,8 @@
       "sha256": {
         "gif": "2b35237fa3828bd29964e746251e214def48bdd8d638dde48d09a4c8acc626a0",
         "webp": "be7068bfa54fec1aad876192b6a232bf539953b61baa61977c9d40009b5afa55",
-        "contact_sheet_png": "a29d041457a0b587a5b83bfa0fd420c2ce04dd16cd64571084c1a0314d3525aa",
-        "contact_sheet_pdf": "ce4dfa1d0e66dad8f3bc9997f63f08d1f1a2d70869c06d7de7563672432b7f9b"
+        "contact_sheet_png": "a790f521a8e3e2f40547f026e47295a34ca7242a9ce16733a65a30e1125af51a",
+        "contact_sheet_pdf": "17c4d3ff87057b882113919ee3d7283b2435db08c99c9a06e124ce510d36e8fa"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-J02",
       "checks": {
@@ -4296,7 +4388,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-M01",
@@ -4331,8 +4424,8 @@
       "sha256": {
         "gif": "1326f7d66101e07108b671b4726c56df6498a72e0de9b52eb0680459688125f3",
         "webp": "901bdfe907a795917e4fdbbd48567887dc2a04c3c322a514437c39c07e12529e",
-        "contact_sheet_png": "1303ac0c7a8a5e1b206f7eefd9f031fbdb32e85ad576adc6787a3f7ac4ed1e89",
-        "contact_sheet_pdf": "ba0886ecd99fcd37d47915790748b7203624d577208159ebaad006839e786c7b"
+        "contact_sheet_png": "77c6573dfde3d3d6ba83039ad35fbf8e2fb9fc3dbe0ddd6ab584b5b75407b406",
+        "contact_sheet_pdf": "d9c3fdc9eeacf3e98d8d80a6064940cc2a5c9b919e8120fa297aa633bb171d22"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-M01",
       "checks": {
@@ -4341,7 +4434,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-M02",
@@ -4376,8 +4470,8 @@
       "sha256": {
         "gif": "129fb25e3ebd25756f52a80179946e07a4670dad33ecd065203a0ec7aa6c3af3",
         "webp": "e73b92e41c63ccdc4af638bc7bdfde234217ad060983427969fa71684da36736",
-        "contact_sheet_png": "c8447adc0e0800aac896c4fa439d6231146b634bfae1f92f7a6e52b8c41a79e4",
-        "contact_sheet_pdf": "ba8ab1699381a8a45e7471f348e28eb4b245c4fc4ad89a46bf1518720e7f0ed0"
+        "contact_sheet_png": "d1db3020fabbbca90815a4d2ed3243508bbc6f8511641f240fd7d02b0d9c79fa",
+        "contact_sheet_pdf": "b9e3e61dfd5a7b6e2f5eea0f80690a12969fb6862c096ca5ee8ad8a739a335d9"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-M02",
       "checks": {
@@ -4386,7 +4480,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     },
     {
       "target_id": "EUC-M03",
@@ -4421,8 +4516,8 @@
       "sha256": {
         "gif": "1826a2868c75d23aa65ca88f821a56457cacd58019bfdd29992338d82ff2e605",
         "webp": "ab02ce67e594ddb2ec3699f3eca4e0248eb2d67e0d59159b836729f75663a71b",
-        "contact_sheet_png": "40686e64d98842c2764c4371c6f1665f102f8d900afc832cbf46859d745ad6e6",
-        "contact_sheet_pdf": "043139ef8f1e1523d970b7d02779b18ac9bb9f9b2bcca01ec35bd1c96cda9f2c"
+        "contact_sheet_png": "f57c0e2ca9a8f51b38410ece0a614c8a422dfa52f53dc8edd40f6cba47e18fb2",
+        "contact_sheet_pdf": "6088336b7e4d7915c21a8acec515143574e9b7bc8f554f19b5e50024fc24cf78"
       },
       "source_bundle": "outputs/real_cutouts/group5/EUC-M03",
       "checks": {
@@ -4431,7 +4526,8 @@
         "all_frames_finite_nonconstant": true,
         "no_banned_words": true,
         "no_bold_italic": true
-      }
+      },
+      "figure_mode": "real_pixel_zoom"
     }
   ],
   "not_rendered": []
