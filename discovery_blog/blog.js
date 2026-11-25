@@ -35,6 +35,11 @@ const I18N = {
     abstract_body:
       "What happens when you apply \"vibe coding\" principles to observational astronomy? We built an agentic \"vibe discovery\" platform that turns more than a dozen ground- and space-based public archives into a unified, modular workspace. Our agents decompose existing astronomical software into reusable components, bridged blind spots across separate sky surveys, and dispatched an independent fleet of verification agents to audit every candidate against archival pixels and orbit fits. We uncovered 93 solar system candidates—46 trans-Neptunian objects (TNOs), a Centaur, 3 irregular Jovian satellite candidates, and 43 asteroids—plus 25 faint high-proper-motion stars. The searches were built and run with Gemini 4 Carbon.",
 
+    sub_hero_label: "Below the Filter",
+    sub_hero_jump: "Detailed breakdown ↓",
+    sub_hero_body:
+      "These headline counts reflect only the candidates that cleared our strictest multi-epoch orbital, residual, and archival-image filters. Immediately below that bar lie 2,952 detectable Solar System candidates (including 1,141 single-visit Euclid asteroid trails, 509 SPHEREx single-epoch transients, and 507 multi-night outer-Solar-System linkages) alongside thousands of sub-threshold Galactic moving-star and binary-companion candidates. All of these signals already appear in public survey data; a few upcoming Rubin Observatory and Euclid epochs will convert them into confirmed orbits and classifications.",
+
     hero_cta_primary: "Launch 3D Solar System & Galaxy Explorer ↗",
     hero_cta_discoveries: "{{survivors}} Candidate Orbits in 3D ↗",
     hero_cta_gallery: "{{movie_targets}}-Target Detection Figure Gallery ↗",
@@ -50,6 +55,7 @@ const I18N = {
     toc_moons: "4. Reference-Frame Joins & Physical Tests",
     toc_agents: "5. Dynamic LEGO & Galactic Extension",
     toc_out: "6. Outlook",
+    toc_sub: "Below the Filter",
     toc_ack: "Acknowledgements",
     toc_int: "Interactive Sky & L2 Demos",
     toc_ext: "Extended Data Plates",
@@ -150,6 +156,13 @@ const I18N = {
     out_link_gallery: "{{movie_targets}}-Target Detection Figure Gallery",
     out_link_3d: "Open 3D Explorer",
     out_link_ledger: "Companion Data",
+
+    sub_kicker: "Sub-Threshold Watchlists · Below the Strict Acceptance Bar",
+    sub_title: "Detectable Candidates Below Our Filter",
+    sub_p1:
+      "Our headline catalog keeps only detections that clear strict multi-night arc, orbital-residual, static-sky, and archival-image gates. Raising that acceptance bar eliminates false positives while setting aside a far larger reservoir of real astrophysical signals whose current public coverage stops one or two epochs short of a locked orbit or firm classification. Every watchlist below is preserved with per-epoch coordinates and photometry so upcoming Vera C. Rubin Observatory, ESA Euclid DR2, NASA SPHEREx Year-2, and Gaia DR4 releases can link them directly.",
+    sub_note:
+      "The 93 headline Solar System candidates and 25 faint high-proper-motion stars represent the top of a continuous detectability funnel. Because every sub-threshold entry already carries measured sky coordinates and epochs in public archives, automated cross-matching against upcoming Rubin LSST, Euclid DR2, SPHEREx, and Gaia DR4 releases turns this dormant pool into an immediate discovery pipeline.",
 
     ack_title: "Acknowledgements",
     ack_p1: "We gratefully acknowledge Google for supporting this work through the Google Antigravity scientific research program.",

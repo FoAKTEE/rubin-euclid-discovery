@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="doc_title">Vibe Discovery</title>
-  <meta name="description" content="Vibe Discovery: AI coding agents join ground and space sky surveys like modular LEGO blocks to uncover 93 Solar System candidates and 25 faint high-proper-motion stars." />
+  <meta name="description"
+    content="Vibe Discovery: AI coding agents join ground and space sky surveys like modular LEGO blocks to uncover 93 Solar System candidates and 25 faint high-proper-motion stars." />
   <link rel="icon" href="../favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png" />
   <link rel="icon" type="image/png" href="../vd-logo.png" />
@@ -13,7 +14,8 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Vibe Discovery" />
   <meta property="og:title" content="Vibe Discovery" />
-  <meta property="og:description" content="Uncovering the hidden Solar System and faint nearby stars with dynamically loaded cross-survey LEGO from AI agents." />
+  <meta property="og:description"
+    content="Uncovering the hidden Solar System and faint nearby stars with dynamically loaded cross-survey LEGO from AI agents." />
   <meta property="og:url" content="https://foaktee.github.io/rubin-euclid-discovery/discovery_blog/" />
   <meta property="og:image" content="https://foaktee.github.io/rubin-euclid-discovery/og-thumbnail.png" />
   <meta property="og:image:type" content="image/png" />
@@ -22,10 +24,11 @@
   <meta property="og:image:alt" content="Vibe Discovery logo" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Vibe Discovery" />
-  <meta name="twitter:description" content="Uncovering the hidden Solar System and faint nearby stars with dynamically loaded cross-survey LEGO from AI agents." />
+  <meta name="twitter:description"
+    content="Uncovering the hidden Solar System and faint nearby stars with dynamically loaded cross-survey LEGO from AI agents." />
   <meta name="twitter:image" content="https://foaktee.github.io/rubin-euclid-discovery/og-thumbnail.png" />
   <meta name="twitter:image:alt" content="Vibe Discovery logo" />
-  <link rel="stylesheet" href="styles.css?v=20261124cm" />
+  <link rel="stylesheet" href="styles.css?v=20261125c" />
 </head>
 
 <body>
@@ -57,7 +60,29 @@
       <!-- Principle 2.5: Summary contains strictly zero mathematical symbols, zero Unicode math, and zero equations -->
       <div class="abstract-box">
         <div class="abstract-label" data-i18n="abstract_heading">Summary</div>
-        <p class="abstract-text" data-i18n="abstract_body">What happens when you apply &ldquo;vibe coding&rdquo; principles to observational astronomy? We built an agentic &ldquo;vibe discovery&rdquo; platform that turns more than a dozen ground- and space-based public archives into a unified, modular workspace. Our agents decompose existing astronomical software into reusable components, bridged blind spots across separate sky surveys, and dispatched an independent fleet of verification agents to audit every candidate against archival pixels and orbit fits. We uncovered 93 solar system candidates—46 trans-Neptunian objects (TNOs), a Centaur, 3 irregular Jovian satellite candidates, and 43 asteroids—plus 25 faint high-proper-motion stars. The searches were built and run with Gemini 4 Carbon.</p>
+        <p class="abstract-text" data-i18n="abstract_body">What happens when you apply &ldquo;vibe coding&rdquo;
+          principles to observational astronomy? We built an agentic &ldquo;vibe discovery&rdquo; platform that turns
+          more than a dozen ground- and space-based public archives into a unified, modular workspace. Our agents
+          decompose existing astronomical software into reusable components, bridged blind spots across separate sky
+          surveys, and dispatched an independent fleet of verification agents to audit every candidate against archival
+          pixels and orbit fits. We uncovered 93 solar system candidates—46 trans-Neptunian objects (TNOs), a Centaur, 3
+          irregular Jovian satellite candidates, and 43 asteroids—plus 25 faint high-proper-motion stars. The searches
+          were built and run with Gemini 4 Carbon.</p>
+      </div>
+
+      <!-- Standalone Companion Box: Detectable Candidates Below the Strict Acceptance Bar -->
+      <div class="subthreshold-hero-box" aria-label="Detectable candidates below the strict filter">
+        <div class="subthreshold-hero-header">
+          <span class="subthreshold-label" data-i18n="sub_hero_label">Below the Filter</span>
+          <a href="#sec-subthreshold" class="subthreshold-jump" data-i18n="sub_hero_jump">Detailed breakdown ↓</a>
+        </div>
+        <p class="subthreshold-text" data-i18n="sub_hero_body">These headline counts reflect only the candidates that
+          cleared our strictest multi-epoch orbital, residual, and archival-image filters. Immediately below that bar
+          lie 2,952 detectable Solar System candidates (including 1,141 single-visit Euclid asteroid trails, 509 SPHEREx
+          single-epoch transients, and 507 multi-night outer-Solar-System linkages) alongside thousands of sub-threshold
+          Galactic moving-star and binary-companion candidates. All of these signals already appear in public survey
+          data; a few upcoming Rubin Observatory and Euclid epochs will convert them into confirmed orbits and
+          classifications.</p>
       </div>
 
       <!-- Primary Navigation Links -->
@@ -95,6 +120,7 @@
         <li><a href="#sec-agents" class="toc-link" data-i18n="toc_agents">5. Dynamic LEGO &amp; Galactic Extension</a>
         </li>
         <li><a href="#sec-outlook" class="toc-link" data-i18n="toc_out">6. Outlook</a></li>
+        <li><a href="#sec-subthreshold" class="toc-link" data-i18n="toc_sub">Below the Filter</a></li>
         <li><a href="#sec-acknowledgements" class="toc-link" data-i18n="toc_ack">Acknowledgements</a></li>
       </ul>
       <div class="toc-group-label" data-i18n="toc_grp_comp">Interactive &amp; Data</div>
@@ -180,7 +206,8 @@
             Sun–Earth second Lagrange point (<i>L</i><sub>2</sub>), with mismatched catalogs, rotated detectors, and
             undocumented processing artifacts.</p>
           <p data-i18n-html="intro_p3">We test whether AI coding agents can bridge this gap by composing searches from
-            modular parts, an approach we call <strong>vibe discovery</strong> (<a href="#fig-pipeline">Fig. 1</a>). Human states the scientific targets, the blind-spot hypotheses, and the acceptance rules in plain
+            modular parts, an approach we call <strong>vibe discovery</strong> (<a href="#fig-pipeline">Fig. 1</a>).
+            Human states the scientific targets, the blind-spot hypotheses, and the acceptance rules in plain
             language. Agents do the rest of the construction. They read the astronomical literature and open-source
             codes, decompose each code into tested physical kernels, and wrap every archive behind one standardized
             observation interface. For each blind spot they load the telescopes, instruments, and algorithmic bricks it
@@ -193,7 +220,8 @@
             resolves companions of Gaia stars with excess astrometric noise. Every Solar System body reported here is a
             candidate that awaits a Minor Planet Center designation and independent recovery; provisional labels such as
             <a href="../eyes_3d/index.html?focus=DELTA_003" target="_blank" rel="noopener"
-              class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> identify them (<a href="#sec-ledger">Companion
+              class="fly-badge copper js-3d-link" data-fly-focus="DELTA_003">R25-D03 ↗</a> identify them (<a
+              href="#sec-ledger">Companion
               Data</a>).
           </p>
         </div>
@@ -309,7 +337,8 @@
           </p>
           <p data-i18n-html="tri_p3">Where no archival image exists, a spacecraft and a ground telescope observing at
             the same time replace months of orbital motion with parallax. Euclid orbits the Sun–Earth
-            <i>L</i><sub>2</sub> point, about 1.5 × 10<sup>6</sup> km from Cerro Tololo in Chile. A distant body imaged from
+            <i>L</i><sub>2</sub> point, about 1.5 × 10<sup>6</sup> km from Cerro Tololo in Chile. A distant body imaged
+            from
             both sites within one night shifts on the sky between the two viewpoints by an angle that gives its distance
             (<a href="#parallax-widget">interactive triangulation slider</a>). Two Euclid candidates, <a
               href="../eyes_3d/index.html?focus=EUC0005" target="_blank" rel="noopener" class="fly-badge js-3d-link"
@@ -486,6 +515,162 @@
               data-fly-root="1" data-i18n="out_link_3d">Open 3D Explorer</a>
             <a href="#sec-ledger" class="fly-badge" data-i18n="out_link_ledger">Companion Data</a>
           </div>
+        </div>
+      </section>
+
+      <!-- Below the Filter: Detectable Sub-Threshold Candidates -->
+      <section class="paper-section" id="sec-subthreshold">
+        <div class="prose">
+          <span class="sec-num" data-i18n="sub_kicker">Sub-Threshold Watchlists · Below the Strict Acceptance Bar</span>
+          <h2 data-i18n="sub_title">Detectable Candidates Below Our Filter</h2>
+          <p data-i18n="sub_p1">Our headline catalog keeps only detections that clear strict multi-night arc,
+            orbital-residual, static-sky, and archival-image gates. Raising that acceptance bar eliminates false
+            positives while setting aside a far larger reservoir of real astrophysical signals whose current public
+            coverage stops one or two epochs short of a locked orbit or firm classification. Every watchlist below is
+            preserved with per-epoch coordinates and photometry so upcoming Vera C. Rubin Observatory, ESA Euclid DR2,
+            NASA SPHEREx Year-2, and Gaia DR4 releases can link them directly.</p>
+        </div>
+
+        <div class="subthreshold-kpi-grid" aria-label="Headline and sub-threshold candidate totals">
+          <div class="subthreshold-kpi">
+            <span class="subthreshold-kpi-tag">Headline Tier (Strict Filter)</span>
+            <strong class="subthreshold-kpi-val">93 + 25</strong>
+            <span class="subthreshold-kpi-desc">93 Solar System candidates and 25 faint high-proper-motion stars, plus
+              129 Euclid-resolved &lt;1″ companions among 1,200 high-RUWE Gaia stars.</span>
+          </div>
+          <div class="subthreshold-kpi subthreshold-kpi-accent">
+            <span class="subthreshold-kpi-tag">Solar System Watchlists</span>
+            <strong class="subthreshold-kpi-val">2,952</strong>
+            <span class="subthreshold-kpi-desc">Preserved sub-threshold detections across 10 multi-archive watchlists
+              spanning Euclid, Rubin, SPHEREx, DECam, JWST/HST, NEOWISE, and MPC ITF.</span>
+          </div>
+          <div class="subthreshold-kpi">
+            <span class="subthreshold-kpi-tag">Galactic Follow-Up Pool</span>
+            <strong class="subthreshold-kpi-val">Thousands</strong>
+            <span class="subthreshold-kpi-desc">3,832 clean high-RUWE Gaia stars in the Euclid × Rubin overlap, 632
+              wide stellar pairs, and preliminary Gaia binary follow-up targets.</span>
+          </div>
+        </div>
+
+        <div class="subthreshold-table-wrap">
+          <table class="subthreshold-table" aria-label="Detailed breakdown of detectable candidates below the strict filter">
+            <thead>
+              <tr>
+                <th>Channel / Population</th>
+                <th class="num-col">Count</th>
+                <th>Surveys &amp; Archives</th>
+                <th>Why Below Strict Filter</th>
+                <th>Path to Confirmation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="subthreshold-group-row">
+                <td colspan="5">Solar System Sub-Threshold Watchlists — 2,952 Preserved Candidates</td>
+              </tr>
+              <tr>
+                <td><strong>Euclid L2 single-visit asteroid trails</strong></td>
+                <td class="num-col">1,141</td>
+                <td>ESA Euclid DR1 (VIS + NISP), vetted against DECam, Rubin &amp; Pan-STARRS</td>
+                <td>High-S/N (≥ 12) linear streaks in 565 s VIS frames absent from deep ground stacks, observed on one night only</td>
+                <td>Second-night sky match or Euclid DR2 revisit</td>
+              </tr>
+              <tr>
+                <td><strong>SPHEREx single-epoch infrared transients</strong></td>
+                <td class="num-col">509</td>
+                <td>NASA SPHEREx DR1 (0.75–5.0 µm)</td>
+                <td>High-S/N (≥ 12) Zodiacal-subtracted single-pass detections without a second-pass orbit linkage</td>
+                <td>SPHEREx Year-2 passes or cross-match with Rubin &amp; Euclid ephemerides</td>
+              </tr>
+              <tr>
+                <td><strong>MPC ITF outer-Solar-System linkages</strong></td>
+                <td class="num-col">507</td>
+                <td>Minor Planet Center ITF (DECam, Pan-STARRS, HSC, Rubin)</td>
+                <td>Multi-night outer-Solar-System linkages with 0.7″–1.5″ astrometric RMS, above our tightest residual gate</td>
+                <td>One additional opposition epoch to lock orbit residuals</td>
+              </tr>
+              <tr>
+                <td><strong>Three-satellite asteroid, Trojan &amp; Centaur tracks</strong></td>
+                <td class="num-col">486</td>
+                <td>Rubin DP2, ESA Euclid DR1, NASA SPHEREx DR1</td>
+                <td>Multi-epoch inner-Solar-System tracks preserved prior to strict multi-opposition and catalog-clearance cuts</td>
+                <td>Longer Rubin LSST DR1 baseline and complete catalog matching</td>
+              </tr>
+              <tr>
+                <td><strong>Elevated-residual &amp; short-arc linkages</strong></td>
+                <td class="num-col">153</td>
+                <td>Rubin DP2, DECam, ESA Euclid DR1</td>
+                <td>Candidate linkages set aside by our strictest residual, intra-night velocity, or static-sky background cuts</td>
+                <td>Higher-S/N single-visit follow-up imaging</td>
+              </tr>
+              <tr>
+                <td><strong>Euclid L2 short-arc movers (&lt; 24 h)</strong></td>
+                <td class="num-col">62</td>
+                <td>ESA Euclid DR1 (47 asteroids, 13 TNOs, 2 Centaur/comet-like)</td>
+                <td>Sub-day arcs yield provisional Väisälä orbits with open semimajor axis and eccentricity</td>
+                <td>Second-epoch Euclid DR2 or ground recovery</td>
+              </tr>
+              <tr>
+                <td><strong>Oort-cloud &amp; high-latitude parallax candidates</strong></td>
+                <td class="num-col">32</td>
+                <td>Rubin DP2, DECam, WISE/NEOWISE</td>
+                <td>Ultra-slow annual-parallax motion requires multi-year baselines to separate from faint static stars</td>
+                <td>2026–2028 Rubin LSST multi-year cadence</td>
+              </tr>
+              <tr>
+                <td><strong>Deep-field shift-and-stack detections</strong></td>
+                <td class="num-col">20</td>
+                <td>JWST, HST, Rubin DP2</td>
+                <td>Faint shift-and-stack detections sitting below single-exposure detection thresholds</td>
+                <td>Deeper multi-epoch deep-field visits</td>
+              </tr>
+              <tr>
+                <td><strong>Planetocentric irregular-moon linkages</strong></td>
+                <td class="num-col">15</td>
+                <td>MPC ITF &amp; archival giant-planet fields</td>
+                <td>Planet-centered linkages outside our tightest multi-opposition Hill-sphere residual criteria</td>
+                <td>Second-opposition giant-planet field recovery</td>
+              </tr>
+              <tr>
+                <td><strong>Short-arc TNO/eTNO, hyperbolic &amp; polar IR watchlists</strong></td>
+                <td class="num-col">27</td>
+                <td>Rubin DP2, Euclid Deep Fields, NEOWISE (14 TNO/eTNO + 8 hyperbolic/coma + 5 polar IR)</td>
+                <td>3–4 night arcs retain range-rate degeneracy (14), open e &gt; 1 fits (8), or sparse thermal epochs (5)</td>
+                <td>A single 2026–2027 recovery epoch collapses orbit uncertainty below 0.1″</td>
+              </tr>
+              <tr class="subthreshold-group-row">
+                <td colspan="5">Galactic Sub-Threshold Pool — Thousands of Follow-Up Candidates</td>
+              </tr>
+              <tr>
+                <td><strong>High-RUWE Gaia stars in Euclid × Rubin overlap</strong></td>
+                <td class="num-col">3,832</td>
+                <td>Gaia DR3, ESA Euclid DR1, Rubin DP2 (1,000 priority targets queued; 188 matched in DP2, 138 variable)</td>
+                <td>Excess astrometric noise signals unresolved companions below current Euclid imaging depth or outside the 1,200-star EDF-S headline sample</td>
+                <td>Euclid DR2 high-resolution imaging and Rubin variability time series</td>
+              </tr>
+              <tr>
+                <td><strong>Wide stellar pairs across Gaia × Euclid</strong></td>
+                <td class="num-col">632</td>
+                <td>Gaia DR3, ESA Euclid DR1, Rubin DP2 (149 high-precision pairs)</td>
+                <td>Pairs showing elevated relative velocity require radial-velocity checks to separate hidden inner triples</td>
+                <td>Multi-epoch spectroscopy and deeper companion imaging</td>
+              </tr>
+              <tr>
+                <td><strong>Astrometric &amp; spectroscopic binary follow-up pool</strong></td>
+                <td class="num-col">Hundreds+</td>
+                <td>Gaia DR3 NSS, ESA Euclid DR1, Rubin DP2 (20 high-mass-function SB1 + Gaia NSS astrometric binaries)</td>
+                <td>Three-year DR3 orbital baselines and parallax systematics leave companion masses unconstrained</td>
+                <td>Gaia DR4 full-epoch astrometry and ground-based radial velocities</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="prose">
+          <p class="subthreshold-footnote" data-i18n="sub_note">The 93 headline Solar System candidates and 25 faint
+            high-proper-motion stars represent the top of a continuous detectability funnel. Because every sub-threshold
+            entry already carries measured sky coordinates and epochs in public archives, automated cross-matching
+            against upcoming Rubin LSST, Euclid DR2, SPHEREx, and Gaia DR4 releases turns this dormant pool into an
+            immediate discovery pipeline.</p>
         </div>
       </section>
 
@@ -899,7 +1084,7 @@
     <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
 
-  <script src="blog.js?v=20261125b"></script>
+  <script src="blog.js?v=20261125c"></script>
 </body>
 
 </html>
